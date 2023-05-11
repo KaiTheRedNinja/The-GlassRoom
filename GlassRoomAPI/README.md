@@ -8,79 +8,79 @@ Wraps the Google APIs
 These are the types needed for each of the APIs. An S indicates a struct, an E indicates an enum.
 
 ### Must-have:
-- [ ] courses
-  - [ ] Course: S
-  - [ ] CourseState: E
-  - [ ] CourseMaterialSet: S
-  - [ ] CourseMaterial: E (NOTE: arrives as json, but can be represented as an enum)
-  - [ ] GradebookSettings: S
-  - [ ] CalculationType: E
-  - [ ] DisplaySetting: E
+- [x] courses
+  - [x] Course: S
+  - [x] CourseState: E
+  - [x] CourseMaterialSet: S
+  - [x] CourseMaterial: E (NOTE: arrives as json, but can be represented as an enum)
+  - [x] GradebookSettings: S
+  - [x] CalculationType: E
+  - [x] DisplaySetting: E
 
-- [ ] courses.aliases
-  - [ ] CourseAlias: S
+- [x] courses.aliases
+  - [x] CourseAlias: S
 
-- [ ] courses.announcements
-  - [ ] Announcement: S
-  - [ ] AnnouncementState: E
+- [x] courses.announcements
+  - [x] Announcement: S
+  - [x] AnnouncementState: E
 
-- [ ] courses.courseWork
-  - [ ] CourseWork: S
-  - [ ] CourseWorkState: E
-  - [ ] Date: S
-  - [ ] TimeOfDay: S
-  - [ ] SubmissionModificationMode: S
-  - [ ] Assignment: S
-  - [ ] MultipleChoiceQuestion: S
+- [x] courses.courseWork
+  - [x] CourseWork: S
+  - [x] CourseWorkState: E
+  - [x] Date: S
+  - [x] TimeOfDay: S
+  - [x] SubmissionModificationMode: S
+  - [x] Assignment: S
+  - [x] MultipleChoiceQuestion: S
 
-- [ ] courses.courseWorkMaterials
-  - [ ] CourseWorkMaterial: S
-  - [ ] CourseWorkMaterialState: E
+- [x] courses.courseWorkMaterials
+  - [x] CourseWorkMaterial: S
+  - [x] CourseWorkMaterialState: E
 
-- [ ] courses.students
-  - [ ] Student: S
+- [x] courses.students
+  - [x] Student: S
 
-- [ ] courses.teachers
-  - [ ] Teacher: S
+- [x] courses.teachers
+  - [x] Teacher: S
 
-- [ ] courses.topics
-  - [ ] Topic: S
+- [x] courses.topics
+  - [x] Topic: S
 
-- [ ] courses.invitations
-  - [ ] Invitation: S
+- [x] courses.invitations
+  - [x] Invitation: S
 
-- [ ] courses.userProfiles
-  - [ ] UserProfile: S
-  - [ ] Name: S
-  - [ ] GlobalPermission: S
-  - [ ] Permission: E
+- [x] courses.userProfiles
+  - [x] UserProfile: S
+  - [x] Name: S
+  - [x] GlobalPermission: S
+  - [x] Permission: E
 
 ### Could-have:
-- [ ] courses.courseWork.studentSubmissions
-  - [ ] StudentSubmission: S
-  - [ ] SubmissionState: E
-  - [ ] AssignmentSubmission: S
-  - [ ] Attachment: S
-  - [ ] ShortAnswerSubmission: S
-  - [ ] MultipleChoiceSubmission: S
-  - [ ] SubmissionHistory: S
-  - [ ] StateHistory: S
-  - [ ] State: E
-  - [ ] GradeHistory: S
-  - [ ] GradeChangeType: S
+- [x] courses.courseWork.studentSubmissions
+  - [x] StudentSubmission: S
+  - [x] SubmissionState: E
+  - [x] AssignmentSubmission: S
+  - [x] Attachment: S
+  - [x] ShortAnswerSubmission: S
+  - [x] MultipleChoiceSubmission: S
+  - [x] SubmissionHistory: S
+  - [x] StateHistory: S
+  - [x] State: E
+  - [x] GradeHistory: S
+  - [x] GradeChangeType: S
 
 ### Dont-need-to-have:
-- [ ] courses.registrations (this seems to be notifications)
-  - [ ] Registration: S
-  - [ ] Feed: S
-  - [ ] FeedType: E
-  - [ ] CourseRosterChangesInfo: S
-  - [ ] CourseWorkChangesInfo: S
-  - [ ] CloudPubsubTopic: S
+- [x] courses.registrations (this seems to be notifications)
+  - [x] Registration: S
+  - [x] Feed: S
+  - [x] FeedType: E
+  - [x] CourseRosterChangesInfo: S
+  - [x] CourseWorkChangesInfo: S
+  - [x] CloudPubsubTopic: S
 
-- [ ] courses.guardianInvitations (We dont need guardians)
-  - [ ] GuardianInvitation: S
-  - [ ] GuardianInvitationState: S
+- [x] courses.guardianInvitations (We dont need guardians)
+  - [x] GuardianInvitation: S
+  - [x] GuardianInvitationState: S
 
-- [ ] courses.guardians
-  - [ ] Guardian: S
+- [x] courses.guardians
+  - [x] Guardian: S
