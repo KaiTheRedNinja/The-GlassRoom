@@ -1,13 +1,13 @@
 //
-//  Material.swift
-//  GlassRoomAPIProtocol
+//  Attachment.swift
+//  
 //
-//  Created by Kai Quan Tay on 11/5/23.
+//  Created by Tristan on 11/05/2023.
 //
 
 import Foundation
 
-public struct AssignmentMaterial { // Not called Material since thats ambiguous
+public struct Attachment {
     public var driveFile: SharedDriveFile
     public var youtubeVideo: YouTubeVideo
     public var link: LinkItem

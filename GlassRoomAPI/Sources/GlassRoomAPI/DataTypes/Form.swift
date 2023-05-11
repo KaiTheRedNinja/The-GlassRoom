@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Form {
-    var formURL: String
-    var responseURL: String
-    var title: String
-    var thumbnailURL: String
+public struct Form {
+    public var formURL: String
+    public var responseURL: String
+    public var title: String
+    public var thumbnailURL: String
 }

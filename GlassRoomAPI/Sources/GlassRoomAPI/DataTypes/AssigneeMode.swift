@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AssigneeMode {
+public enum AssigneeMode {
     case assignee_mode_unspecified
     case all_students
     case individual_students

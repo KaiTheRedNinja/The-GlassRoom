@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct DriveFolder {
-    var id: String
-    var title: String
-    var alternateLink: String
+public struct DriveFolder {
+    public var id: String
+    public var title: String
+    public var alternateLink: String
 }

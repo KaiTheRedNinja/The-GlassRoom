@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct IndividualStudentsOptions {
-    var studentIds: [String]
+public struct IndividualStudentsOptions {
+    public var studentIds: [String]
 }
