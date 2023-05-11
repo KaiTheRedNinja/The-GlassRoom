@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SharedDriveFile {
-    var driveFile: DriveFile
-    var shareMode: ShareMode
+public struct SharedDriveFile {
+    public var driveFile: DriveFile
+    public var shareMode: ShareMode
 }

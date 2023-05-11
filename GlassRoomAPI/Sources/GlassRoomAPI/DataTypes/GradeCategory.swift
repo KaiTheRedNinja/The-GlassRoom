@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct GradeCategory {
-    var id: String
-    var name: String
-    var weight: Int
-    var defaultGradeDenominator: Int
+public struct GradeCategory {
+    public var id: String
+    public var name: String
+    public var weight: Int
+    public var defaultGradeDenominator: Int
 }

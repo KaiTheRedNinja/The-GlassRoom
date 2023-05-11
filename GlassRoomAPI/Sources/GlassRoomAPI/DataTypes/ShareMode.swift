@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ShareMode {
+public enum ShareMode {
     case unknown_share_mode
     case view
     case edit

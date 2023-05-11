@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct LinkItem { // Not called Link since that alr exists
-    var url: String
-    var title: String
-    var thumbnailURL: String
+public struct LinkItem { // Not called Link since that alr exists
+    public var url: String
+    public var title: String
+    public var thumbnailURL: String
 }

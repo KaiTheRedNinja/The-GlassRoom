@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct AssignmentMaterial { // Not called material since thats ambiguous
-    var driveFile: SharedDriveFile
-    var youtubeVideo: YouTubeVideo
-    var link: LinkItem
-    var form: Form
+public struct AssignmentMaterial { // Not called Material since thats ambiguous
+    public var driveFile: SharedDriveFile
+    public var youtubeVideo: YouTubeVideo
+    public var link: LinkItem
+    public var form: Form
 }

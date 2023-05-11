@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CourseWorkType {
+public enum CourseWorkType {
     case course_work_type_unspecified
     case assignment
     case short_answer_question
