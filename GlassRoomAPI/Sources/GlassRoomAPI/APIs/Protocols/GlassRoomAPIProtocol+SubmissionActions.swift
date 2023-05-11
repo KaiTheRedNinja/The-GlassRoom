@@ -12,6 +12,7 @@ protocol GlassRoomReclaimable: GlassRoomAPIProtocol {
     associatedtype ReclaimQueryParameters
     associatedtype ReclaimRequestData
     associatedtype ReclaimResponseData
+    static var apiReclaimable: String { get }
     static func reclaimSubmission(params: ReclaimPathParameters,
                                   query: ReclaimQueryParameters,
                                   data: ReclaimRequestData) -> ReclaimResponseData?
@@ -22,6 +23,7 @@ protocol GlassRoomReturnable: GlassRoomAPIProtocol {
     associatedtype ReturnQueryParameters
     associatedtype ReturnRequestData
     associatedtype ReturnResponseData
+    static var apiReturnable: String { get }
     static func returnSubmission(params: ReturnPathParameters,
                                  query: ReturnQueryParameters,
                                  data: ReturnRequestData) -> ReturnResponseData?
@@ -32,6 +34,7 @@ protocol GlassRoomSubmittable: GlassRoomAPIProtocol {
     associatedtype TurnInQueryParameters
     associatedtype TurnInRequestData
     associatedtype TurnInResponseData
+    static var apiSubmittable: String { get }
     static func turnInSubmission(params: TurnInPathParameters,
                                  query: TurnInQueryParameters,
                                  data: TurnInRequestData) -> TurnInResponseData?

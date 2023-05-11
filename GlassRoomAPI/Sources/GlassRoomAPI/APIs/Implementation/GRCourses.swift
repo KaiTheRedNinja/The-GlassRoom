@@ -11,6 +11,8 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     typealias CreateRequestData = Void
     typealias CreateResponseData = Void
 
+    static let apiCreatable: String = "https://classroom.googleapis.com/v1/courses"
+
     /// Creates a course.
     ///
     /// The user specified in ownerId is the owner of the created course and added as a teacher. A non-admin requesting \
@@ -44,6 +46,8 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     typealias DeleteRequestData = Void
     typealias DeleteResponseData = Void
 
+    static let apiDeletable: String = "https://classroom.googleapis.com/v1/courses/{id}"
+
     /// Deletes a course.
     ///
     /// This method returns the following error codes:
@@ -70,6 +74,8 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     typealias GetQueryParameters = Void
     typealias GetRequestData = Void
     typealias GetResponseData = Void
+
+    static let apiGettable: String = "https://classroom.googleapis.com/v1/courses/{id}"
 
     /// Returns a course.
     ///
@@ -98,6 +104,8 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     typealias ListQueryParameters = Void
     typealias ListRequestData = Void
     typealias ListResponseData = Void
+
+    static let apiListable: String = "https://classroom.googleapis.com/v1/courses/"
 
     /// Returns a list of courses that the requesting user is permitted to view, restricted to those
     /// that match the request. Returned courses are ordered by creation time, with the most recently created coming first.
@@ -157,6 +165,8 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     typealias PatchRequestData = Void
     typealias PatchResponseData = Void
 
+    static let apiPatchable: String = "https://classroom.googleapis.com/v1/courses/{id}"
+
     /// Updates one or more fields in a course.
     ///
     /// This method returns the following error codes:
@@ -203,6 +213,8 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     typealias UpdateQueryParameters = Void
     typealias UpdateRequestData = Void
     typealias UpdateResponseData = Void
+
+    static let apiUpdatable: String = "https://classroom.googleapis.com/v1/courses/{id}"
 
     /// Updates a course.
     ///

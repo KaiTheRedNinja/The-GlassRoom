@@ -12,6 +12,7 @@ protocol GlassRoomAssigneeModifiable: GlassRoomAPIProtocol {
     associatedtype ModifyAssigneeQueryParameters
     associatedtype ModifyAssigneeRequestData
     associatedtype ModifyAssigneeResponseData
+    static var apiAssigneeModifiable: String { get }
     static func modifyAssignees(params: ModifyAssigneePathParameters,
                                 query: ModifyAssigneeQueryParameters,
                                 data: ModifyAssigneeRequestData) -> ModifyAssigneeResponseData?
@@ -22,6 +23,7 @@ protocol GlassRoomAttachmentModifiable: GlassRoomAPIProtocol {
     associatedtype ModifyAttachmentQueryParameters
     associatedtype ModifyAttachmentRequestData
     associatedtype ModifyAttachmentResponseData
+    static var apiAttachmentModifiable: String { get }
     static func modifyAttachments(params: ModifyAttachmentPathParameters,
                                   query: ModifyAttachmentQueryParameters,
                                   data: ModifyAttachmentRequestData) -> ModifyAttachmentResponseData?
