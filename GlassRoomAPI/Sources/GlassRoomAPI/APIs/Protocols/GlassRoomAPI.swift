@@ -9,6 +9,7 @@ import Foundation
 
 // Definitions of all the APIs. They're implemented in other files.
 enum GlassRoomAPI {
+    /**Requires `https://www.googleapis.com/auth/classroom.courses` scope**/
     enum GRCourses: GlassRoomAPIProtocol {
         enum GRAliases: GlassRoomAPIProtocol {}
         enum GRAnnouncements: GlassRoomAPIProtocol {}
