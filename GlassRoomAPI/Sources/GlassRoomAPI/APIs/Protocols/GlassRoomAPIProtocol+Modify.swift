@@ -10,11 +10,11 @@ import Foundation
 protocol GlassRoomAssigneeModifiable: GlassRoomAPIProtocol {
     associatedtype ModifyAssigneeRequestData
     associatedtype ModifyAssigneeResponseData
-    static func modifyAssignees(params: ModifyAssigneeRequestData) -> ModifyAssigneeResponseData
+    static func modifyAssignees(params: ModifyAssigneeRequestData) -> ModifyAssigneeResponseData?
 }
 
 protocol GlassRoomAttachmentModifiable: GlassRoomAPIProtocol {
     associatedtype ModifyAttachmentRequestData
     associatedtype ModifyAttachmentResponseData
-    static func modifyAttachments(params: ModifyAttachmentRequestData) -> ModifyAttachmentResponseData
+    static func modifyAttachments(params: ModifyAttachmentRequestData) -> ModifyAttachmentResponseData?
 }

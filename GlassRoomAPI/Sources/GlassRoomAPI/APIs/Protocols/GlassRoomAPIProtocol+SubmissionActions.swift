@@ -10,17 +10,17 @@ import Foundation
 protocol GlassRoomReclaimable: GlassRoomAPIProtocol {
     associatedtype ReclaimRequestData
     associatedtype ReclaimResponseData
-    static func reclaimSubmission(params: ReclaimRequestData) -> ReclaimResponseData
+    static func reclaimSubmission(params: ReclaimRequestData) -> ReclaimResponseData?
 }
 
 protocol GlassRoomReturnable: GlassRoomAPIProtocol {
     associatedtype ReturnRequestData
     associatedtype ReturnResponseData
-    static func returnSubmission(params: ReturnRequestData) -> ReturnResponseData
+    static func returnSubmission(params: ReturnRequestData) -> ReturnResponseData?
 }
 
 protocol GlassRoomSubmittable: GlassRoomAPIProtocol {
     associatedtype TurnInRequestData
     associatedtype TurnInResponseData
-    static func turnInSubmission(params: TurnInRequestData) -> TurnInResponseData
+    static func turnInSubmission(params: TurnInRequestData) -> TurnInResponseData?
 }
