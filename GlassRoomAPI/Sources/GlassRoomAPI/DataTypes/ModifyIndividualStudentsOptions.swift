@@ -5,4 +5,7 @@
 //  Created by Kai Quan Tay on 11/5/23.
 //
 
-struct ModifyIndividualStudentsOptions {}
+struct ModifyIndividualStudentsOptions {
+    var addStudentIDs: [String]
+    var removeStudentIDs: [String]
+}
