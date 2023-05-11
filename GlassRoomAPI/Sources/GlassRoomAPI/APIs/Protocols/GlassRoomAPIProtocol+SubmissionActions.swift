@@ -8,19 +8,22 @@
 import Foundation
 
 protocol GlassRoomReclaimable: GlassRoomAPIProtocol {
+    associatedtype ReclaimPathParameters
     associatedtype ReclaimRequestData
     associatedtype ReclaimResponseData
-    static func reclaimSubmission(params: ReclaimRequestData) -> ReclaimResponseData?
+    static func reclaimSubmission(params: ReclaimPathParameters, data: ReclaimRequestData) -> ReclaimResponseData?
 }
 
 protocol GlassRoomReturnable: GlassRoomAPIProtocol {
+    associatedtype ReturnPathParameters
     associatedtype ReturnRequestData
     associatedtype ReturnResponseData
-    static func returnSubmission(params: ReturnRequestData) -> ReturnResponseData?
+    static func returnSubmission(params: ReturnPathParameters, data: ReturnRequestData) -> ReturnResponseData?
 }
 
 protocol GlassRoomSubmittable: GlassRoomAPIProtocol {
+    associatedtype TurnInPathParameters
     associatedtype TurnInRequestData
     associatedtype TurnInResponseData
-    static func turnInSubmission(params: TurnInRequestData) -> TurnInResponseData?
+    static func turnInSubmission(params: TurnInPathParameters, data: TurnInRequestData) -> TurnInResponseData?
 }

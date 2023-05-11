@@ -8,3 +8,7 @@
 import Foundation
 
 protocol GlassRoomAPIProtocol {}
+
+protocol GlassRoomCreatableDeletable: GlassRoomCreatable, GlassRoomDeletable {}
+protocol GlassRoomGettableListable: GlassRoomGettable, GlassRoomListable {}
+protocol GlassRoomDeliverable: GlassRoomReclaimable, GlassRoomReturnable, GlassRoomSubmittable {}
