@@ -20,6 +20,7 @@
 		937EA5BD2A0CD9F9005F11C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		937EA5C02A0CD9F9005F11C5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		937EA5C22A0CD9F9005F11C5 /* The_GlassRoom.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = The_GlassRoom.entitlements; sourceTree = "<group>"; };
+		937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GlassRoomAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +37,7 @@
 		937EA5AD2A0CD9F8005F11C5 = {
 			isa = PBXGroup;
 			children = (
+				937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */,
 				937EA5B82A0CD9F8005F11C5 /* The GlassRoom */,
 				937EA5B72A0CD9F8005F11C5 /* Products */,
 			);
