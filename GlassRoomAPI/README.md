@@ -1,3 +1,5 @@
 # GlassRoomAPI
 
-A description of this package.
+Abtraction APIs for The GlassRoom
+
+Wraps the Google APIs

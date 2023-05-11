@@ -7,4 +7,23 @@
 
 import Foundation
 
-protocol GlassRoomAPI {}
+// Definitions of all the APIs. They're implemented in other files.
+enum GlassRoomAPI {
+    enum GRCourses: GlassRoomAPIProtocol {
+        enum GRAliases: GlassRoomAPIProtocol {}
+        enum GRAnnouncements: GlassRoomAPIProtocol {}
+        enum GRCourseWork: GlassRoomAPIProtocol {
+            enum GRStudentSubmissions: GlassRoomAPIProtocol {}
+        }
+        enum GRCourseWorkMaterials: GlassRoomAPIProtocol {}
+        enum GRStudents: GlassRoomAPIProtocol {}
+        enum GRTeachers: GlassRoomAPIProtocol {}
+        enum GRTopics: GlassRoomAPIProtocol {}
+    }
+    enum GRInvitations: GlassRoomAPIProtocol {}
+    enum GRRegistrations: GlassRoomAPIProtocol {}
+    enum GRUserProfiles: GlassRoomAPIProtocol {
+        enum GRGuardianInvitations: GlassRoomAPIProtocol {}
+        enum GRGuardians: GlassRoomAPIProtocol {}
+    }
+}
