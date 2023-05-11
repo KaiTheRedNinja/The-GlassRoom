@@ -7,6 +7,7 @@
 
 extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettableListable, GlassRoomPatchable, GlassRoomUpdatable {
     typealias CreatePathParameters = Void
+    typealias CreateQueryParameters = Void
     typealias CreateRequestData = Void
     typealias CreateResponseData = Void
 
@@ -34,11 +35,12 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     ///
     /// ## Response body
     /// If successful, the response body contains a newly created instance of Course.
-    static func create(params: Void, data: Void) -> Void? {
+    static func create(params: Void, query: Void, data: Void) -> Void? {
         return nil
     }
 
     typealias DeletePathParameters = Void
+    typealias DeleteQueryParameters = Void
     typealias DeleteRequestData = Void
     typealias DeleteResponseData = Void
 
@@ -60,11 +62,12 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     ///
     /// ## Response body
     /// If successful, the response body is empty.
-    static func delete(params: Void, data: Void) -> Void? {
+    static func delete(params: Void, query: Void, data: Void) -> Void? {
         return nil
     }
 
     typealias GetPathParameters = Void
+    typealias GetQueryParameters = Void
     typealias GetRequestData = Void
     typealias GetResponseData = Void
 
@@ -87,11 +90,12 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     ///
     /// ## Response body
     /// If successful, the response body contains an instance of Course.
-    static func get(params: Void, data: Void) -> Void? {
+    static func get(params: Void, query: Void, data: Void) -> Void? {
         return nil
     }
 
     typealias ListPathParameters = Void
+    typealias ListQueryParameters = Void
     typealias ListRequestData = Void
     typealias ListResponseData = Void
 
@@ -144,11 +148,12 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     /// - `courses[]: object (Course)`  Courses that match the list request.
     /// - `nextPageToken: string` Token identifying the next page of results to return. If empty, no further results are available.
     ///
-    static func list(params: Void, data: Void) -> Void? {
+    static func list(params: Void, query: Void, data: Void) -> Void? {
         return nil
     }
 
     typealias PatchPathParameters = Void
+    typealias PatchQueryParameters = Void
     typealias PatchRequestData = Void
     typealias PatchResponseData = Void
 
@@ -190,11 +195,12 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     ///
     /// ## Response body
     /// If successful, the response body contains an instance of Course.
-    static func patch(params: Void, data: Void) -> Void? {
+    static func patch(params: Void, query: Void, data: Void) -> Void? {
         return nil
     }
 
     typealias UpdatePathParameters = Void
+    typealias UpdateQueryParameters = Void
     typealias UpdateRequestData = Void
     typealias UpdateResponseData = Void
 
@@ -218,7 +224,7 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     ///
     /// ## Response body
     /// If successful, the response body contains an instance of Course.
-    static func update(params: Void, data: Void) -> Void? {
+    static func update(params: Void, query: Void, data: Void) -> Void? {
         return nil
     }
 }
