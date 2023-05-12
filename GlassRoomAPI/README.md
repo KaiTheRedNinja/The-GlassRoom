@@ -43,7 +43,7 @@ These are the types needed for each of the APIs. An S indicates a struct, an E i
 - [x] courses.teachers
   - [x] Teacher: S
 
-- [ ] courses.topics
+- [x] courses.topics
   - [x] Topic: S
 
 - [ ] courses.invitations
