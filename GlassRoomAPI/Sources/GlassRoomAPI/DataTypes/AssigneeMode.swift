@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum AssigneeMode {
+public enum AssigneeMode: Codable {
     case assignee_mode_unspecified
     case all_students
     case individual_students

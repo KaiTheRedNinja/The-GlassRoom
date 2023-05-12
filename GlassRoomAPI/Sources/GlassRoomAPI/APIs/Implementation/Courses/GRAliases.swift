@@ -27,14 +27,6 @@ extension GlassRoomAPI.GRCourses.GRAliases: GlassRoomCreatableDeletable, GlassRo
 
     static var apiListable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/aliases"
 
-    struct CourseIDPathParameters: StringCodable {
-        var courseId: String
-
-        func stringDictionaryEncoded() -> [String : String] {
-            ["courseID": courseId]
-        }
-    }
-
     struct CourseIDAliasPathParameters: StringCodable {
         var courseId: String
         var alias: String

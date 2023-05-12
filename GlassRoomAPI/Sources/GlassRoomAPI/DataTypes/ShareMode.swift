@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ShareMode {
+public enum ShareMode: Codable {
     case unknown_share_mode
     case view
     case edit

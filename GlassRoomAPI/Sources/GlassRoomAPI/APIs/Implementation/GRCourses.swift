@@ -85,3 +85,15 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
         }
     }
 }
+
+typealias CourseIDPathParameters = GlassRoomAPI.GRCourses.CourseIDPathParameters
+extension GlassRoomAPI.GRCourses {
+    // not used within this file, but used in sub-apis
+    struct CourseIDPathParameters: StringCodable {
+        var courseId: String
+
+        func stringDictionaryEncoded() -> [String : String] {
+            ["courseID": courseId]
+        }
+    }
+}

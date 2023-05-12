@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CourseAnnouncement { // Not called Announcement since thats ambiguous
+public struct CourseAnnouncement: Codable { // Not called Announcement since thats ambiguous
     public var courseId: String
     public var id: String
     public var text: String

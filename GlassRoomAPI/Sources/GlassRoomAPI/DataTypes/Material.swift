@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AssignmentMaterial { // Not called Material since thats ambiguous
+public struct AssignmentMaterial: Codable { // Not called Material since thats ambiguous
     public var driveFile: SharedDriveFile
     public var youtubeVideo: YouTubeVideo
     public var link: LinkItem

@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct IndividualStudentsOptions {
+public struct IndividualStudentsOptions: Codable {
     public var studentIds: [String]
 }
