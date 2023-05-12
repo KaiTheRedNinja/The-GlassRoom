@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CourseMaterial {
+public struct CourseMaterial: Codable {
     public var driveFile: DriveFile
     public var youtubeVideo: YouTubeVideo
     public var link: LinkItem

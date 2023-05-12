@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum APICaller<ResponseData: Codable> {
+enum APICaller<ResponseData: Decodable> {
     /// Does an API request
     ///
     /// Usage:
@@ -31,7 +31,7 @@ enum APICaller<ResponseData: Codable> {
         httpMethod: String,
         pathParameters: [String: String] = [:],
         queryParameters: [String: String] = [:],
-        requestData: (any Codable)? = nil,
+        requestData: (any Encodable)? = nil,
         responseType: ResponseData.Type,
         callback: @escaping (Result<ResponseData, Error>) -> Void
     ) {

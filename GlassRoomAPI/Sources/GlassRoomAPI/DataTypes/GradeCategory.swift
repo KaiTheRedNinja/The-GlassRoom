@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct GradeCategory {
+public struct GradeCategory: Codable {
     public var id: String
     public var name: String
     public var weight: Int

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct GradebookSettings {
+public struct GradebookSettings: Codable {
     public var calculationType: CalculationType
     public var displaySetting: DisplaySetting
     public var gradeCategories: [GradeCategory]

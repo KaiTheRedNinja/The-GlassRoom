@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Form {
+public struct Form: Codable {
     public var formURL: String
     public var responseURL: String
     public var title: String

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CourseMaterialSet {
+public struct CourseMaterialSet: Codable {
     public var title: String
     public var materials: [CourseMaterial]
 }

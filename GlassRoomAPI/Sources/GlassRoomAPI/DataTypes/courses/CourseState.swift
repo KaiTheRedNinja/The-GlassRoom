@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CourseState {
+public enum CourseState: Codable {
     case course_state_unspecified
     case active
     case archived

@@ -8,34 +8,43 @@
 import Foundation
 
 protocol GlassRoomReclaimable: GlassRoomAPIProtocol {
-    associatedtype ReclaimPathParameters
-    associatedtype ReclaimQueryParameters
-    associatedtype ReclaimRequestData
-    associatedtype ReclaimResponseData
+    associatedtype ReclaimPathParameters: StringCodable
+    associatedtype ReclaimQueryParameters: StringCodable
+    associatedtype ReclaimRequestData: Codable
+    associatedtype ReclaimResponseData: Decodable
     static var apiReclaimable: String { get }
-    static func reclaimSubmission(params: ReclaimPathParameters,
-                                  query: ReclaimQueryParameters,
-                                  data: ReclaimRequestData) -> ReclaimResponseData?
+    static func reclaimSubmission(
+        params: ReclaimPathParameters,
+        query: ReclaimQueryParameters,
+        data: ReclaimRequestData,
+        completion: @escaping (Result<ReclaimResponseData, Error>) -> Void
+    )
 }
 
 protocol GlassRoomReturnable: GlassRoomAPIProtocol {
-    associatedtype ReturnPathParameters
-    associatedtype ReturnQueryParameters
-    associatedtype ReturnRequestData
-    associatedtype ReturnResponseData
+    associatedtype ReturnPathParameters: StringCodable
+    associatedtype ReturnQueryParameters: StringCodable
+    associatedtype ReturnRequestData: Codable
+    associatedtype ReturnResponseData: Decodable
     static var apiReturnable: String { get }
-    static func returnSubmission(params: ReturnPathParameters,
-                                 query: ReturnQueryParameters,
-                                 data: ReturnRequestData) -> ReturnResponseData?
+    static func returnSubmission(
+        params: ReturnPathParameters,
+        query: ReturnQueryParameters,
+        data: ReturnRequestData,
+        completion: @escaping (Result<ReturnResponseData, Error>) -> Void
+    )
 }
 
 protocol GlassRoomSubmittable: GlassRoomAPIProtocol {
-    associatedtype TurnInPathParameters
-    associatedtype TurnInQueryParameters
-    associatedtype TurnInRequestData
-    associatedtype TurnInResponseData
+    associatedtype TurnInPathParameters: StringCodable
+    associatedtype TurnInQueryParameters: StringCodable
+    associatedtype TurnInRequestData: Codable
+    associatedtype TurnInResponseData: Decodable
     static var apiSubmittable: String { get }
-    static func turnInSubmission(params: TurnInPathParameters,
-                                 query: TurnInQueryParameters,
-                                 data: TurnInRequestData) -> TurnInResponseData?
+    static func turnInSubmission(
+        params: TurnInPathParameters,
+        query: TurnInQueryParameters,
+        data: TurnInRequestData,
+        completion: @escaping (Result<TurnInResponseData, Error>) -> Void
+    )
 }

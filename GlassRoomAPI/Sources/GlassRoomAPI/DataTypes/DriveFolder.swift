@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DriveFolder {
+public struct DriveFolder: Codable {
     public var id: String
     public var title: String
     public var alternateLink: String

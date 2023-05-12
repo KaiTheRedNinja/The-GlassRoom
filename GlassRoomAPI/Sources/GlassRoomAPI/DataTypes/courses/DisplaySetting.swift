@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum DisplaySetting {
+public enum DisplaySetting: Codable {
     case display_setting_unspecified
     case show_overall_grade
     case hide_overall_grade

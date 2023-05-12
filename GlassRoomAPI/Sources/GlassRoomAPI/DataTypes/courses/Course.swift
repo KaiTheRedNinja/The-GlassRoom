@@ -1,5 +1,5 @@
 //
-//  Courses.swift
+//  Course.swift
 //  
 //
 //  Created by Tristan on 11/05/2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Courses {
+public struct Course: Codable {
     public var id: String
     public var name: String
     public var section: String

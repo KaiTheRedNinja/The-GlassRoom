@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DriveFile {
+public struct DriveFile: Codable {
     public var id: String
     public var title: String
     public var alternateLink: String

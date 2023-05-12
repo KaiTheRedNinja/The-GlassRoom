@@ -8,23 +8,29 @@
 import Foundation
 
 protocol GlassRoomAssigneeModifiable: GlassRoomAPIProtocol {
-    associatedtype ModifyAssigneePathParameters
-    associatedtype ModifyAssigneeQueryParameters
-    associatedtype ModifyAssigneeRequestData
-    associatedtype ModifyAssigneeResponseData
+    associatedtype ModifyAssigneePathParameters: StringCodable
+    associatedtype ModifyAssigneeQueryParameters: StringCodable
+    associatedtype ModifyAssigneeRequestData: Codable
+    associatedtype ModifyAssigneeResponseData: Decodable
     static var apiAssigneeModifiable: String { get }
-    static func modifyAssignees(params: ModifyAssigneePathParameters,
-                                query: ModifyAssigneeQueryParameters,
-                                data: ModifyAssigneeRequestData) -> ModifyAssigneeResponseData?
+    static func modifyAssignees(
+        params: ModifyAssigneePathParameters,
+        query: ModifyAssigneeQueryParameters,
+        data: ModifyAssigneeRequestData,
+        completion: @escaping (Result<ModifyAssigneeResponseData, Error>) -> Void
+    )
 }
 
 protocol GlassRoomAttachmentModifiable: GlassRoomAPIProtocol {
-    associatedtype ModifyAttachmentPathParameters
-    associatedtype ModifyAttachmentQueryParameters
-    associatedtype ModifyAttachmentRequestData
-    associatedtype ModifyAttachmentResponseData
+    associatedtype ModifyAttachmentPathParameters: StringCodable
+    associatedtype ModifyAttachmentQueryParameters: StringCodable
+    associatedtype ModifyAttachmentRequestData: Codable
+    associatedtype ModifyAttachmentResponseData: Decodable
     static var apiAttachmentModifiable: String { get }
-    static func modifyAttachments(params: ModifyAttachmentPathParameters,
-                                  query: ModifyAttachmentQueryParameters,
-                                  data: ModifyAttachmentRequestData) -> ModifyAttachmentResponseData?
+    static func modifyAttachments(
+        params: ModifyAttachmentPathParameters,
+        query: ModifyAttachmentQueryParameters,
+        data: ModifyAttachmentRequestData,
+        completion: @escaping (Result<ModifyAttachmentResponseData, Error>) -> Void
+    )
 }

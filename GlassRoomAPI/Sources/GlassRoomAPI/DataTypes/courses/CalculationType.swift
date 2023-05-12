@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CalculationType {
+public enum CalculationType: Codable {
     case calculation_type_unspecified
     case total_points
     case weighted_categories
