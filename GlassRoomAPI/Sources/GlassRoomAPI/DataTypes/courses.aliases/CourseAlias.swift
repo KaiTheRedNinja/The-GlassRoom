@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct CourseAlias {
+public struct CourseAlias: Codable {
     public var alias: String
 }

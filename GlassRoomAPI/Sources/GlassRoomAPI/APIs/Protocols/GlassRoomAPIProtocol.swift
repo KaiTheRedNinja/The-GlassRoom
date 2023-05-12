@@ -17,7 +17,3 @@ protocol GlassRoomDeliverable: GlassRoomReclaimable, GlassRoomReturnable, GlassR
 protocol StringCodable {
     func stringDictionaryEncoded() -> [String: String]
 }
-
-struct VoidStringCodable: StringCodable, Codable {
-    func stringDictionaryEncoded() -> [String : String] { [:] }
-}

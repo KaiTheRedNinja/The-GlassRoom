@@ -28,3 +28,8 @@ enum GlassRoomAPI {
         enum GRGuardians: GlassRoomAPIProtocol {}
     }
 }
+
+struct VoidStringCodable: StringCodable, Codable {
+    func stringDictionaryEncoded() -> [String : String] { [:] }
+}
+

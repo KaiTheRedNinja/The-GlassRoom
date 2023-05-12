@@ -13,14 +13,14 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
 
     static let apiCreatable: String = "https://classroom.googleapis.com/v1/courses"
 
-    typealias DeletePathParameters = IDPatchParameters
+    typealias DeletePathParameters = IDPathParameters
     typealias DeleteQueryParameters = VoidStringCodable
     typealias DeleteRequestData = VoidStringCodable
     typealias DeleteResponseData = VoidStringCodable
 
     static let apiDeletable: String = "https://classroom.googleapis.com/v1/courses/{id}"
 
-    typealias GetPathParameters = IDPatchParameters
+    typealias GetPathParameters = IDPathParameters
     typealias GetQueryParameters = VoidStringCodable
     typealias GetRequestData = VoidStringCodable
     typealias GetResponseData = Course
@@ -34,21 +34,21 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
 
     static let apiListable: String = "https://classroom.googleapis.com/v1/courses/"
 
-    typealias PatchPathParameters = IDPatchParameters
+    typealias PatchPathParameters = IDPathParameters
     typealias PatchQueryParameters = PatchableQueryParameters
     typealias PatchRequestData = Course
     typealias PatchResponseData = Course
 
     static let apiPatchable: String = "https://classroom.googleapis.com/v1/courses/{id}"
 
-    typealias UpdatePathParameters = IDPatchParameters
+    typealias UpdatePathParameters = IDPathParameters
     typealias UpdateQueryParameters = VoidStringCodable
     typealias UpdateRequestData = Course
     typealias UpdateResponseData = Course
 
     static let apiUpdatable: String = "https://classroom.googleapis.com/v1/courses/{id}"
 
-    struct IDPatchParameters: StringCodable {
+    struct IDPathParameters: StringCodable {
         var id: String
         func stringDictionaryEncoded() -> [String: String] { ["id": id] }
     }
@@ -72,7 +72,7 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     }
 
     struct ListableResponseData: Codable {
-        var courses: Course
+        var courses: [Course]
         var nextPageToken: String
     }
 
