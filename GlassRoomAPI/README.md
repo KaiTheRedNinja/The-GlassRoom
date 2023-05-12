@@ -37,10 +37,10 @@ These are the types needed for each of the APIs. An S indicates a struct, an E i
   - [x] CourseWorkMaterial: S
   - [x] CourseWorkMaterialState: E
 
-- [ ] courses.students
+- [x] courses.students
   - [x] Student: S
 
-- [ ] courses.teachers
+- [x] courses.teachers
   - [x] Teacher: S
 
 - [ ] courses.topics
