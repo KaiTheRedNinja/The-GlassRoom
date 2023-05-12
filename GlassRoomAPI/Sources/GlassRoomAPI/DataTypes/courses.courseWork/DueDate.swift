@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DueDate { // Not called Date since thats ambiguous
+public struct DueDate: Codable { // Not called Date since thats ambiguous
     public var year: Int
     public var month: Int
     public var day: Int

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TimeOfDay {
+public struct TimeOfDay: Codable {
     public var hours: Int
     public var minutes: Int
     public var seconds: Int

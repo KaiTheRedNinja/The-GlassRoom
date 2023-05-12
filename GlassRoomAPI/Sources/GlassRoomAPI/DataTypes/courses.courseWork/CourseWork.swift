@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CourseWork {
+public struct CourseWork: Codable {
     public var courseId: String
     public var id: String
     public var title: String

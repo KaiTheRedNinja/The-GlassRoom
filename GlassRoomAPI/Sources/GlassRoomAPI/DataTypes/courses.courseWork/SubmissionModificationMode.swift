@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SubmissionModificationMode {
+public enum SubmissionModificationMode: Codable {
     case submission_modification_mode_unspecified
     case modifiable_until_turned_in
     case modifiable

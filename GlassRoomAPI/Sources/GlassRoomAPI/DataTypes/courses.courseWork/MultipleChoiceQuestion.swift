@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct MultipleChoiceQuestion {
+public struct MultipleChoiceQuestion: Codable {
     public var choices: [String]
 }

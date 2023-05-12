@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CourseWorkState {
+public enum CourseWorkState: Codable {
     case course_work_state_unspecified
     case published
     case draft

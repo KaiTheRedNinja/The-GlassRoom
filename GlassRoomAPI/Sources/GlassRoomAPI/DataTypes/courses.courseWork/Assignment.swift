@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct Assignment {
+public struct Assignment: Codable {
     public var studentWorkFolder: DriveFolder
 }
