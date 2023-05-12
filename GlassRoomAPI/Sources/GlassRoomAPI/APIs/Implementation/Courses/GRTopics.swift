@@ -49,7 +49,7 @@ extension GlassRoomAPI.GRCourses.GRTopics: GlassRoomCreatableDeletable,
 
         func stringDictionaryEncoded() -> [String: String] {
             [
-                "courseID": courseId,
+                "courseId": courseId,
                 "id": id
             ]
         }

@@ -33,7 +33,7 @@ extension GlassRoomAPI.GRCourses.GRAliases: GlassRoomCreatableDeletable, GlassRo
 
         func stringDictionaryEncoded() -> [String: String] {
             [
-                "courseID": courseId,
+                "courseId": courseId,
                 "alias": alias
             ]
         }

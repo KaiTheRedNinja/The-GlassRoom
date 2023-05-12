@@ -48,7 +48,7 @@ extension GlassRoomAPI.GRCourses.GRStudents: GlassRoomCreatableDeletable, GlassR
 
         func stringDictionaryEncoded() -> [String: String] {
             [
-                "courseID": courseId,
+                "courseId": courseId,
                 "userId": userId
             ]
         }

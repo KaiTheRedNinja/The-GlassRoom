@@ -94,7 +94,7 @@ extension GlassRoomAPI.GRCourses {
         var courseId: String
 
         func stringDictionaryEncoded() -> [String : String] {
-            ["courseID": courseId]
+            ["courseId": courseId]
         }
     }
 }
