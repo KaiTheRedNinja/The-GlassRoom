@@ -38,7 +38,7 @@ extension GlassRoomAPI.GRCourses.GRCourseWorkMaterials: GlassRoomCreatableDeleta
     static var apiListable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/courseWorkMaterials"
 
     typealias PatchPathParameters = CourseIDCourseWorkMaterialsPathParameters
-    typealias PatchQueryParameters = VoidStringCodable
+    typealias PatchQueryParameters = PatchableQueryParameters
     typealias PatchRequestData = CourseWorkMaterial
     typealias PatchResponseData = CourseWorkMaterial
 
@@ -79,5 +79,14 @@ extension GlassRoomAPI.GRCourses.GRCourseWorkMaterials: GlassRoomCreatableDeleta
     struct ListableResponseData: Codable {
         var courseWorkMaterial: [CourseWorkMaterial]
         var nextPageToken: String
+    }
+
+    struct PatchableQueryParameters: StringCodable {
+        /// Only the following are valid: `title`, `description`, `state`, `scheduledTime`, `topicId`
+        var updateMask: [String]
+
+        func stringDictionaryEncoded() -> [String: String] {
+            ["updateMask": updateMask.joined(separator: ",")]
+        }
     }
 }

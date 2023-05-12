@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum GPermission { // Not called Permission since that already exists, GPermission stands for GlobalPermission (but its an enum this time)
+public enum GPermission: Codable { // Not called Permission since that already exists, GPermission stands for GlobalPermission (but its an enum this time)
     case permission_unspecified
     case create_course
 }

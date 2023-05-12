@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct GlobalPermission {
+public struct GlobalPermission: Codable {
     public var permission: GPermission
 }
