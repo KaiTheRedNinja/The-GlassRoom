@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Invitation {
+public struct Invitation: Codable {
     public var id: String
     public var userId: String
     public var courseId: String

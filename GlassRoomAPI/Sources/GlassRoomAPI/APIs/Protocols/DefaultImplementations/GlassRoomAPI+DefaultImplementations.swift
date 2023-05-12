@@ -193,3 +193,20 @@ extension GlassRoomSubmittable {
                           callback: completion)
     }
 }
+
+extension GlassRoomAcceptable {
+    static func accept(
+        params: AcceptPathParameters,
+        query: AcceptQueryParameters,
+        data: AcceptRequestData,
+        completion: @escaping (Result<AcceptResponseData, Error>) -> Void
+    ) {
+        APICaller.request(urlString: apiAcceptable,
+                          httpMethod: "POST",
+                          pathParameters: params.stringDictionaryEncoded(),
+                          queryParameters: query.stringDictionaryEncoded(),
+                          requestData: data,
+                          responseType: AcceptResponseData.self,
+                          callback: completion)
+    }
+}

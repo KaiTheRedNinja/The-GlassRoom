@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CourseRole {
+public enum CourseRole: Codable {
     case course_role_unspecified
     case student
     case teacher

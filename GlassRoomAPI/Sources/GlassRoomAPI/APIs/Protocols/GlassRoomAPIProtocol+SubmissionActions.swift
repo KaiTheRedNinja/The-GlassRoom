@@ -48,3 +48,17 @@ protocol GlassRoomSubmittable: GlassRoomAPIProtocol {
         completion: @escaping (Result<TurnInResponseData, Error>) -> Void
     )
 }
+
+protocol GlassRoomAcceptable: GlassRoomAPIProtocol {
+    associatedtype AcceptPathParameters: StringCodable
+    associatedtype AcceptQueryParameters: StringCodable
+    associatedtype AcceptRequestData: Codable
+    associatedtype AcceptResponseData: Decodable
+    static var apiAcceptable: String { get }
+    static func accept(
+        params: AcceptPathParameters,
+        query: AcceptQueryParameters,
+        data: AcceptRequestData,
+        completion: @escaping (Result<AcceptResponseData, Error>) -> Void
+    )
+}
