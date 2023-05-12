@@ -37,26 +37,26 @@ These are the types needed for each of the APIs. An S indicates a struct, an E i
   - [x] CourseWorkMaterial: S
   - [x] CourseWorkMaterialState: E
 
-- [x] courses.students
+- [ ] courses.students
   - [x] Student: S
 
-- [x] courses.teachers
+- [ ] courses.teachers
   - [x] Teacher: S
 
-- [x] courses.topics
+- [ ] courses.topics
   - [x] Topic: S
 
-- [x] courses.invitations
+- [ ] courses.invitations
   - [x] Invitation: S
 
-- [x] courses.userProfiles
+- [ ] courses.userProfiles
   - [x] UserProfile: S
   - [x] Name: S
   - [x] GlobalPermission: S
   - [x] Permission: E
 
 ### Could-have:
-- [x] courses.courseWork.studentSubmissions
+- [ ] courses.courseWork.studentSubmissions
   - [x] StudentSubmission: S
   - [x] SubmissionState: E
   - [x] AssignmentSubmission: S
@@ -70,7 +70,7 @@ These are the types needed for each of the APIs. An S indicates a struct, an E i
   - [x] GradeChangeType: S
 
 ### Dont-need-to-have:
-- [x] courses.registrations (this seems to be notifications)
+- [ ] courses.registrations (this seems to be notifications)
   - [x] Registration: S
   - [x] Feed: S
   - [x] FeedType: E
@@ -78,9 +78,9 @@ These are the types needed for each of the APIs. An S indicates a struct, an E i
   - [x] CourseWorkChangesInfo: S
   - [x] CloudPubsubTopic: S
 
-- [x] courses.guardianInvitations (We dont need guardians)
+- [ ] courses.guardianInvitations (We dont need guardians)
   - [x] GuardianInvitation: S
   - [x] GuardianInvitationState: S
 
-- [x] courses.guardians
+- [ ] courses.guardians
   - [x] Guardian: S

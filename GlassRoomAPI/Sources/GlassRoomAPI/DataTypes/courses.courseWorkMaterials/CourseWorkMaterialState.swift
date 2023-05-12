@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public enum CourseWorkMaterialState {
+public enum CourseWorkMaterialState: Codable {
     case coursework_material_state_unspecified
     case published
     case draft
