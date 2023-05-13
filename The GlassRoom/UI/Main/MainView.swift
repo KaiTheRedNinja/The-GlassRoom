@@ -10,14 +10,15 @@ import GlassRoomAPI
 
 struct MainView: View {
     @State var selectedCourse: Course?
+    @State var selectedPost: CourseAnnouncement?
 
     var body: some View {
         NavigationSplitView {
             SidebarView(selection: $selectedCourse)
         } content: {
-            CenterSplitView(selectedCourse: $selectedCourse)
+            CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
         } detail: {
-            DetailView(selectedCourse: $selectedCourse)
+            DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
         }
         .toolbar {
             Button("Log Out") {
