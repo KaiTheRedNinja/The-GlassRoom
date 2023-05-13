@@ -85,7 +85,7 @@ enum APICaller<ResponseData: Decodable> {
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             if let data {
                 do {
-                    print("Data: \(String(data: data, encoding: .utf8))")
+                    print("Data: \(String(data: data, encoding: .utf8) ?? "undecodable")")
                     let result = try JSONDecoder().decode(ResponseData.self, from: data)
                     callback(.success(result))
                 } catch {
