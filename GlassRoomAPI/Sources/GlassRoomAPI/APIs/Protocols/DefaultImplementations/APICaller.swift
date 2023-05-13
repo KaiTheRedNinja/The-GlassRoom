@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum APISecretManager {
+    static var apiKey: String = ""
+}
+
 enum APICaller<ResponseData: Decodable> {
     /// Does an API request
     ///
@@ -38,7 +42,9 @@ enum APICaller<ResponseData: Decodable> {
         var filledURL = urlString
 
         // Replace the url path parameters
-        for pathParameter in pathParameters {
+        var mutablePathParameters = pathParameters
+        mutablePathParameters["access_token"] = APISecretManager.apiKey
+        for pathParameter in mutablePathParameters {
             filledURL = filledURL.replacingOccurrences(of: "{\(pathParameter.key)}", with: pathParameter.value)
         }
 
