@@ -13,7 +13,12 @@ struct ContentView: View {
     var body: some View {
         if let isLoggedIn = userModel.isLoggedIn {
             if isLoggedIn {
-                MainView()
+                if userModel.hasAllScopes {
+                    MainView()
+                } else {
+                    Text("Still need some scopes!")
+                        .padding()
+                }
             } else {
                 SignInView()
             }

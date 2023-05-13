@@ -13,6 +13,7 @@ class UserAuthModel: ObservableObject {
 
     @Published var isLoggedIn: Bool?
     @Published var grantedScopes: [String] = []
+    var hasAllScopes: Bool { grantedScopes.contains(neededScopes) }
 
     @Published var givenName: String?
     @Published var profilePicUrl: String?
