@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GlassRoomAPI
 
 struct MainView: View {
     var body: some View {
@@ -15,6 +16,24 @@ struct MainView: View {
             }
             Button("Log Out") {
                 UserAuthModel.shared.signOut()
+            }
+            Button("Test get") {
+                GlassRoomAPI.GRCourses.list(
+                    params: VoidStringCodable(),
+                    query: .init(studentId: nil,
+                                 teacherId: nil,
+                                 courseStates: nil,
+                                 pageSize: nil,
+                                 pageToken: nil),
+                    data: VoidStringCodable()
+                ) { response in
+                    switch response {
+                    case .success(let success):
+                        print("Success! \(success)")
+                    case .failure(let failure):
+                        print("Failure: \(failure.localizedDescription)")
+                    }
+                }
             }
         } content: {
             List {

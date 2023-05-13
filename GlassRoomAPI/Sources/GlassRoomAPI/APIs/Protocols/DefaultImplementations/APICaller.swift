@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum APISecretManager {
-    public static var apiKey: String = ""
+public enum APISecretManager {
+    public static var accessToken: String = ""
 }
 
 enum APICaller<ResponseData: Decodable> {
@@ -42,18 +42,16 @@ enum APICaller<ResponseData: Decodable> {
         var filledURL = urlString
 
         // Replace the url path parameters
-        var mutablePathParameters = pathParameters
-        mutablePathParameters["access_token"] = APISecretManager.apiKey
-        for pathParameter in mutablePathParameters {
+        for pathParameter in pathParameters {
             filledURL = filledURL.replacingOccurrences(of: "{\(pathParameter.key)}", with: pathParameter.value)
         }
 
         // put the query parameters at the end
-        if !queryParameters.isEmpty {
-            filledURL.append("?")
-            for queryParameter in queryParameters {
-                filledURL.append("\(queryParameter.key)=\(queryParameter.value)&")
-            }
+        filledURL.append("?")
+        var mutableQueryParameters = queryParameters
+        mutableQueryParameters["access_token"] = APISecretManager.accessToken
+        for queryParameter in mutableQueryParameters {
+            filledURL.append("\(queryParameter.key)=\(queryParameter.value)&")
         }
 
         // If there are any empty path parameters, return nil
@@ -65,6 +63,7 @@ enum APICaller<ResponseData: Decodable> {
         }
 
         // create the URL
+        print("Filled URL: \(filledURL)")
         guard let url = URL(string: filledURL) else {
             print("Failed to create url: \(filledURL)")
             callback(.failure(NSError(domain: "Failed to create url: \(filledURL)",
@@ -76,16 +75,18 @@ enum APICaller<ResponseData: Decodable> {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        if let requestData {
-            request.httpBody = try? JSONSerialization.data(withJSONObject: requestData,
-                                                           options: [])
+        if let requestData,
+           let encodedBody = try? JSONEncoder().encode(requestData),
+           String(data: encodedBody, encoding: .utf8) != "{}" {
+            request.httpBody = encodedBody
         }
 
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             if let data {
                 do {
-                    let result = try JSONSerialization.jsonObject(with: data) as! ResponseData
+                    print("Data: \(String(data: data, encoding: .utf8))")
+                    let result = try JSONDecoder().decode(ResponseData.self, from: data)
                     callback(.success(result))
                 } catch {
                     print("Decoding error: \(error)")

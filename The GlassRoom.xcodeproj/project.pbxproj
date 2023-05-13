@@ -13,6 +13,7 @@
 		93757D632A0E79650063AB67 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D622A0E79650063AB67 /* Secrets.swift */; };
 		93757D662A0E7B430063AB67 /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D652A0E7B430063AB67 /* Secrets (Sensitive).swift */; };
 		93757D682A0E7D280063AB67 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D672A0E7D280063AB67 /* SignInView.swift */; };
+		93757D702A0F29B60063AB67 /* GlassRoomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 93757D6F2A0F29B60063AB67 /* GlassRoomAPI */; };
 		937EA5BA2A0CD9F8005F11C5 /* The_GlassRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EA5B92A0CD9F8005F11C5 /* The_GlassRoomApp.swift */; };
 		937EA5BC2A0CD9F8005F11C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EA5BB2A0CD9F8005F11C5 /* ContentView.swift */; };
 		937EA5BE2A0CD9F9005F11C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937EA5BD2A0CD9F9005F11C5 /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */,
+				93757D702A0F29B60063AB67 /* GlassRoomAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,12 +86,20 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		93757D6E2A0F29B60063AB67 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		937EA5AD2A0CD9F8005F11C5 = {
 			isa = PBXGroup;
 			children = (
 				937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */,
 				937EA5B82A0CD9F8005F11C5 /* The GlassRoom */,
 				937EA5B72A0CD9F8005F11C5 /* Products */,
+				93757D6E2A0F29B60063AB67 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,6 +150,7 @@
 			name = "The GlassRoom";
 			packageProductDependencies = (
 				93757D5C2A0E73DA0063AB67 /* GoogleSignIn */,
+				93757D6F2A0F29B60063AB67 /* GlassRoomAPI */,
 			);
 			productName = "The GlassRoom";
 			productReference = 937EA5B62A0CD9F8005F11C5 /* The GlassRoom.app */;
@@ -421,6 +432,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93757D5B2A0E73DA0063AB67 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
+		};
+		93757D6F2A0F29B60063AB67 /* GlassRoomAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GlassRoomAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

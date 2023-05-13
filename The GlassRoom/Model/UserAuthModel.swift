@@ -7,18 +7,22 @@
 
 import SwiftUI
 import GoogleSignIn
+import GlassRoomAPI
 
 class UserAuthModel: ObservableObject {
     static let shared: UserAuthModel = .init()
 
     @Published var isLoggedIn: Bool?
     @Published var grantedScopes: [String] = []
-    var hasAllScopes: Bool { grantedScopes.contains(neededScopes) }
 
     @Published var givenName: String?
     @Published var profilePicUrl: String?
     @Published var errorMessage: String?
-    @Published var token: String?
+    @Published var token: String? {
+        didSet {
+            APISecretManager.accessToken = token ?? ""
+        }
+    }
 
     let neededScopes: [String] = [
         "https://www.googleapis.com/auth/classroom.courses",
@@ -91,7 +95,9 @@ class UserAuthModel: ObservableObject {
         let grantedScopes = user.grantedScopes
         self.grantedScopes = user.grantedScopes ?? []
 
-        if grantedScopes == nil || grantedScopes!.contains(neededScopes) {
+        print("Granted scopes: \(self.grantedScopes)")
+
+        if grantedScopes == nil || !hasNeededScopes() {
             print("Requesting additional scopes")
             // Request additional scopes.
             if requestIfMissing {
@@ -102,8 +108,20 @@ class UserAuthModel: ObservableObject {
         return true
     }
 
+    func hasNeededScopes() -> Bool {
+        for scope in neededScopes {
+            if !grantedScopes.contains(scope) {
+                return false
+            }
+        }
+        return true
+    }
+
     func requestPermissions() {
-        guard let user = GIDSignIn.sharedInstance.currentUser else { return }
+        guard let user = GIDSignIn.sharedInstance.currentUser else {
+            print("Could not get user")
+            return
+        }
         guard let presentingWindow = NSApp.windows.first else {
             print("Could not get presenting view controller")
             return
@@ -111,7 +129,8 @@ class UserAuthModel: ObservableObject {
 
         // get the scopes that we don't have
         var requestingScopes: [String] = []
-        requestingScopes = neededScopes.filter({ grantedScopes.contains($0) })
+        requestingScopes = neededScopes.filter({ !grantedScopes.contains($0) })
+        print("Requesting scopes: \(requestingScopes)")
 
         user.addScopes(requestingScopes, presenting: presentingWindow) { signInResult, error in
             guard error == nil else { return }

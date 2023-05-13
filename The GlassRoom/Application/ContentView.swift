@@ -13,11 +13,16 @@ struct ContentView: View {
     var body: some View {
         if let isLoggedIn = userModel.isLoggedIn {
             if isLoggedIn {
-                if userModel.hasAllScopes {
+                if userModel.hasNeededScopes() {
                     MainView()
                 } else {
-                    Text("Still need some scopes!")
-                        .padding()
+                    VStack {
+                        Text("Still need some scopes!")
+                        Button("Refresh") {
+                            userModel.checkPermissions()
+                        }
+                    }
+                    .padding()
                 }
             } else {
                 SignInView()
