@@ -12,7 +12,7 @@ class UserAuthModel: ObservableObject {
     static let shared: UserAuthModel = .init()
 
     @Published var isLoggedIn: Bool?
-    @Published var hasPermissions: Bool = false
+    @Published var grantedScopes: [String] = []
 
     @Published var givenName: String?
     @Published var profilePicUrl: String?
@@ -33,7 +33,7 @@ class UserAuthModel: ObservableObject {
         let signInConfig = GIDConfiguration(clientID: clientID)
 
         GIDSignIn.sharedInstance.configuration = signInConfig
-        check()
+        restoreSignIn()
     }
 
     func checkStatus() {
@@ -52,7 +52,7 @@ class UserAuthModel: ObservableObject {
         checkPermissions()
     }
 
-    private func check() {
+    private func restoreSignIn() {
         GIDSignIn.sharedInstance.restorePreviousSignIn { _, error in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
@@ -79,20 +79,25 @@ class UserAuthModel: ObservableObject {
         })
     }
 
+    func signOut() {
+        GIDSignIn.sharedInstance.signOut()
+        self.checkStatus()
+    }
+
     @discardableResult
     func checkPermissions(requestIfMissing: Bool = true) -> Bool {
         guard let user = GIDSignIn.sharedInstance.currentUser else { return false }
         let grantedScopes = user.grantedScopes
+        self.grantedScopes = user.grantedScopes ?? []
+
         if grantedScopes == nil || grantedScopes!.contains(neededScopes) {
             print("Requesting additional scopes")
             // Request additional scopes.
             if requestIfMissing {
                 requestPermissions()
             }
-            hasPermissions = false
             return false
         }
-        hasPermissions = true
         return true
     }
 
@@ -105,11 +110,7 @@ class UserAuthModel: ObservableObject {
 
         // get the scopes that we don't have
         var requestingScopes: [String] = []
-        if let grantedScopes = user.grantedScopes {
-            requestingScopes = neededScopes.filter({ grantedScopes.contains($0) })
-        } else {
-            requestingScopes = neededScopes
-        }
+        requestingScopes = neededScopes.filter({ grantedScopes.contains($0) })
 
         user.addScopes(requestingScopes, presenting: presentingWindow) { signInResult, error in
             guard error == nil else { return }
@@ -118,10 +119,5 @@ class UserAuthModel: ObservableObject {
             let accessToken = newUser.accessToken.tokenString
             self.token = accessToken
         }
-    }
-
-    func signOut() {
-        GIDSignIn.sharedInstance.signOut()
-        self.checkStatus()
     }
 }
