@@ -11,26 +11,15 @@ struct ContentView: View {
     @ObservedObject var userModel: UserAuthModel = .shared
 
     var body: some View {
-        SignInView()
-//        if let isLoggedIn = userModel.isLoggedIn {
-//            if isLoggedIn {
-//                if userModel.hasNeededScopes() {
-//                    MainView()
-//                } else {
-//                    VStack {
-//                        Text("Still need some scopes!")
-//                        Button("Refresh") {
-//                            userModel.checkPermissions()
-//                        }
-//                    }
-//                    .padding()
-//                }
-//            } else {
-//                SignInView()
-//            }
-//        } else {
-//            ProgressView()
-//        }
+        if let isLoggedIn = userModel.isLoggedIn {
+            if isLoggedIn && userModel.hasNeededScopes() {
+                MainView()
+            } else {
+                SignInView()
+            }
+        } else {
+            ProgressView()
+        }
     }
 }
 

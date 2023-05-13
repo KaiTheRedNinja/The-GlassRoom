@@ -13,6 +13,5 @@ struct The_GlassRoomApp: App {
         WindowGroup {
             ContentView()
         }
-        .windowStyle(.hiddenTitleBar)
     }
 }
