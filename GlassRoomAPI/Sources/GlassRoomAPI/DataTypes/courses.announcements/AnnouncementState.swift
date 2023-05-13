@@ -7,9 +7,9 @@
 
 import Foundation
 
-public enum AnnouncementState: Codable {
-    case announcement_state_unspecified
-    case published
-    case draft
-    case deleted
+public enum AnnouncementState: String, Codable {
+    case announcement_state_unspecified = "ANNOUNCEMENT_STATE_UNSPECIFIED"
+    case published = "PUBLISHED"
+    case draft = "DRAFT"
+    case deleted = "DELETED"
 }

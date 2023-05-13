@@ -13,6 +13,7 @@ struct SidebarView: View {
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
 
     var body: some View {
+<<<<<<< HEAD:The GlassRoom/UI/Main/Sidebar/SidebarView.swift
         SidebarOutlineView(selectedCourse: $selection, courses: coursesManager.courses)
 //        List {
 //            ForEach(0..<coursesManager.courses.count, id: \.self) { index in
@@ -25,6 +26,23 @@ struct SidebarView: View {
 //                }
 //            }
 //        }
+=======
+        List {
+            ForEach(0..<coursesManager.courses.count, id: \.self) { index in
+                let course = coursesManager.courses[index]
+                Button {
+                    selection = course
+                } label: {
+                    VStack(alignment: .leading) {
+                        Text(course.name)
+                        if let description = course.description {
+                            Text(description)
+                        }
+                    }
+                }
+            }
+        }
+>>>>>>> main:The GlassRoom/UI/Main/SidebarView.swift
         .overlay {
             if coursesManager.courses.isEmpty {
                 Text("No Classes")

@@ -19,6 +19,11 @@ struct MainView: View {
         } detail: {
             DetailView(selectedCourse: $selectedCourse)
         }
+        .toolbar {
+            Button("Log Out") {
+                UserAuthModel.shared.signOut()
+            }
+        }
     }
 }
 

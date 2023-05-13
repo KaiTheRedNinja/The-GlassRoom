@@ -7,9 +7,9 @@
 
 import Foundation
 
-public enum ShareMode: Codable {
-    case unknown_share_mode
-    case view
-    case edit
-    case student_copy
+public enum ShareMode: String, Codable {
+    case unknown_share_mode = "UNKNOWN_SHARE_MODE"
+    case view = "VIEW"
+    case edit = "EDIT"
+    case student_copy = "STUDENT_COPY"
 }
