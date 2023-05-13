@@ -40,11 +40,11 @@ struct SidebarView: View {
 }
 
 struct CourseCategoryHeaderView: View {
-    var name: String
+    var type: Course.CourseType
 
     var body: some View {
         HStack {
-            Text(name)
+            Text(type.rawValue)
                 .bold()
                 .foregroundColor(.gray)
                 .padding(.bottom, 2.5)

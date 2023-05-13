@@ -28,3 +28,20 @@ public struct Course: Codable {
     public var calendarId: String?
     public var gradebookSettings: GradebookSettings
 }
+
+public extension Course {
+    var courseType: CourseType {
+        if teacherFolder != nil {
+            return .teaching
+        } else {
+            return .enrolled
+        }
+    }
+
+    enum CourseType: String, CaseIterable {
+        case teaching = "Teaching"
+        case enrolled = "Enrolled"
+
+        static public var allCases: [Course.CourseType] = [.teaching, .enrolled]
+    }
+}

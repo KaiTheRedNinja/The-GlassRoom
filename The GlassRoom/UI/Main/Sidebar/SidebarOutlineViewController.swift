@@ -22,12 +22,6 @@ final class SidebarOutlineViewController: NSViewController {
     /// to open the file a second time.
     private var shouldSendSelectionUpdate: Bool = true
 
-    let categories: [String] = [
-        "Courses",
-        "IDK man",
-        "Debug stuff"
-    ]
-
     var selectedCourse: Binding<Course?>? = nil
     var courses: [Course] = []
 
@@ -62,7 +56,7 @@ final class SidebarOutlineViewController: NSViewController {
         scrollView.hasHorizontalScroller = false
         scrollView.autohidesScrollers = true
 
-        outlineView.expandItem(outlineView.item(atRow: 0))
+        outlineView.expandItem(outlineView.item(atRow: 1)) // 0 is teachers, 1 is students
     }
 
     init() {
@@ -85,15 +79,12 @@ final class SidebarOutlineViewController: NSViewController {
 extension SidebarOutlineViewController: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         guard let item else {
-            return categories.count
+            return Course.CourseType.allCases.count
         }
         if item is Course {
             return 0
-        } else if let item = item as? String {
-            switch item {
-            case "Courses": return courses.count
-            default: return 0
-            }
+        } else if let item = item as? Course.CourseType {
+            return courses.filter({ $0.courseType == item }).count
         }
 
         return 0
@@ -101,22 +92,19 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
 
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         guard let item else {
-            return categories[index]
+            return Course.CourseType.allCases[index]
         }
         if item is Course {
             return 0
-        } else if let item = item as? String {
-            switch item {
-            case "Courses": return courses[index]
-            default: return 0
-            }
+        } else if let item = item as? Course.CourseType {
+            return courses.filter({ $0.courseType == item })[index]
         }
 
         return 0
     }
 
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        if let item = item as? String, categories.contains(item) {
+        if let item = item as? Course.CourseType, Course.CourseType.allCases.contains(item) {
             return true
         }
         return false
@@ -146,9 +134,9 @@ extension SidebarOutlineViewController: NSOutlineViewDelegate {
                                width: tableColumn.width,
                                height: self.outlineView(outlineView, heightOfRowByItem: item))
 
-        if let item = item as? String {
+        if let item = item as? Course.CourseType {
             let contentView = NSHostingView(rootView: {
-                CourseCategoryHeaderView(name: item)
+                CourseCategoryHeaderView(type: item)
             }())
             contentView.frame = frameRect
             return contentView
@@ -161,7 +149,7 @@ extension SidebarOutlineViewController: NSOutlineViewDelegate {
             return contentView
         }
 
-        print("Item \(item) did not match String or Course")
+        print("Item \(item) did not match CourseType or Course")
         return nil // TODO: return the view
     }
 
