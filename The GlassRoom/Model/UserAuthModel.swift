@@ -19,6 +19,15 @@ class UserAuthModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var token: String?
 
+    let neededScopes: [String] = [
+        "https://www.googleapis.com/auth/classroom.courses",
+        "https://www.googleapis.com/auth/classroom.announcements",
+        "https://www.googleapis.com/auth/classroom.coursework.students",
+        "https://www.googleapis.com/auth/classroom.courseworkmaterials",
+        "https://www.googleapis.com/auth/classroom.rosters",
+        "https://www.googleapis.com/auth/classroom.topics"
+    ]
+
     private init() {
         let clientID = Secrets.getGoogleClientID()
         let signInConfig = GIDConfiguration(clientID: clientID)
@@ -73,11 +82,10 @@ class UserAuthModel: ObservableObject {
     @discardableResult
     func checkPermissions(requestIfMissing: Bool = true) -> Bool {
         guard let user = GIDSignIn.sharedInstance.currentUser else { return false }
-        let driveScope = "https://www.googleapis.com/auth/documents"
         let grantedScopes = user.grantedScopes
-        if !(grantedScopes?.contains(driveScope) ?? false) {
+        if grantedScopes == nil || grantedScopes!.contains(neededScopes) {
             print("Requesting additional scopes")
-            // Request additional Drive scope.
+            // Request additional scopes.
             if requestIfMissing {
                 requestPermissions()
             }
@@ -94,8 +102,16 @@ class UserAuthModel: ObservableObject {
             print("Could not get presenting view controller")
             return
         }
-        let driveScope = "https://www.googleapis.com/auth/documents"
-        user.addScopes([driveScope], presenting: presentingWindow) { signInResult, error in
+
+        // get the scopes that we don't have
+        var requestingScopes: [String] = []
+        if let grantedScopes = user.grantedScopes {
+            requestingScopes = neededScopes.filter({ grantedScopes.contains($0) })
+        } else {
+            requestingScopes = neededScopes
+        }
+
+        user.addScopes(requestingScopes, presenting: presentingWindow) { signInResult, error in
             guard error == nil else { return }
             self.checkPermissions(requestIfMissing: false)
             guard let newUser = signInResult?.user else { return }
