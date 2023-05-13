@@ -1,6 +1,6 @@
 //
 //  UserAuthModel.swift
-//  GlassRoomAPI
+//  The GlassRoom
 //
 //  Created by Kai Quan Tay on 12/5/23.
 //
@@ -46,6 +46,7 @@ class UserAuthModel: ObservableObject {
     private func check() {
         GIDSignIn.sharedInstance.restorePreviousSignIn { _, error in
             if let error = error {
+                print("Error: \(error.localizedDescription)")
                 self.errorMessage = "error: \(error.localizedDescription)"
             }
 

@@ -10,7 +10,12 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         NavigationSplitView {
-            Text("Classes and Archives")
+            VStack {
+                Text("Classes and Archives")
+            }
+            Button("Log Out") {
+                UserAuthModel.shared.signOut()
+            }
         } content: {
             List {
                 ForEach(1...7, id: \.self) { _ in

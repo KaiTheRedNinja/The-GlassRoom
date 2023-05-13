@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var userModel: UserAuthModel = .shared
+
     var body: some View {
-        MainView()
+        if let isLoggedIn = userModel.isLoggedIn {
+            if isLoggedIn {
+                MainView()
+            } else {
+                SignInView()
+            }
+        } else {
+            ProgressView()
+        }
     }
 }
 

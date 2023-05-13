@@ -12,6 +12,7 @@
 		93757D612A0E74500063AB67 /* UserAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D602A0E74500063AB67 /* UserAuthModel.swift */; };
 		93757D632A0E79650063AB67 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D622A0E79650063AB67 /* Secrets.swift */; };
 		93757D662A0E7B430063AB67 /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D652A0E7B430063AB67 /* Secrets (Sensitive).swift */; };
+		93757D682A0E7D280063AB67 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D672A0E7D280063AB67 /* SignInView.swift */; };
 		937EA5BA2A0CD9F8005F11C5 /* The_GlassRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EA5B92A0CD9F8005F11C5 /* The_GlassRoomApp.swift */; };
 		937EA5BC2A0CD9F8005F11C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EA5BB2A0CD9F8005F11C5 /* ContentView.swift */; };
 		937EA5BE2A0CD9F9005F11C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937EA5BD2A0CD9F9005F11C5 /* Assets.xcassets */; };
@@ -23,6 +24,8 @@
 		93757D602A0E74500063AB67 /* UserAuthModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthModel.swift; sourceTree = "<group>"; };
 		93757D622A0E79650063AB67 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		93757D652A0E7B430063AB67 /* Secrets (Sensitive).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Secrets (Sensitive).swift"; sourceTree = "<group>"; };
+		93757D672A0E7D280063AB67 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		93757D692A0E7ED90063AB67 /* The-GlassRoom-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "The-GlassRoom-Info.plist"; sourceTree = SOURCE_ROOT; };
 		937EA5B62A0CD9F8005F11C5 /* The GlassRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The GlassRoom.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		937EA5B92A0CD9F8005F11C5 /* The_GlassRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_GlassRoomApp.swift; sourceTree = "<group>"; };
 		937EA5BB2A0CD9F8005F11C5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				6AD9CED82A0CE9FC0078E5D3 /* MainView */,
+				93757D672A0E7D280063AB67 /* SignInView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -73,19 +77,11 @@
 		93757D5F2A0E742E0063AB67 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				93757D642A0E7AD80063AB67 /* Secrets */,
 				937EA5B92A0CD9F8005F11C5 /* The_GlassRoomApp.swift */,
 				937EA5BB2A0CD9F8005F11C5 /* ContentView.swift */,
 				937EA5BD2A0CD9F9005F11C5 /* Assets.xcassets */,
 			);
 			path = Application;
-			sourceTree = "<group>";
-		};
-		93757D642A0E7AD80063AB67 /* Secrets */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Secrets;
 			sourceTree = "<group>";
 		};
 		937EA5AD2A0CD9F8005F11C5 = {
@@ -108,6 +104,7 @@
 		937EA5B82A0CD9F8005F11C5 /* The GlassRoom */ = {
 			isa = PBXGroup;
 			children = (
+				93757D692A0E7ED90063AB67 /* The-GlassRoom-Info.plist */,
 				93757D5F2A0E742E0063AB67 /* Application */,
 				93757D5E2A0E73F30063AB67 /* Model */,
 				6AD9CED72A0CE9E70078E5D3 /* UI */,
@@ -202,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93757D612A0E74500063AB67 /* UserAuthModel.swift in Sources */,
+				93757D682A0E7D280063AB67 /* SignInView.swift in Sources */,
 				93757D632A0E79650063AB67 /* Secrets.swift in Sources */,
 				93757D662A0E7B430063AB67 /* Secrets (Sensitive).swift in Sources */,
 				937EA5BC2A0CD9F8005F11C5 /* ContentView.swift in Sources */,
@@ -341,6 +339,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "The-GlassRoom-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -369,6 +368,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "The-GlassRoom-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
