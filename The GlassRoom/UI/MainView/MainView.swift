@@ -9,42 +9,57 @@ import SwiftUI
 import GlassRoomAPI
 
 struct MainView: View {
+    @State var courses: [Course] = []
+
     var body: some View {
         NavigationSplitView {
-            VStack {
-                Text("Classes and Archives")
-            }
-            Button("Log Out") {
-                UserAuthModel.shared.signOut()
-            }
-            Button("Test get") {
-                GlassRoomAPI.GRCourses.list(
-                    params: VoidStringCodable(),
-                    query: .init(studentId: nil,
-                                 teacherId: nil,
-                                 courseStates: nil,
-                                 pageSize: nil,
-                                 pageToken: nil),
-                    data: VoidStringCodable()
-                ) { response in
-                    switch response {
-                    case .success(let success):
-                        print("Success! \(success)")
-                    case .failure(let failure):
-                        print("Failure: \(failure.localizedDescription)")
+            List {
+                ForEach(0..<courses.count, id: \.self) { index in
+                    let course = courses[index]
+                    VStack(alignment: .leading) {
+                        Text(course.name)
+                        if let description = course.description {
+                            Text(description)
+                        }
                     }
                 }
             }
         } content: {
-            List {
-                ForEach(1...7, id: \.self) { _ in
-                    PostItemView
+            VStack {
+                Text("Posts")
+                Button("Log Out") {
+                    UserAuthModel.shared.signOut()
                 }
             }
+//            List {
+//                ForEach(1...7, id: \.self) { _ in
+//                    PostItemView
+//                }
+//            }
         } detail: {
-            Text("No Post Selected")
+            VStack {
+                Text("No Post Selected")
+            }
         }
-
+        .onAppear {
+            GlassRoomAPI.GRCourses.list(
+                params: VoidStringCodable(),
+                query: .init(studentId: nil,
+                             teacherId: nil,
+                             courseStates: nil,
+                             pageSize: nil,
+                             pageToken: nil),
+                data: VoidStringCodable()
+            ) { response in
+                switch response {
+                case .success(let success):
+                    print("Success! \(success)")
+                    self.courses = success.courses
+                case .failure(let failure):
+                    print("Failure: \(failure.localizedDescription)")
+                }
+            }
+        }
     }
     
     var PostItemView: some View {
