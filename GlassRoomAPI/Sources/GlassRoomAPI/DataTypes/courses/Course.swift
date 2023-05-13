@@ -11,9 +11,9 @@ public struct Course: Codable {
     public var id: String
     public var name: String
     public var section: String
-    public var descriptionHeading: String
-    public var description: String
-    public var room: String
+    public var descriptionHeading: String?
+    public var description: String?
+    public var room: String?
     public var ownerId: String
     public var creationTime: String
     public var updateTime: String

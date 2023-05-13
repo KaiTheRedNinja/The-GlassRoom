@@ -16,8 +16,8 @@ public struct StudentSubmission {
     public var updateTime: String
     public var state: SubmissionState
     public var late: Bool
-    public var draftGrade: Double
-    public var assignedGrade: Double
+    public var draftGrade: Double?
+    public var assignedGrade: Double?
     public var alternateLink: String
     public var courseWorkType: CourseWorkType
     public var associatedWithDeveloper: Bool
