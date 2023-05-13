@@ -47,6 +47,7 @@ struct CourseCategoryHeaderView: View {
             Text(name)
                 .bold()
                 .foregroundColor(.gray)
+                .padding(.bottom, 2.5)
             Spacer()
         }
         .padding(.horizontal, 5)
@@ -57,10 +58,20 @@ struct CourseView: View {
     var course: Course
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(course.name)
+        VStack {
+            HStack {
+                Text(course.name)
+                    .lineLimit(1)
+                Spacer()
+            }
             if let description = course.description {
-                Text(description)
+                HStack {
+                    Text(description)
+                        .font(.caption)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(2)
+                    Spacer()
+                }
             }
         }
         .padding(.horizontal, 5)

@@ -56,7 +56,7 @@ final class SidebarOutlineViewController: NSViewController {
 
         scrollView.documentView = outlineView
         scrollView.contentView.automaticallyAdjustsContentInsets = false
-        scrollView.contentView.contentInsets = .init(top: 10, left: 0, bottom: 0, right: 0)
+        scrollView.contentView.contentInsets = .init(top: 10, left: 0, bottom: 0, right: -10)
         scrollView.scrollerStyle = .overlay
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalScroller = false
@@ -147,18 +147,15 @@ extension SidebarOutlineViewController: NSOutlineViewDelegate {
                                height: self.outlineView(outlineView, heightOfRowByItem: item))
 
         if let item = item as? String {
-//            let textView = NSTextView(frame: frameRect)
-//            textView.string = item
             let contentView = NSHostingView(rootView: {
                 CourseCategoryHeaderView(name: item)
-                    .frame(maxWidth: frameRect.width, maxHeight: frameRect.height)
             }())
+            contentView.frame = frameRect
             return contentView
         }
         if let item = item as? Course {
             let contentView = NSHostingView(rootView: {
                 CourseView(course: item)
-                    .frame(maxWidth: frameRect.width, maxHeight: frameRect.height)
             }())
             contentView.frame = frameRect
             return contentView
@@ -184,7 +181,15 @@ extension SidebarOutlineViewController: NSOutlineViewDelegate {
     }
 
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        22
+        if let item = item as? Course {
+            if item.description == nil {
+                return 22
+            } else {
+                return 40
+            }
+        } else {
+            return 22
+        }
     }
 
     func outlineViewItemDidExpand(_ notification: Notification) {}

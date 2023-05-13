@@ -398,7 +398,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = DBBLGF84W3;
+				DEVELOPMENT_TEAM = Z88Z98GRZQ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -409,7 +409,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
