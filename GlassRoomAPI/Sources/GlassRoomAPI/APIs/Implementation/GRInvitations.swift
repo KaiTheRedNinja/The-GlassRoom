@@ -78,7 +78,7 @@ extension GlassRoomAPI.GRInvitations: GlassRoomAcceptable,
 
     public struct ListableResponseData: Codable {
         public var invitations: [Invitation]
-        public var nextPageToken: String
+        public var nextPageToken: String?
 
         public init(invitations: [Invitation], nextPageToken: String) {
             self.invitations = invitations

@@ -79,7 +79,7 @@ extension GlassRoomAPI.GRCourses.GRTopics: GlassRoomCreatableDeletable,
 
     public struct ListableResponseData: Codable {
         public var topic: [Topic]
-        public var nextPageToken: String
+        public var nextPageToken: String?
 
         public init(topic: [Topic], nextPageToken: String) {
             self.topic = topic

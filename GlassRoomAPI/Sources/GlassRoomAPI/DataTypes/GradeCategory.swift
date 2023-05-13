@@ -10,6 +10,6 @@ import Foundation
 public struct GradeCategory: Codable {
     public var id: String
     public var name: String
-    public var weight: Int
-    public var defaultGradeDenominator: Int
+    public var weight: Int?
+    public var defaultGradeDenominator: Int?
 }

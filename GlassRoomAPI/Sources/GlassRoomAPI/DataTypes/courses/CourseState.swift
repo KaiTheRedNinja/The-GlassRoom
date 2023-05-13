@@ -7,11 +7,11 @@
 
 import Foundation
 
-public enum CourseState: Codable {
-    case course_state_unspecified
-    case active
-    case archived
-    case provisioned
-    case declined
-    case suspended
+public enum CourseState: String, Codable {
+    case course_state_unspecified = "COURSE_STATE_UNSPECIFIED"
+    case active = "ACTIVE"
+    case archived = "ARCHIVED"
+    case provisioned = "PROVISIONED"
+    case declined = "DECLINED"
+    case suspended = "SUSPENDED"
 }

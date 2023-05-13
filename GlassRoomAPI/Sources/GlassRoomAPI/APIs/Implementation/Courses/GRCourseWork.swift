@@ -93,7 +93,7 @@ extension GlassRoomAPI.GRCourses.GRCourseWork: GlassRoomCreatableDeletable,
 
     public struct ListableResponseData: Codable {
         public var courseWork: [CourseWork]
-        public var nextPageToken: String
+        public var nextPageToken: String?
 
         public init(courseWork: [CourseWork], nextPageToken: String) {
             self.courseWork = courseWork

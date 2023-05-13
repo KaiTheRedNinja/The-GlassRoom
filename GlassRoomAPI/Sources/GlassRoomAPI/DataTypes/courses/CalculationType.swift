@@ -7,8 +7,8 @@
 
 import Foundation
 
-public enum CalculationType: Codable {
-    case calculation_type_unspecified
-    case total_points
-    case weighted_categories
+public enum CalculationType: String, Codable {
+    case calculation_type_unspecified = "CALCULATION_TYPE_UNSPECIFIED"
+    case total_points = "TOTAL_POINTS"
+    case weighted_categories = "WEIGHTED_CATEGORIES"
 }

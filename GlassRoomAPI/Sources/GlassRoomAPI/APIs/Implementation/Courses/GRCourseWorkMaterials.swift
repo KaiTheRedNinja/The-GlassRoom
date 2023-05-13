@@ -97,7 +97,7 @@ extension GlassRoomAPI.GRCourses.GRCourseWorkMaterials: GlassRoomCreatableDeleta
 
     public struct ListableResponseData: Codable {
         public var courseWorkMaterial: [CourseWorkMaterial]
-        public var nextPageToken: String
+        public var nextPageToken: String?
 
         public init(courseWorkMaterial: [CourseWorkMaterial], nextPageToken: String) {
             self.courseWorkMaterial = courseWorkMaterial

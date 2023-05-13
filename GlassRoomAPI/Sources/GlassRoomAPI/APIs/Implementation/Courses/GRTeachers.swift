@@ -70,7 +70,7 @@ extension GlassRoomAPI.GRCourses.GRTeachers: GlassRoomCreatableDeletable, GlassR
 
     public struct ListableResponseData: Codable {
         public var teachers: [Teacher]
-        public var nextPageToken: String
+        public var nextPageToken: String?
 
         public init(teachers: [Teacher], nextPageToken: String) {
             self.teachers = teachers

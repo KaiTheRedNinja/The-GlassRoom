@@ -64,7 +64,7 @@ extension GlassRoomAPI.GRCourses.GRAliases: GlassRoomCreatableDeletable, GlassRo
 
     public struct ListableResponseData: Codable {
         public var aliases: [CourseAlias]
-        public var nextPageToken: String
+        public var nextPageToken: String?
 
         public init(aliases: [CourseAlias], nextPageToken: String) {
             self.aliases = aliases
