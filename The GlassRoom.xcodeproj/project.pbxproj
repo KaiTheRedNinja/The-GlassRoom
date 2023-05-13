@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6AA058382A0FA9AB005A9BDB /* GlobalCourseAnnouncementsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA058372A0FA9AB005A9BDB /* GlobalCourseAnnouncementsDataManager.swift */; };
 		6AD9CEDA2A0CEA120078E5D3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD9CED92A0CEA120078E5D3 /* MainView.swift */; };
 		93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 93757D5C2A0E73DA0063AB67 /* GoogleSignIn */; };
 		93757D612A0E74500063AB67 /* UserAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D602A0E74500063AB67 /* UserAuthModel.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6AA058372A0FA9AB005A9BDB /* GlobalCourseAnnouncementsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalCourseAnnouncementsDataManager.swift; sourceTree = "<group>"; };
 		6AD9CED92A0CEA120078E5D3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		93757D602A0E74500063AB67 /* UserAuthModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthModel.swift; sourceTree = "<group>"; };
 		93757D622A0E79650063AB67 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				93757D782A0F9BEB0063AB67 /* GlobalCoursesDataManager.swift */,
+				6AA058372A0FA9AB005A9BDB /* GlobalCourseAnnouncementsDataManager.swift */,
 				93757D7A2A0F9E6D0063AB67 /* FileManager.swift */,
 			);
 			path = DataManagers;
@@ -241,6 +244,7 @@
 				93757D792A0F9BEB0063AB67 /* GlobalCoursesDataManager.swift in Sources */,
 				93757D662A0E7B430063AB67 /* Secrets (Sensitive).swift in Sources */,
 				937EA5BC2A0CD9F8005F11C5 /* ContentView.swift in Sources */,
+				6AA058382A0FA9AB005A9BDB /* GlobalCourseAnnouncementsDataManager.swift in Sources */,
 				6AD9CEDA2A0CEA120078E5D3 /* MainView.swift in Sources */,
 				93757D742A0F9AC50063AB67 /* CenterSplitView.swift in Sources */,
 				937EA5BA2A0CD9F8005F11C5 /* The_GlassRoomApp.swift in Sources */,
@@ -374,7 +378,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -385,7 +389,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -403,7 +407,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -414,7 +418,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

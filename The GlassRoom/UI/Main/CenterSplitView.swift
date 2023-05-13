@@ -10,15 +10,40 @@ import GlassRoomAPI
 
 struct CenterSplitView: View {
     @Binding var selectedCourse: Course?
-//    @Binding var selectedPost:
+    //    @Binding var selectedPost:
+    
+    @ObservedObject var courseAnnouncementsManager: GlobalCourseAnnouncementsDataManager = .global
 
     var body: some View {
         VStack {
-            Text("Posts for \(selectedCourse?.name ?? "nothing")")
-            Button("Log Out") {
-                UserAuthModel.shared.signOut()
+            Button("Reload") {
+                reloadAnnouncements()
+            }
+            List {
+                ForEach(courseAnnouncementsManager.courseAnnouncements, id: \.id) { announcement in
+                    VStack(alignment: .leading) {
+                        Text(announcement.text)
+                    }
+                }
             }
         }
+        .safeAreaInset(edge: .bottom) {
+            if courseAnnouncementsManager.loading {
+                ProgressView()
+                    .progressViewStyle(.linear)
+                    .frame(maxWidth: .infinity)
+                    .padding(10)
+            }
+        }
+        .onAppear {
+            reloadAnnouncements()
+        }
+    }
+    
+    func reloadAnnouncements() {
+        guard let selectedCourseId = selectedCourse?.id else { return }
+        print(selectedCourseId)
+        courseAnnouncementsManager.loadList(courseId: selectedCourseId)
     }
 }
 

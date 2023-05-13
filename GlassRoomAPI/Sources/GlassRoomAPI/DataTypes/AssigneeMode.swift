@@ -7,8 +7,8 @@
 
 import Foundation
 
-public enum AssigneeMode: Codable {
-    case assignee_mode_unspecified
-    case all_students
-    case individual_students
+public enum AssigneeMode: String, Codable {
+    case assignee_mode_unspecified = "ASSIGNEE_MODE_UNSPECIFIED"
+    case all_students = "ALL_STUDENTS"
+    case individual_students = "INDIVIDUAL_STUDENTS"
 }
