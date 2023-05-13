@@ -16,6 +16,10 @@ extension GlassRoomAPI.GRUserProfiles: GlassRoomGettable {
     public struct UserProfilePathParameters: StringCodable {
         public var userId: String
 
+        public init(userId: String) {
+            self.userId = userId
+        }
+
         public func stringDictionaryEncoded() -> [String: String] {
             ["userId": userId]
         }

@@ -48,6 +48,11 @@ extension GlassRoomAPI.GRCourses.GRCourseWorkMaterials: GlassRoomCreatableDeleta
         public var courseId: String
         public var id: String
 
+        public init(courseId: String, id: String) {
+            self.courseId = courseId
+            self.id = id
+        }
+
         public func stringDictionaryEncoded() -> [String: String] {
             [
                 "courseId": courseId,
@@ -64,6 +69,20 @@ extension GlassRoomAPI.GRCourses.GRCourseWorkMaterials: GlassRoomCreatableDeleta
         public var materialLink: String?
         public var materialDriveId: String?
 
+        public init(courseWorkMaterialStates: [CourseWorkMaterialState]? = nil,
+                    orderBy: String? = nil,
+                    pageSize: Int? = nil,
+                    pageToken: String? = nil,
+                    materialLink: String? = nil,
+                    materialDriveId: String? = nil) {
+            self.courseWorkMaterialStates = courseWorkMaterialStates
+            self.orderBy = orderBy
+            self.pageSize = pageSize
+            self.pageToken = pageToken
+            self.materialLink = materialLink
+            self.materialDriveId = materialDriveId
+        }
+
         public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
             if let courseWorkMaterialStates { dict["courseWorkMaterialStates"] = courseWorkMaterialStates.description } // TODO: Check this
@@ -79,11 +98,20 @@ extension GlassRoomAPI.GRCourses.GRCourseWorkMaterials: GlassRoomCreatableDeleta
     public struct ListableResponseData: Codable {
         public var courseWorkMaterial: [CourseWorkMaterial]
         public var nextPageToken: String
+
+        public init(courseWorkMaterial: [CourseWorkMaterial], nextPageToken: String) {
+            self.courseWorkMaterial = courseWorkMaterial
+            self.nextPageToken = nextPageToken
+        }
     }
 
     public struct PatchableQueryParameters: StringCodable {
         /// Only the following are valid: `title`, `description`, `state`, `scheduledTime`, `topicId`
         public var updateMask: [String]
+
+        public init(updateMask: [String]) {
+            self.updateMask = updateMask
+        }
 
         public func stringDictionaryEncoded() -> [String: String] {
             ["updateMask": updateMask.joined(separator: ",")]

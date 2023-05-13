@@ -51,6 +51,10 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     public struct IDPathParameters: StringCodable {
         public var id: String
         public func stringDictionaryEncoded() -> [String: String] { ["id": id] }
+
+        public init(id: String) {
+            self.id = id
+        }
     }
 
     public struct ListableQueryParameters: StringCodable {
@@ -59,6 +63,18 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
         public var courseStates: [CourseState]?
         public var pageSize: Int?
         public var pageToken: String?
+
+        public init(studentId: String? = nil,
+                    teacherId: String? = nil,
+                    courseStates: [CourseState]? = nil,
+                    pageSize: Int? = nil,
+                    pageToken: String? = nil) {
+            self.studentId = studentId
+            self.teacherId = teacherId
+            self.courseStates = courseStates
+            self.pageSize = pageSize
+            self.pageToken = pageToken
+        }
 
         public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
@@ -74,11 +90,20 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
     public struct ListableResponseData: Codable {
         public var courses: [Course]
         public var nextPageToken: String
+
+        public init(courses: [Course], nextPageToken: String) {
+            self.courses = courses
+            self.nextPageToken = nextPageToken
+        }
     }
 
     public struct PatchableQueryParameters: StringCodable {
         /// Only the following are valid: `name`, `section`, `descriptionHeading`, `description`, `room`, `courseState`, `ownerId`
         public var updateMask: [String]
+
+        public init(updateMask: [String]) {
+            self.updateMask = updateMask
+        }
 
         public func stringDictionaryEncoded() -> [String: String] {
             ["updateMask": updateMask.joined(separator: ",")]

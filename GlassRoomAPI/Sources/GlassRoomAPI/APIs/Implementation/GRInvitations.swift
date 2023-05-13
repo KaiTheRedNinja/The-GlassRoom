@@ -41,6 +41,10 @@ extension GlassRoomAPI.GRInvitations: GlassRoomAcceptable,
     public struct InvitationIDPathParameter: StringCodable {
         public var id: String
 
+        public init(id: String) {
+            self.id = id
+        }
+
         public func stringDictionaryEncoded() -> [String : String] {
             ["id": id]
         }
@@ -51,6 +55,16 @@ extension GlassRoomAPI.GRInvitations: GlassRoomAcceptable,
         public var courseId: String?
         public var pageSize: Int?
         public var pageToken: String?
+
+        public init(userId: String? = nil,
+                    courseId: String? = nil,
+                    pageSize: Int? = nil,
+                    pageToken: String? = nil) {
+            self.userId = userId
+            self.courseId = courseId
+            self.pageSize = pageSize
+            self.pageToken = pageToken
+        }
 
         public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
@@ -65,5 +79,10 @@ extension GlassRoomAPI.GRInvitations: GlassRoomAcceptable,
     public struct ListableResponseData: Codable {
         public var invitations: [Invitation]
         public var nextPageToken: String
+
+        public init(invitations: [Invitation], nextPageToken: String) {
+            self.invitations = invitations
+            self.nextPageToken = nextPageToken
+        }
     }
 }

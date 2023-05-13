@@ -47,6 +47,11 @@ extension GlassRoomAPI.GRCourses.GRTopics: GlassRoomCreatableDeletable,
         public var courseId: String
         public var id: String
 
+        public init(courseId: String, id: String) {
+            self.courseId = courseId
+            self.id = id
+        }
+
         public func stringDictionaryEncoded() -> [String: String] {
             [
                 "courseId": courseId,
@@ -59,6 +64,11 @@ extension GlassRoomAPI.GRCourses.GRTopics: GlassRoomCreatableDeletable,
         public var pageSize: Int?
         public var pageToken: String?
 
+        public init(pageSize: Int? = nil, pageToken: String? = nil) {
+            self.pageSize = pageSize
+            self.pageToken = pageToken
+        }
+
         public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
             if let pageSize { dict["pageSize"] = pageSize.description }
@@ -70,11 +80,20 @@ extension GlassRoomAPI.GRCourses.GRTopics: GlassRoomCreatableDeletable,
     public struct ListableResponseData: Codable {
         public var topic: [Topic]
         public var nextPageToken: String
+
+        public init(topic: [Topic], nextPageToken: String) {
+            self.topic = topic
+            self.nextPageToken = nextPageToken
+        }
     }
 
     public struct PatchableQueryParameters: StringCodable {
         /// Only the following are valid: `name`
         public var updateMask: [String]
+
+        public init(updateMask: [String]) {
+            self.updateMask = updateMask
+        }
 
         public func stringDictionaryEncoded() -> [String: String] {
             ["updateMask": updateMask.joined(separator: ",")]

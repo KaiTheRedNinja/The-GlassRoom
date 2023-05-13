@@ -50,6 +50,7 @@ public enum GlassRoomAPI {
 }
 
 public struct VoidStringCodable: StringCodable, Codable {
+    public init() {}
     public func stringDictionaryEncoded() -> [String : String] { [:] }
 }
 

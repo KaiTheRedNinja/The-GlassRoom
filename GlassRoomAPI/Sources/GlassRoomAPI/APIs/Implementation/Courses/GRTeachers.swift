@@ -38,6 +38,11 @@ extension GlassRoomAPI.GRCourses.GRTeachers: GlassRoomCreatableDeletable, GlassR
         public var courseId: String
         public var userId: String
 
+        public init(courseId: String, userId: String) {
+            self.courseId = courseId
+            self.userId = userId
+        }
+
         public func stringDictionaryEncoded() -> [String: String] {
             [
                 "courseId": courseId,
@@ -50,6 +55,11 @@ extension GlassRoomAPI.GRCourses.GRTeachers: GlassRoomCreatableDeletable, GlassR
         public var pageSize: Int?
         public var pageToken: String?
 
+        public init(pageSize: Int? = nil, pageToken: String? = nil) {
+            self.pageSize = pageSize
+            self.pageToken = pageToken
+        }
+
         public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
             if let pageSize { dict["pageSize"] = pageSize.description }
@@ -61,5 +71,10 @@ extension GlassRoomAPI.GRCourses.GRTeachers: GlassRoomCreatableDeletable, GlassR
     public struct ListableResponseData: Codable {
         public var teachers: [Teacher]
         public var nextPageToken: String
+
+        public init(teachers: [Teacher], nextPageToken: String) {
+            self.teachers = teachers
+            self.nextPageToken = nextPageToken
+        }
     }
 }

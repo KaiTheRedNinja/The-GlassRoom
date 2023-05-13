@@ -55,6 +55,11 @@ extension GlassRoomAPI.GRCourses.GRCourseWork: GlassRoomCreatableDeletable,
         public var courseId: String
         public var id: String
 
+        public init(courseId: String, id: String) {
+            self.courseId = courseId
+            self.id = id
+        }
+
         public func stringDictionaryEncoded() -> [String: String] {
             [
                 "courseId": courseId,
@@ -69,6 +74,13 @@ extension GlassRoomAPI.GRCourses.GRCourseWork: GlassRoomCreatableDeletable,
         public var pageSize: Int?
         public var pageToken: String?
 
+        public init(courseWorkStates: [CourseWorkState]? = nil, orderBy: String? = nil, pageSize: Int? = nil, pageToken: String? = nil) {
+            self.courseWorkStates = courseWorkStates
+            self.orderBy = orderBy
+            self.pageSize = pageSize
+            self.pageToken = pageToken
+        }
+
         public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
             if let courseWorkStates { dict["courseWorkStates"] = courseWorkStates.description } // TODO: Check this
@@ -82,16 +94,30 @@ extension GlassRoomAPI.GRCourses.GRCourseWork: GlassRoomCreatableDeletable,
     public struct ListableResponseData: Codable {
         public var courseWork: [CourseWork]
         public var nextPageToken: String
+
+        public init(courseWork: [CourseWork], nextPageToken: String) {
+            self.courseWork = courseWork
+            self.nextPageToken = nextPageToken
+        }
     }
 
     public struct AssigneeModifiableRequestData: Codable {
         public var assigneeMode: AssigneeMode
         public var modifyIndividualStudentsOptions: ModifyIndividualStudentsOptions
+
+        public init(assigneeMode: AssigneeMode, modifyIndividualStudentsOptions: ModifyIndividualStudentsOptions) {
+            self.assigneeMode = assigneeMode
+            self.modifyIndividualStudentsOptions = modifyIndividualStudentsOptions
+        }
     }
 
     public struct PatchableQueryParameters: StringCodable {
         /// Only the following are valid: `title`, `description`, `state`, `dueDate`, `dueTime`, `maxPoints`, `scheduledTime`, `submissionModificationMode`, `topicId`
         public var updateMask: [String]
+
+        public init(updateMask: [String]) {
+            self.updateMask = updateMask
+        }
 
         public func stringDictionaryEncoded() -> [String: String] {
             ["updateMask": updateMask.joined(separator: ",")]

@@ -31,6 +31,11 @@ extension GlassRoomAPI.GRCourses.GRAliases: GlassRoomCreatableDeletable, GlassRo
         public var courseId: String
         public var alias: String
 
+        public init(courseId: String, alias: String) {
+            self.courseId = courseId
+            self.alias = alias
+        }
+
         public func stringDictionaryEncoded() -> [String: String] {
             [
                 "courseId": courseId,
@@ -42,6 +47,11 @@ extension GlassRoomAPI.GRCourses.GRAliases: GlassRoomCreatableDeletable, GlassRo
     public struct PageSizeTokenQueryParameters: StringCodable {
         public var pageSize: Int
         public var pageToken: String?
+
+        public init(pageSize: Int, pageToken: String? = nil) {
+            self.pageSize = pageSize
+            self.pageToken = pageToken
+        }
 
         public func stringDictionaryEncoded() -> [String: String] {
             var dict = ["pageSize": pageSize.description]
@@ -55,5 +65,10 @@ extension GlassRoomAPI.GRCourses.GRAliases: GlassRoomCreatableDeletable, GlassRo
     public struct ListableResponseData: Codable {
         public var aliases: [CourseAlias]
         public var nextPageToken: String
+
+        public init(aliases: [CourseAlias], nextPageToken: String) {
+            self.aliases = aliases
+            self.nextPageToken = nextPageToken
+        }
     }
 }

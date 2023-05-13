@@ -37,6 +37,10 @@ extension GlassRoomAPI.GRCourses.GRStudents: GlassRoomCreatableDeletable, GlassR
     public struct CreatableQueryParameters: StringCodable {
         public var enrollmentCode: String
 
+        public init(enrollmentCode: String) {
+            self.enrollmentCode = enrollmentCode
+        }
+
         public func stringDictionaryEncoded() -> [String : String] {
             ["enrollmentCode": enrollmentCode]
         }
@@ -45,6 +49,11 @@ extension GlassRoomAPI.GRCourses.GRStudents: GlassRoomCreatableDeletable, GlassR
     public struct CourseIDStudentsPathParameters: StringCodable {
         public var courseId: String
         public var userId: String
+
+        public init(courseId: String, userId: String) {
+            self.courseId = courseId
+            self.userId = userId
+        }
 
         public func stringDictionaryEncoded() -> [String: String] {
             [
@@ -58,6 +67,11 @@ extension GlassRoomAPI.GRCourses.GRStudents: GlassRoomCreatableDeletable, GlassR
         public var pageSize: Int?
         public var pageToken: String?
 
+        public init(pageSize: Int? = nil, pageToken: String? = nil) {
+            self.pageSize = pageSize
+            self.pageToken = pageToken
+        }
+
         public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
             if let pageSize { dict["pageSize"] = pageSize.description }
@@ -69,5 +83,10 @@ extension GlassRoomAPI.GRCourses.GRStudents: GlassRoomCreatableDeletable, GlassR
     public struct ListableResponseData: Codable {
         public var students: [Student]
         public var nextPageToken: String
+
+        public init(students: [Student], nextPageToken: String) {
+            self.students = students
+            self.nextPageToken = nextPageToken
+        }
     }
 }
