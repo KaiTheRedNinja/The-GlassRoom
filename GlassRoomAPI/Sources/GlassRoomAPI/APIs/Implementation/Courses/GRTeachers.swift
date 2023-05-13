@@ -6,39 +6,39 @@
 //
 
 extension GlassRoomAPI.GRCourses.GRTeachers: GlassRoomCreatableDeletable, GlassRoomGettableListable {
-    typealias CreatePathParameters = CourseIDPathParameters
-    typealias CreateQueryParameters = VoidStringCodable
-    typealias CreateRequestData = Teacher
-    typealias CreateResponseData = Teacher
+    public typealias CreatePathParameters = CourseIDPathParameters
+    public typealias CreateQueryParameters = VoidStringCodable
+    public typealias CreateRequestData = Teacher
+    public typealias CreateResponseData = Teacher
 
-    static var apiCreatable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/teachers"
+    public static var apiCreatable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/teachers"
 
-    typealias DeletePathParameters = CourseIDTeacherPathParameters
-    typealias DeleteQueryParameters = VoidStringCodable
-    typealias DeleteRequestData = VoidStringCodable
-    typealias DeleteResponseData = VoidStringCodable
+    public typealias DeletePathParameters = CourseIDTeacherPathParameters
+    public typealias DeleteQueryParameters = VoidStringCodable
+    public typealias DeleteRequestData = VoidStringCodable
+    public typealias DeleteResponseData = VoidStringCodable
 
-    static var apiDeletable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/teachers/{userId}"
+    public static var apiDeletable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/teachers/{userId}"
 
-    typealias GetPathParameters = CourseIDTeacherPathParameters
-    typealias GetQueryParameters = VoidStringCodable
-    typealias GetRequestData = VoidStringCodable
-    typealias GetResponseData = Teacher
+    public typealias GetPathParameters = CourseIDTeacherPathParameters
+    public typealias GetQueryParameters = VoidStringCodable
+    public typealias GetRequestData = VoidStringCodable
+    public typealias GetResponseData = Teacher
 
-    static var apiGettable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/teachers/{userId}"
+    public static var apiGettable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/teachers/{userId}"
 
-    typealias ListPathParameters = CourseIDPathParameters
-    typealias ListQueryParameters = VoidStringCodable
-    typealias ListRequestData = VoidStringCodable
-    typealias ListResponseData = ListableResponseData
+    public typealias ListPathParameters = CourseIDPathParameters
+    public typealias ListQueryParameters = VoidStringCodable
+    public typealias ListRequestData = VoidStringCodable
+    public typealias ListResponseData = ListableResponseData
 
-    static var apiListable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/teachers"
+    public static var apiListable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/teachers"
 
-    struct CourseIDTeacherPathParameters: StringCodable {
-        var courseId: String
-        var userId: String
+    public struct CourseIDTeacherPathParameters: StringCodable {
+        public var courseId: String
+        public var userId: String
 
-        func stringDictionaryEncoded() -> [String: String] {
+        public func stringDictionaryEncoded() -> [String: String] {
             [
                 "courseId": courseId,
                 "userId": userId
@@ -46,11 +46,11 @@ extension GlassRoomAPI.GRCourses.GRTeachers: GlassRoomCreatableDeletable, GlassR
         }
     }
 
-    struct ListableQueryParameters: StringCodable {
-        var pageSize: Int?
-        var pageToken: String?
+    public struct ListableQueryParameters: StringCodable {
+        public var pageSize: Int?
+        public var pageToken: String?
 
-        func stringDictionaryEncoded() -> [String: String] {
+        public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
             if let pageSize { dict["pageSize"] = pageSize.description }
             if let pageToken { dict["pageToken"] = pageToken }
@@ -58,8 +58,8 @@ extension GlassRoomAPI.GRCourses.GRTeachers: GlassRoomCreatableDeletable, GlassR
         }
     }
 
-    struct ListableResponseData: Codable {
-        var teachers: [Teacher]
-        var nextPageToken: String
+    public struct ListableResponseData: Codable {
+        public var teachers: [Teacher]
+        public var nextPageToken: String
     }
 }

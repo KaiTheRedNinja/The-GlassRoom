@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension GlassRoomCreatable {
+public extension GlassRoomCreatable {
     static func create(
         params: CreatePathParameters,
         query: CreateQueryParameters,
@@ -24,7 +24,7 @@ extension GlassRoomCreatable {
     }
 }
 
-extension GlassRoomDeletable {
+public extension GlassRoomDeletable {
     static func delete(
         params: DeletePathParameters,
         query: DeleteQueryParameters,
@@ -41,7 +41,7 @@ extension GlassRoomDeletable {
     }
 }
 
-extension GlassRoomGettable {
+public extension GlassRoomGettable {
     static func get(
         params: GetPathParameters,
         query: GetQueryParameters,
@@ -58,7 +58,7 @@ extension GlassRoomGettable {
     }
 }
 
-extension GlassRoomListable {
+public extension GlassRoomListable {
     static func list(
         params: ListPathParameters,
         query: ListQueryParameters,
@@ -75,7 +75,7 @@ extension GlassRoomListable {
     }
 }
 
-extension GlassRoomPatchable {
+public extension GlassRoomPatchable {
     static func patch(
         params: PatchPathParameters,
         query: PatchQueryParameters,
@@ -92,7 +92,7 @@ extension GlassRoomPatchable {
     }
 }
 
-extension GlassRoomUpdatable {
+public extension GlassRoomUpdatable {
     static func update(
         params: UpdatePathParameters,
         query: UpdateQueryParameters,
@@ -109,7 +109,7 @@ extension GlassRoomUpdatable {
     }
 }
 
-extension GlassRoomAssigneeModifiable {
+public extension GlassRoomAssigneeModifiable {
     static func modifyAssignees(
         params: ModifyAssigneePathParameters,
         query: ModifyAssigneeQueryParameters,
@@ -126,7 +126,7 @@ extension GlassRoomAssigneeModifiable {
     }
 }
 
-extension GlassRoomAttachmentModifiable {
+public extension GlassRoomAttachmentModifiable {
     static func modifyAttachments(
         params: ModifyAttachmentPathParameters,
         query: ModifyAttachmentQueryParameters,
@@ -143,7 +143,7 @@ extension GlassRoomAttachmentModifiable {
     }
 }
 
-extension GlassRoomReclaimable {
+public extension GlassRoomReclaimable {
     static func reclaimSubmission(
         params: ReclaimPathParameters,
         query: ReclaimQueryParameters,
@@ -160,7 +160,7 @@ extension GlassRoomReclaimable {
     }
 }
 
-extension GlassRoomReturnable {
+public extension GlassRoomReturnable {
     static func returnSubmission(
         params: ReturnPathParameters,
         query: ReturnQueryParameters,
@@ -177,7 +177,7 @@ extension GlassRoomReturnable {
     }
 }
 
-extension GlassRoomSubmittable {
+public extension GlassRoomSubmittable {
     static func turnInSubmission(
         params: TurnInPathParameters,
         query: TurnInQueryParameters,
@@ -194,7 +194,7 @@ extension GlassRoomSubmittable {
     }
 }
 
-extension GlassRoomAcceptable {
+public extension GlassRoomAcceptable {
     static func accept(
         params: AcceptPathParameters,
         query: AcceptQueryParameters,

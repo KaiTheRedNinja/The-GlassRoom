@@ -6,17 +6,17 @@
 //
 
 extension GlassRoomAPI.GRUserProfiles: GlassRoomGettable {
-    typealias GetPathParameters = UserProfilePathParameters
-    typealias GetQueryParameters = VoidStringCodable
-    typealias GetRequestData = VoidStringCodable
-    typealias GetResponseData = UserProfile
+    public typealias GetPathParameters = UserProfilePathParameters
+    public typealias GetQueryParameters = VoidStringCodable
+    public typealias GetRequestData = VoidStringCodable
+    public typealias GetResponseData = UserProfile
 
-    static var apiGettable: String = "https://classroom.googleapis.com/v1/userProfiles/{userId}"
+    public static var apiGettable: String = "https://classroom.googleapis.com/v1/userProfiles/{userId}"
 
-    struct UserProfilePathParameters: StringCodable {
-        var userId: String
+    public struct UserProfilePathParameters: StringCodable {
+        public var userId: String
 
-        func stringDictionaryEncoded() -> [String: String] {
+        public func stringDictionaryEncoded() -> [String: String] {
             ["userId": userId]
         }
     }

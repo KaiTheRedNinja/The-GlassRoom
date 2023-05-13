@@ -8,49 +8,49 @@
 import Foundation
 
 // Definitions of all the APIs. They're implemented in other files.
-enum GlassRoomAPI {
+public enum GlassRoomAPI {
     /**Requires `https://www.googleapis.com/auth/classroom.courses` scope**/
-    enum GRCourses: GlassRoomAPIProtocol {
+    public enum GRCourses: GlassRoomAPIProtocol {
         /**No additional scopes**/
-        enum GRAliases: GlassRoomAPIProtocol {}
+        public enum GRAliases: GlassRoomAPIProtocol {}
         /**Requires `https://www.googleapis.com/auth/classroom.announcements` scope**/
-        enum GRAnnouncements: GlassRoomAPIProtocol {}
+        public enum GRAnnouncements: GlassRoomAPIProtocol {}
         /**Requires `https://www.googleapis.com/auth/classroom.coursework.students` scope**/
-        enum GRCourseWork: GlassRoomAPIProtocol {
+        public enum GRCourseWork: GlassRoomAPIProtocol {
             /**Requires `https://www.googleapis.com/auth/classroom.coursework.students` scope**/
             @available(macOS, unavailable, message: "Not implemented yet")
-            enum GRStudentSubmissions: GlassRoomAPIProtocol {}
+            public enum GRStudentSubmissions: GlassRoomAPIProtocol {}
         }
         /**Requires `https://www.googleapis.com/auth/classroom.courseworkmaterials` scope**/
-        enum GRCourseWorkMaterials: GlassRoomAPIProtocol {}
+        public enum GRCourseWorkMaterials: GlassRoomAPIProtocol {}
         /**Requires `https://www.googleapis.com/auth/classroom.rosters` scope**/
-        enum GRStudents: GlassRoomAPIProtocol {}
+        public enum GRStudents: GlassRoomAPIProtocol {}
         /**Requires `https://www.googleapis.com/auth/classroom.rosters` scope**/
-        enum GRTeachers: GlassRoomAPIProtocol {}
+        public enum GRTeachers: GlassRoomAPIProtocol {}
         /**Requires `https://www.googleapis.com/auth/classroom.topics` scope**/
-        enum GRTopics: GlassRoomAPIProtocol {}
+        public enum GRTopics: GlassRoomAPIProtocol {}
     }
     /**Requires `https://www.googleapis.com/auth/classroom.rosters` scope**/
-    enum GRInvitations: GlassRoomAPIProtocol {}
+    public enum GRInvitations: GlassRoomAPIProtocol {}
     /**Requires `https://www.googleapis.com/auth/classroom.rosters` scope**/
-    enum GRUserProfiles: GlassRoomAPIProtocol {
+    public enum GRUserProfiles: GlassRoomAPIProtocol {
 
     // MARK: Unfinished APIs
         /**Requires `https://www.googleapis.com/auth/classroom.guardianlinks.students` scope**/
         @available(macOS, unavailable, message: "Not implemented yet")
-        enum GRGuardianInvitations: GlassRoomAPIProtocol {}
+        public enum GRGuardianInvitations: GlassRoomAPIProtocol {}
         /**Requires `https://www.googleapis.com/auth/classroom.guardianlinks.students` scope**/
         @available(macOS, unavailable, message: "Not implemented yet")
-        enum GRGuardians: GlassRoomAPIProtocol {}
+        public enum GRGuardians: GlassRoomAPIProtocol {}
     }
 
     /**Requires `https://www.googleapis.com/auth/classroom.push-notifications` scope**/
     @available(macOS, unavailable, message: "Not implemented yet")
-    enum GRRegistrations: GlassRoomAPIProtocol {}
+    public enum GRRegistrations: GlassRoomAPIProtocol {}
 }
 
-struct VoidStringCodable: StringCodable, Codable {
-    func stringDictionaryEncoded() -> [String : String] { [:] }
+public struct VoidStringCodable: StringCodable, Codable {
+    public func stringDictionaryEncoded() -> [String : String] { [:] }
 }
 
 // Required scopes:

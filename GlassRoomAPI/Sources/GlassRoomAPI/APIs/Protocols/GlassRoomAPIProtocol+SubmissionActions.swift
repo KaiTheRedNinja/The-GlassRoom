@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol GlassRoomReclaimable: GlassRoomAPIProtocol {
+public protocol GlassRoomReclaimable: GlassRoomAPIProtocol {
     associatedtype ReclaimPathParameters: StringCodable
     associatedtype ReclaimQueryParameters: StringCodable
     associatedtype ReclaimRequestData: Codable
@@ -21,7 +21,7 @@ protocol GlassRoomReclaimable: GlassRoomAPIProtocol {
     )
 }
 
-protocol GlassRoomReturnable: GlassRoomAPIProtocol {
+public protocol GlassRoomReturnable: GlassRoomAPIProtocol {
     associatedtype ReturnPathParameters: StringCodable
     associatedtype ReturnQueryParameters: StringCodable
     associatedtype ReturnRequestData: Codable
@@ -35,7 +35,7 @@ protocol GlassRoomReturnable: GlassRoomAPIProtocol {
     )
 }
 
-protocol GlassRoomSubmittable: GlassRoomAPIProtocol {
+public protocol GlassRoomSubmittable: GlassRoomAPIProtocol {
     associatedtype TurnInPathParameters: StringCodable
     associatedtype TurnInQueryParameters: StringCodable
     associatedtype TurnInRequestData: Codable
@@ -49,7 +49,7 @@ protocol GlassRoomSubmittable: GlassRoomAPIProtocol {
     )
 }
 
-protocol GlassRoomAcceptable: GlassRoomAPIProtocol {
+public protocol GlassRoomAcceptable: GlassRoomAPIProtocol {
     associatedtype AcceptPathParameters: StringCodable
     associatedtype AcceptQueryParameters: StringCodable
     associatedtype AcceptRequestData: Codable

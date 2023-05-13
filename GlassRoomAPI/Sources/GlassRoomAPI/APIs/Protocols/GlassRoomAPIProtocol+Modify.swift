@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol GlassRoomAssigneeModifiable: GlassRoomAPIProtocol {
+public protocol GlassRoomAssigneeModifiable: GlassRoomAPIProtocol {
     associatedtype ModifyAssigneePathParameters: StringCodable
     associatedtype ModifyAssigneeQueryParameters: StringCodable
     associatedtype ModifyAssigneeRequestData: Codable
@@ -21,7 +21,7 @@ protocol GlassRoomAssigneeModifiable: GlassRoomAPIProtocol {
     )
 }
 
-protocol GlassRoomAttachmentModifiable: GlassRoomAPIProtocol {
+public protocol GlassRoomAttachmentModifiable: GlassRoomAPIProtocol {
     associatedtype ModifyAttachmentPathParameters: StringCodable
     associatedtype ModifyAttachmentQueryParameters: StringCodable
     associatedtype ModifyAttachmentRequestData: Codable

@@ -9,53 +9,53 @@ extension GlassRoomAPI.GRCourses.GRAnnouncements: GlassRoomCreatableDeletable,
                                                   GlassRoomGettableListable,
                                                   GlassRoomAssigneeModifiable,
                                                   GlassRoomPatchable {
-    typealias CreatePathParameters = CourseIDPathParameters
-    typealias CreateQueryParameters = VoidStringCodable
-    typealias CreateRequestData = CourseAnnouncement
-    typealias CreateResponseData = CourseAnnouncement
+    public typealias CreatePathParameters = CourseIDPathParameters
+    public typealias CreateQueryParameters = VoidStringCodable
+    public typealias CreateRequestData = CourseAnnouncement
+    public typealias CreateResponseData = CourseAnnouncement
 
-    static var apiCreatable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements"
+    public static var apiCreatable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements"
 
-    typealias DeletePathParameters = CourseIDAnnouncementPathParameters
-    typealias DeleteQueryParameters = VoidStringCodable
-    typealias DeleteRequestData = VoidStringCodable
-    typealias DeleteResponseData = VoidStringCodable
+    public typealias DeletePathParameters = CourseIDAnnouncementPathParameters
+    public typealias DeleteQueryParameters = VoidStringCodable
+    public typealias DeleteRequestData = VoidStringCodable
+    public typealias DeleteResponseData = VoidStringCodable
 
-    static var apiDeletable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements/{id}"
+    public static var apiDeletable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements/{id}"
 
-    typealias GetPathParameters = CourseIDAnnouncementPathParameters
-    typealias GetQueryParameters = VoidStringCodable
-    typealias GetRequestData = VoidStringCodable
-    typealias GetResponseData = CourseAnnouncement
+    public typealias GetPathParameters = CourseIDAnnouncementPathParameters
+    public typealias GetQueryParameters = VoidStringCodable
+    public typealias GetRequestData = VoidStringCodable
+    public typealias GetResponseData = CourseAnnouncement
 
-    static var apiGettable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements/{id}"
+    public static var apiGettable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements/{id}"
 
-    typealias ListPathParameters = CourseIDPathParameters
-    typealias ListQueryParameters = ListableQueryParameters
-    typealias ListRequestData = VoidStringCodable
-    typealias ListResponseData = ListableResponseData
+    public typealias ListPathParameters = CourseIDPathParameters
+    public typealias ListQueryParameters = ListableQueryParameters
+    public typealias ListRequestData = VoidStringCodable
+    public typealias ListResponseData = ListableResponseData
 
-    static var apiListable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements/"
+    public static var apiListable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements/"
 
-    typealias ModifyAssigneePathParameters = CourseIDAnnouncementPathParameters
-    typealias ModifyAssigneeQueryParameters = VoidStringCodable
-    typealias ModifyAssigneeRequestData = AssigneeModifiableRequestData
-    typealias ModifyAssigneeResponseData = CourseAnnouncement
+    public typealias ModifyAssigneePathParameters = CourseIDAnnouncementPathParameters
+    public typealias ModifyAssigneeQueryParameters = VoidStringCodable
+    public typealias ModifyAssigneeRequestData = AssigneeModifiableRequestData
+    public typealias ModifyAssigneeResponseData = CourseAnnouncement
 
-    static var apiAssigneeModifiable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements/{id}:modifyAssignees"
+    public static var apiAssigneeModifiable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements/{id}:modifyAssignees"
 
-    typealias PatchPathParameters = CourseIDAnnouncementPathParameters
-    typealias PatchQueryParameters = PatchableQueryParameters
-    typealias PatchRequestData = CourseAnnouncement
-    typealias PatchResponseData = CourseAnnouncement
+    public typealias PatchPathParameters = CourseIDAnnouncementPathParameters
+    public typealias PatchQueryParameters = PatchableQueryParameters
+    public typealias PatchRequestData = CourseAnnouncement
+    public typealias PatchResponseData = CourseAnnouncement
 
-    static var apiPatchable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements/{id}"
+    public static var apiPatchable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/announcements/{id}"
 
-    struct CourseIDAnnouncementPathParameters: StringCodable {
-        var courseId: String
-        var id: String
+    public struct CourseIDAnnouncementPathParameters: StringCodable {
+        public var courseId: String
+        public var id: String
 
-        func stringDictionaryEncoded() -> [String: String] {
+        public func stringDictionaryEncoded() -> [String: String] {
             [
                 "courseId": courseId,
                 "id": id
@@ -63,13 +63,13 @@ extension GlassRoomAPI.GRCourses.GRAnnouncements: GlassRoomCreatableDeletable,
         }
     }
 
-    struct ListableQueryParameters: StringCodable {
-        var announcementStates: [AnnouncementState]?
-        var orderBy: String?
-        var pageSize: Int?
-        var pageToken: String?
+    public struct ListableQueryParameters: StringCodable {
+        public var announcementStates: [AnnouncementState]?
+        public var orderBy: String?
+        public var pageSize: Int?
+        public var pageToken: String?
 
-        func stringDictionaryEncoded() -> [String: String] {
+        public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
             if let announcementStates { dict["announcementStates"] = announcementStates.description } // TODO: Check this
             if let orderBy { dict["orderBy"] = orderBy }
@@ -79,21 +79,21 @@ extension GlassRoomAPI.GRCourses.GRAnnouncements: GlassRoomCreatableDeletable,
         }
     }
 
-    struct ListableResponseData: Codable {
-        var announcements: [CourseAnnouncement]
-        var nextPageToken: String
+    public struct ListableResponseData: Codable {
+        public var announcements: [CourseAnnouncement]
+        public var nextPageToken: String
     }
 
-    struct AssigneeModifiableRequestData: Codable {
-        var assigneeMode: AssigneeMode
-        var modifyIndividualStudentsOptions: ModifyIndividualStudentsOptions
+    public struct AssigneeModifiableRequestData: Codable {
+        public var assigneeMode: AssigneeMode
+        public var modifyIndividualStudentsOptions: ModifyIndividualStudentsOptions
     }
 
-    struct PatchableQueryParameters: StringCodable {
+    public struct PatchableQueryParameters: StringCodable {
         /// Only the following are valid: `text`, `state`, `scheduledTime`
-        var updateMask: [String]
+        public var updateMask: [String]
 
-        func stringDictionaryEncoded() -> [String: String] {
+        public func stringDictionaryEncoded() -> [String: String] {
             ["updateMask": updateMask.joined(separator: ",")]
         }
     }

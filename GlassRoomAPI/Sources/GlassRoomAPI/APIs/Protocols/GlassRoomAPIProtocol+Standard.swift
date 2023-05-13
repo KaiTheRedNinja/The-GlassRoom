@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol GlassRoomCreatable: GlassRoomAPIProtocol {
+public protocol GlassRoomCreatable: GlassRoomAPIProtocol {
     associatedtype CreatePathParameters: StringCodable
     associatedtype CreateQueryParameters: StringCodable
     associatedtype CreateRequestData: Codable
@@ -21,7 +21,7 @@ protocol GlassRoomCreatable: GlassRoomAPIProtocol {
     )
 }
 
-protocol GlassRoomDeletable: GlassRoomAPIProtocol {
+public protocol GlassRoomDeletable: GlassRoomAPIProtocol {
     associatedtype DeletePathParameters: StringCodable
     associatedtype DeleteQueryParameters: StringCodable
     associatedtype DeleteRequestData: Codable
@@ -35,7 +35,7 @@ protocol GlassRoomDeletable: GlassRoomAPIProtocol {
     )
 }
 
-protocol GlassRoomGettable: GlassRoomAPIProtocol {
+public protocol GlassRoomGettable: GlassRoomAPIProtocol {
     associatedtype GetPathParameters: StringCodable
     associatedtype GetQueryParameters: StringCodable
     associatedtype GetRequestData: Codable
@@ -49,7 +49,7 @@ protocol GlassRoomGettable: GlassRoomAPIProtocol {
     )
 }
 
-protocol GlassRoomListable: GlassRoomAPIProtocol {
+public protocol GlassRoomListable: GlassRoomAPIProtocol {
     associatedtype ListPathParameters: StringCodable
     associatedtype ListQueryParameters: StringCodable
     associatedtype ListRequestData: Codable
@@ -63,7 +63,7 @@ protocol GlassRoomListable: GlassRoomAPIProtocol {
     )
 }
 
-protocol GlassRoomPatchable: GlassRoomAPIProtocol {
+public protocol GlassRoomPatchable: GlassRoomAPIProtocol {
     associatedtype PatchPathParameters: StringCodable
     associatedtype PatchQueryParameters: StringCodable
     associatedtype PatchRequestData: Codable
@@ -77,7 +77,7 @@ protocol GlassRoomPatchable: GlassRoomAPIProtocol {
     )
 }
 
-protocol GlassRoomUpdatable: GlassRoomAPIProtocol {
+public protocol GlassRoomUpdatable: GlassRoomAPIProtocol {
     associatedtype UpdatePathParameters: StringCodable
     associatedtype UpdateQueryParameters: StringCodable
     associatedtype UpdateRequestData: Codable

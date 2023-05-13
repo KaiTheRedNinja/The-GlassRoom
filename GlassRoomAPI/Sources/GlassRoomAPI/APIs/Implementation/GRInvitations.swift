@@ -8,51 +8,51 @@
 extension GlassRoomAPI.GRInvitations: GlassRoomAcceptable,
                                       GlassRoomCreatableDeletable,
                                       GlassRoomGettableListable {
-    typealias AcceptPathParameters = InvitationIDPathParameter
-    typealias AcceptQueryParameters = VoidStringCodable
-    typealias AcceptRequestData = VoidStringCodable
-    typealias AcceptResponseData = VoidStringCodable
-    static var apiAcceptable: String = "https://classroom.googleapis.com/v1/invitations/{id}:accept"
+    public typealias AcceptPathParameters = InvitationIDPathParameter
+    public typealias AcceptQueryParameters = VoidStringCodable
+    public typealias AcceptRequestData = VoidStringCodable
+    public typealias AcceptResponseData = VoidStringCodable
+    public static var apiAcceptable: String = "https://classroom.googleapis.com/v1/invitations/{id}:accept"
 
-    typealias CreatePathParameters = VoidStringCodable
-    typealias CreateQueryParameters = VoidStringCodable
-    typealias CreateRequestData = Invitation
-    typealias CreateResponseData = Invitation
-    static var apiCreatable: String = "https://classroom.googleapis.com/v1/invitations"
+    public typealias CreatePathParameters = VoidStringCodable
+    public typealias CreateQueryParameters = VoidStringCodable
+    public typealias CreateRequestData = Invitation
+    public typealias CreateResponseData = Invitation
+    public static var apiCreatable: String = "https://classroom.googleapis.com/v1/invitations"
 
-    typealias DeletePathParameters = InvitationIDPathParameter
-    typealias DeleteQueryParameters = VoidStringCodable
-    typealias DeleteRequestData = VoidStringCodable
-    typealias DeleteResponseData = VoidStringCodable
-    static var apiDeletable: String = "https://classroom.googleapis.com/v1/invitations/{id}"
+    public typealias DeletePathParameters = InvitationIDPathParameter
+    public typealias DeleteQueryParameters = VoidStringCodable
+    public typealias DeleteRequestData = VoidStringCodable
+    public typealias DeleteResponseData = VoidStringCodable
+    public static var apiDeletable: String = "https://classroom.googleapis.com/v1/invitations/{id}"
 
-    typealias GetPathParameters = InvitationIDPathParameter
-    typealias GetQueryParameters = VoidStringCodable
-    typealias GetRequestData = VoidStringCodable
-    typealias GetResponseData = Invitation
-    static var apiGettable: String = "https://classroom.googleapis.com/v1/invitations/{id}"
+    public typealias GetPathParameters = InvitationIDPathParameter
+    public typealias GetQueryParameters = VoidStringCodable
+    public typealias GetRequestData = VoidStringCodable
+    public typealias GetResponseData = Invitation
+    public static var apiGettable: String = "https://classroom.googleapis.com/v1/invitations/{id}"
 
-    typealias ListPathParameters = VoidStringCodable
-    typealias ListQueryParameters = ListableQueryParameters
-    typealias ListRequestData = VoidStringCodable
-    typealias ListResponseData = ListableResponseData
-    static var apiListable: String = "https://classroom.googleapis.com/v1/invitations"
+    public typealias ListPathParameters = VoidStringCodable
+    public typealias ListQueryParameters = ListableQueryParameters
+    public typealias ListRequestData = VoidStringCodable
+    public typealias ListResponseData = ListableResponseData
+    public static var apiListable: String = "https://classroom.googleapis.com/v1/invitations"
 
-    struct InvitationIDPathParameter: StringCodable {
-        var id: String
+    public struct InvitationIDPathParameter: StringCodable {
+        public var id: String
 
-        func stringDictionaryEncoded() -> [String : String] {
+        public func stringDictionaryEncoded() -> [String : String] {
             ["id": id]
         }
     }
 
-    struct ListableQueryParameters: StringCodable {
-        var userId: String?
-        var courseId: String?
-        var pageSize: Int?
-        var pageToken: String?
+    public struct ListableQueryParameters: StringCodable {
+        public var userId: String?
+        public var courseId: String?
+        public var pageSize: Int?
+        public var pageToken: String?
 
-        func stringDictionaryEncoded() -> [String: String] {
+        public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
             if let userId { dict["userId"] = userId }
             if let courseId { dict["courseId"] = courseId }
@@ -62,8 +62,8 @@ extension GlassRoomAPI.GRInvitations: GlassRoomAcceptable,
         }
     }
 
-    struct ListableResponseData: Codable {
-        var invitations: [Invitation]
-        var nextPageToken: String
+    public struct ListableResponseData: Codable {
+        public var invitations: [Invitation]
+        public var nextPageToken: String
     }
 }

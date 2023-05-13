@@ -9,46 +9,46 @@ extension GlassRoomAPI.GRCourses.GRCourseWorkMaterials: GlassRoomCreatableDeleta
                                                         GlassRoomGettableListable,
                                                         GlassRoomPatchable {
 
-    typealias CreatePathParameters = CourseIDPathParameters
-    typealias CreateQueryParameters = VoidStringCodable
-    typealias CreateRequestData = CourseWorkMaterial
-    typealias CreateResponseData = CourseWorkMaterial
+    public typealias CreatePathParameters = CourseIDPathParameters
+    public typealias CreateQueryParameters = VoidStringCodable
+    public typealias CreateRequestData = CourseWorkMaterial
+    public typealias CreateResponseData = CourseWorkMaterial
 
-    static var apiCreatable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/courseWorkMaterials/{id}"
+    public static var apiCreatable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/courseWorkMaterials/{id}"
 
-    typealias DeletePathParameters = CourseIDCourseWorkMaterialsPathParameters
-    typealias DeleteQueryParameters = VoidStringCodable
-    typealias DeleteRequestData = VoidStringCodable
-    typealias DeleteResponseData = VoidStringCodable
+    public typealias DeletePathParameters = CourseIDCourseWorkMaterialsPathParameters
+    public typealias DeleteQueryParameters = VoidStringCodable
+    public typealias DeleteRequestData = VoidStringCodable
+    public typealias DeleteResponseData = VoidStringCodable
 
-    static var apiDeletable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/courseWorkMaterials/{id}"
+    public static var apiDeletable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/courseWorkMaterials/{id}"
 
-    typealias GetPathParameters = CourseIDCourseWorkMaterialsPathParameters
-    typealias GetQueryParameters = VoidStringCodable
-    typealias GetRequestData = VoidStringCodable
-    typealias GetResponseData = CourseWorkMaterial
+    public typealias GetPathParameters = CourseIDCourseWorkMaterialsPathParameters
+    public typealias GetQueryParameters = VoidStringCodable
+    public typealias GetRequestData = VoidStringCodable
+    public typealias GetResponseData = CourseWorkMaterial
 
-    static var apiGettable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/courseWorkMaterials/{id}"
+    public static var apiGettable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/courseWorkMaterials/{id}"
 
-    typealias ListPathParameters = CourseIDPathParameters
-    typealias ListQueryParameters = ListableQueryParameters
-    typealias ListRequestData = VoidStringCodable
-    typealias ListResponseData = ListableResponseData
+    public typealias ListPathParameters = CourseIDPathParameters
+    public typealias ListQueryParameters = ListableQueryParameters
+    public typealias ListRequestData = VoidStringCodable
+    public typealias ListResponseData = ListableResponseData
 
-    static var apiListable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/courseWorkMaterials"
+    public static var apiListable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/courseWorkMaterials"
 
-    typealias PatchPathParameters = CourseIDCourseWorkMaterialsPathParameters
-    typealias PatchQueryParameters = PatchableQueryParameters
-    typealias PatchRequestData = CourseWorkMaterial
-    typealias PatchResponseData = CourseWorkMaterial
+    public typealias PatchPathParameters = CourseIDCourseWorkMaterialsPathParameters
+    public typealias PatchQueryParameters = PatchableQueryParameters
+    public typealias PatchRequestData = CourseWorkMaterial
+    public typealias PatchResponseData = CourseWorkMaterial
 
-    static var apiPatchable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/courseWorkMaterials/{id}"
+    public static var apiPatchable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/courseWorkMaterials/{id}"
 
-    struct CourseIDCourseWorkMaterialsPathParameters: StringCodable {
-        var courseId: String
-        var id: String
+    public struct CourseIDCourseWorkMaterialsPathParameters: StringCodable {
+        public var courseId: String
+        public var id: String
 
-        func stringDictionaryEncoded() -> [String: String] {
+        public func stringDictionaryEncoded() -> [String: String] {
             [
                 "courseId": courseId,
                 "id": id
@@ -56,15 +56,15 @@ extension GlassRoomAPI.GRCourses.GRCourseWorkMaterials: GlassRoomCreatableDeleta
         }
     }
 
-    struct ListableQueryParameters: StringCodable {
-        var courseWorkMaterialStates: [CourseWorkMaterialState]?
-        var orderBy: String?
-        var pageSize: Int?
-        var pageToken: String?
-        var materialLink: String?
-        var materialDriveId: String?
+    public struct ListableQueryParameters: StringCodable {
+        public var courseWorkMaterialStates: [CourseWorkMaterialState]?
+        public var orderBy: String?
+        public var pageSize: Int?
+        public var pageToken: String?
+        public var materialLink: String?
+        public var materialDriveId: String?
 
-        func stringDictionaryEncoded() -> [String: String] {
+        public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
             if let courseWorkMaterialStates { dict["courseWorkMaterialStates"] = courseWorkMaterialStates.description } // TODO: Check this
             if let orderBy { dict["orderBy"] = orderBy }
@@ -76,16 +76,16 @@ extension GlassRoomAPI.GRCourses.GRCourseWorkMaterials: GlassRoomCreatableDeleta
         }
     }
 
-    struct ListableResponseData: Codable {
-        var courseWorkMaterial: [CourseWorkMaterial]
-        var nextPageToken: String
+    public struct ListableResponseData: Codable {
+        public var courseWorkMaterial: [CourseWorkMaterial]
+        public var nextPageToken: String
     }
 
-    struct PatchableQueryParameters: StringCodable {
+    public struct PatchableQueryParameters: StringCodable {
         /// Only the following are valid: `title`, `description`, `state`, `scheduledTime`, `topicId`
-        var updateMask: [String]
+        public var updateMask: [String]
 
-        func stringDictionaryEncoded() -> [String: String] {
+        public func stringDictionaryEncoded() -> [String: String] {
             ["updateMask": updateMask.joined(separator: ",")]
         }
     }

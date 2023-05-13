@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol GlassRoomAPIProtocol {}
+public protocol GlassRoomAPIProtocol {}
 
-protocol GlassRoomCreatableDeletable: GlassRoomCreatable, GlassRoomDeletable {}
-protocol GlassRoomGettableListable: GlassRoomGettable, GlassRoomListable {}
-protocol GlassRoomDeliverable: GlassRoomReclaimable, GlassRoomReturnable, GlassRoomSubmittable {}
+public protocol GlassRoomCreatableDeletable: GlassRoomCreatable, GlassRoomDeletable {}
+public protocol GlassRoomGettableListable: GlassRoomGettable, GlassRoomListable {}
+public protocol GlassRoomDeliverable: GlassRoomReclaimable, GlassRoomReturnable, GlassRoomSubmittable {}
 
 /// Like Codable but to `[String: String]`
-protocol StringCodable {
+public protocol StringCodable {
     func stringDictionaryEncoded() -> [String: String]
 }

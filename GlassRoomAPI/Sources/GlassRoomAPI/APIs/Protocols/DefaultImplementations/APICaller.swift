@@ -8,7 +8,7 @@
 import Foundation
 
 enum APISecretManager {
-    static var apiKey: String = ""
+    public static var apiKey: String = ""
 }
 
 enum APICaller<ResponseData: Decodable> {
