@@ -11,15 +11,15 @@ public struct CourseWork: Codable {
     public var courseId: String
     public var id: String
     public var title: String
-    public var description: String
+    public var description: String?
     public var materials: [AssignmentMaterial]
     public var state: CourseWorkState
     public var alternateLink: String
     public var creationTime: String
     public var updateTime: String
-    public var dueDate: DueDate
-    public var dueTime: TimeOfDay
-    public var scheduledTime: String
+    public var dueDate: DueDate?
+    public var dueTime: TimeOfDay?
+    public var scheduledTime: String?
     public var maxPoints: Double
     public var workType: CourseWorkType
     public var associatedWithDeveloper: Bool
