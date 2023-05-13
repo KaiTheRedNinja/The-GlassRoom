@@ -10,13 +10,12 @@ import GlassRoomAPI
 
 struct SidebarView: View {
     @Binding var selection: Course?
-
-    @State var courses: [Course] = []
+    @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
 
     var body: some View {
         List {
-            ForEach(0..<courses.count, id: \.self) { index in
-                let course = courses[index]
+            ForEach(0..<coursesManager.courses.count, id: \.self) { index in
+                let course = coursesManager.courses[index]
                 VStack(alignment: .leading) {
                     Text(course.name)
                     if let description = course.description {
@@ -25,24 +24,24 @@ struct SidebarView: View {
                 }
             }
         }
-        .onAppear {
-            GlassRoomAPI.GRCourses.list(
-                params: VoidStringCodable(),
-                query: .init(studentId: nil,
-                             teacherId: nil,
-                             courseStates: nil,
-                             pageSize: nil,
-                             pageToken: nil),
-                data: VoidStringCodable()
-            ) { response in
-                switch response {
-                case .success(let success):
-                    print("Success! \(success)")
-                    self.courses = success.courses
-                case .failure(let failure):
-                    print("Failure: \(failure.localizedDescription)")
-                }
+        .overlay {
+            if coursesManager.courses.isEmpty {
+                Text("No Classes")
+                    .font(.title2)
+                    .foregroundColor(.secondary)
             }
+        }
+        .safeAreaInset(edge: .bottom) {
+            if coursesManager.loading {
+                ProgressView()
+                    .progressViewStyle(.linear)
+                    .frame(maxWidth: .infinity)
+                    .padding(10)
+            }
+        }
+        .onAppear {
+            guard coursesManager.courses.isEmpty else { return }
+            coursesManager.loadList()
         }
     }
 }
