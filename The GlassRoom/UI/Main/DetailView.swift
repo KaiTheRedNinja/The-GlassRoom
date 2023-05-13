@@ -63,8 +63,14 @@ struct DetailView: View {
             .padding(.all)
         } else {
             VStack {
-                Text("Course: \(selectedCourse?.name ?? "nothing")")
+//                Text("Course: \(selectedCourse?.name ?? "nothing")")
                 Text("No Post Selected")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .minimumScaleFactor(0.1)
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+                    .padding(.horizontal)
             }
         }
     }
