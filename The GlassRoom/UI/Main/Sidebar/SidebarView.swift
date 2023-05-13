@@ -19,9 +19,15 @@ struct SidebarView: View {
         )
         .overlay {
             if coursesManager.courses.isEmpty {
-                Text("No Classes")
-                    .font(.title2)
-                    .foregroundColor(.secondary)
+                VStack {
+                    Text("No Courses")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal)
+                        .minimumScaleFactor(0.1)
+                        .lineLimit(1)
+                }
             }
         }
         .safeAreaInset(edge: .bottom) {

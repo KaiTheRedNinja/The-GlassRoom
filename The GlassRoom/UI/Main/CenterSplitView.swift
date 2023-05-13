@@ -15,44 +15,56 @@ struct CenterSplitView: View {
     @ObservedObject var courseAnnouncementsManager: GlobalCourseAnnouncementsDataManager = .global
 
     var body: some View {
-        VStack {
-            List {
-                ForEach(courseAnnouncementsManager.courseAnnouncements, id: \.id) { announcement in
-                    Button {
-                        selectedPost = announcement
-                    } label: {
-                        VStack(alignment: .leading) {
-                            Text(announcement.text)
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .lineLimit(1)
-                            
-                            Text(announcement.creationTime)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+        if selectedCourse != nil {
+            VStack {
+                List {
+                    ForEach(courseAnnouncementsManager.courseAnnouncements, id: \.id) { announcement in
+                        Button {
+                            selectedPost = announcement
+                        } label: {
+                            VStack(alignment: .leading) {
+                                Text(announcement.text)
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                    .lineLimit(1)
+                                
+                                Text(announcement.creationTime)
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(5)
+                            .background(selectedPost?.id == announcement.id ? .blue : .clear)
+                            .cornerRadius(6)
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(5)
-                        .background(selectedPost?.id == announcement.id ? .blue : .clear)
-                        .cornerRadius(6)
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
             }
-        }
-        .safeAreaInset(edge: .bottom) {
-            if courseAnnouncementsManager.loading {
-                ProgressView()
-                    .progressViewStyle(.linear)
-                    .frame(maxWidth: .infinity)
-                    .padding(10)
+            .safeAreaInset(edge: .bottom) {
+                if courseAnnouncementsManager.loading {
+                    ProgressView()
+                        .progressViewStyle(.linear)
+                        .frame(maxWidth: .infinity)
+                        .padding(10)
+                }
             }
-        }
-        .onChange(of: selectedCourse) { _ in
-            reloadAnnouncements()
-        }
-        .onAppear {
-            reloadAnnouncements()
+            .onChange(of: selectedCourse) { _ in
+                reloadAnnouncements()
+            }
+            .onAppear {
+                reloadAnnouncements()
+            }
+        } else {
+            VStack {
+                Text("No Course Selected")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal)
+                    .minimumScaleFactor(0.1)
+                    .lineLimit(1)
+            }
         }
     }
     
