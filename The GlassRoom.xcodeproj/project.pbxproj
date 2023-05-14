@@ -34,6 +34,7 @@
 		93ACB23C2A10B04E0040C88E /* CourseCourseWorksDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB23B2A10B04E0040C88E /* CourseCourseWorksDataManager.swift */; };
 		93ACB23F2A10CAEF0040C88E /* CourseCourseWorksContentsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB23E2A10CAEF0040C88E /* CourseCourseWorksContentsListView.swift */; };
 		93ACB2432A10D0FF0040C88E /* CoursePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2422A10D0FF0040C88E /* CoursePost.swift */; };
+		93ACB2452A10D33B0040C88E /* CoursePostContentsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2442A10D33B0040C88E /* CoursePostContentsListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		93ACB23B2A10B04E0040C88E /* CourseCourseWorksDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCourseWorksDataManager.swift; sourceTree = "<group>"; };
 		93ACB23E2A10CAEF0040C88E /* CourseCourseWorksContentsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCourseWorksContentsListView.swift; sourceTree = "<group>"; };
 		93ACB2422A10D0FF0040C88E /* CoursePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePost.swift; sourceTree = "<group>"; };
+		93ACB2442A10D33B0040C88E /* CoursePostContentsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostContentsListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				93757D732A0F9AC50063AB67 /* CenterSplitView.swift */,
 				9373B0202A10647B00C8923B /* CourseAnnouncementsContentsListView.swift */,
 				93ACB23E2A10CAEF0040C88E /* CourseCourseWorksContentsListView.swift */,
+				93ACB2442A10D33B0040C88E /* CoursePostContentsListView.swift */,
 			);
 			path = Center;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				6AA058382A0FA9AB005A9BDB /* CourseAnnouncementsDataManager.swift in Sources */,
 				6AD9CEDA2A0CEA120078E5D3 /* MainView.swift in Sources */,
 				93757D742A0F9AC50063AB67 /* CenterSplitView.swift in Sources */,
+				93ACB2452A10D33B0040C88E /* CoursePostContentsListView.swift in Sources */,
 				937EA5BA2A0CD9F8005F11C5 /* The_GlassRoomApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

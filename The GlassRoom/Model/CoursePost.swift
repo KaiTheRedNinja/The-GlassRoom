@@ -21,6 +21,15 @@ enum CoursePost: Hashable, Identifiable {
         }
     }
 
+    var creationDate: Date {
+        switch self {
+        case .announcement(let courseAnnouncement):
+            return courseAnnouncement.creationDate
+        case .courseWork(let courseWork):
+            return courseWork.creationDate
+        }
+    }
+
     static func == (lhs: CoursePost, rhs: CoursePost) -> Bool {
         lhs.id == rhs.id
     }

@@ -35,8 +35,14 @@ struct CenterSplitView: View {
                     } else {
                         notImplementedYet
                     }
-                case .unified:
-                    notImplementedYet
+                case .allPosts:
+                    if let courseAnnouncementManager, let courseCourseWorksManager {
+                        CoursePostContentsListView(selectedPost: $selectedPost,
+                                                   courseAnnouncementsManager: courseAnnouncementManager,
+                                                   courseWorksManager: courseCourseWorksManager)
+                    } else {
+                        notImplementedYet
+                    }
                 }
             } else {
                 ZStack {
@@ -113,7 +119,7 @@ struct CenterSplitView: View {
     enum CourseDisplayOption: String, CaseIterable {
         case announcements = "Announcements"
         case courseWork = "Course Works"
-        case unified = "Unified"
+        case allPosts = "All Posts"
     }
 }
 
