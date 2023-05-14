@@ -68,41 +68,7 @@ struct CourseAnnouncementsContentsListView: View {
     var announcementsContent: some View {
         List {
             ForEach(courseAnnouncementsManager.courseAnnouncements, id: \.id) { announcement in
-                Button {
-                    selectedPost = .announcement(announcement)
-                } label: {
-                    VStack(alignment: .leading) {
-                        Text(announcement.text.replacingOccurrences(of: "\n", with: " "))
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .lineLimit(2)
-                        
-                        HStack {
-                            Image(systemName: "timer")
-                            
-                            Text(convertDate(announcement.creationTime, .long, .standard))
-                            
-                            if convertDate(announcement.updateTime) != convertDate(announcement.creationTime) {
-                                // updateTime and creationTime are not the same
-                                if convertDate(announcement.updateTime, .long, .omitted) == convertDate(announcement.creationTime, .long, .omitted) {
-                                    // updated on the same day, shows time instead
-                                    Text("(Edited \(convertDate(announcement.updateTime, .omitted, .standard)))")
-                                } else {
-                                    // updated on different day, shows day instead
-                                    Text("(Edited \(convertDate(announcement.updateTime, .abbreviated, .omitted)))")
-                                }
-                            }
-                        }
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(5)
-                    .background(selectedPost?.id == announcement.id ? .blue : .clear)
-                    .cornerRadius(6)
-                }
-                .buttonStyle(.plain)
-                .padding(.vertical, 2)
+                CoursePostItem(announcement: announcement, selectedPost: $selectedPost)
             }
             
             if let token = courseAnnouncementsManager.nextPageToken {

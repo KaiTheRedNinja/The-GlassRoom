@@ -73,11 +73,9 @@ struct CoursePostContentsListView: View {
             ForEach(postData, id: \.id) { post in
                 switch post {
                 case .announcement(let announcement):
-                    // TODO: Use proper announcement view
-                    Text("Announcement: \(announcement.id)")
+                    CoursePostItem(announcement: announcement, selectedPost: $selectedPost)
                 case .courseWork(let courseWork):
-                    // TODO: Use proper coursework view
-                    Text("Course Work: \(courseWork.id)")
+                    CoursePostItem(coursework: courseWork, selectedPost: $selectedPost)
                 }
             }
 
