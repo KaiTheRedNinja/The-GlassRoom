@@ -10,16 +10,19 @@ import Combine
 
 struct MultiCoursePostListView: View {
     @Binding var selectedPost: CoursePost?
+    @Binding var displayOption: CenterSplitView.CourseDisplayOption
     @State var updateFlag: Int
 
     @ObservedObject var announcementsManager: ObservableArray<CourseAnnouncementsDataManager>
     @ObservedObject var courseWorksManager: ObservableArray<CourseCourseWorksDataManager>
 
     init(selectedPost: Binding<CoursePost?>,
+         displayOption: Binding<CenterSplitView.CourseDisplayOption>,
          announcements: ObservableArray<CourseAnnouncementsDataManager>,
          courseWorks: ObservableArray<CourseCourseWorksDataManager>
     ) {
         self._selectedPost = selectedPost
+        self._displayOption = displayOption
         self.updateFlag = 0
         self.announcementsManager = announcements.observeChildrenChanges()
         self.courseWorksManager = courseWorks.observeChildrenChanges()
@@ -36,11 +39,21 @@ struct MultiCoursePostListView: View {
     }
 
     var postData: [CoursePost] {
-        // TODO: List of posts
-        var posts: [CoursePost] = announcementsManager.array.flatMap { $0.postData }
-        posts.mergeWith(other: courseWorksManager.array.flatMap { $0.postData },
-                        isSame: { $0.id == $1.id },
-                        isBefore: { $0.creationDate > $1.creationDate })
+        let announcements = announcementsManager.array.flatMap { $0.postData }
+        let courseWorks = courseWorksManager.array.flatMap { $0.postData }
+        var posts: [CoursePost] = []
+        if displayOption != .courseWork {
+            posts = announcements
+        }
+        if displayOption != .announcements {
+            if posts.isEmpty {
+                posts = courseWorks
+            } else {
+                posts.mergeWith(other: courseWorks,
+                                isSame: { $0.id == $1.id },
+                                isBefore: { $0.creationDate > $1.creationDate })
+            }
+        }
         return posts
     }
     var isEmpty: Bool { postData.isEmpty }
@@ -48,11 +61,15 @@ struct MultiCoursePostListView: View {
     var hasNextPage: Bool = false
 
     func loadList(bypassCache: Bool) {
-        for manager in announcementsManager.array {
-            manager.loadList(bypassCache: bypassCache)
+        if displayOption != .courseWork {
+            for manager in announcementsManager.array {
+                manager.loadList(bypassCache: bypassCache)
+            }
         }
-        for manager in courseWorksManager.array {
-            manager.loadList(bypassCache: bypassCache)
+        if displayOption != .announcements {
+            for manager in courseWorksManager.array {
+                manager.loadList(bypassCache: bypassCache)
+            }
         }
     }
     func refreshList() {

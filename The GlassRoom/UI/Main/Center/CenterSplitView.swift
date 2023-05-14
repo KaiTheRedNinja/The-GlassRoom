@@ -21,6 +21,7 @@ struct CenterSplitView: View {
         ZStack {
             if selectedCourse != nil {
                 MultiCoursePostListView(selectedPost: $selectedPost,
+                                        displayOption: $currentPage,
                                         announcements: .init(array: announcementManagers),
                                         courseWorks: .init(array: courseWorkManagers))
             } else {
@@ -85,12 +86,7 @@ struct CenterSplitView: View {
         guard let selectedCourse else { return [] }
         switch selectedCourse {
         case .course(_):
-            let announcementManagers = courseAnnouncementManager != nil ? [courseAnnouncementManager!] : []
-            if currentPage != .courseWork { // if its announcements or all, show announcements.
-                return announcementManagers
-            } else {
-                return []
-            }
+            return courseAnnouncementManager != nil ? [courseAnnouncementManager!] : []
         case .allTeaching, .allEnrolled:
             let courseType = selectedCourse == .allTeaching ? Course.CourseType.teaching : .enrolled
             let courses = GlobalCoursesDataManager.global.courses
@@ -105,12 +101,7 @@ struct CenterSplitView: View {
         guard let selectedCourse else { return [] }
         switch selectedCourse {
         case .course(_):
-            let courseWorkManagers = courseCourseWorksManager != nil ? [courseCourseWorksManager!] : []
-            if currentPage != .courseWork { // if its announcements or all, show announcements.
-                return courseWorkManagers
-            } else {
-                return []
-            }
+            return courseCourseWorksManager != nil ? [courseCourseWorksManager!] : []
         case .allTeaching, .allEnrolled:
             let courseType = selectedCourse == .allTeaching ? Course.CourseType.teaching : .enrolled
             let courses = GlobalCoursesDataManager.global.courses
