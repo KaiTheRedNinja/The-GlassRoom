@@ -58,26 +58,7 @@ struct CenterSplitView: View {
             }
         }
         .safeAreaInset(edge: .top) {
-            HStack(alignment: .center) {
-                SegmentedControl(.init(get: {
-                    switch currentPage {
-                    case .announcements: return 0
-                    case .courseWork: return 1
-                    case .allPosts: return 2
-                    }
-                }, set: { newValue in
-                    currentPage = .allCases[newValue]
-                }), options: CourseDisplayOption.allCases.map({ $0.rawValue }))
-            }
-            .padding(.horizontal, 5)
-            .frame(height: 25)
-            .frame(maxWidth: .infinity)
-            .background(.thinMaterial)
-            .overlay(alignment: .bottom) {
-                Divider()
-                    .offset(y: 1)
-            }
-            .padding(.bottom, -7)
+            CenterSplitViewToolbarTop(currentPage: $currentPage)
         }
         .onChange(of: selectedCourse) { _ in
             reloadAnnouncements()

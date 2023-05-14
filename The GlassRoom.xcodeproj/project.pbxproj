@@ -36,6 +36,7 @@
 		93ACB2432A10D0FF0040C88E /* CoursePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2422A10D0FF0040C88E /* CoursePost.swift */; };
 		93ACB2452A10D33B0040C88E /* CoursePostContentsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2442A10D33B0040C88E /* CoursePostContentsListView.swift */; };
 		93ACB2472A10D5C00040C88E /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2462A10D5C00040C88E /* SegmentedControl.swift */; };
+		93ACB2492A10D8930040C88E /* CenterSplitViewToolbarTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2482A10D8930040C88E /* CenterSplitViewToolbarTop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		93ACB2422A10D0FF0040C88E /* CoursePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePost.swift; sourceTree = "<group>"; };
 		93ACB2442A10D33B0040C88E /* CoursePostContentsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostContentsListView.swift; sourceTree = "<group>"; };
 		93ACB2462A10D5C00040C88E /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
+		93ACB2482A10D8930040C88E /* CenterSplitViewToolbarTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterSplitViewToolbarTop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				93757D732A0F9AC50063AB67 /* CenterSplitView.swift */,
+				93ACB2482A10D8930040C88E /* CenterSplitViewToolbarTop.swift */,
 				9373B0202A10647B00C8923B /* CourseAnnouncementsContentsListView.swift */,
 				93ACB23E2A10CAEF0040C88E /* CourseCourseWorksContentsListView.swift */,
 				93ACB2442A10D33B0040C88E /* CoursePostContentsListView.swift */,
@@ -333,6 +336,7 @@
 				93757D612A0E74500063AB67 /* UserAuthModel.swift in Sources */,
 				93757D722A0F9A240063AB67 /* SidebarView.swift in Sources */,
 				93ACB23F2A10CAEF0040C88E /* CourseCourseWorksContentsListView.swift in Sources */,
+				93ACB2492A10D8930040C88E /* CenterSplitViewToolbarTop.swift in Sources */,
 				93757D682A0E7D280063AB67 /* SignInView.swift in Sources */,
 				93757D7B2A0F9E6D0063AB67 /* FileManager.swift in Sources */,
 				93ACB23C2A10B04E0040C88E /* CourseCourseWorksDataManager.swift in Sources */,
