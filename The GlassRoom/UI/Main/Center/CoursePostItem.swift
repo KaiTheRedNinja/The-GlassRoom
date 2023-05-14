@@ -76,6 +76,7 @@ struct CoursePostItem: View {
             .lineLimit(2)
             .font(.subheadline)
             .foregroundColor(.secondary)
+            .offset(x: 1.5)
 
             if let dueDate = dueDate {
                 HStack {
@@ -88,6 +89,7 @@ struct CoursePostItem: View {
                 }
                 .font(.subheadline)
                 .foregroundColor(.secondary)
+                .offset(x: 1.5)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

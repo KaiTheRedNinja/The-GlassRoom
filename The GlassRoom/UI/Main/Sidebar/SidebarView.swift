@@ -66,8 +66,8 @@ struct CourseView: View {
 
     var body: some View {
         VStack {
+            let isLoaded = CourseAnnouncementsDataManager.loadedManagers.keys.contains(course.id)
             HStack {
-                let isLoaded = CourseAnnouncementsDataManager.loadedManagers.keys.contains(course.id)
                 Text(course.name)
                     .font(.system(.body, weight: isLoaded ? .semibold : .regular))
                     .lineLimit(1)
@@ -80,6 +80,7 @@ struct CourseView: View {
                         .font(.caption)
                         .multilineTextAlignment(.leading)
                         .lineLimit(2)
+                        .opacity(isLoaded ? 1 : 0.5)
                     Spacer()
                 }
             }
