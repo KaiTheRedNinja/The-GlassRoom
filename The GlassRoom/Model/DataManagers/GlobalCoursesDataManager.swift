@@ -56,17 +56,18 @@ class GlobalCoursesDataManager: ObservableObject {
         ) { response in
             switch response {
             case .success(let success):
+                self.courses.mergeWith(other: success.courses, isSame: { $0.id == $1.id }, isBefore: { $0.creationDate > $1.creationDate })
                 if let token = success.nextPageToken, requestNextPageIfExists {
                     self.refreshList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
                 } else {
                     DispatchQueue.main.async {
                         self.loading = false
-                        self.courses = success.courses
                         self.writeCache()
                     }
                 }
             case .failure(let failure):
                 print("Failure: \(failure.localizedDescription)")
+                self.loading = false
             }
         }
     }

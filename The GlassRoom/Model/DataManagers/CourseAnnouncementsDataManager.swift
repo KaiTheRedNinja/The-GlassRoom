@@ -11,6 +11,7 @@ import Foundation
 class CourseAnnouncementsDataManager: ObservableObject {
     @Published private(set) var courseAnnouncements: [CourseAnnouncement]
     @Published private(set) var loading: Bool = false
+    @Published private(set) var nextPageToken: String?
 
     let courseId: String
 
@@ -46,14 +47,12 @@ class CourseAnnouncementsDataManager: ObservableObject {
         FileSystem.write([CourseAnnouncement](), to: "\(courseId)_courseAnnouncements.json")
     }
 
-    // MARK: Private methods
-
     /// Loads the courses, possibly recursively.
     ///
     /// - Parameters:
     ///   - nextPageToken: The token from the previous page for pagnation
     ///   - requestNextPageIfExists: If the API request returns a nextPageToken and this value is true, it will recursively call itself to load all pages.
-    private func refreshList(nextPageToken: String? = nil, requestNextPageIfExists: Bool = false) {
+    func refreshList(nextPageToken: String? = nil, requestNextPageIfExists: Bool = false) {
         GlassRoomAPI.GRCourses.GRAnnouncements.list(params: .init(courseId: courseId),
                                                     query: .init(announcementStates: nil,
                                                                  orderBy: nil,
@@ -63,21 +62,24 @@ class CourseAnnouncementsDataManager: ObservableObject {
         ) { response in
             switch response {
             case .success(let success):
+                self.courseAnnouncements.append(contentsOf: success.announcements)
                 if let token = success.nextPageToken, requestNextPageIfExists {
                     self.refreshList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
                 } else {
+                    self.nextPageToken = success.nextPageToken
                     DispatchQueue.main.async {
                         self.loading = false
-                        self.courseAnnouncements = success.announcements
                         self.writeCache()
                     }
                 }
             case .failure(let failure):
                 print("Failure: \(failure.localizedDescription)")
+                self.loading = false
             }
         }
     }
 
+    // MARK: Private methods
     private func readCache() -> [CourseAnnouncement] {
         // if the file exists in CourseCache
         if FileSystem.exists(file: "\(courseId)_courseAnnouncements.json"),
