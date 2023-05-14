@@ -35,7 +35,7 @@ public struct Course: Codable, Equatable {
 }
 
 public extension Course {
-    public var creationDate: Date {
+    var creationDate: Date {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"

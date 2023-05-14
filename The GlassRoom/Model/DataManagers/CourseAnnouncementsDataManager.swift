@@ -62,12 +62,14 @@ class CourseAnnouncementsDataManager: ObservableObject {
         ) { response in
             switch response {
             case .success(let success):
-                self.courseAnnouncements.append(contentsOf: success.announcements)
+                self.courseAnnouncements.mergeWith(other: success.announcements,
+                                                   isSame: { $0.id == $1.id },
+                                                   isBefore: { $0.creationDate > $1.creationDate })
                 if let token = success.nextPageToken, requestNextPageIfExists {
                     self.refreshList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
                 } else {
-                    self.nextPageToken = success.nextPageToken
                     DispatchQueue.main.async {
+                        self.nextPageToken = success.nextPageToken
                         self.loading = false
                         self.writeCache()
                     }
