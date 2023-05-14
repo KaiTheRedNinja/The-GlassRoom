@@ -78,10 +78,13 @@ struct CoursePostListView: View {
                 switch post {
                 case .announcement(let announcement):
                     CoursePostItem(announcement: announcement)
+                        .padding(.vertical, 2.5)
                         .tag(CoursePost.announcement(announcement))
                 case .courseWork(let courseWork):
                     CoursePostItem(coursework: courseWork)
+                        .padding(.vertical, 2.5)
                         .tag(CoursePost.courseWork(courseWork))
+                    
                 }
             }
 
