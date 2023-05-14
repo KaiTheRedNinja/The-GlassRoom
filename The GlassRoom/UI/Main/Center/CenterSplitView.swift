@@ -59,13 +59,15 @@ struct CenterSplitView: View {
         }
         .safeAreaInset(edge: .top) {
             HStack(alignment: .center) {
-                Picker("Screen", selection: $currentPage) {
-                    ForEach(CourseDisplayOption.allCases, id: \.rawValue) { option in
-                        Text(option.rawValue)
-                            .tag(option)
+                SegmentedControl(.init(get: {
+                    switch currentPage {
+                    case .announcements: return 0
+                    case .courseWork: return 1
+                    case .allPosts: return 2
                     }
-                }
-                .pickerStyle(.menu)
+                }, set: { newValue in
+                    currentPage = .allCases[newValue]
+                }), options: CourseDisplayOption.allCases.map({ $0.rawValue }))
             }
             .padding(.horizontal, 5)
             .frame(height: 25)
@@ -73,6 +75,7 @@ struct CenterSplitView: View {
             .background(.thinMaterial)
             .overlay(alignment: .bottom) {
                 Divider()
+                    .offset(y: 1)
             }
             .padding(.bottom, -7)
         }
