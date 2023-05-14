@@ -9,7 +9,7 @@ import SwiftUI
 import GlassRoomAPI
 
 struct MainView: View {
-    @State var selectedCourse: Course?
+    @State var selectedCourse: GeneralCourse?
     @State var selectedPost: CoursePost?
     @State var showSearch: Bool = false
 

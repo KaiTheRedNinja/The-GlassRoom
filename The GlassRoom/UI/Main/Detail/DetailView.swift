@@ -11,7 +11,7 @@ import GlassRoomAPI
 import LinkPresentation
 
 struct DetailView: View {
-    @Binding var selectedCourse: Course?
+    @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
     
     var body: some View {

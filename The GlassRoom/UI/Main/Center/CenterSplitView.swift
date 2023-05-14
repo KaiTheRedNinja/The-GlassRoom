@@ -9,7 +9,7 @@ import SwiftUI
 import GlassRoomAPI
 
 struct CenterSplitView: View {
-    @Binding var selectedCourse: Course?
+    @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
 
     @State var courseAnnouncementManager: CourseAnnouncementsDataManager?
@@ -82,22 +82,24 @@ struct CenterSplitView: View {
     }
     
     func reloadAnnouncements() {
-        guard let selectedCourseId = selectedCourse?.id else {
-            self.courseAnnouncementManager = nil
-            return
-        }
-        let announcementManager = CourseAnnouncementsDataManager.getManager(for: selectedCourseId)
-        self.courseAnnouncementManager = announcementManager
-        if announcementManager.courseAnnouncements.isEmpty {
-            announcementManager.loadList(bypassCache: true)
-        }
-        let courseWorkManager = CourseCourseWorksDataManager.getManager(for: selectedCourseId)
-        self.courseCourseWorksManager = courseWorkManager
-        if courseWorkManager.courseWorks.isEmpty {
-            courseWorkManager.loadList(bypassCache: true)
-        }
+        guard let selectedCourse else { return }
+        switch selectedCourse {
+        case .course(let course):
+            let selectedCourseId = course.id
+            let announcementManager = CourseAnnouncementsDataManager.getManager(for: selectedCourseId)
+            self.courseAnnouncementManager = announcementManager
+            if announcementManager.courseAnnouncements.isEmpty {
+                announcementManager.loadList(bypassCache: true)
+            }
+            let courseWorkManager = CourseCourseWorksDataManager.getManager(for: selectedCourseId)
+            self.courseCourseWorksManager = courseWorkManager
+            if courseWorkManager.courseWorks.isEmpty {
+                courseWorkManager.loadList(bypassCache: true)
+            }
 
-        // TODO: Intelligently refresh
+            // TODO: Intelligently refresh
+        default: return
+        }
     }
 
     enum CourseDisplayOption: String, CaseIterable {

@@ -12,7 +12,7 @@ import GlassRoomAPI
 struct SidebarOutlineView: NSViewControllerRepresentable {
     typealias NSViewControllerType = SidebarOutlineViewController
 
-    @Binding var selectedCourse: Course?
+    @Binding var selectedCourse: GeneralCourse?
     var courses: [Course]
 
     func makeNSViewController(context: Context) -> SidebarOutlineViewController {

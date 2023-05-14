@@ -22,7 +22,7 @@ final class SidebarOutlineViewController: NSViewController {
     /// to open the file a second time.
     private var shouldSendSelectionUpdate: Bool = true
 
-    var selectedCourse: Binding<Course?>? = nil
+    var selectedCourse: Binding<GeneralCourse?>? = nil
     var courses: [Course] = []
 
     /// Setup the ``scrollView`` and ``outlineView``
@@ -116,13 +116,20 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
             return
         }
 
-        // go through the rows individually
-        for rowIndex in 0..<outlineView.numberOfRows {
-            guard let rowItem = outlineView.item(atRow: rowIndex) as? Course else { continue }
-            if rowItem.id == item.id {
-                outlineView.selectRowIndexes(.init(integer: rowIndex), byExtendingSelection: false)
-                return
+        switch item {
+        case .course(let course):
+            // go through the rows individually
+            for rowIndex in 0..<outlineView.numberOfRows {
+                guard let rowItem = outlineView.item(atRow: rowIndex) as? Course else { continue }
+                if rowItem.id == course.id {
+                    outlineView.selectRowIndexes(.init(integer: rowIndex), byExtendingSelection: false)
+                    return
+                }
             }
+        case .allTeaching, .allEnrolled:
+            let row = outlineView.row(forItem: item == .allTeaching ? Course.CourseType.teaching : .enrolled)
+            guard row >= 0 else { return }
+            outlineView.selectRowIndexes(.init(integer: row), byExtendingSelection: false)
         }
 
         // if nothing found, no match.
@@ -171,15 +178,25 @@ extension SidebarOutlineViewController: NSOutlineViewDelegate {
     }
 
     func outlineViewSelectionDidChange(_ notification: Notification) {
+        shouldSendSelectionUpdate = false
         let row = outlineView.selectedRow
         if row == -1 {
             selectedCourse?.wrappedValue = nil
         } else {
-            if let item = outlineView.item(atRow: row) as? Course {
-                selectedCourse?.wrappedValue = item
+            let item = outlineView.item(atRow: row)
+            if let item = item as? Course {
+                selectedCourse?.wrappedValue = .course(item)
+            } else if let item = item as? Course.CourseType {
+                switch item {
+                case .teaching: selectedCourse?.wrappedValue = .allTeaching
+                case .enrolled: selectedCourse?.wrappedValue = .allEnrolled
+                }
             } else {
                 selectedCourse?.wrappedValue = nil
             }
+        }
+        DispatchQueue.main.async {
+            self.shouldSendSelectionUpdate = true
         }
     }
 

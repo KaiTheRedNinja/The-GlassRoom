@@ -9,7 +9,7 @@ import SwiftUI
 import GlassRoomAPI
 
 struct SidebarView: View {
-    @Binding var selection: Course?
+    @Binding var selection: GeneralCourse?
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
 
     var body: some View {
@@ -57,6 +57,7 @@ struct CourseCategoryHeaderView: View {
             Spacer()
         }
         .padding(.horizontal, 5)
+        .disabled(true)
     }
 }
 

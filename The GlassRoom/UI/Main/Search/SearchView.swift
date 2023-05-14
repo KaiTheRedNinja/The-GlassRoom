@@ -11,7 +11,7 @@ import GlassRoomAPI
 struct SearchView: View {
     @SceneStorage("searchTerm") var searchTerm: String = ""
 
-    @Binding var selectedCourse: Course?
+    @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
 
     @State var selection: String?
@@ -71,7 +71,12 @@ struct SearchView: View {
     func open() {
         defer { presentationMode.wrappedValue.dismiss() }
         guard let selection else { return }
-        selectedCourse = courseManager.courses.first(where: { "course_" + $0.id == selection })
+        let firstMatch = courseManager.courses.first(where: { "course_" + $0.id == selection })
+        if let firstMatch {
+            selectedCourse = .course(firstMatch)
+        } else {
+            selectedCourse = nil
+        }
     }
 
     func changeSelection(by offset: Int) {
