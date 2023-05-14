@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6AA058382A0FA9AB005A9BDB /* CourseAnnouncementsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA058372A0FA9AB005A9BDB /* CourseAnnouncementsDataManager.swift */; };
 		6AA0583B2A0FEB90005A9BDB /* LinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA0583A2A0FEB90005A9BDB /* LinkPreview.swift */; };
+		6AD406D02A10B6B100343500 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD406CF2A10B6B100343500 /* SettingsView.swift */; };
 		6AD9CEDA2A0CEA120078E5D3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD9CED92A0CEA120078E5D3 /* MainView.swift */; };
 		9373B0212A10647B00C8923B /* CourseContentsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373B0202A10647B00C8923B /* CourseContentsListView.swift */; };
 		93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 93757D5C2A0E73DA0063AB67 /* GoogleSignIn */; };
@@ -36,7 +37,7 @@
 /* Begin PBXFileReference section */
 		6AA058372A0FA9AB005A9BDB /* CourseAnnouncementsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseAnnouncementsDataManager.swift; sourceTree = "<group>"; };
 		6AA0583A2A0FEB90005A9BDB /* LinkPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPreview.swift; sourceTree = "<group>"; };
-		6AD406C62A109BB500343500 /* CourseWorksDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWorksDataManager.swift; sourceTree = "<group>"; };
+		6AD406CF2A10B6B100343500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6AD9CED92A0CEA120078E5D3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		9373B0202A10647B00C8923B /* CourseContentsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseContentsListView.swift; sourceTree = "<group>"; };
 		93757D602A0E74500063AB67 /* UserAuthModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthModel.swift; sourceTree = "<group>"; };
@@ -84,11 +85,20 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		6AD406CE2A10B69200343500 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6AD406CF2A10B6B100343500 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		6AD9CED72A0CE9E70078E5D3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				6AA058392A0FEB80005A9BDB /* Components */,
 				6AD9CED82A0CE9FC0078E5D3 /* Main */,
+				6AD406CE2A10B69200343500 /* Settings */,
 				93757D672A0E7D280063AB67 /* SignInView.swift */,
 			);
 			path = UI;
@@ -306,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AD406D02A10B6B100343500 /* SettingsView.swift in Sources */,
 				6AA0583B2A0FEB90005A9BDB /* LinkPreview.swift in Sources */,
 				93ACB23A2A106F550040C88E /* SearchView.swift in Sources */,
 				93757D612A0E74500063AB67 /* UserAuthModel.swift in Sources */,
@@ -456,7 +467,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -467,7 +478,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -486,7 +497,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -497,7 +508,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

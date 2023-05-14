@@ -12,6 +12,12 @@ struct The_GlassRoomApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .focusable(false)
+        }
+        
+        Settings {
+            SettingsView()
+                .focusable(false)
         }
     }
 }

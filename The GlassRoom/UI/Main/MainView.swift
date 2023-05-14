@@ -34,9 +34,9 @@ struct MainView: View {
             .keyboardShortcut("O", modifiers: [.command, .shift])
             
             Button {
-                UserAuthModel.shared.signOut()
+                NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
             } label: {
-                Image(systemName: "eject")
+                Image(systemName: "gearshape")
             }
         }
     }

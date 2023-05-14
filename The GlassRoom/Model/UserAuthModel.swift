@@ -14,8 +14,11 @@ class UserAuthModel: ObservableObject {
 
     @Published var isLoggedIn: Bool?
     @Published var grantedScopes: [String] = []
-
+    
     @Published var givenName: String?
+    @Published var familyName: String?
+    @Published var fullName: String?
+    @Published var email: String?
     @Published var profilePicUrl: String?
     @Published var errorMessage: String?
     @Published var token: String? {
@@ -49,9 +52,16 @@ class UserAuthModel: ObservableObject {
             self.profilePicUrl = nil
             return
         }
+        
         let givenName = user.profile?.givenName
+        let familyName = user.profile?.familyName
+        let fullName = user.profile?.name
+        let email = user.profile?.email
         let profilePicUrl = user.profile!.imageURL(withDimension: 100)!.absoluteString
         self.givenName = givenName
+        self.familyName = familyName
+        self.fullName = fullName
+        self.email = email
         self.profilePicUrl = profilePicUrl
         self.isLoggedIn = true
         self.token = user.accessToken.tokenString

@@ -83,6 +83,7 @@ requires an internet connection to work.
             } label: {
                 Text("Sign in with Google")
             }
+            .keyboardShortcut(.defaultAction)
             Spacer()
         }
     }
@@ -117,11 +118,13 @@ requires an internet connection to work.
                 Button("Sign Out") {
                     userModel.signOut()
                 }
+                .keyboardShortcut(.cancelAction)
 
                 Button("Request Permissions") {
                     userModel.checkPermissions()
                 }
                 .buttonStyle(.borderedProminent)
+                .keyboardShortcut(.defaultAction)
             }
         }
         .padding(20)
