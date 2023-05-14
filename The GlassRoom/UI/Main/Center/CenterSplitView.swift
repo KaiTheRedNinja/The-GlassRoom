@@ -19,30 +19,42 @@ struct CenterSplitView: View {
 
     var body: some View {
         ZStack {
-            if selectedCourse != nil {
-                switch currentPage {
-                case .allPosts:
-                    if let courseAnnouncementManager, let courseCourseWorksManager {
-                        MultiCoursePostListView(selectedPost: $selectedPost,
-                                                announcements: .init(array: [courseAnnouncementManager]),
-                                                courseWorks: .init(array: [courseCourseWorksManager]))
-                    } else {
-                        notImplementedYet
+            if let selectedCourse {
+                switch selectedCourse {
+                case .course(_):
+                    switch currentPage {
+                    case .allPosts:
+                        if let courseAnnouncementManager, let courseCourseWorksManager {
+                            MultiCoursePostListView(selectedPost: $selectedPost,
+                                                    announcements: .init(array: [courseAnnouncementManager]),
+                                                    courseWorks: .init(array: [courseCourseWorksManager]))
+                        } else {
+                            notImplementedYet
+                        }
+                    case .announcements:
+                        if let courseAnnouncementManager {
+                            CourseAnnouncementsAdaptorView(selectedPost: $selectedPost,
+                                                           announcementManager: courseAnnouncementManager)
+                        } else {
+                            notImplementedYet
+                        }
+                    case .courseWork:
+                        if let courseCourseWorksManager {
+                            CourseCourseWorksAdaptorView(selectedPost: $selectedPost,
+                                                         courseWorksManager: courseCourseWorksManager)
+                        } else {
+                            notImplementedYet
+                        }
                     }
-                case .announcements:
-                    if let courseAnnouncementManager {
-                        CourseAnnouncementsAdaptorView(selectedPost: $selectedPost,
-                                                       announcementManager: courseAnnouncementManager)
-                    } else {
-                        notImplementedYet
-                    }
-                case .courseWork:
-                    if let courseCourseWorksManager {
-                        CourseCourseWorksAdaptorView(selectedPost: $selectedPost,
-                                                     courseWorksManager: courseCourseWorksManager)
-                    } else {
-                        notImplementedYet
-                    }
+                case .allTeaching:
+                    notImplementedYet
+                case .allEnrolled:
+                    // TODO: Filter out teaching stuff
+                    MultiCoursePostListView(
+                        selectedPost: $selectedPost,
+                        announcements: .init(array: Array(CourseAnnouncementsDataManager.loadedManagers.values)),
+                        courseWorks: .init(array: Array(CourseCourseWorksDataManager.loadedManagers.values))
+                    )
                 }
             } else {
                 ZStack {

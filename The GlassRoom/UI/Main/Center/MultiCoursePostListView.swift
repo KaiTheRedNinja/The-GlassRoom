@@ -77,7 +77,11 @@ class ObservableArray<T: PostDataSource>: ObservableObject {
     func observeChildrenChanges<T: ObservableObject>() -> ObservableArray<T> {
         let array2 = array as! [T]
         array2.forEach({
-            let c = $0.objectWillChange.sink(receiveValue: { _ in self.objectWillChange.send() })
+            let c = $0.objectWillChange.sink(receiveValue: { _ in
+                DispatchQueue.main.async {
+                    self.objectWillChange.send()
+                }
+            })
 
             // Important: You have to keep the returned value allocated,
             // otherwise the sink subscription gets cancelled

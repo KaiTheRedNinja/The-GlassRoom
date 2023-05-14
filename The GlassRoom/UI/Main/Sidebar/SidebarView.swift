@@ -67,8 +67,11 @@ struct CourseView: View {
     var body: some View {
         VStack {
             HStack {
+                let isLoaded = CourseAnnouncementsDataManager.loadedManagers.keys.contains(course.id)
                 Text(course.name)
+                    .font(.system(.body, weight: isLoaded ? .semibold : .regular))
                     .lineLimit(1)
+                    .opacity(isLoaded ? 1 : 0.5)
                 Spacer()
             }
             if let description = course.description {
