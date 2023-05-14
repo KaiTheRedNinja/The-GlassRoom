@@ -51,7 +51,7 @@ enum FileSystem {
     /// Gets the documents directory
     static func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        print("Documents directory at \(paths[0])")
+//        print("Documents directory at \(paths[0])")
         return paths[0]
     }
 }

@@ -167,18 +167,15 @@ extension SidebarOutlineViewController: NSOutlineViewDelegate {
             return contentView
         }
 
-        print("Item \(item) did not match CourseType or Course")
-        return nil // TODO: return the view
+        return nil
     }
 
     func outlineViewSelectionDidChange(_ notification: Notification) {
         let row = outlineView.selectedRow
-        print("Selection changed! \(row)")
         if row == -1 {
             selectedCourse?.wrappedValue = nil
         } else {
             if let item = outlineView.item(atRow: row) as? Course {
-                print("Changing wrapped value")
                 selectedCourse?.wrappedValue = item
             } else {
                 selectedCourse?.wrappedValue = nil

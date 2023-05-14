@@ -95,10 +95,7 @@ class UserAuthModel: ObservableObject {
         let grantedScopes = user.grantedScopes
         self.grantedScopes = user.grantedScopes ?? []
 
-        print("Granted scopes: \(self.grantedScopes)")
-
         if grantedScopes == nil || !hasNeededScopes() {
-            print("Requesting additional scopes")
             // Request additional scopes.
             if requestIfMissing {
                 requestPermissions()
@@ -130,7 +127,6 @@ class UserAuthModel: ObservableObject {
         // get the scopes that we don't have
         var requestingScopes: [String] = []
         requestingScopes = neededScopes.filter({ !grantedScopes.contains($0) })
-        print("Requesting scopes: \(requestingScopes)")
 
         user.addScopes(requestingScopes, presenting: presentingWindow) { signInResult, error in
             guard error == nil else { return }

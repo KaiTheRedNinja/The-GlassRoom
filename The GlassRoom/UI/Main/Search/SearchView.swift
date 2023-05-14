@@ -71,7 +71,6 @@ struct SearchView: View {
     func open() {
         defer { presentationMode.wrappedValue.dismiss() }
         guard let selection else { return }
-        print("Opening \(selection)")
         selectedCourse = courseManager.courses.first(where: { "course_" + $0.id == selection })
     }
 
@@ -80,7 +79,6 @@ struct SearchView: View {
         guard let selection,
               let selectedIndex = courses.firstIndex(where: { "course_" + $0.id == selection })
         else {
-            print("Nothing selected")
             if let firstCourse = courses.first?.id {
                 DispatchQueue.main.async {
                     self.selection = "course_" + firstCourse
