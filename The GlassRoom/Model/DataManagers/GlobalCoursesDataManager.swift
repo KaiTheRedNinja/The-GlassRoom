@@ -51,7 +51,7 @@ class GlobalCoursesDataManager: ObservableObject {
                          teacherId: nil,
                          courseStates: nil,
                          pageSize: nil,
-                         pageToken: nil),
+                         pageToken: nextPageToken),
             data: VoidStringCodable()
         ) { response in
             switch response {

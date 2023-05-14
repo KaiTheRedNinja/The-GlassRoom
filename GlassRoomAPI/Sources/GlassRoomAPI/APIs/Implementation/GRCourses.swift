@@ -115,8 +115,12 @@ public typealias CourseIDPathParameters = GlassRoomAPI.GRCourses.CourseIDPathPar
 public extension GlassRoomAPI.GRCourses {
     // not used within this file, but used in sub-apis.
     // functions similar to IDPathParameters but for sub-apis where its named differently.
-    struct CourseIDPathParameters: StringCodable {
+    public struct CourseIDPathParameters: StringCodable {
         public var courseId: String
+
+        public init(courseId: String) {
+            self.courseId = courseId
+        }
 
         public func stringDictionaryEncoded() -> [String : String] {
             ["courseId": courseId]

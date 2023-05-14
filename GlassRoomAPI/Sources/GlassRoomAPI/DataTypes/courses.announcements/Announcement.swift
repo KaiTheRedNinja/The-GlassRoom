@@ -22,7 +22,7 @@ public struct CourseAnnouncement: Codable { // Not called Announcement since tha
     public var creatorUserId: String
 }
 
-extension CourseAnnouncement {
+public extension CourseAnnouncement {
     var creationDate: Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
