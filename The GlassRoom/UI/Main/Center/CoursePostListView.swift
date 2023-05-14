@@ -91,33 +91,3 @@ struct CoursePostListView: View {
         }
     }
 }
-
-struct CourseAnnouncementsAdaptorView: View {
-    @Binding var selectedPost: CoursePost?
-    @ObservedObject var announcementManager: CourseAnnouncementsDataManager
-
-    var body: some View {
-        CoursePostListView(selectedPost: $selectedPost,
-                           postData: announcementManager.courseAnnouncements.map({ .announcement($0) }),
-                           isEmpty: announcementManager.courseAnnouncements.isEmpty,
-                           isLoading: announcementManager.loading,
-                           hasNextPage: announcementManager.nextPageToken != nil,
-                           loadList: announcementManager.loadList,
-                           refreshList: { announcementManager.refreshList() })
-    }
-}
-
-struct CourseCourseWorksAdaptorView: View {
-    @Binding var selectedPost: CoursePost?
-    @ObservedObject var courseWorksManager: CourseCourseWorksDataManager
-
-    var body: some View {
-        CoursePostListView(selectedPost: $selectedPost,
-                           postData: courseWorksManager.courseWorks.map({ .courseWork($0) }),
-                           isEmpty: courseWorksManager.courseWorks.isEmpty,
-                           isLoading: courseWorksManager.loading,
-                           hasNextPage: courseWorksManager.nextPageToken != nil,
-                           loadList: courseWorksManager.loadList,
-                           refreshList: { courseWorksManager.refreshList() })
-    }
-}

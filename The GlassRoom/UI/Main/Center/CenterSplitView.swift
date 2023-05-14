@@ -22,30 +22,11 @@ struct CenterSplitView: View {
             if let selectedCourse {
                 switch selectedCourse {
                 case .course(_):
-                    switch currentPage {
-                    case .allPosts:
-                        if let courseAnnouncementManager, let courseCourseWorksManager {
-                            MultiCoursePostListView(selectedPost: $selectedPost,
-                                                    announcements: .init(array: [courseAnnouncementManager]),
-                                                    courseWorks: .init(array: [courseCourseWorksManager]))
-                        } else {
-                            notImplementedYet
-                        }
-                    case .announcements:
-                        if let courseAnnouncementManager {
-                            CourseAnnouncementsAdaptorView(selectedPost: $selectedPost,
-                                                           announcementManager: courseAnnouncementManager)
-                        } else {
-                            notImplementedYet
-                        }
-                    case .courseWork:
-                        if let courseCourseWorksManager {
-                            CourseCourseWorksAdaptorView(selectedPost: $selectedPost,
-                                                         courseWorksManager: courseCourseWorksManager)
-                        } else {
-                            notImplementedYet
-                        }
-                    }
+                    let announcementManagers = courseAnnouncementManager != nil ? [courseAnnouncementManager!] : []
+                    let courseWorkManagers = courseCourseWorksManager != nil ? [courseCourseWorksManager!] : []
+                    MultiCoursePostListView(selectedPost: $selectedPost,
+                                            announcements: .init(array: currentPage != .courseWork ? announcementManagers : []),
+                                            courseWorks: .init(array: currentPage != .announcements ? courseWorkManagers : []))
                 case .allTeaching:
                     notImplementedYet
                 case .allEnrolled:
