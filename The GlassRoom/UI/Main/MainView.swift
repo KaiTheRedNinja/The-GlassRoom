@@ -31,6 +31,8 @@ struct MainView: View {
             } label: {
                 Image(systemName: "magnifyingglass")
             }
+            .keyboardShortcut("O", modifiers: [.command, .shift])
+            
             Button {
                 UserAuthModel.shared.signOut()
             } label: {
