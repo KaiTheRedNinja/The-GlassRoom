@@ -37,21 +37,38 @@ struct CourseContentsListView: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            HStack {
-                Button("Reload") {
-                    courseAnnouncementsManager.loadList()
-                }
-                Button("Full Reload") {
+            HStack(alignment: .center) {
+                Button {
                     courseAnnouncementsManager.loadList()
                     courseAnnouncementsManager.loadList(bypassCache: true)
+                } label: {
+                    Image(systemName: "arrow.clockwise")
                 }
+                .buttonStyle(.plain)
+                .contextMenu {
+                    Button("Use Cache") {
+                        courseAnnouncementsManager.loadList()
+                    }
+                }
+                .offset(y: -1)
+
                 if courseAnnouncementsManager.loading {
                     ProgressView()
                         .progressViewStyle(.linear)
                         .frame(maxWidth: .infinity)
                         .padding(10)
+                } else {
+                    Spacer()
                 }
             }
+            .padding(.horizontal, 5)
+            .frame(height: 25)
+            .frame(maxWidth: .infinity)
+            .background(.thinMaterial)
+            .overlay(alignment: .top) {
+                Divider()
+            }
+            .padding(.top, -7)
         }
     }
 }
