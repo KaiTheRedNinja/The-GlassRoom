@@ -26,11 +26,15 @@ struct MainView: View {
                        selectedPost: $selectedPost)
         }
         .toolbar {
-            Button("Search") {
+            Button {
                 showSearch.toggle()
+            } label: {
+                Image(systemName: "magnifyingglass")
             }
-            Button("Log Out") {
+            Button {
                 UserAuthModel.shared.signOut()
+            } label: {
+                Image(systemName: "eject")
             }
         }
     }
