@@ -72,14 +72,29 @@ struct CourseContentsListView: View {
                     selectedPost = announcement
                 } label: {
                     VStack(alignment: .leading) {
-                        Text(announcement.text)
+                        Text(announcement.text.replacingOccurrences(of: "\n", with: " "))
                             .font(.title3)
                             .fontWeight(.bold)
-                            .lineLimit(1)
-
-                        Text(announcement.creationTime)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+                            .lineLimit(2)
+                        
+                        HStack {
+                            Image(systemName: "timer")
+                            
+                            Text(convertDate(announcement.creationTime, .long, .standard))
+                            
+                            if convertDate(announcement.updateTime) != convertDate(announcement.creationTime) {
+                                // updateTime and creationTime are not the same
+                                if convertDate(announcement.updateTime, .long, .omitted) == convertDate(announcement.creationTime, .long, .omitted) {
+                                    // updated on the same day, shows time instead
+                                    Text("(Edited \(convertDate(announcement.updateTime, .omitted, .standard)))")
+                                } else {
+                                    // updated on different day, shows day instead
+                                    Text("(Edited \(convertDate(announcement.updateTime, .abbreviated, .omitted)))")
+                                }
+                            }
+                        }
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(5)
@@ -87,7 +102,9 @@ struct CourseContentsListView: View {
                     .cornerRadius(6)
                 }
                 .buttonStyle(.plain)
+                .padding(.vertical, 2)
             }
+            
             if let token = courseAnnouncementsManager.nextPageToken {
                 Button("Load next page") {
                     courseAnnouncementsManager.refreshList(nextPageToken: token)
@@ -95,4 +112,36 @@ struct CourseContentsListView: View {
             }
         }
     }
+    
+    func convertDate(_ dateString: String, _ dateStyle: Date.FormatStyle.DateStyle? = nil, _ timeStyle: Date.FormatStyle.TimeStyle? = nil) -> String {
+        var returnDateString = ""
+        
+        if let date = dateString.iso8601withFractionalSeconds {
+            guard let nonOptionalDateStyle = dateStyle else { return date.description }
+            guard let nonOptionalTimeStyle = timeStyle else { return date.description }
+            
+            returnDateString = date.formatted(date: nonOptionalDateStyle, time: nonOptionalTimeStyle)
+        }
+        
+        return returnDateString
+    }
+}
+
+extension ISO8601DateFormatter {
+    convenience init(_ formatOptions: Options) {
+        self.init()
+        self.formatOptions = formatOptions
+    }
+}
+
+extension Formatter {
+    static let iso8601withFractionalSeconds = ISO8601DateFormatter([.withInternetDateTime, .withFractionalSeconds])
+}
+
+extension Date {
+    var iso8601withFractionalSeconds: String { return Formatter.iso8601withFractionalSeconds.string(from: self) }
+}
+
+extension String {
+    var iso8601withFractionalSeconds: Date? { return Formatter.iso8601withFractionalSeconds.date(from: self) }
 }

@@ -51,17 +51,6 @@ struct CenterSplitView: View {
         }
         // TODO: Intelligently refresh
     }
-    
-    func convertDate(dateString: String) -> String {
-        let dtFormatter = DateFormatter()
-        dtFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-
-        if let dt = dtFormatter.date(from: dateString) {
-            return dt.description
-        }
-        
-        return ""
-    }
 }
 
 struct CenterSplitView_Previews: PreviewProvider {
