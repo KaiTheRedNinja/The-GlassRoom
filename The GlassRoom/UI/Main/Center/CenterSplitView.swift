@@ -23,9 +23,9 @@ struct CenterSplitView: View {
                 switch currentPage {
                 case .allPosts:
                     if let courseAnnouncementManager, let courseCourseWorksManager {
-                        CoursePostContentsListView(selectedPost: $selectedPost,
-                                                   courseAnnouncementsManager: courseAnnouncementManager,
-                                                   courseWorksManager: courseCourseWorksManager)
+                        MultiCoursePostListView(selectedPost: $selectedPost,
+                                                announcements: .init(array: [courseAnnouncementManager]),
+                                                courseWorks: .init(array: [courseCourseWorksManager]))
                     } else {
                         notImplementedYet
                     }
