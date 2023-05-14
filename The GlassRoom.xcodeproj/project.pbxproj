@@ -10,6 +10,7 @@
 		6AA058382A0FA9AB005A9BDB /* CourseAnnouncementsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA058372A0FA9AB005A9BDB /* CourseAnnouncementsDataManager.swift */; };
 		6AA0583B2A0FEB90005A9BDB /* LinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA0583A2A0FEB90005A9BDB /* LinkPreview.swift */; };
 		6AD406D02A10B6B100343500 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD406CF2A10B6B100343500 /* SettingsView.swift */; };
+		6AD406D42A10D96800343500 /* CoursePostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD406D32A10D96800343500 /* CoursePostItem.swift */; };
 		6AD9CEDA2A0CEA120078E5D3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD9CED92A0CEA120078E5D3 /* MainView.swift */; };
 		9373B0212A10647B00C8923B /* CourseAnnouncementsContentsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373B0202A10647B00C8923B /* CourseAnnouncementsContentsListView.swift */; };
 		93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 93757D5C2A0E73DA0063AB67 /* GoogleSignIn */; };
@@ -43,6 +44,7 @@
 		6AA058372A0FA9AB005A9BDB /* CourseAnnouncementsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseAnnouncementsDataManager.swift; sourceTree = "<group>"; };
 		6AA0583A2A0FEB90005A9BDB /* LinkPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPreview.swift; sourceTree = "<group>"; };
 		6AD406CF2A10B6B100343500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		6AD406D32A10D96800343500 /* CoursePostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostItem.swift; sourceTree = "<group>"; };
 		6AD9CED92A0CEA120078E5D3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		9373B0202A10647B00C8923B /* CourseAnnouncementsContentsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseAnnouncementsContentsListView.swift; sourceTree = "<group>"; };
 		93757D602A0E74500063AB67 /* UserAuthModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthModel.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				9373B0202A10647B00C8923B /* CourseAnnouncementsContentsListView.swift */,
 				93ACB23E2A10CAEF0040C88E /* CourseCourseWorksContentsListView.swift */,
 				93ACB2442A10D33B0040C88E /* CoursePostContentsListView.swift */,
+				6AD406D32A10D96800343500 /* CoursePostItem.swift */,
 			);
 			path = Center;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				93757D662A0E7B430063AB67 /* Secrets (Sensitive).swift in Sources */,
 				938300EE2A0FBB4C006581B8 /* SidebarOutlineView.swift in Sources */,
 				937EA5BC2A0CD9F8005F11C5 /* ContentView.swift in Sources */,
+				6AD406D42A10D96800343500 /* CoursePostItem.swift in Sources */,
 				93757D7E2A0FBAE70063AB67 /* SidebarOutlineViewController.swift in Sources */,
 				93ACB2432A10D0FF0040C88E /* CoursePost.swift in Sources */,
 				6AA058382A0FA9AB005A9BDB /* CourseAnnouncementsDataManager.swift in Sources */,
@@ -486,7 +490,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -497,7 +501,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -516,7 +520,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -527,7 +531,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

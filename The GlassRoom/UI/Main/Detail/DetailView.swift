@@ -90,56 +90,6 @@ struct DetailView: View {
             Text("Title: " + courseWork.title)
         }
     }
-    
-    func iterateThroughLinks(materials: [AssignmentMaterial]) -> [[String : String]] {
-        var returnResults: [[String : String]] = []
-        
-        materials.forEach { material in
-            let linkInfo = getLinkInformation(material: material)
-            var isntEmptyLink = true
-            
-            for (title, url) in linkInfo {
-                if title == "" && url == "" {
-                    isntEmptyLink = false
-                }
-            }
-            
-            if isntEmptyLink {
-                returnResults.append(linkInfo)
-            }
-        }
-        
-        return returnResults
-    }
-    
-    func getLinkInformation(material: AssignmentMaterial) -> [String : String] {
-        
-        var returnResults: [String : String] = ["" : ""]
-        
-        if material.driveFile?.driveFile.alternateLink ?? "nil" != "nil" {
-            guard let driveFileTitle = material.driveFile?.driveFile.title else { return returnResults }
-            guard let driveFileLink = material.driveFile?.driveFile.alternateLink else { return returnResults }
-            
-            returnResults = [driveFileTitle : driveFileLink]
-        } else if material.form?.formURL ?? "nil" != "nil" {
-            guard let formTitle = material.form?.title else { return returnResults }
-            guard let formURL = material.form?.formURL else { return returnResults }
-            
-            returnResults = [formTitle : formURL]
-        } else if material.link?.url ?? "nil" != "nil" {
-            guard let linkTitle = material.link?.title else { return returnResults }
-            guard let linkURL = material.link?.url else { return returnResults }
-            
-            returnResults = [linkTitle : linkURL]
-        } else if material.youtubeVideo?.alternateLink ?? "nil" != "nil" {
-            guard let ytTitle = material.youtubeVideo?.title else { return returnResults }
-            guard let ytURL = material.youtubeVideo?.alternateLink else { return returnResults }
-            
-            returnResults = [ytTitle : ytURL]
-        }
-        
-        return returnResults
-    }
 }
 
 struct DetailView_Previews: PreviewProvider {

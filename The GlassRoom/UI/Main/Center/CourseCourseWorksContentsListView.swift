@@ -68,41 +68,7 @@ struct CourseCourseWorksContentsListView: View {
     var courseWorksContent: some View {
         List {
             ForEach(courseWorksManager.courseWorks, id: \.id) { courseWork in
-                Button {
-                    selectedPost = .courseWork(courseWork)
-                } label: {
-                    VStack(alignment: .leading) {
-                        Text(courseWork.title)
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .lineLimit(2)
-
-                        HStack {
-                            Image(systemName: "timer")
-
-                            Text(convertDate(courseWork.creationTime, .long, .standard))
-
-                            if convertDate(courseWork.updateTime) != convertDate(courseWork.creationTime) {
-                                // updateTime and creationTime are not the same
-                                if convertDate(courseWork.updateTime, .long, .omitted) == convertDate(courseWork.creationTime, .long, .omitted) {
-                                    // updated on the same day, shows time instead
-                                    Text("(Edited \(convertDate(courseWork.updateTime, .omitted, .standard)))")
-                                } else {
-                                    // updated on different day, shows day instead
-                                    Text("(Edited \(convertDate(courseWork.updateTime, .abbreviated, .omitted)))")
-                                }
-                            }
-                        }
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(5)
-                    .background(selectedPost?.id == courseWork.id ? .blue : .clear)
-                    .cornerRadius(6)
-                }
-                .buttonStyle(.plain)
-                .padding(.vertical, 2)
+                CoursePostItem(coursework: courseWork, selectedPost: $selectedPost)
             }
 
             if let token = courseWorksManager.nextPageToken {
