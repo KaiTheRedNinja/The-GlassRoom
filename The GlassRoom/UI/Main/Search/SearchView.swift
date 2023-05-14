@@ -12,7 +12,7 @@ struct SearchView: View {
     @SceneStorage("searchTerm") var searchTerm: String = ""
 
     @Binding var selectedCourse: Course?
-    @Binding var selectedPost: CourseAnnouncement?
+    @Binding var selectedPost: CoursePost?
 
     @State var selection: String?
 

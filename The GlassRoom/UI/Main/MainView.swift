@@ -10,7 +10,7 @@ import GlassRoomAPI
 
 struct MainView: View {
     @State var selectedCourse: Course?
-    @State var selectedPost: CourseAnnouncement?
+    @State var selectedPost: CoursePost?
     @State var showSearch: Bool = false
 
     var body: some View {

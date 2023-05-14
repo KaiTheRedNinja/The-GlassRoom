@@ -10,10 +10,7 @@ import GlassRoomAPI
 
 struct CenterSplitView: View {
     @Binding var selectedCourse: Course?
-    @Binding var selectedPost: CourseAnnouncement?
-
-    // TODO: unify selectedPost and selectedCourseWork
-    @State var selectedCourseWork: CourseWork?
+    @Binding var selectedPost: CoursePost?
 
     @State var courseAnnouncementManager: CourseAnnouncementsDataManager?
     @State var courseCourseWorksManager: CourseCourseWorksDataManager?
@@ -33,7 +30,7 @@ struct CenterSplitView: View {
                     }
                 case .courseWork:
                     if let courseCourseWorksManager {
-                        CourseCourseWorksContentsListView(selectedPost: $selectedCourseWork,
+                        CourseCourseWorksContentsListView(selectedPost: $selectedPost,
                                                           courseWorksManager: courseCourseWorksManager)
                     } else {
                         notImplementedYet

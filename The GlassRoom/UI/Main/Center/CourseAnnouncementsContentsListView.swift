@@ -9,7 +9,7 @@ import SwiftUI
 import GlassRoomAPI
 
 struct CourseAnnouncementsContentsListView: View {
-    @Binding var selectedPost: CourseAnnouncement?
+    @Binding var selectedPost: CoursePost?
     @ObservedObject var courseAnnouncementsManager: CourseAnnouncementsDataManager
 
     var body: some View {
@@ -69,7 +69,7 @@ struct CourseAnnouncementsContentsListView: View {
         List {
             ForEach(courseAnnouncementsManager.courseAnnouncements, id: \.id) { announcement in
                 Button {
-                    selectedPost = announcement
+                    selectedPost = .announcement(announcement)
                 } label: {
                     VStack(alignment: .leading) {
                         Text(announcement.text.replacingOccurrences(of: "\n", with: " "))

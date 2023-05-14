@@ -9,7 +9,7 @@ import SwiftUI
 import GlassRoomAPI
 
 struct CourseCourseWorksContentsListView: View {
-    @Binding var selectedPost: CourseWork?
+    @Binding var selectedPost: CoursePost?
     @ObservedObject var courseWorksManager: CourseCourseWorksDataManager
 
     var body: some View {
@@ -69,7 +69,7 @@ struct CourseCourseWorksContentsListView: View {
         List {
             ForEach(courseWorksManager.courseWorks, id: \.id) { courseWork in
                 Button {
-                    selectedPost = courseWork
+                    selectedPost = .courseWork(courseWork)
                 } label: {
                     VStack(alignment: .leading) {
                         Text(courseWork.title)
