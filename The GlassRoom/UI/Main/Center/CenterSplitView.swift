@@ -23,15 +23,15 @@ struct CenterSplitView: View {
                 switch currentPage {
                 case .announcements:
                     if let courseAnnouncementManager {
-                        CourseAnnouncementsContentsListView(selectedPost: $selectedPost,
-                                                            courseAnnouncementsManager: courseAnnouncementManager)
+                        CourseAnnouncementsAdaptorView(selectedPost: $selectedPost,
+                                                       announcementManager: courseAnnouncementManager)
                     } else {
                         notImplementedYet
                     }
                 case .courseWork:
                     if let courseCourseWorksManager {
-                        CourseCourseWorksContentsListView(selectedPost: $selectedPost,
-                                                          courseWorksManager: courseCourseWorksManager)
+                        CourseCourseWorksAdaptorView(selectedPost: $selectedPost,
+                                                     courseWorksManager: courseCourseWorksManager)
                     } else {
                         notImplementedYet
                     }
