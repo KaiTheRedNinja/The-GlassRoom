@@ -32,7 +32,9 @@ public struct Course: Codable, Equatable {
     public var guardiansEnabled: Bool
     public var calendarId: String?
     public var gradebookSettings: GradebookSettings
+}
 
+public extension Course {
     public var creationDate: Date {
 
         let dateFormatter = DateFormatter()
@@ -47,9 +49,7 @@ public struct Course: Codable, Equatable {
             return Date()
         }
     }
-}
 
-public extension Course {
     var courseType: CourseType {
         if teacherFolder != nil {
             return .teaching

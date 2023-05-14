@@ -11,6 +11,7 @@ import GlassRoomAPI
 struct MainView: View {
     @State var selectedCourse: Course?
     @State var selectedPost: CourseAnnouncement?
+    @State var showSearch: Bool = false
 
     var body: some View {
         NavigationSplitView {
@@ -20,7 +21,14 @@ struct MainView: View {
         } detail: {
             DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
         }
+        .sheet(isPresented: $showSearch) {
+            SearchView(selectedCourse: $selectedCourse,
+                       selectedPost: $selectedPost)
+        }
         .toolbar {
+            Button("Search") {
+                showSearch.toggle()
+            }
             Button("Log Out") {
                 UserAuthModel.shared.signOut()
             }

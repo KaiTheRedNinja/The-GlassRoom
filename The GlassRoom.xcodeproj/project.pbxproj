@@ -29,6 +29,7 @@
 		937EA5C12A0CD9F9005F11C5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937EA5C02A0CD9F9005F11C5 /* Preview Assets.xcassets */; };
 		938300EE2A0FBB4C006581B8 /* SidebarOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938300ED2A0FBB4C006581B8 /* SidebarOutlineView.swift */; };
 		938300F02A0FC009006581B8 /* SidebarOutlineMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938300EF2A0FC009006581B8 /* SidebarOutlineMenu.swift */; };
+		93ACB23A2A106F550040C88E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2392A106F550040C88E /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GlassRoomAPI; sourceTree = "<group>"; };
 		938300ED2A0FBB4C006581B8 /* SidebarOutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarOutlineView.swift; sourceTree = "<group>"; };
 		938300EF2A0FC009006581B8 /* SidebarOutlineMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarOutlineMenu.swift; sourceTree = "<group>"; };
+		93ACB2392A106F550040C88E /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +97,8 @@
 				6AD9CED92A0CEA120078E5D3 /* MainView.swift */,
 				93757D7C2A0FBAD20063AB67 /* Sidebar */,
 				9373B01F2A10646500C8923B /* Center */,
-				93757D752A0F9B220063AB67 /* DetailView.swift */,
+				93ACB2382A106F450040C88E /* Detail */,
+				93ACB2372A106F3D0040C88E /* Search */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -197,6 +200,22 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		93ACB2372A106F3D0040C88E /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				93ACB2392A106F550040C88E /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		93ACB2382A106F450040C88E /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				93757D752A0F9B220063AB67 /* DetailView.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -275,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AA0583B2A0FEB90005A9BDB /* LinkPreview.swift in Sources */,
+				93ACB23A2A106F550040C88E /* SearchView.swift in Sources */,
 				93757D612A0E74500063AB67 /* UserAuthModel.swift in Sources */,
 				93757D722A0F9A240063AB67 /* SidebarView.swift in Sources */,
 				93757D682A0E7D280063AB67 /* SignInView.swift in Sources */,
