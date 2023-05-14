@@ -40,6 +40,14 @@ struct DetailView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 HStack {
+                    Spacer()
+                    Link(destination: URL(string: announcement.alternateLink)!) {
+                        Label("Open in browser", systemImage: "safari")
+                    }
+                }
+                .padding(.top, 2)
+                
+                HStack {
                     Text(announcement.text)
                     Spacer()
                 }
@@ -85,9 +93,73 @@ struct DetailView: View {
     }
 
     func courseWorkView(for courseWork: CourseWork) -> some View {
-        VStack {
-            Text("Not implemented yet")
-            Text("Title: " + courseWork.title)
+        ScrollView {
+            VStack {
+                HStack {
+                    Text(courseWork.title)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                    
+                    Link(destination: URL(string: courseWork.alternateLink)!) {
+                        Label("Open in browser", systemImage: "safari")
+                    }
+                }
+                .padding(.top, 2)
+                .padding(.bottom, 10)
+                
+                if let description = courseWork.description {
+                    Divider()
+                        .padding(.bottom, 10)
+                    
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(description)
+                            Spacer()
+                        }
+                    }
+                }
+                
+                Spacer()
+                
+                VStack {
+                    if courseWork.materials != nil {
+                        Divider()
+
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(courseWork.materials ?? [], id: \.id) { material in
+                                    if let driveFile = material.driveFile {
+                                        LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
+    //                                            .frame(height: 100)
+    //                                            .scaledToFit()
+                                    }
+
+                                    if let youtubeVideo = material.youtubeVideo {
+                                        LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
+    //                                            .frame(height: 100)
+    //                                            .scaledToFit()
+                                    }
+
+                                    if let form = material.form {
+                                        LinkPreview(url: URL(string: form.formURL)!)
+    //                                            .frame(height: 100)
+    //                                            .scaledToFit()
+                                    }
+
+                                    if let materialLink = material.link {
+                                        LinkPreview(url: URL(string: materialLink.url)!)
+    //                                            .frame(height: 100)
+    //                                            .scaledToFit()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.all)
         }
     }
 }

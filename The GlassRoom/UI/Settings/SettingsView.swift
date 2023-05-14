@@ -33,7 +33,7 @@ struct SettingsView: View {
             shortcuts
                 .frame(width: 680, height: 300)
                 .tabItem {
-                    Label("Shortucts", systemImage: settingsTabSelection == 1 ? "keyboard.fill" : "keyboard")
+                    Label("Shortucts", systemImage: settingsTabSelection == 2 ? "keyboard.fill" : "keyboard")
                 }
                 .tag(2)
         }
