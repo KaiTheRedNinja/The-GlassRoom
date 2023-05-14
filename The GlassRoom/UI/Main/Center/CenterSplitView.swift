@@ -12,15 +12,37 @@ struct CenterSplitView: View {
     @Binding var selectedCourse: Course?
     @Binding var selectedPost: CourseAnnouncement?
 
+    // TODO: unify selectedPost and selectedCourseWork
+    @State var selectedCourseWork: CourseWork?
+
     @State var courseAnnouncementManager: CourseAnnouncementsDataManager?
+    @State var courseCourseWorksManager: CourseCourseWorksDataManager?
+
+    @State var currentPage: CourseDisplayOption = .announcements
 
     var body: some View {
         ZStack {
-            if let courseAnnouncementManager {
-                CourseContentsListView(selectedPost: $selectedPost,
-                                       courseAnnouncementsManager: courseAnnouncementManager)
+            if selectedCourse != nil {
+                switch currentPage {
+                case .announcements:
+                    if let courseAnnouncementManager {
+                        CourseAnnouncementsContentsListView(selectedPost: $selectedPost,
+                                                            courseAnnouncementsManager: courseAnnouncementManager)
+                    } else {
+                        notImplementedYet
+                    }
+                case .courseWork:
+                    if let courseCourseWorksManager {
+                        CourseCourseWorksContentsListView(selectedPost: $selectedCourseWork,
+                                                          courseWorksManager: courseCourseWorksManager)
+                    } else {
+                        notImplementedYet
+                    }
+                case .unified:
+                    notImplementedYet
+                }
             } else {
-                VStack {
+                ZStack {
                     Text("No Course Selected")
                         .font(.largeTitle)
                         .fontWeight(.bold)
@@ -29,7 +51,27 @@ struct CenterSplitView: View {
                         .minimumScaleFactor(0.1)
                         .lineLimit(1)
                 }
+                .frame(maxHeight: .infinity)
             }
+        }
+        .safeAreaInset(edge: .top) {
+            HStack(alignment: .center) {
+                Picker("Screen", selection: $currentPage) {
+                    ForEach(CourseDisplayOption.allCases, id: \.rawValue) { option in
+                        Text(option.rawValue)
+                            .tag(option)
+                    }
+                }
+                .pickerStyle(.menu)
+            }
+            .padding(.horizontal, 5)
+            .frame(height: 25)
+            .frame(maxWidth: .infinity)
+            .background(.thinMaterial)
+            .overlay(alignment: .bottom) {
+                Divider()
+            }
+            .padding(.bottom, -7)
         }
         .onChange(of: selectedCourse) { _ in
             reloadAnnouncements()
@@ -38,22 +80,43 @@ struct CenterSplitView: View {
             reloadAnnouncements()
         }
     }
+
+    var notImplementedYet: some View {
+        ZStack {
+            Text("Not Implemented Yet")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
+                .minimumScaleFactor(0.1)
+                .lineLimit(1)
+        }
+        .frame(maxHeight: .infinity)
+    }
     
     func reloadAnnouncements() {
         guard let selectedCourseId = selectedCourse?.id else {
             self.courseAnnouncementManager = nil
             return
         }
-        let manager = CourseAnnouncementsDataManager.getManager(for: selectedCourseId)
-        self.courseAnnouncementManager = manager
-        if manager.courseAnnouncements.isEmpty {
-            manager.loadList(bypassCache: true)
+        let announcementManager = CourseAnnouncementsDataManager.getManager(for: selectedCourseId)
+        self.courseAnnouncementManager = announcementManager
+        if announcementManager.courseAnnouncements.isEmpty {
+            announcementManager.loadList(bypassCache: true)
         }
-        // TODO: Intelligently refresh
+        let courseWorkManager = CourseCourseWorksDataManager.getManager(for: selectedCourseId)
+        self.courseCourseWorksManager = courseWorkManager
+        if announcementManager.courseAnnouncements.isEmpty {
+            courseWorkManager.loadList(bypassCache: true)
+        }
 
-        // testing: load the coursework manager
-//        let courseWorkManager = CourseCourseWorksDataManager.getManager(for: selectedCourseId)
-//        courseWorkManager.loadList(bypassCache: true)
+        // TODO: Intelligently refresh
+    }
+
+    enum CourseDisplayOption: String, CaseIterable {
+        case announcements = "Announcements"
+        case courseWork = "Course Works"
+        case unified = "Unified"
     }
 }
 

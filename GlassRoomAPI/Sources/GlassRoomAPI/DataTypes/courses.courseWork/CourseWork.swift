@@ -12,7 +12,7 @@ public struct CourseWork: Codable {
     public var id: String
     public var title: String
     public var description: String?
-    public var materials: [AssignmentMaterial]
+    public var materials: [AssignmentMaterial]?
     public var state: CourseWorkState
     public var alternateLink: String
     public var creationTime: String

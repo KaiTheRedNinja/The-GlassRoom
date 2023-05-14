@@ -63,9 +63,11 @@ class CourseCourseWorksDataManager: ObservableObject {
             switch response {
             case .success(let success):
                 print("Success: \(success)")
-                self.courseWorks.mergeWith(other: success.courseWork,
-                                           isSame: { $0.id == $1.id },
-                                           isBefore: { $0.creationDate > $1.creationDate })
+                DispatchQueue.main.async {
+                    self.courseWorks.mergeWith(other: success.courseWork,
+                                               isSame: { $0.id == $1.id },
+                                               isBefore: { $0.creationDate > $1.creationDate })
+                }
                 if let token = success.nextPageToken, requestNextPageIfExists {
                     self.refreshList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
                 } else {
@@ -77,7 +79,9 @@ class CourseCourseWorksDataManager: ObservableObject {
                 }
             case .failure(let failure):
                 print("Failure: \(failure.localizedDescription)")
-                self.loading = false
+                DispatchQueue.main.async {
+                    self.loading = false
+                }
             }
         }
     }

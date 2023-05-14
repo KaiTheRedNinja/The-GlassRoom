@@ -1,5 +1,5 @@
 //
-//  CourseContentsListView.swift
+//  CourseAnnouncementsContentsListView.swift
 //  The GlassRoom
 //
 //  Created by Kai Quan Tay on 14/5/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import GlassRoomAPI
 
-struct CourseContentsListView: View {
+struct CourseAnnouncementsContentsListView: View {
     @Binding var selectedPost: CourseAnnouncement?
     @ObservedObject var courseAnnouncementsManager: CourseAnnouncementsDataManager
 
@@ -112,19 +112,19 @@ struct CourseContentsListView: View {
             }
         }
     }
-    
-    func convertDate(_ dateString: String, _ dateStyle: Date.FormatStyle.DateStyle? = nil, _ timeStyle: Date.FormatStyle.TimeStyle? = nil) -> String {
-        var returnDateString = ""
-        
-        if let date = dateString.iso8601withFractionalSeconds {
-            guard let nonOptionalDateStyle = dateStyle else { return date.description }
-            guard let nonOptionalTimeStyle = timeStyle else { return date.description }
-            
-            returnDateString = date.formatted(date: nonOptionalDateStyle, time: nonOptionalTimeStyle)
-        }
-        
-        return returnDateString
+}
+
+func convertDate(_ dateString: String, _ dateStyle: Date.FormatStyle.DateStyle? = nil, _ timeStyle: Date.FormatStyle.TimeStyle? = nil) -> String {
+    var returnDateString = ""
+
+    if let date = dateString.iso8601withFractionalSeconds {
+        guard let nonOptionalDateStyle = dateStyle else { return date.description }
+        guard let nonOptionalTimeStyle = timeStyle else { return date.description }
+
+        returnDateString = date.formatted(date: nonOptionalDateStyle, time: nonOptionalTimeStyle)
     }
+
+    return returnDateString
 }
 
 extension ISO8601DateFormatter {
