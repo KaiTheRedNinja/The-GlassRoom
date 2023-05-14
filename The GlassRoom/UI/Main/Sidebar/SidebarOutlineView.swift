@@ -24,7 +24,9 @@ struct SidebarOutlineView: NSViewControllerRepresentable {
 
     func updateNSViewController(_ nsViewController: SidebarOutlineViewController, context: Context) {
         nsViewController.courses = self.courses
+        nsViewController.selectedCourse = $selectedCourse
         nsViewController.outlineView.reloadData()
+        nsViewController.updateSelection()
         return
     }
 }

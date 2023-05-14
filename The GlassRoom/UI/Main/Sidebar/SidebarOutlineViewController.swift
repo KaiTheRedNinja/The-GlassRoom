@@ -109,6 +109,24 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
         }
         return false
     }
+
+    func updateSelection() {
+        guard let item = selectedCourse?.wrappedValue else {
+            outlineView.deselectRow(outlineView.selectedRow)
+            return
+        }
+
+        // go through the rows individually
+        for rowIndex in 0..<outlineView.numberOfRows {
+            guard let rowItem = outlineView.item(atRow: rowIndex) as? Course else { continue }
+            if rowItem.id == item.id {
+                outlineView.selectRowIndexes(.init(integer: rowIndex), byExtendingSelection: false)
+                return
+            }
+        }
+
+        // if nothing found, no match.
+    }
 }
 
 // MARK: - NSOutlineViewDelegate
