@@ -15,12 +15,20 @@ struct CenterSplitView: View {
     @State var courseAnnouncementManager: CourseAnnouncementsDataManager?
     @State var courseCourseWorksManager: CourseCourseWorksDataManager?
 
-    @State var currentPage: CourseDisplayOption = .announcements
+    @State var currentPage: CourseDisplayOption = .allPosts
 
     var body: some View {
         ZStack {
             if selectedCourse != nil {
                 switch currentPage {
+                case .allPosts:
+                    if let courseAnnouncementManager, let courseCourseWorksManager {
+                        CoursePostContentsListView(selectedPost: $selectedPost,
+                                                   courseAnnouncementsManager: courseAnnouncementManager,
+                                                   courseWorksManager: courseCourseWorksManager)
+                    } else {
+                        notImplementedYet
+                    }
                 case .announcements:
                     if let courseAnnouncementManager {
                         CourseAnnouncementsContentsListView(selectedPost: $selectedPost,
@@ -32,14 +40,6 @@ struct CenterSplitView: View {
                     if let courseCourseWorksManager {
                         CourseCourseWorksContentsListView(selectedPost: $selectedPost,
                                                           courseWorksManager: courseCourseWorksManager)
-                    } else {
-                        notImplementedYet
-                    }
-                case .allPosts:
-                    if let courseAnnouncementManager, let courseCourseWorksManager {
-                        CoursePostContentsListView(selectedPost: $selectedPost,
-                                                   courseAnnouncementsManager: courseAnnouncementManager,
-                                                   courseWorksManager: courseCourseWorksManager)
                     } else {
                         notImplementedYet
                     }
@@ -101,9 +101,9 @@ struct CenterSplitView: View {
     }
 
     enum CourseDisplayOption: String, CaseIterable {
+        case allPosts = "All Posts"
         case announcements = "Announcements"
         case courseWork = "Course Works"
-        case allPosts = "All Posts"
     }
 }
 
