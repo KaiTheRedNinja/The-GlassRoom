@@ -73,13 +73,15 @@ struct CoursePostListView: View {
     }
 
     var postsContent: some View {
-        List {
+        List(selection: $selectedPost) {
             ForEach(postData, id: \.id) { post in
                 switch post {
                 case .announcement(let announcement):
-                    CoursePostItem(announcement: announcement, selectedPost: $selectedPost)
+                    CoursePostItem(announcement: announcement)
+                        .tag(CoursePost.announcement(announcement))
                 case .courseWork(let courseWork):
-                    CoursePostItem(coursework: courseWork, selectedPost: $selectedPost)
+                    CoursePostItem(coursework: courseWork)
+                        .tag(CoursePost.courseWork(courseWork))
                 }
             }
 
