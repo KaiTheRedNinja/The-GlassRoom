@@ -11,32 +11,18 @@ import GlassRoomAPI
 struct CenterSplitView: View {
     @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
-
+    
     @State var courseAnnouncementManager: CourseAnnouncementsDataManager?
     @State var courseCourseWorksManager: CourseCourseWorksDataManager?
-
+    
     @State var currentPage: CourseDisplayOption = .allPosts
-
+    
     var body: some View {
         ZStack {
-            if let selectedCourse {
-                switch selectedCourse {
-                case .course(_):
-                    let announcementManagers = courseAnnouncementManager != nil ? [courseAnnouncementManager!] : []
-                    let courseWorkManagers = courseCourseWorksManager != nil ? [courseCourseWorksManager!] : []
-                    MultiCoursePostListView(selectedPost: $selectedPost,
-                                            announcements: .init(array: currentPage != .courseWork ? announcementManagers : []),
-                                            courseWorks: .init(array: currentPage != .announcements ? courseWorkManagers : []))
-                case .allTeaching:
-                    notImplementedYet
-                case .allEnrolled:
-                    // TODO: Filter out teaching stuff
-                    MultiCoursePostListView(
-                        selectedPost: $selectedPost,
-                        announcements: .init(array: Array(CourseAnnouncementsDataManager.loadedManagers.values)),
-                        courseWorks: .init(array: Array(CourseCourseWorksDataManager.loadedManagers.values))
-                    )
-                }
+            if selectedCourse != nil {
+                MultiCoursePostListView(selectedPost: $selectedPost,
+                                        announcements: .init(array: announcementManagers),
+                                        courseWorks: .init(array: courseWorkManagers))
             } else {
                 ZStack {
                     Text("No Course Selected")
@@ -60,7 +46,7 @@ struct CenterSplitView: View {
             reloadAnnouncements()
         }
     }
-
+    
     var notImplementedYet: some View {
         ZStack {
             Text("Not Implemented Yet")
@@ -89,9 +75,49 @@ struct CenterSplitView: View {
             if courseWorkManager.courseWorks.isEmpty {
                 courseWorkManager.loadList(bypassCache: true)
             }
-
+            
             // TODO: Intelligently refresh
         default: return
+        }
+    }
+    
+    var announcementManagers: [CourseAnnouncementsDataManager] {
+        guard let selectedCourse else { return [] }
+        switch selectedCourse {
+        case .course(_):
+            let announcementManagers = courseAnnouncementManager != nil ? [courseAnnouncementManager!] : []
+            if currentPage != .courseWork { // if its announcements or all, show announcements.
+                return announcementManagers
+            } else {
+                return []
+            }
+        case .allTeaching, .allEnrolled:
+            let courseType = selectedCourse == .allTeaching ? Course.CourseType.teaching : .enrolled
+            let courses = GlobalCoursesDataManager.global.courses
+            return Array(CourseAnnouncementsDataManager.loadedManagers.values).filter { manager in
+                let item = courses.first(where: { $0.id == manager.courseId })
+                return item?.courseType == courseType
+            }
+        }
+    }
+    
+    var courseWorkManagers: [CourseCourseWorksDataManager] {
+        guard let selectedCourse else { return [] }
+        switch selectedCourse {
+        case .course(_):
+            let courseWorkManagers = courseCourseWorksManager != nil ? [courseCourseWorksManager!] : []
+            if currentPage != .courseWork { // if its announcements or all, show announcements.
+                return courseWorkManagers
+            } else {
+                return []
+            }
+        case .allTeaching, .allEnrolled:
+            let courseType = selectedCourse == .allTeaching ? Course.CourseType.teaching : .enrolled
+            let courses = GlobalCoursesDataManager.global.courses
+            return Array(CourseCourseWorksDataManager.loadedManagers.values).filter { manager in
+                let item = courses.first(where: { $0.id == manager.courseId })
+                return item?.courseType == courseType
+            }
         }
     }
 
