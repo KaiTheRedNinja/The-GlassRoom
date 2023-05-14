@@ -1,5 +1,5 @@
 //
-//  GlobalCourseWorkDataManager.swift
+//  CourseWorkDataManager.swift
 //  The GlassRoom
 //
 //  Created by Tristan on 13/05/2023.
@@ -8,26 +8,35 @@
 import Foundation
 @testable import GlassRoomAPI
 
-class GlobalCourseAnnouncementsDataManager: ObservableObject {
+class CourseAnnouncementsDataManager: ObservableObject {
     @Published private(set) var courseAnnouncements: [CourseAnnouncement]
-    @Published var loading: Bool = false
+    @Published private(set) var loading: Bool = false
 
-    static var global: GlobalCourseAnnouncementsDataManager = .init()
-    private init() {
-        courseAnnouncements = []
+    let courseId: String
+
+    init(courseId: String) {
+        self.courseAnnouncements = []
+        self.courseId = courseId
+
+        CourseAnnouncementsDataManager.loadedManagers[courseId] = self
     }
 
-    func loadList(courseId: String, bypassCache: Bool = false) {
+    func loadList(bypassCache: Bool = false) {
         loading = true
         if bypassCache {
-            refreshList(courseId: courseId)
+            // use cache first anyway
+            let cachedAnnouncements = readCache()
+            if !cachedAnnouncements.isEmpty {
+                courseAnnouncements = cachedAnnouncements
+            }
+            refreshList()
         } else {
             // load from cache first, if that fails load from the list.
-            let cachedClasses = readCache(courseId: courseId)
-            if cachedClasses.isEmpty {
-                refreshList(courseId: courseId)
+            let cachedAnnouncements = readCache()
+            if cachedAnnouncements.isEmpty {
+                refreshList()
             } else {
-                self.courseAnnouncements = cachedClasses
+                self.courseAnnouncements = cachedAnnouncements
                 loading = false
             }
         }
@@ -44,7 +53,7 @@ class GlobalCourseAnnouncementsDataManager: ObservableObject {
     /// - Parameters:
     ///   - nextPageToken: The token from the previous page for pagnation
     ///   - requestNextPageIfExists: If the API request returns a nextPageToken and this value is true, it will recursively call itself to load all pages.
-    private func refreshList(courseId: String, nextPageToken: String? = nil, requestNextPageIfExists: Bool = false) {
+    private func refreshList(nextPageToken: String? = nil, requestNextPageIfExists: Bool = false) {
         GlassRoomAPI.GRCourses.GRAnnouncements.list(params: .init(courseId: courseId),
                                                     query: .init(announcementStates: nil,
                                                                  orderBy: nil,
@@ -55,12 +64,12 @@ class GlobalCourseAnnouncementsDataManager: ObservableObject {
             switch response {
             case .success(let success):
                 if let token = success.nextPageToken, requestNextPageIfExists {
-                    self.refreshList(courseId: courseId, nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
+                    self.refreshList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
                 } else {
                     DispatchQueue.main.async {
                         self.loading = false
                         self.courseAnnouncements = success.announcements
-                        self.writeCache(courseId: courseId)
+                        self.writeCache()
                     }
                 }
             case .failure(let failure):
@@ -69,7 +78,7 @@ class GlobalCourseAnnouncementsDataManager: ObservableObject {
         }
     }
 
-    private func readCache(courseId: String) -> [CourseAnnouncement] {
+    private func readCache() -> [CourseAnnouncement] {
         // if the file exists in CourseCache
         if FileSystem.exists(file: "\(courseId)_courseAnnouncements.json"),
            let cacheItems = FileSystem.read([CourseAnnouncement].self, from: "\(courseId)_courseAnnouncements.json") {
@@ -78,9 +87,19 @@ class GlobalCourseAnnouncementsDataManager: ObservableObject {
         return []
     }
 
-    private func writeCache(courseId: String) {
+    private func writeCache() {
         FileSystem.write(courseAnnouncements, to: "\(courseId)_courseAnnouncements.json") { error in
             print("Error writing: \(error.localizedDescription)")
         }
+    }
+
+    // MARK: Static functions
+    static private(set) var loadedManagers: [String: CourseAnnouncementsDataManager] = [:]
+
+    static func getManager(for courseId: String) -> CourseAnnouncementsDataManager {
+        if let manager = loadedManagers[courseId] {
+            return manager
+        }
+        return .init(courseId: courseId)
     }
 }

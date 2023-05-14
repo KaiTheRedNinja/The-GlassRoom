@@ -10,7 +10,7 @@ import GlassRoomAPI
 
 class GlobalCoursesDataManager: ObservableObject {
     @Published private(set) var courses: [Course]
-    @Published var loading: Bool = false
+    @Published private(set) var loading: Bool = false
 
     static var global: GlobalCoursesDataManager = .init()
     private init() {
