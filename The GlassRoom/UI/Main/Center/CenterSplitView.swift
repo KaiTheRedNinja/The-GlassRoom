@@ -106,7 +106,7 @@ struct CenterSplitView: View {
         }
         let courseWorkManager = CourseCourseWorksDataManager.getManager(for: selectedCourseId)
         self.courseCourseWorksManager = courseWorkManager
-        if announcementManager.courseAnnouncements.isEmpty {
+        if courseWorkManager.courseWorks.isEmpty {
             courseWorkManager.loadList(bypassCache: true)
         }
 
