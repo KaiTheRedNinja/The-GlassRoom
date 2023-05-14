@@ -13,57 +13,13 @@ import LinkPresentation
 struct DetailView: View {
     @Binding var selectedCourse: Course?
     @Binding var selectedPost: CourseAnnouncement?
-
+    
     var body: some View {
         if selectedPost != nil {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(selectedPost?.text ?? "error")
-                        Spacer()
-                    }
-                    
-                    Spacer()
-                    
-                    if selectedPost?.materials != nil {
-                        Divider()
-                        
-                        ScrollView(.horizontal) {
-                            HStack {
-                                ForEach((selectedPost?.materials!)!, id: \.id) { material in
-                                    if let driveFile = material.driveFile {
-                                        LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
-                                    }
-                                    
-                                    if let youtubeVideo = material.youtubeVideo {
-                                        LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
-                                    }
-                                    
-                                    if let form = material.form {
-                                        LinkPreview(url: URL(string: form.formURL)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
-                                    }
-                                    
-                                    if let materialLink = material.link {
-                                        LinkPreview(url: URL(string: materialLink.url)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            .padding(.all)
+            contentScrollView
         } else {
             VStack {
-//                Text("Course: \(selectedCourse?.name ?? "nothing")")
+                //                Text("Course: \(selectedCourse?.name ?? "nothing")")
                 Text("No Post Selected")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -72,6 +28,54 @@ struct DetailView: View {
                     .lineLimit(1)
                     .padding(.horizontal)
             }
+        }
+    }
+    
+    var contentScrollView: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(selectedPost?.text ?? "error")
+                    Spacer()
+                }
+
+                Spacer()
+
+                if selectedPost?.materials != nil {
+                    Divider()
+
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach((selectedPost?.materials!)!, id: \.id) { material in
+                                if let driveFile = material.driveFile {
+                                    LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
+//                                            .frame(height: 100)
+//                                            .scaledToFit()
+                                }
+
+                                if let youtubeVideo = material.youtubeVideo {
+                                    LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
+//                                            .frame(height: 100)
+//                                            .scaledToFit()
+                                }
+
+                                if let form = material.form {
+                                    LinkPreview(url: URL(string: form.formURL)!)
+//                                            .frame(height: 100)
+//                                            .scaledToFit()
+                                }
+
+                                if let materialLink = material.link {
+                                    LinkPreview(url: URL(string: materialLink.url)!)
+//                                            .frame(height: 100)
+//                                            .scaledToFit()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.all)
         }
     }
     
