@@ -8,8 +8,8 @@
 import Foundation
 
 public struct TimeOfDay: Codable {
-    public var hours: Int
-    public var minutes: Int
-    public var seconds: Int
-    public var nanos: Int
+    public var hours: Int?
+    public var minutes: Int?
+    public var seconds: Int?
+    public var nanos: Int?
 }

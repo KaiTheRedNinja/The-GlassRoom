@@ -20,17 +20,17 @@ public struct CourseWork: Codable {
     public var dueDate: DueDate?
     public var dueTime: TimeOfDay?
     public var scheduledTime: String?
-    public var maxPoints: Double
+    public var maxPoints: Double?
     public var workType: CourseWorkType
-    public var associatedWithDeveloper: Bool
-    public var assigneeMode: AssigneeMode
-    public var individualStudentsOptions: IndividualStudentsOptions
-    public var submissionModificationMode: SubmissionModificationMode
+    public var associatedWithDeveloper: Bool?
+    public var assigneeMode: AssigneeMode?
+    public var individualStudentsOptions: IndividualStudentsOptions?
+    public var submissionModificationMode: SubmissionModificationMode?
     public var creatorUserId: String
-    public var topicId: String
-    public var gradeCategory: GradeCategory
-    public var assignment: Assignment
-    public var multipleChoiceQuestion: MultipleChoiceQuestion
+    public var topicId: String?
+    public var gradeCategory: GradeCategory?
+    public var assignment: Assignment?
+    public var multipleChoiceQuestion: MultipleChoiceQuestion?
 }
 
 public extension CourseWork {

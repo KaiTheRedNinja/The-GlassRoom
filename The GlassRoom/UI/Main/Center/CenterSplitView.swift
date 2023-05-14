@@ -50,6 +50,10 @@ struct CenterSplitView: View {
             manager.loadList(bypassCache: true)
         }
         // TODO: Intelligently refresh
+
+        // testing: load the coursework manager
+//        let courseWorkManager = CourseCourseWorksDataManager.getManager(for: selectedCourseId)
+//        courseWorkManager.loadList(bypassCache: true)
     }
 }
 

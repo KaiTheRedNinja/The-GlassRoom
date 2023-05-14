@@ -63,6 +63,7 @@ enum APICaller<ResponseData: Decodable> {
         }
 
         // create the URL
+        print("Filled url: \(filledURL)")
         guard let url = URL(string: filledURL) else {
             print("Failed to create url: \(filledURL)")
             callback(.failure(NSError(domain: "Failed to create url: \(filledURL)",
@@ -84,6 +85,7 @@ enum APICaller<ResponseData: Decodable> {
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             if let data {
                 do {
+                    print("Data: \(String(data: data, encoding: .utf8) ?? "undecodable")")
                     let result = try JSONDecoder().decode(ResponseData.self, from: data)
                     callback(.success(result))
                 } catch {

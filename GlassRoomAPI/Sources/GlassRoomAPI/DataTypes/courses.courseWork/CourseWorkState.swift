@@ -7,9 +7,9 @@
 
 import Foundation
 
-public enum CourseWorkState: Codable {
-    case course_work_state_unspecified
-    case published
-    case draft
-    case deleted
+public enum CourseWorkState: String, Codable {
+    case course_work_state_unspecified = "COURSE_WORK_STATE_UNSPECIFIED"
+    case published = "PUBLISHED"
+    case draft = "DRAFT"
+    case deleted = "DELETED"
 }

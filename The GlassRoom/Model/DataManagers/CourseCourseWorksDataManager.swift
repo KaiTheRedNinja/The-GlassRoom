@@ -54,7 +54,7 @@ class CourseCourseWorksDataManager: ObservableObject {
     ///   - requestNextPageIfExists: If the API request returns a nextPageToken and this value is true, it will recursively call itself to load all pages.
     func refreshList(nextPageToken: String? = nil, requestNextPageIfExists: Bool = false) {
         GlassRoomAPI.GRCourses.GRCourseWork.list(params: .init(courseId: courseId),
-                                                 query: .init(courseWorkStates: nil,
+                                                 query: .init(courseWorkStates: [.published],
                                                               orderBy: nil,
                                                               pageSize: nil,
                                                               pageToken: nextPageToken),
@@ -62,6 +62,7 @@ class CourseCourseWorksDataManager: ObservableObject {
         ) { response in
             switch response {
             case .success(let success):
+                print("Success: \(success)")
                 self.courseWorks.mergeWith(other: success.courseWork,
                                            isSame: { $0.id == $1.id },
                                            isBefore: { $0.creationDate > $1.creationDate })

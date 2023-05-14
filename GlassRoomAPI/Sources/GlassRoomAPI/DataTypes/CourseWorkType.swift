@@ -7,9 +7,9 @@
 
 import Foundation
 
-public enum CourseWorkType: Codable {
-    case course_work_type_unspecified
-    case assignment
-    case short_answer_question
-    case multiple_choice_question
+public enum CourseWorkType: String, Codable {
+    case course_work_type_unspecified = "COURSE_WORK_TYPE_UNSPECIFIED"
+    case assignment = "ASSIGNMENT"
+    case short_answer_question = "SHORT_ANSWER_QUESTION"
+    case multiple_choice_question = "MULTIPLE_CHOICE_QUESTION"
 }
