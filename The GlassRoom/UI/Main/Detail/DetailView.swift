@@ -11,6 +11,8 @@ import GlassRoomAPI
 import LinkPresentation
 
 struct DetailView: View {
+    
+    @State var textContent = String()
     @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
     
@@ -48,7 +50,7 @@ struct DetailView: View {
                 .padding(.top, 2)
                 
                 HStack {
-                    Text(announcement.text)
+                    Text(.init(textContent))
                     Spacer()
                 }
 
@@ -90,6 +92,12 @@ struct DetailView: View {
             }
             .padding(.all)
         }
+        .onAppear {
+            textContent = makeLinksHyperLink(announcement.text)
+        }
+        .onChange(of: announcement) { _ in
+            textContent = makeLinksHyperLink(announcement.text)
+        }
     }
 
     func courseWorkView(for courseWork: CourseWork) -> some View {
@@ -115,7 +123,7 @@ struct DetailView: View {
                     
                     VStack(alignment: .leading) {
                         HStack {
-                            Text(description)
+                            Text(.init(textContent))
                             Spacer()
                         }
                     }
@@ -161,6 +169,32 @@ struct DetailView: View {
             }
             .padding(.all)
         }
+        .onAppear {
+            if let description = courseWork.description {
+                textContent = makeLinksHyperLink(description)
+            }
+        }
+        .onChange(of: courseWork) { _ in
+            if let description = courseWork.description {
+                textContent = makeLinksHyperLink(description)
+            }
+        }
+    }
+    
+    func makeLinksHyperLink(_ ogText: String) -> String {
+        var input = ogText
+        
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        let matches = detector.matches(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count))
+        
+        for match in matches {
+            guard let range = Range(match.range, in: input) else { continue }
+            let url = input[range]
+            
+            input = input.replacingOccurrences(of: url, with: "[\(url)](\(url))")
+        }
+        
+        return input
     }
 }
 
