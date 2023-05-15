@@ -12,7 +12,7 @@ import LinkPresentation
 
 struct DetailView: View {
     
-    @State var textContent = String()
+    @State var textContent = ""
     @State var copiedLink = false
     @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
@@ -21,11 +21,11 @@ struct DetailView: View {
         if let selectedPost {
             switch selectedPost {
             case .announcement(let courseAnnouncement):
-                announcementView(for: courseAnnouncement)
+                AnnouncementDetailView(textContent: $textContent, copiedLink: $copiedLink, announcement: courseAnnouncement)
             case .courseWork(let courseWork):
-                courseWorkView(for: courseWork)
+                CourseWorkDetailView(textContent: $textContent, copiedLink: $copiedLink, courseWork: courseWork)
             case .courseMaterial(let courseWorkMaterial):
-                courseMaterialView(for: courseWorkMaterial)
+                CourseMaterialDetailView(textContent: $textContent, copiedLink: $copiedLink, courseWorkMaterial: courseWorkMaterial)
             }
         } else {
             VStack {
@@ -39,196 +39,52 @@ struct DetailView: View {
             }
         }
     }
+}
 
-    func announcementView(for announcement: CourseAnnouncement) -> some View {
-        GeometryReader { geometry in
-            ScrollView {
-                VStack(alignment: .leading) {
-                    HStack {
-                        
-                        Spacer()
-                        
-                        viewForButtons(announcement.alternateLink)
-                    }
-                    .padding(.top, 2)
-                    
-                    HStack {
-                        Text(.init(textContent))
-                        Spacer()
-                    }
-                    
-                    Spacer()
-                    
-                    if let material = announcement.materials {
-                        Divider()
-                        
-                        viewForMaterial(materials: material, geometry: geometry)
-                    }
-                }
-                .padding(.all)
-            }
-        }
-        .onAppear {
-            copiedLink = false
-            textContent = makeLinksHyperLink(announcement.text)
-        }
-        .onChange(of: announcement) { _ in
-            copiedLink = false
-            textContent = makeLinksHyperLink(announcement.text)
-        }
-    }
+protocol DetailViewPage: View {
+    var textContent: Binding<String> { get set }
+    var copiedLink: Binding<Bool> { get set }
+}
 
-    func courseWorkView(for courseWork: CourseWork) -> some View {
-        GeometryReader { geometry in
-            ScrollView {
-                VStack {
-                    HStack {
-                        Text(courseWork.title)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                        
-                        Spacer()
-                        
-                        viewForButtons(courseWork.alternateLink)
-                    }
-                    .padding(.top, 2)
-                    .padding(.bottom, 10)
-                    
-                    if let _ = courseWork.description {
-                        Divider()
-                            .padding(.bottom, 10)
-                        
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text(.init(textContent))
-                                Spacer()
-                            }
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    VStack {
-                        if let material = courseWork.materials {
-                            Divider()
-                            
-                            viewForMaterial(materials: material, geometry: geometry)
-                        }
-                    }
-                }
-                .padding(.all)
-            }
-        }
-        .onAppear {
-            copiedLink = false
-            if let description = courseWork.description {
-                textContent = makeLinksHyperLink(description)
-            }
-
-            let manager = CourseWorkSubmissionDataManager.getManager(for: courseWork.courseId, courseWorkId: courseWork.id)
-            manager.refreshList()
-        }
-        .onChange(of: courseWork) { _ in
-            copiedLink = false
-            if let description = courseWork.description {
-                textContent = makeLinksHyperLink(description)
-            }
-        }
-    }
-    
-    func courseMaterialView(for courseWorkMaterial: CourseWorkMaterial) -> some View {
-        GeometryReader { geometry in
-            ScrollView {
-                VStack {
-                    HStack {
-                        Text(courseWorkMaterial.title)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                        
-                        Spacer()
-                        
-                        viewForButtons(courseWorkMaterial.alternateLink)
-                    }
-                    .padding(.top, 2)
-                    .padding(.bottom, 10)
-                    
-                    if let _ = courseWorkMaterial.description {
-                        Divider()
-                            .padding(.bottom, 10)
-                        
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text(.init(textContent))
-                                Spacer()
-                            }
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    VStack {
-                        if let material = courseWorkMaterial.materials {
-                            Divider()
-                            
-                            viewForMaterial(materials: material, geometry: geometry)
-                        }
-                    }
-                }
-                .padding(.all)
-            }
-        }
-        .onAppear {
-            copiedLink = false
-            if let description = courseWorkMaterial.description {
-                textContent = makeLinksHyperLink(description)
-            }
-        }
-        .onChange(of: courseWorkMaterial) { _ in
-            copiedLink = false
-            if let description = courseWorkMaterial.description {
-                textContent = makeLinksHyperLink(description)
-            }
-        }
-    }
-    
+extension DetailViewPage {
     func makeLinksHyperLink(_ ogText: String) -> String {
         var input = ogText
-        
+
         let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
         let matches = detector.matches(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count))
-        
+
         for match in matches {
             guard let range = Range(match.range, in: input) else { continue }
             let url = input[range]
-            
+
             input = input.replacingOccurrences(of: url, with: "[\(url)](\(url))")
         }
-        
+
         return input
     }
-    
+
     func viewForButtons(_ link: String) -> some View {
         HStack {
             Link(destination: URL(string: link)!) {
                 Image(systemName: "safari")
                     .foregroundColor(.secondary)
             }
-            
+
             ShareLink(item: link) {
                 Image(systemName: "square.and.arrow.up")
             }
             .buttonStyle(.plain)
             .padding(.leading, 5)
-            
+
             Button {
-                copiedLink = true
+                copiedLink.wrappedValue = true
                 let pasteboard = NSPasteboard.general
                 pasteboard.declareTypes([.string], owner: nil)
                 pasteboard.setString("\(link)", forType: .string)
             } label: {
                 HStack {
                     Image(systemName: "link")
-                    if copiedLink {
+                    if copiedLink.wrappedValue {
                         Text("Copied!")
                     }
                 }
@@ -237,7 +93,7 @@ struct DetailView: View {
             .buttonStyle(.plain)
         }
     }
-    
+
     func viewForMaterial(materials: [AssignmentMaterial], geometry: GeometryProxy) -> some View {
         VStack {
             if materials.count > 1 {
@@ -247,15 +103,15 @@ struct DetailView: View {
                             if let driveFile = material.driveFile {
                                 LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
                             }
-                            
+
                             if let youtubeVideo = material.youtubeVideo {
                                 LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
                             }
-                            
+
                             if let link = material.form?.formUrl {
                                 LinkPreview(url: URL(string: link)!)
                             }
-                            
+
                             if let materialLink = material.link {
                                 LinkPreview(url: URL(string: materialLink.url)!)
                             }
@@ -270,15 +126,15 @@ struct DetailView: View {
                             if let driveFile = material.driveFile {
                                 LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
                             }
-                            
+
                             if let youtubeVideo = material.youtubeVideo {
                                 LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
                             }
-                            
+
                             if let link = material.form?.formUrl {
                                 LinkPreview(url: URL(string: link)!)
                             }
-                            
+
                             if let materialLink = material.link {
                                 LinkPreview(url: URL(string: materialLink.url)!)
                             }

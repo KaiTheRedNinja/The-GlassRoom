@@ -1,0 +1,54 @@
+//
+//  AnnouncementDetailView.swift
+//  The GlassRoom
+//
+//  Created by Kai Quan Tay on 15/5/23.
+//
+
+import SwiftUI
+import GlassRoomAPI
+
+struct AnnouncementDetailView: DetailViewPage {
+    var textContent: Binding<String>
+    var copiedLink: Binding<Bool>
+
+    var announcement: CourseAnnouncement
+
+    var body: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(alignment: .leading) {
+                    HStack {
+
+                        Spacer()
+
+                        viewForButtons(announcement.alternateLink)
+                    }
+                    .padding(.top, 2)
+
+                    HStack {
+                        Text(textContent.wrappedValue)
+                        Spacer()
+                    }
+
+                    Spacer()
+
+                    if let material = announcement.materials {
+                        Divider()
+
+                        viewForMaterial(materials: material, geometry: geometry)
+                    }
+                }
+                .padding(.all)
+            }
+        }
+        .onAppear {
+            copiedLink.wrappedValue = false
+            textContent.wrappedValue = makeLinksHyperLink(announcement.text)
+        }
+        .onChange(of: announcement) { _ in
+            copiedLink.wrappedValue = false
+            textContent.wrappedValue = makeLinksHyperLink(announcement.text)
+        }
+    }
+}
