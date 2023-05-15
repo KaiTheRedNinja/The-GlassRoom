@@ -7,6 +7,7 @@
 
 import Foundation
 
+@available(*, deprecated, message: "This is no longer used")
 public struct CourseMaterial: Codable {
     public var driveFile: DriveFile
     public var youtubeVideo: YouTubeVideo
