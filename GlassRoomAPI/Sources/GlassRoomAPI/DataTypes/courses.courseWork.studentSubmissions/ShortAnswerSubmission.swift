@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct ShortAnswerSubmission {
+public struct ShortAnswerSubmission: Codable {
     public var answer: String
 }

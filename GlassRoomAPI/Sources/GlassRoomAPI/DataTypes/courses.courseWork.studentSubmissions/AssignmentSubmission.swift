@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct AssignmentSubmission {
+public struct AssignmentSubmission: Codable {
     public var attachments: [Attachment]
 }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-public enum SubmissionState {
-    case submission_state_unspecified
-    case new
-    case created
-    case turned_in
-    case returned
-    case reclaimed_by_student
+public enum SubmissionState: String, Codable {
+    case submission_state_unspecified = "SUBMISSION_STATE_UNSPECIFIED"
+    case new = "NEW"
+    case created = "CREATED"
+    case turned_in = "TURNED_IN"
+    case returned = "RETURNED"
+    case reclaimed_by_student = "RECLAIMED_BY_STUDENT"
 }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-public enum SHState { // Not called State since that already exists, SHState stands for StateHistoryState, since SubmissionState has already been taken up
-    case state_unspecified
-    case created
-    case turned_in
-    case returned
-    case reclaimed_by_student
-    case student_edited_after_turn_in
+public enum SHState: String, Codable { // Not called State since that already exists, SHState stands for StateHistoryState, since SubmissionState has already been taken up
+    case state_unspecified = "STATE_UNSPECIFIED"
+    case created = "CREATED"
+    case turned_in = "TURNED_IN"
+    case returned = "RETURNED"
+    case reclaimed_by_student = "RECLAIMED_BY_STUDENT"
+    case student_edited_after_turn_in = "STUDENT_EDITED_AFTER_TURN_IN"
 }

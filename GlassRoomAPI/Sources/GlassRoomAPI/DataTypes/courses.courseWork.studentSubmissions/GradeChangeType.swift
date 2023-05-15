@@ -7,9 +7,9 @@
 
 import Foundation
 
-public enum GradeChangeType {
-    case unknown_grade_change_type
-    case draft_grade_points_earned_change
-    case assigned_grade_points_earned_change
-    case max_points_change
+public enum GradeChangeType: String, Codable {
+    case unknown_grade_change_type = "UNKNOWN_GRADE_CHANGE_TYPE"
+    case draft_grade_points_earned_change = "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+    case assigned_grade_points_earned_change = "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+    case max_points_change = "MAX_POINTS_CHANGE"
 }

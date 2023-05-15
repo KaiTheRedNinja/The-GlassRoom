@@ -18,7 +18,6 @@ public enum GlassRoomAPI {
         /**Requires `https://www.googleapis.com/auth/classroom.coursework.students` scope**/
         public enum GRCourseWork: GlassRoomAPIProtocol {
             /**Requires `https://www.googleapis.com/auth/classroom.coursework.students` scope**/
-            @available(macOS, unavailable, message: "Not implemented yet")
             public enum GRStudentSubmissions: GlassRoomAPIProtocol {}
         }
         /**Requires `https://www.googleapis.com/auth/classroom.courseworkmaterials` scope**/

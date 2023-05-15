@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct StateHistory {
+public struct StateHistory: Codable {
     public var state: SHState
     public var stateTimestamp: String
     public var actorUserId: String

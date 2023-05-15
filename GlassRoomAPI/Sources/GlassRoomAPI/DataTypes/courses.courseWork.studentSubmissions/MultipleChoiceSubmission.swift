@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MultipleChoiceSubmission {
+public struct MultipleChoiceSubmission: Codable {
     public var answer: String
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct GradeHistory {
+public struct GradeHistory: Codable {
     public var pointsEarned: Double
     public var maxPoints: Double
     public var gradeTimestamp: String

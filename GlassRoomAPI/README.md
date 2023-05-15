@@ -157,25 +157,25 @@ These are the Google Classroom APIs and if they are implemented/tested
 ### Could-have:
 - courses.courseWork.studentSubmissions
   - get
-    - [ ] Implemented
+    - [x] Implemented
     - [ ] Tested/used
   - list
-    - [ ] Implemented
+    - [x] Implemented
     - [ ] Tested/used
   - modifyAttachments
-    - [ ] Implemented
+    - [x] Implemented
     - [ ] Tested/used
   - patch
-    - [ ] Implemented
+    - [x] Implemented
     - [ ] Tested/used
   - reclaim
-    - [ ] Implemented
+    - [x] Implemented
     - [ ] Tested/used
   - return
-    - [ ] Implemented
+    - [x] Implemented
     - [ ] Tested/used
   - turnIn
-    - [ ] Implemented
+    - [x] Implemented
     - [ ] Tested/used
   
 ### Dont-need-to-have:
