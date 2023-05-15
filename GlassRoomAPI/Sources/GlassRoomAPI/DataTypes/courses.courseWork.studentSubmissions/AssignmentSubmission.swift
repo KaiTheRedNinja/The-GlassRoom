@@ -8,5 +8,5 @@
 import Foundation
 
 public struct AssignmentSubmission: Codable {
-    public var attachments: [Attachment]
+    public var attachments: [Attachment]?
 }

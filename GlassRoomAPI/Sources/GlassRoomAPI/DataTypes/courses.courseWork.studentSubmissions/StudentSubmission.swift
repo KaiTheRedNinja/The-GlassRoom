@@ -15,16 +15,16 @@ public struct StudentSubmission: Codable {
     public var creationTime: String
     public var updateTime: String
     public var state: SubmissionState
-    public var late: Bool
+    public var late: Bool?
     public var draftGrade: Double?
     public var assignedGrade: Double?
     public var alternateLink: String
     public var courseWorkType: CourseWorkType
-    public var associatedWithDeveloper: Bool
-    public var submissionHistory: [SubmissionHistory]
-    public var assignmentSubmission: AssignmentSubmission
-    public var shortAnswerSubmission: ShortAnswerSubmission
-    public var multipleChoiceSubmission: MultipleChoiceSubmission
+    public var associatedWithDeveloper: Bool?
+    public var submissionHistory: [SubmissionHistory]?
+    public var assignmentSubmission: AssignmentSubmission?
+    public var shortAnswerSubmission: ShortAnswerSubmission?
+    public var multipleChoiceSubmission: MultipleChoiceSubmission?
 }
 
 public extension StudentSubmission {

@@ -20,7 +20,7 @@ struct MainView: View {
             CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
         } detail: {
             DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-                .frame(minWidth: 400)
+                .frame(minWidth: 200)
         }
         .sheet(isPresented: $showSearch) {
             SearchView(selectedCourse: $selectedCourse,

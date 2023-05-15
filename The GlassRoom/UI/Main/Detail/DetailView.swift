@@ -124,6 +124,9 @@ struct DetailView: View {
             if let description = courseWork.description {
                 textContent = makeLinksHyperLink(description)
             }
+
+            let manager = CourseWorkSubmissionDataManager.getManager(for: courseWork.courseId, courseWorkId: courseWork.id)
+            manager.refreshList()
         }
         .onChange(of: courseWork) { _ in
             copiedLink = false

@@ -87,6 +87,7 @@ enum APICaller<ResponseData: Decodable> {
                     let result = try JSONDecoder().decode(ResponseData.self, from: data)
                     callback(.success(result))
                 } catch {
+                    print("Failure Data: \(String(data: data, encoding: .utf8) ?? "undecodable")")
                     print("Decoding error: \(error)")
                     callback(.failure(error))
                 }

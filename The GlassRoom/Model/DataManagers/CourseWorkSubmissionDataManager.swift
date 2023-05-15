@@ -28,10 +28,6 @@ class CourseWorkSubmissionDataManager: ObservableObject {
         }
     }
 
-    func refreshList(requestNextPageIfExists: Bool = false) {
-        loading = true
-    }
-
     func clearCache(courseId: String) {
         FileSystem.write([StudentSubmission](), to: "\(courseId)_\(courseWorkId)_submissions.json")
     }
@@ -52,6 +48,7 @@ class CourseWorkSubmissionDataManager: ObservableObject {
     }
 
     func refreshList(nextPageToken: String? = nil, requestNextPageIfExists: Bool = false) {
+        self.loading = true
         GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.list(
             params: .init(courseId: courseId, courseWorkId: courseWorkId),
             query: .init(userId: nil,
