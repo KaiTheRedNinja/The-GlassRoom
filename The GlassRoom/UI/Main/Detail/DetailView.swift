@@ -41,57 +41,32 @@ struct DetailView: View {
     }
 
     func announcementView(for announcement: CourseAnnouncement) -> some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                HStack {
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(alignment: .leading) {
+                    HStack {
+                        
+                        Spacer()
+                        
+                        viewForButtons(announcement.alternateLink)
+                    }
+                    .padding(.top, 2)
+                    
+                    HStack {
+                        Text(.init(textContent))
+                        Spacer()
+                    }
                     
                     Spacer()
                     
-                    Link(destination: URL(string: announcement.alternateLink)!) {
-                        Image(systemName: "safari")
-                            .foregroundColor(.accentColor)
+                    if let material = announcement.materials {
+                        Divider()
+                        
+                        viewForMaterial(materials: material, geometry: geometry)
                     }
-                    
-                    ShareLink(item: announcement.alternateLink) {
-                        Image(systemName: "square.and.arrow.up")
-                            .foregroundColor(.accentColor)
-                    }
-                    .buttonStyle(.plain)
-                    .padding(.leading, 5)
-                    
-                    Button {
-                        copiedLink = true
-                        let pasteboard = NSPasteboard.general
-                        pasteboard.declareTypes([.string], owner: nil)
-                        pasteboard.setString("\(announcement.alternateLink)", forType: .string)
-                    } label: {
-                        HStack {
-                            Image(systemName: "link")
-                            if copiedLink {
-                                Text("Copied!")
-                            }
-                        }
-                        .foregroundColor(.accentColor)
-                    }
-                    .padding(.leading, 5)
-                    .buttonStyle(.plain)
                 }
-                .padding(.top, 2)
-                
-                HStack {
-                    Text(.init(textContent))
-                    Spacer()
-                }
-
-                Spacer()
-
-                if let material = announcement.materials {
-                    Divider()
-
-                    viewForMaterial(materials: material)
-                }
+                .padding(.all)
             }
-            .padding(.all)
         }
         .onAppear {
             copiedLink = false
@@ -104,68 +79,45 @@ struct DetailView: View {
     }
 
     func courseWorkView(for courseWork: CourseWork) -> some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Text(courseWork.title)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    
-                    Spacer()
-                    
-                    Link(destination: URL(string: courseWork.alternateLink)!) {
-                        Image(systemName: "safari")
-                            .foregroundColor(.secondary)
+        GeometryReader { geometry in
+            ScrollView {
+                VStack {
+                    HStack {
+                        Text(courseWork.title)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                        
+                        Spacer()
+                        
+                        viewForButtons(courseWork.alternateLink)
                     }
+                    .padding(.top, 2)
+                    .padding(.bottom, 10)
                     
-                    ShareLink(item: courseWork.alternateLink) {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    .buttonStyle(.plain)
-                    .padding(.leading, 5)
-                    
-                    Button {
-                        copiedLink = true
-                        let pasteboard = NSPasteboard.general
-                        pasteboard.declareTypes([.string], owner: nil)
-                        pasteboard.setString("\(courseWork.alternateLink)", forType: .string)
-                    } label: {
-                        HStack {
-                            Image(systemName: "link")
-                            if copiedLink {
-                                Text("Copied!")
+                    if let _ = courseWork.description {
+                        Divider()
+                            .padding(.bottom, 10)
+                        
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text(.init(textContent))
+                                Spacer()
                             }
                         }
                     }
-                    .padding(.leading, 5)
-                    .buttonStyle(.plain)
-                }
-                .padding(.top, 2)
-                .padding(.bottom, 10)
-                
-                if let _ = courseWork.description {
-                    Divider()
-                        .padding(.bottom, 10)
                     
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(.init(textContent))
-                            Spacer()
+                    Spacer()
+                    
+                    VStack {
+                        if let material = courseWork.materials {
+                            Divider()
+                            
+                            viewForMaterial(materials: material, geometry: geometry)
                         }
                     }
                 }
-                
-                Spacer()
-                
-                VStack {
-                    if let material = courseWork.materials {
-                        Divider()
-
-                        viewForMaterial(materials: material)
-                    }
-                }
+                .padding(.all)
             }
-            .padding(.all)
         }
         .onAppear {
             copiedLink = false
@@ -182,68 +134,45 @@ struct DetailView: View {
     }
     
     func courseMaterialView(for courseWorkMaterial: CourseWorkMaterial) -> some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Text(courseWorkMaterial.title)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    
-                    Spacer()
-                    
-                    Link(destination: URL(string: courseWorkMaterial.alternateLink)!) {
-                        Image(systemName: "safari")
-                            .foregroundColor(.secondary)
+        GeometryReader { geometry in
+            ScrollView {
+                VStack {
+                    HStack {
+                        Text(courseWorkMaterial.title)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                        
+                        Spacer()
+                        
+                        viewForButtons(courseWorkMaterial.alternateLink)
                     }
+                    .padding(.top, 2)
+                    .padding(.bottom, 10)
                     
-                    ShareLink(item: courseWorkMaterial.alternateLink) {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    .buttonStyle(.plain)
-                    .padding(.leading, 5)
-                    
-                    Button {
-                        copiedLink = true
-                        let pasteboard = NSPasteboard.general
-                        pasteboard.declareTypes([.string], owner: nil)
-                        pasteboard.setString("\(courseWorkMaterial.alternateLink)", forType: .string)
-                    } label: {
-                        HStack {
-                            Image(systemName: "link")
-                            if copiedLink {
-                                Text("Copied!")
+                    if let _ = courseWorkMaterial.description {
+                        Divider()
+                            .padding(.bottom, 10)
+                        
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text(.init(textContent))
+                                Spacer()
                             }
                         }
                     }
-                    .padding(.leading, 5)
-                    .buttonStyle(.plain)
-                }
-                .padding(.top, 2)
-                .padding(.bottom, 10)
-                
-                if let _ = courseWorkMaterial.description {
-                    Divider()
-                        .padding(.bottom, 10)
                     
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(.init(textContent))
-                            Spacer()
+                    Spacer()
+                    
+                    VStack {
+                        if let material = courseWorkMaterial.materials {
+                            Divider()
+                            
+                            viewForMaterial(materials: material, geometry: geometry)
                         }
                     }
                 }
-                
-                Spacer()
-                
-                VStack {
-                    if let material = courseWorkMaterial.materials {
-                        Divider()
-
-                        viewForMaterial(materials: material)
-                    }
-                }
+                .padding(.all)
             }
-            .padding(.all)
         }
         .onAppear {
             copiedLink = false
@@ -274,29 +203,86 @@ struct DetailView: View {
         
         return input
     }
-
-    func viewForMaterial(materials: [AssignmentMaterial]) -> some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(materials, id: \.id) { material in
-                    ZStack {
-                        if let driveFile = material.driveFile {
-                            LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
-                        }
-
-                        if let youtubeVideo = material.youtubeVideo {
-                            LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
-                        }
-
-                        if let link = material.form?.formUrl {
-                            LinkPreview(url: URL(string: link)!)
-                        }
-
-                        if let materialLink = material.link {
-                            LinkPreview(url: URL(string: materialLink.url)!)
+    
+    func viewForButtons(_ link: String) -> some View {
+        HStack {
+            Link(destination: URL(string: link)!) {
+                Image(systemName: "safari")
+                    .foregroundColor(.secondary)
+            }
+            
+            ShareLink(item: link) {
+                Image(systemName: "square.and.arrow.up")
+            }
+            .buttonStyle(.plain)
+            .padding(.leading, 5)
+            
+            Button {
+                copiedLink = true
+                let pasteboard = NSPasteboard.general
+                pasteboard.declareTypes([.string], owner: nil)
+                pasteboard.setString("\(link)", forType: .string)
+            } label: {
+                HStack {
+                    Image(systemName: "link")
+                    if copiedLink {
+                        Text("Copied!")
+                    }
+                }
+            }
+            .padding(.leading, 5)
+            .buttonStyle(.plain)
+        }
+    }
+    
+    func viewForMaterial(materials: [AssignmentMaterial], geometry: GeometryProxy) -> some View {
+        VStack {
+            if materials.count > 1 {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 15), count: Int(floor((geometry.size.width - 70) / 200))), spacing: 20) {
+                    ForEach(materials, id: \.id) { material in
+                        ZStack {
+                            if let driveFile = material.driveFile {
+                                LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
+                            }
+                            
+                            if let youtubeVideo = material.youtubeVideo {
+                                LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
+                            }
+                            
+                            if let link = material.form?.formUrl {
+                                LinkPreview(url: URL(string: link)!)
+                            }
+                            
+                            if let materialLink = material.link {
+                                LinkPreview(url: URL(string: materialLink.url)!)
+                            }
                         }
                     }
                 }
+                .padding(.horizontal)
+            } else {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 15), count: 1), spacing: 20) {
+                    ForEach(materials, id: \.id) { material in
+                        ZStack {
+                            if let driveFile = material.driveFile {
+                                LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
+                            }
+                            
+                            if let youtubeVideo = material.youtubeVideo {
+                                LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
+                            }
+                            
+                            if let link = material.form?.formUrl {
+                                LinkPreview(url: URL(string: link)!)
+                            }
+                            
+                            if let materialLink = material.link {
+                                LinkPreview(url: URL(string: materialLink.url)!)
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal)
             }
         }
     }
