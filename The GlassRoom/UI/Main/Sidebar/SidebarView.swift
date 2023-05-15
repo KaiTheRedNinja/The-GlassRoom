@@ -66,7 +66,7 @@ struct CourseView: View {
 
     var body: some View {
         VStack {
-            let isLoaded = CourseAnnouncementsDataManager.loadedManagers.keys.contains(course.id)
+            let isLoaded = CoursePostsDataManager.loadedManagers.keys.contains(course.id)
             HStack {
                 Text(course.name)
                     .font(.system(.body, weight: isLoaded ? .semibold : .regular))
