@@ -24,12 +24,11 @@ struct DetailView: View {
                 announcementView(for: courseAnnouncement)
             case .courseWork(let courseWork):
                 courseWorkView(for: courseWork)
-            case .courseMaterial(_):
-                Text("Not Implemented Yet")
+            case .courseMaterial(let courseWorkMaterial):
+                courseMaterialView(for: courseWorkMaterial)
             }
         } else {
             VStack {
-                //                Text("Course: \(selectedCourse?.name ?? "nothing")")
                 Text("No Post Selected")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -49,11 +48,13 @@ struct DetailView: View {
                     Spacer()
                     
                     Link(destination: URL(string: announcement.alternateLink)!) {
-                        Label("Open in browser", systemImage: "safari")
+                        Image(systemName: "safari")
+                            .foregroundColor(.accentColor)
                     }
                     
                     ShareLink(item: announcement.alternateLink) {
                         Image(systemName: "square.and.arrow.up")
+                            .foregroundColor(.accentColor)
                     }
                     .buttonStyle(.plain)
                     .padding(.leading, 5)
@@ -70,6 +71,7 @@ struct DetailView: View {
                                 Text("Copied!")
                             }
                         }
+                        .foregroundColor(.accentColor)
                     }
                     .padding(.leading, 5)
                     .buttonStyle(.plain)
@@ -112,7 +114,8 @@ struct DetailView: View {
                     Spacer()
                     
                     Link(destination: URL(string: courseWork.alternateLink)!) {
-                        Label("Open in browser", systemImage: "safari")
+                        Image(systemName: "safari")
+                            .foregroundColor(.secondary)
                     }
                     
                     ShareLink(item: courseWork.alternateLink) {
@@ -173,6 +176,84 @@ struct DetailView: View {
         .onChange(of: courseWork) { _ in
             copiedLink = false
             if let description = courseWork.description {
+                textContent = makeLinksHyperLink(description)
+            }
+        }
+    }
+    
+    func courseMaterialView(for courseWorkMaterial: CourseWorkMaterial) -> some View {
+        ScrollView {
+            VStack {
+                HStack {
+                    Text(courseWorkMaterial.title)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                    
+                    Link(destination: URL(string: courseWorkMaterial.alternateLink)!) {
+                        Image(systemName: "safari")
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    ShareLink(item: courseWorkMaterial.alternateLink) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.leading, 5)
+                    
+                    Button {
+                        copiedLink = true
+                        let pasteboard = NSPasteboard.general
+                        pasteboard.declareTypes([.string], owner: nil)
+                        pasteboard.setString("\(courseWorkMaterial.alternateLink)", forType: .string)
+                    } label: {
+                        HStack {
+                            Image(systemName: "link")
+                            if copiedLink {
+                                Text("Copied!")
+                            }
+                        }
+                    }
+                    .padding(.leading, 5)
+                    .buttonStyle(.plain)
+                }
+                .padding(.top, 2)
+                .padding(.bottom, 10)
+                
+                if let _ = courseWorkMaterial.description {
+                    Divider()
+                        .padding(.bottom, 10)
+                    
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(.init(textContent))
+                            Spacer()
+                        }
+                    }
+                }
+                
+                Spacer()
+                
+                VStack {
+                    if let material = courseWorkMaterial.materials {
+                        Divider()
+
+                        viewForMaterial(materials: material)
+                    }
+                }
+            }
+            .padding(.all)
+        }
+        .onAppear {
+            copiedLink = false
+            if let description = courseWorkMaterial.description {
+                textContent = makeLinksHyperLink(description)
+            }
+        }
+        .onChange(of: courseWorkMaterial) { _ in
+            copiedLink = false
+            if let description = courseWorkMaterial.description {
                 textContent = makeLinksHyperLink(description)
             }
         }

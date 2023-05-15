@@ -69,28 +69,48 @@ struct SegmentedControlItem: View {
     var isPressing: Bool = false
 
     var body: some View {
-        Text(label)
-            .font(.subheadline)
-            .foregroundColor(textColor)
-            .opacity(textOpacity)
-            .frame(height: 20)
-            .padding(.horizontal, 7.5)
-            .background(
-                background
-            )
-            .cornerRadius(5)
-            .onTapGesture {
-                action()
+        VStack {
+            if active {
+                Label(label, systemImage: getSymbolForLabel(label))
+            } else {
+                Image(systemName: getSymbolForLabel(label))
             }
-            .onHover { hover in
-                isHovering = hover
-            }
-            .pressAction {
-                isPressing = true
-            } onRelease: {
-                isPressing = false
-            }
+        }
+        .font(.subheadline)
+        .foregroundColor(textColor)
+        .opacity(textOpacity)
+        .frame(height: 20)
+        .padding(.horizontal, 7.5)
+        .background(
+            background
+        )
+        .cornerRadius(5)
+        .onTapGesture {
+            action()
+        }
+        .onHover { hover in
+            isHovering = hover
+        }
+        .pressAction {
+            isPressing = true
+        } onRelease: {
+            isPressing = false
+        }
 
+    }
+    
+    func getSymbolForLabel(_ label: String) -> String {
+        if label == "All Posts" {
+            return "list.bullet"
+        } else if label == "Announcements" {
+            return "megaphone"
+        } else if label == "Course Works" {
+            return "square.and.pencil"
+        } else if label == "Course Material" {
+            return "doc"
+        }
+        
+        return ""
     }
 
     private var textColor: Color {
