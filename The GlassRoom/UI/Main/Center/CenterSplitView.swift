@@ -18,10 +18,16 @@ struct CenterSplitView: View {
     
     var body: some View {
         ZStack {
-            if selectedCourse != nil, let coursePostsManager {
-                MultiCoursePostListView(selectedPost: $selectedPost,
-                                        displayOption: $currentPage,
-                                        posts: .init(array: [coursePostsManager]))
+            if let selectedCourse, let coursePostsManager {
+                switch selectedCourse {
+                case .course(_):
+                    MultiCoursePostListView(selectedPost: $selectedPost,
+                                            displayOption: $currentPage,
+                                            posts: .init(array: [coursePostsManager]))
+                default:
+                    // TODO: Aggregate view
+                    notImplementedYet
+                }
             } else {
                 ZStack {
                     Text("No Course Selected")
@@ -74,36 +80,6 @@ struct CenterSplitView: View {
         default: return
         }
     }
-    
-//    var announcementManagers: [CourseAnnouncementsDataManager] {
-//        guard let selectedCourse else { return [] }
-//        switch selectedCourse {
-//        case .course(_):
-//            return courseAnnouncementManager != nil ? [courseAnnouncementManager!] : []
-//        case .allTeaching, .allEnrolled:
-//            let courseType = selectedCourse == .allTeaching ? Course.CourseType.teaching : .enrolled
-//            let courses = GlobalCoursesDataManager.global.courses
-//            return Array(CourseAnnouncementsDataManager.loadedManagers.values).filter { manager in
-//                let item = courses.first(where: { $0.id == manager.courseId })
-//                return item?.courseType == courseType
-//            }
-//        }
-//    }
-//
-//    var courseWorkManagers: [CourseCourseWorksDataManager] {
-//        guard let selectedCourse else { return [] }
-//        switch selectedCourse {
-//        case .course(_):
-//            return courseCourseWorksManager != nil ? [courseCourseWorksManager!] : []
-//        case .allTeaching, .allEnrolled:
-//            let courseType = selectedCourse == .allTeaching ? Course.CourseType.teaching : .enrolled
-//            let courses = GlobalCoursesDataManager.global.courses
-//            return Array(CourseCourseWorksDataManager.loadedManagers.values).filter { manager in
-//                let item = courses.first(where: { $0.id == manager.courseId })
-//                return item?.courseType == courseType
-//            }
-//        }
-//    }
 
     enum CourseDisplayOption: String, CaseIterable {
         case allPosts = "All Posts"
