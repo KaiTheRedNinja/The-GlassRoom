@@ -145,10 +145,12 @@ extension CoursePostsDataManager {
         ) { response in
             switch response {
             case .success(let success):
-                self.courseAnnouncements.mergeWith(other: success.announcements,
-                                                   isSame: { $0.id == $1.id },
-                                                   isBefore: { $0.creationDate > $1.creationDate })
-                if let token = success.nextPageToken, requestNextPageIfExists {
+                DispatchQueue.main.async {
+                    self.courseAnnouncements.mergeWith(other: success.announcements,
+                                                       isSame: { $0.id == $1.id },
+                                                       isBefore: { $0.creationDate > $1.creationDate })
+                }
+                if let token = success.nextPageToken, !token.isEmpty, requestNextPageIfExists {
                     self.refreshAnnouncementsList(nextPageToken: token,
                                                   requestNextPageIfExists: requestNextPageIfExists)
                 } else {
@@ -160,7 +162,9 @@ extension CoursePostsDataManager {
                 }
             case .failure(let failure):
                 print("Failure: \(failure.localizedDescription)")
-                self.announcementsLoading = false
+                DispatchQueue.main.async {
+                    self.announcementsLoading = false
+                }
             }
         }
     }
@@ -196,7 +200,7 @@ extension CoursePostsDataManager {
                                                      isSame: { $0.id == $1.id },
                                                      isBefore: { $0.creationDate > $1.creationDate })
                 }
-                if let token = success.nextPageToken, requestNextPageIfExists {
+                if let token = success.nextPageToken, !token.isEmpty, requestNextPageIfExists {
                     self.refreshCourseWorksList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
                 } else {
                     DispatchQueue.main.async {
@@ -248,7 +252,7 @@ extension CoursePostsDataManager {
                                                          isSame: { $0.id == $1.id },
                                                          isBefore: { $0.creationDate > $1.creationDate })
                 }
-                if let token = success.nextPageToken, requestNextPageIfExists {
+                if let token = success.nextPageToken, !token.isEmpty, requestNextPageIfExists {
                     self.refreshCourseMaterialsList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
                 } else {
                     DispatchQueue.main.async {
