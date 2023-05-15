@@ -7,7 +7,7 @@
 
 public struct YouTubeVideo: Codable {
     public var id: String
-    public var title: String
+    public var title: String?
     public var alternateLink: String
     public var thumbnailURL: String?
 }

@@ -15,6 +15,11 @@ func convertDate(_ dateString: String, _ dateStyle: Date.FormatStyle.DateStyle? 
         guard let nonOptionalTimeStyle = timeStyle else { return date.description }
 
         returnDateString = date.formatted(date: nonOptionalDateStyle, time: nonOptionalTimeStyle)
+    } else if let date = dateString.iso8601withoutFractionalSeconds {
+        guard let nonOptionalDateStyle = dateStyle else { return date.description }
+        guard let nonOptionalTimeStyle = timeStyle else { return date.description }
+
+        returnDateString = date.formatted(date: nonOptionalDateStyle, time: nonOptionalTimeStyle)
     }
 
     return returnDateString
@@ -29,12 +34,15 @@ extension ISO8601DateFormatter {
 
 extension Formatter {
     static let iso8601withFractionalSeconds = ISO8601DateFormatter([.withInternetDateTime, .withFractionalSeconds])
+    static let iso8601withoutFractionalSeconds = ISO8601DateFormatter([.withInternetDateTime])
 }
 
 extension Date {
     var iso8601withFractionalSeconds: String { return Formatter.iso8601withFractionalSeconds.string(from: self) }
+    var iso8601withoutFractionalSeconds: String { return Formatter.iso8601withoutFractionalSeconds.string(from: self) }
 }
 
 extension String {
     var iso8601withFractionalSeconds: Date? { return Formatter.iso8601withFractionalSeconds.date(from: self) }
+    var iso8601withoutFractionalSeconds: Date? { return Formatter.iso8601withoutFractionalSeconds.date(from: self) }
 }

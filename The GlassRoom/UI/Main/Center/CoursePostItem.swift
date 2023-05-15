@@ -61,35 +61,40 @@ struct CoursePostItem: View {
                 Image(systemName: "timer")
 
                 Text(convertDate(creationTime, .abbreviated, .standard))
-
-                if convertDate(updateTime) != convertDate(creationTime) {
-                    // updateTime and creationTime are not the same
-                    if convertDate(updateTime, .long, .omitted) == convertDate(creationTime, .long, .omitted) {
-                        // updated on the same day, shows day and time
-                        Text("(Edited \(convertDate(updateTime, .abbreviated, .standard)))")
-                    } else {
-                        // updated on different day, shows day only
-                        Text("(Edited \(convertDate(creationTime, .abbreviated, .omitted)))")
-                    }
-                }
+                    .offset(x: 1.5)
             }
             .lineLimit(2)
             .font(.subheadline)
             .foregroundColor(.secondary)
             .offset(x: 1.5)
+            
+            if convertDate(updateTime) != convertDate(creationTime) {
+                // updateTime and creationTime are not the same
+                HStack {
+                    Image(systemName: "pencil")
+                    Text("\(convertDate(updateTime, .abbreviated, .standard))")
+                        .offset(x: 3)
+                }
+                .lineLimit(2)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .offset(x: 2)
+            }
 
             if let dueDate = dueDate {
                 HStack {
                     Image(systemName: "calendar")
                     if let dueTime = dueTime {
                         Text("\(dueDate.day)/\(dueDate.month)/\(dueDate.year) - \(getTimeFromDueTime(dueTime))".replacingOccurrences(of: ",", with: ""))
+                            .offset(x: 1)
                     } else {
                         Text("\(dueDate.day)/\(dueDate.month)/\(dueDate.year)".replacingOccurrences(of: ",", with: ""))
+                            .offset(x: 1)
                     }
                 }
                 .font(.subheadline)
                 .foregroundColor(.secondary)
-                .offset(x: 1.5)
+                .offset(x: 1)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

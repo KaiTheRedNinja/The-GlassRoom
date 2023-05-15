@@ -64,26 +64,20 @@ struct DetailView: View {
                             ForEach(announcement.materials ?? [], id: \.id) { material in
                                 if let driveFile = material.driveFile {
                                     LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
                                 }
 
                                 if let youtubeVideo = material.youtubeVideo {
                                     LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
                                 }
 
                                 if let form = material.form {
-                                    LinkPreview(url: URL(string: form.formURL)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
+                                    if let link = form.formURL {
+                                        LinkPreview(url: URL(string: link)!)
+                                    }
                                 }
 
                                 if let materialLink = material.link {
                                     LinkPreview(url: URL(string: materialLink.url)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
                                 }
                             }
                         }
@@ -117,7 +111,7 @@ struct DetailView: View {
                 .padding(.top, 2)
                 .padding(.bottom, 10)
                 
-                if let description = courseWork.description {
+                if let _ = courseWork.description {
                     Divider()
                         .padding(.bottom, 10)
                     
@@ -139,27 +133,25 @@ struct DetailView: View {
                             HStack {
                                 ForEach(courseWork.materials ?? [], id: \.id) { material in
                                     if let driveFile = material.driveFile {
+//                                        if let link = driveFile.driveFile.alternateLink {
                                         LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
-    //                                            .frame(height: 100)
-    //                                            .scaledToFit()
+//                                        }
                                     }
 
                                     if let youtubeVideo = material.youtubeVideo {
+//                                        if let link = youtubeVideo.alternateLink {
                                         LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
-    //                                            .frame(height: 100)
-    //                                            .scaledToFit()
+//                                        }
                                     }
 
                                     if let form = material.form {
-                                        LinkPreview(url: URL(string: form.formURL)!)
-    //                                            .frame(height: 100)
-    //                                            .scaledToFit()
+                                        if let link = form.formURL {
+                                            LinkPreview(url: URL(string: link)!)
+                                        }
                                     }
 
                                     if let materialLink = material.link {
                                         LinkPreview(url: URL(string: materialLink.url)!)
-    //                                            .frame(height: 100)
-    //                                            .scaledToFit()
                                     }
                                 }
                             }
