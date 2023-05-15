@@ -84,7 +84,10 @@ struct CoursePostListView: View {
                     CoursePostItem(coursework: courseWork)
                         .padding(.vertical, 2.5)
                         .tag(CoursePost.courseWork(courseWork))
-                    
+                case .courseMaterial(let courseMaterial):
+                    CoursePostItem(coursematerial: courseMaterial)
+                        .padding(.vertical, 2.5)
+                        .tag(CoursePost.courseMaterial(courseMaterial))
                 }
             }
 

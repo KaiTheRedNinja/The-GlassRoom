@@ -20,6 +20,11 @@ class CoursePostsDataManager: ObservableObject {
             } isBefore: { lhs, rhs in
                 lhs.creationDate > rhs.creationDate
             }
+            .mergedWith(other: courseCourseMaterials.map({ .courseMaterial($0) })) { lhs, rhs in
+                lhs.id == rhs.id
+            } isBefore: { lhs, rhs in
+                lhs.creationDate > rhs.creationDate
+            }
     }
 
     let courseId: String

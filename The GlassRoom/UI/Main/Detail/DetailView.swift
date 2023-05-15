@@ -21,6 +21,8 @@ struct DetailView: View {
                 announcementView(for: courseAnnouncement)
             case .courseWork(let courseWork):
                 courseWorkView(for: courseWork)
+            case .courseMaterial(_):
+                Text("Not Implemented Yet")
             }
         } else {
             VStack {

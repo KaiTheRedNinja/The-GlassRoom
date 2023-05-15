@@ -12,6 +12,7 @@ struct CoursePostItem: View {
     
     @State var announcement: CourseAnnouncement? = nil
     @State var coursework: CourseWork? = nil
+    @State var coursematerial: CourseWorkMaterial? = nil
     
     var body: some View {
         HStack {
@@ -30,6 +31,12 @@ struct CoursePostItem: View {
                              title: announcement.text,
                              creationTime: announcement.creationTime,
                              updateTime: announcement.updateTime)
+            } else if let coursematerial = self.coursematerial {
+                listItemView(.courseMaterial(coursematerial),
+                             id: coursematerial.id,
+                             title: coursematerial.title,
+                             creationTime: coursematerial.creationTime,
+                             updateTime: coursematerial.updateTime)
             }
         }
     }
@@ -49,6 +56,9 @@ struct CoursePostItem: View {
                         .foregroundColor(.accentColor)
                 } else if announcement != nil {
                     Image(systemName: "megaphone")
+                        .foregroundColor(.accentColor)
+                } else if coursematerial != nil {
+                    Image(systemName: "doc")
                         .foregroundColor(.accentColor)
                 }
                 Text(title.replacingOccurrences(of: "\n", with: " "))

@@ -85,6 +85,7 @@ struct CenterSplitView: View {
         case allPosts = "All Posts"
         case announcements = "Announcements"
         case courseWork = "Course Works"
+        case courseMaterial = "Course Material"
     }
 }
 

@@ -11,6 +11,7 @@ import GlassRoomAPI
 enum CoursePost: Hashable, Identifiable {
     case announcement(CourseAnnouncement)
     case courseWork(CourseWork)
+    case courseMaterial(CourseWorkMaterial)
 
     var id: String {
         switch self {
@@ -18,6 +19,8 @@ enum CoursePost: Hashable, Identifiable {
             return courseAnnouncement.id
         case .courseWork(let courseWork):
             return courseWork.id
+        case .courseMaterial(let courseMaterial):
+            return courseMaterial.id
         }
     }
 
@@ -27,6 +30,8 @@ enum CoursePost: Hashable, Identifiable {
             return courseAnnouncement.creationDate
         case .courseWork(let courseWork):
             return courseWork.creationDate
+        case .courseMaterial(let courseMaterial):
+            return courseMaterial.creationDate
         }
     }
 

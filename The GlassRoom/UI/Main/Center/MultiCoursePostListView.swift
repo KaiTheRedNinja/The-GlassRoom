@@ -44,14 +44,21 @@ struct MultiCoursePostListView: View {
             return posts.filter {
                 switch $0 {
                 case .announcement(_): return true
-                case .courseWork(_): return false
+                default: return false
                 }
             }
         case .courseWork:
             return posts.filter {
                 switch $0 {
-                case .announcement(_): return false
                 case .courseWork(_): return true
+                default: return false
+                }
+            }
+        case .courseMaterial:
+            return posts.filter {
+                switch $0 {
+                case .courseMaterial(_): return true
+                default: return false
                 }
             }
         }
