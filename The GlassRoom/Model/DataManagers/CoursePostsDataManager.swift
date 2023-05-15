@@ -252,7 +252,6 @@ extension CoursePostsDataManager {
                     self.refreshCourseMaterialsList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
                 } else {
                     DispatchQueue.main.async {
-                        print("REARCHED FINAL PAGE")
                         self.courseMaterialsNextPageToken = success.nextPageToken
                         self.courseMaterialsLoading = false
                         self.writeCourseMaterialsCache()
