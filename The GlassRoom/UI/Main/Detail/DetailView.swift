@@ -98,7 +98,7 @@ extension DetailViewPage {
     func viewForMaterial(materials: [AssignmentMaterial], geometry: GeometryProxy) -> some View {
         let gridCount = Int(floor((geometry.size.width - 70) / 200))
         LazyVGrid(columns: .init(repeating: GridItem(.flexible(), spacing: 15),
-                                 count: (materials.count > 1) ? gridCount : 0),
+                                 count: (materials.count > 1) ? gridCount : 1),
                   spacing: 20) {
             ForEach(materials, id: \.id) { material in
                 ZStack {
