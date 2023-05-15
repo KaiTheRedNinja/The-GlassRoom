@@ -34,6 +34,7 @@ struct MultiCoursePostListView: View {
 
     var body: some View {
         CoursePostListView(selectedPost: $selectedPost,
+                           showPostCourseOrigin: true,
                            postData: postData,
                            isEmpty: isEmpty,
                            isLoading: isLoading,
@@ -48,6 +49,9 @@ struct MultiCoursePostListView: View {
                 }
                 return manager
             }
+            updatePostData()
+        }
+        .onChange(of: displayOption) { _ in
             updatePostData()
         }
     }

@@ -10,6 +10,9 @@ import GlassRoomAPI
 
 struct CoursePostListView: View {
     @Binding var selectedPost: CoursePost?
+
+    var showPostCourseOrigin: Bool = false
+
     var postData: [CoursePost]
     var isEmpty: Bool
     var isLoading: Bool
@@ -72,22 +75,37 @@ struct CoursePostListView: View {
         }
     }
 
+    @ObservedObject var courseManager: GlobalCoursesDataManager = .global
+
     var postsContent: some View {
         List(selection: $selectedPost) {
             ForEach(postData, id: \.id) { post in
-                switch post {
-                case .announcement(let announcement):
-                    CoursePostItem(announcement: announcement)
-                        .padding(.vertical, 2.5)
-                        .tag(CoursePost.announcement(announcement))
-                case .courseWork(let courseWork):
-                    CoursePostItem(coursework: courseWork)
-                        .padding(.vertical, 2.5)
-                        .tag(CoursePost.courseWork(courseWork))
-                case .courseMaterial(let courseMaterial):
-                    CoursePostItem(coursematerial: courseMaterial)
-                        .padding(.vertical, 2.5)
-                        .tag(CoursePost.courseMaterial(courseMaterial))
+                VStack {
+                    if showPostCourseOrigin, let firstOccurence = courseManager.courses.first(where: { $0.id == post.courseId }) {
+                        HStack {
+                            Text(firstOccurence.name)
+                                .bold()
+                                .foregroundColor(.gray)
+                                .font(.caption)
+                                .lineLimit(1)
+                            Spacer()
+                        }
+                        .padding(.bottom, -5)
+                    }
+                    switch post {
+                    case .announcement(let announcement):
+                        CoursePostItem(announcement: announcement)
+                            .padding(.vertical, 2.5)
+                            .tag(CoursePost.announcement(announcement))
+                    case .courseWork(let courseWork):
+                        CoursePostItem(coursework: courseWork)
+                            .padding(.vertical, 2.5)
+                            .tag(CoursePost.courseWork(courseWork))
+                    case .courseMaterial(let courseMaterial):
+                        CoursePostItem(coursematerial: courseMaterial)
+                            .padding(.vertical, 2.5)
+                            .tag(CoursePost.courseMaterial(courseMaterial))
+                    }
                 }
             }
 

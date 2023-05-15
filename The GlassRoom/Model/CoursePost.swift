@@ -35,6 +35,17 @@ enum CoursePost: Hashable, Identifiable {
         }
     }
 
+    var courseId: String {
+        switch self {
+        case .announcement(let courseAnnouncement):
+            return courseAnnouncement.courseId
+        case .courseWork(let courseWork):
+            return courseWork.courseId
+        case .courseMaterial(let courseWorkMaterial):
+            return courseWorkMaterial.courseId
+        }
+    }
+
     static func == (lhs: CoursePost, rhs: CoursePost) -> Bool {
         lhs.id == rhs.id
     }
