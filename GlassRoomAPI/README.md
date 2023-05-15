@@ -4,6 +4,212 @@ Abtraction APIs for The GlassRoom
 
 Wraps the Google APIs
 
+## APIs:
+These are the Google Classroom APIs and if they are implemented/tested
+
+### Must-have:
+- courses
+  - create
+    - [x] Implemented
+    - [ ] Tested/used
+  - delete
+    - [x] Implemented
+    - [ ] Tested/used
+  - get
+    - [x] Implemented
+    - [ ] Tested/used
+  - list
+    - [x] Implemented
+    - [x] Tested/used
+  - patch
+    - [x] Implemented
+    - [ ] Tested/used
+  - update
+    - [x] Implemented
+    - [ ] Tested/used
+- courses.allases
+  - create
+    - [x] Implemented
+    - [ ] Tested/used
+  - delete
+    - [x] Implemented
+    - [ ] Tested/used
+  - list
+    - [x] Implemented
+    - [ ] Tested/used
+- courses.announcements
+  - create
+    - [x] Implemented
+    - [ ] Tested/used
+  - delete
+    - [x] Implemented
+    - [ ] Tested/used
+  - get
+    - [x] Implemented
+    - [ ] Tested/used
+  - list
+    - [x] Implemented
+    - [x] Tested/used
+  - modifyAssignees
+    - [x] Implemented
+    - [ ] Tested/used
+  - patch
+    - [x] Implemented
+    - [ ] Tested/used
+- courses.courseWork
+  - create
+    - [x] Implemented
+    - [ ] Tested/used
+  - delete
+    - [x] Implemented
+    - [ ] Tested/used
+  - get
+    - [x] Implemented
+    - [ ] Tested/used
+  - list
+    - [x] Implemented
+    - [x] Tested/used
+  - modifyAssignees
+    - [x] Implemented
+    - [ ] Tested/used
+  - patch
+    - [x] Implemented
+    - [ ] Tested/used
+- courses.courseWorkMaterials
+  - create
+    - [x] Implemented
+    - [ ] Tested/used
+  - delete
+    - [x] Implemented
+    - [ ] Tested/used
+  - get
+    - [x] Implemented
+    - [ ] Tested/used
+  - list
+    - [x] Implemented
+    - [ ] Tested/used
+  - patch
+    - [x] Implemented
+    - [ ] Tested/used
+- courses.students
+  - create
+    - [x] Implemented
+    - [ ] Tested/used
+  - delete
+    - [x] Implemented
+    - [ ] Tested/used
+  - get
+    - [x] Implemented
+    - [ ] Tested/used
+  - ist
+    - [x] Implemented
+    - [ ] Tested/used
+- courses.teachers
+  - create
+    - [x] Implemented
+    - [ ] Tested/used
+  - delete
+    - [x] Implemented
+    - [ ] Tested/used
+  - get
+    - [x] Implemented
+    - [ ] Tested/used
+  - list
+    - [x] Implemented
+    - [ ] Tested/used
+- courses.topics
+  - create
+    - [x] Implemented
+    - [ ] Tested/used
+  - delete
+    - [x] Implemented
+    - [ ] Tested/used
+  - get
+    - [x] Implemented
+    - [ ] Tested/used
+  - list
+    - [x] Implemented
+    - [ ] Tested/used
+  - patch
+    - [x] Implemented
+    - [ ] Tested/used
+- invitations
+  - accept
+    - [x] Implemented
+    - [ ] Tested/used
+  - create
+    - [x] Implemented
+    - [ ] Tested/used
+  - delete
+    - [x] Implemented
+    - [ ] Tested/used
+  - get
+    - [x] Implemented
+    - [ ] Tested/used
+  - list
+    - [x] Implemented
+    - [ ] Tested/used
+- userProfiles
+  - get
+    - [x] Implemented
+    - [ ] Tested/used
+
+### Could-have:
+- courses.courseWork.studentSubmissions
+  - get
+    - [ ] Implemented
+    - [ ] Tested/used
+  - list
+    - [ ] Implemented
+    - [ ] Tested/used
+  - modifyAttachments
+    - [ ] Implemented
+    - [ ] Tested/used
+  - patch
+    - [ ] Implemented
+    - [ ] Tested/used
+  - reclaim
+    - [ ] Implemented
+    - [ ] Tested/used
+  - return
+    - [ ] Implemented
+    - [ ] Tested/used
+  - turnIn
+    - [ ] Implemented
+    - [ ] Tested/used
+  
+### Dont-need-to-have:
+- registrations
+  - create
+    - [ ] Implemented
+    - [ ] Tested/used
+  - delete
+    - [ ] Implemented
+    - [ ] Tested/used
+- userProfiles.guardianInvitations
+  - create
+    - [ ] Implemented
+    - [ ] Tested/used
+  - get
+    - [ ] Implemented
+    - [ ] Tested/used
+  - list
+    - [ ] Implemented
+    - [ ] Tested/used
+  - patch
+    - [ ] Implemented
+    - [ ] Tested/used
+- userProfiles.guardians
+  - delete
+    - [ ] Implemented
+    - [ ] Tested/used
+  - get
+    - [ ] Implemented
+    - [ ] Tested/used
+  - list
+    - [ ] Implemented
+    - [ ] Tested/used
+
 ## Types needed:
 These are the types needed for each of the APIs. An S indicates a struct, an E indicates an enum.
 
@@ -46,10 +252,10 @@ These are the types needed for each of the APIs. An S indicates a struct, an E i
 - [x] courses.topics
   - [x] Topic: S
 
-- [x] courses.invitations
+- [x] invitations
   - [x] Invitation: S
 
-- [x] courses.userProfiles
+- [x] userProfiles
   - [x] UserProfile: S
   - [x] Name: S
   - [x] GlobalPermission: S
@@ -70,7 +276,7 @@ These are the types needed for each of the APIs. An S indicates a struct, an E i
   - [x] GradeChangeType: S
 
 ### Dont-need-to-have:
-- [ ] courses.registrations (this seems to be notifications)
+- [ ] registrations (this seems to be notifications)
   - [x] Registration: S
   - [x] Feed: S
   - [x] FeedType: E
