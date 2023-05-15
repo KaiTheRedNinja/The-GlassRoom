@@ -26,11 +26,40 @@ struct SingleCoursePostListView: View {
 
     var body: some View {
         CoursePostListView(selectedPost: $selectedPost,
-                           postData: postsManager.postData,
+                           postData: postData,
                            isEmpty: postsManager.isEmpty,
                            isLoading: postsManager.loading,
                            hasNextPage: postsManager.hasNextPage,
                            loadList: postsManager.loadList,
                            refreshList: { postsManager.refreshList() })
+    }
+
+    var postData: [CoursePost] {
+        let posts = postsManager.postData
+        switch displayOption {
+        case .allPosts:
+            return posts
+        case .announcements:
+            return posts.filter {
+                switch $0 {
+                case .announcement(_): return true
+                default: return false
+                }
+            }
+        case .courseWork:
+            return posts.filter {
+                switch $0 {
+                case .courseWork(_): return true
+                default: return false
+                }
+            }
+        case .courseMaterial:
+            return posts.filter {
+                switch $0 {
+                case .courseMaterial(_): return true
+                default: return false
+                }
+            }
+        }
     }
 }
