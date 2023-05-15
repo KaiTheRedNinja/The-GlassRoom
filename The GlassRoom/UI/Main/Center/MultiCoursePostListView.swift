@@ -11,18 +11,25 @@ import Combine
 struct MultiCoursePostListView: View {
     @Binding var selectedPost: CoursePost?
     @Binding var displayOption: CenterSplitView.CourseDisplayOption
-    @State var updateFlag: Int
 
     @ObservedObject var postsManager: ObservableArray<CoursePostsDataManager>
+    @ObservedObject var displayedCourseManager: DisplayedCourseManager
+
+    @State var postData: [CoursePost] = []
 
     init(selectedPost: Binding<CoursePost?>,
          displayOption: Binding<CenterSplitView.CourseDisplayOption>,
-         posts: ObservableArray<CoursePostsDataManager>
+         displayedCourseIds: DisplayedCourseManager
     ) {
         self._selectedPost = selectedPost
         self._displayOption = displayOption
-        self.updateFlag = 0
-        self.postsManager = posts.observeChildrenChanges()
+
+        self.displayedCourseManager = displayedCourseIds
+        self.postsManager = .init(array: displayedCourseIds.displayedAggregateCourseIds.map { value in
+            CoursePostsDataManager.getManager(for: value)
+        }).observeChildrenChanges()
+
+        updatePostData()
     }
 
     var body: some View {
@@ -33,29 +40,39 @@ struct MultiCoursePostListView: View {
                            hasNextPage: hasNextPage,
                            loadList: loadList,
                            refreshList: refreshList)
+        .onChange(of: displayedCourseManager.displayedAggregateCourseIds) { _ in
+            postsManager.array = displayedCourseManager.displayedAggregateCourseIds.map { value in
+                let manager = CoursePostsDataManager.getManager(for: value)
+                if manager.postData.isEmpty {
+                    manager.loadList()
+                }
+                return manager
+            }
+            updatePostData()
+        }
     }
 
-    var postData: [CoursePost] {
+    func updatePostData() {
         let posts = postsManager.array.flatMap({ $0.postData })
         switch displayOption {
         case .allPosts:
-            return posts
+            postData = posts
         case .announcements:
-            return posts.filter {
+            postData = posts.filter {
                 switch $0 {
                 case .announcement(_): return true
                 default: return false
                 }
             }
         case .courseWork:
-            return posts.filter {
+            postData = posts.filter {
                 switch $0 {
                 case .courseWork(_): return true
                 default: return false
                 }
             }
         case .courseMaterial:
-            return posts.filter {
+            postData = posts.filter {
                 switch $0 {
                 case .courseMaterial(_): return true
                 default: return false
@@ -79,15 +96,19 @@ struct MultiCoursePostListView: View {
 class ObservableArray<T: PostDataSource>: ObservableObject {
 
     @Published var array: [T] = []
-    var cancellables = [AnyCancellable]()
+    var cancellables = [AnyCancellable]() // TODO: Remove old, unused observers
 
     init(array: [T]) {
         self.array = array
     }
 
-    func observeChildrenChanges<T: ObservableObject>() -> ObservableArray<T> {
-        let array2 = array as! [T]
-        array2.forEach({
+    deinit {
+        cancellables.forEach({ $0.cancel() })
+        cancellables = []
+    }
+
+    func observeChildrenChanges() -> ObservableArray<T> {
+        array.forEach({
             let c = $0.objectWillChange.sink(receiveValue: { _ in
                 DispatchQueue.main.async {
                     self.objectWillChange.send()
@@ -98,7 +119,7 @@ class ObservableArray<T: PostDataSource>: ObservableObject {
             // otherwise the sink subscription gets cancelled
             self.cancellables.append(c)
         })
-        return self as! ObservableArray<T>
+        return self
     }
 }
 

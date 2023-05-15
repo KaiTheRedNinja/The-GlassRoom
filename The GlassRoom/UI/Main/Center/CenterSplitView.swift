@@ -13,26 +13,26 @@ struct CenterSplitView: View {
     @Binding var selectedPost: CoursePost?
     
     @State var coursePostsManager: CoursePostsDataManager?
-    
     @State var currentPage: CourseDisplayOption = .allPosts
+
+    @StateObject var displayedCoursesManager: DisplayedCourseManager = .init()
     
     var body: some View {
         ZStack {
-            if let selectedCourse, let coursePostsManager {
+            if let selectedCourse {
                 switch selectedCourse {
                 case .course(_):
-                    SingleCoursePostListView(selectedPost: $selectedPost,
-                                             displayOption: $currentPage,
-                                             posts: coursePostsManager)
-//                    MultiCoursePostListView(selectedPost: $selectedPost,
-//                                            displayOption: $currentPage,
-//                                            posts: .init(array: [coursePostsManager]))
+                    if let coursePostsManager {
+                        SingleCoursePostListView(selectedPost: $selectedPost,
+                                                 displayOption: $currentPage,
+                                                 posts: coursePostsManager)
+                    } else {
+                        Text("Course post manager not found")
+                    }
                 default:
-                    // TODO: Aggregate view
-                    notImplementedYet
-//                    MultiCoursePostListView(selectedPost: $selectedPost,
-//                                            displayOption: $currentPage,
-//                                            posts: .init(array: [coursePostsManager]))
+                    MultiCoursePostListView(selectedPost: $selectedPost,
+                                            displayOption: $currentPage,
+                                            displayedCourseIds: displayedCoursesManager)
                 }
             } else {
                 ZStack {
@@ -48,7 +48,9 @@ struct CenterSplitView: View {
             }
         }
         .safeAreaInset(edge: .top) {
-            CenterSplitViewToolbarTop(currentPage: $currentPage)
+            CenterSplitViewToolbarTop(selectedCourse: $selectedCourse,
+                                      currentPage: $currentPage,
+                                      displayedCourseManager: displayedCoursesManager)
         }
         .onChange(of: selectedCourse) { _ in
             reloadAnnouncements()
@@ -98,5 +100,13 @@ struct CenterSplitView: View {
 struct CenterSplitView_Previews: PreviewProvider {
     static var previews: some View {
         CenterSplitView(selectedCourse: .constant(nil), selectedPost: .constant(nil))
+    }
+}
+
+class DisplayedCourseManager: ObservableObject {
+    @Published var displayedAggregateCourseIds: [String]
+
+    init(displayedAggregateCourseIds: [String] = []) {
+        self.displayedAggregateCourseIds = displayedAggregateCourseIds
     }
 }

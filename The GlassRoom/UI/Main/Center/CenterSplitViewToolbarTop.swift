@@ -6,10 +6,17 @@
 //
 
 import SwiftUI
+import GlassRoomAPI
 
 struct CenterSplitViewToolbarTop: View {
     typealias CourseDisplayOption = CenterSplitView.CourseDisplayOption
+    @Binding var selectedCourse: GeneralCourse?
     @Binding var currentPage: CourseDisplayOption
+    @ObservedObject var displayedCourseManager: DisplayedCourseManager
+
+    @State var showSelectionPopup: Bool = false
+
+    @ObservedObject var courseManager: GlobalCoursesDataManager = .global
 
     var body: some View {
         HStack(alignment: .center) {
@@ -23,7 +30,13 @@ struct CenterSplitViewToolbarTop: View {
             }, set: { newValue in
                 currentPage = .allCases[newValue]
             }), options: CourseDisplayOption.allCases.map({ $0.rawValue }))
+            .animation(.default, value: currentPage)
+
+            if let selectedCourse, selectedCourse == .allEnrolled || selectedCourse == .allTeaching {
+                filterView
+            }
         }
+        .animation(.default, value: selectedCourse)
         .padding(.horizontal, 5)
         .frame(height: 25)
         .frame(maxWidth: .infinity)
@@ -33,5 +46,44 @@ struct CenterSplitViewToolbarTop: View {
                 .offset(y: 1)
         }
         .padding(.bottom, -7)
+    }
+
+    var filterView: some View {
+        ZStack {
+            let courseType = selectedCourse == .allTeaching ? Course.CourseType.teaching : .enrolled
+            Button {
+                showSelectionPopup.toggle()
+            } label: {
+                Image(systemName: "line.3.horizontal.decrease.circle")
+            }
+            .popover(isPresented: $showSelectionPopup) {
+                List {
+                    ForEach(courseManager.courses.filter({ $0.courseType == courseType }), id: \.id) { course in
+                        Button {
+                            var displayedCourseIds = displayedCourseManager.displayedAggregateCourseIds
+                            if let courseIndex = displayedCourseIds.firstIndex(of: course.id) {
+                                displayedCourseIds.remove(at: courseIndex)
+                            } else {
+                                displayedCourseIds.append(course.id)
+                            }
+                            displayedCourseManager.displayedAggregateCourseIds = displayedCourseIds
+                            displayedCourseManager.objectWillChange.send()
+                        } label: {
+                            HStack {
+                                Image(
+                                    systemName: displayedCourseManager.displayedAggregateCourseIds.contains(course.id) ?
+                                    "checkmark.circle.fill" : "circle"
+                                )
+                                Text(course.name)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        .foregroundColor(.primary)
+                    }
+                }
+            }
+            .buttonStyle(.plain)
+            .foregroundColor(.accentColor)
+        }
     }
 }
