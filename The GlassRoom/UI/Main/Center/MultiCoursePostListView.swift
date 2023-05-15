@@ -95,35 +95,53 @@ struct MultiCoursePostListView: View {
 
 class ObservableArray<T: PostDataSource>: ObservableObject {
 
-    @Published var array: [T] = []
-    var cancellables = [AnyCancellable]() // TODO: Remove old, unused observers
+    @Published var array: [T] = [] {
+        didSet { trimWatchers(oldArray: oldValue, newArray: array) }
+    }
+    var cancellables: [String: AnyCancellable] = [:]
 
     init(array: [T]) {
         self.array = array
     }
 
     deinit {
-        cancellables.forEach({ $0.cancel() })
-        cancellables = []
+        cancellables.forEach({ $0.value.cancel() })
+        cancellables = [:]
+    }
+
+    func trimWatchers(oldArray: [T], newArray: [T]) {
+        // if stuff from the old array is missing in the new array, remove them
+        for oldItem in oldArray {
+            if !newArray.contains(where: { $0.courseId == oldItem.courseId }) {
+                cancellables[oldItem.courseId]?.cancel()
+                cancellables.removeValue(forKey: oldItem.courseId)
+            }
+        }
+
+        // if stuff from the new array is not in the old array, add watchers
+        for newItem in newArray {
+            if !oldArray.contains(where: { $0.courseId == newItem.courseId }) {
+                let watcher = newItem.objectWillChange.sink(receiveValue: { _ in
+                    DispatchQueue.main.async {
+                        self.objectWillChange.send()
+                    }
+                })
+
+                // Important: You have to keep the returned value allocated,
+                // otherwise the sink subscription gets cancelled
+                self.cancellables[newItem.courseId] = watcher
+            }
+        }
     }
 
     func observeChildrenChanges() -> ObservableArray<T> {
-        array.forEach({
-            let c = $0.objectWillChange.sink(receiveValue: { _ in
-                DispatchQueue.main.async {
-                    self.objectWillChange.send()
-                }
-            })
-
-            // Important: You have to keep the returned value allocated,
-            // otherwise the sink subscription gets cancelled
-            self.cancellables.append(c)
-        })
+        trimWatchers(oldArray: [], newArray: array)
         return self
     }
 }
 
 protocol PostDataSource: ObservableObject {
+    var courseId: String { get }
     var postData: [CoursePost] { get }
     var isEmpty: Bool { get }
     var loading: Bool { get }
