@@ -21,12 +21,18 @@ struct CenterSplitView: View {
             if let selectedCourse, let coursePostsManager {
                 switch selectedCourse {
                 case .course(_):
-                    MultiCoursePostListView(selectedPost: $selectedPost,
-                                            displayOption: $currentPage,
-                                            posts: .init(array: [coursePostsManager]))
+                    SingleCoursePostListView(selectedPost: $selectedPost,
+                                             displayOption: $currentPage,
+                                             posts: coursePostsManager)
+//                    MultiCoursePostListView(selectedPost: $selectedPost,
+//                                            displayOption: $currentPage,
+//                                            posts: .init(array: [coursePostsManager]))
                 default:
                     // TODO: Aggregate view
                     notImplementedYet
+//                    MultiCoursePostListView(selectedPost: $selectedPost,
+//                                            displayOption: $currentPage,
+//                                            posts: .init(array: [coursePostsManager]))
                 }
             } else {
                 ZStack {
