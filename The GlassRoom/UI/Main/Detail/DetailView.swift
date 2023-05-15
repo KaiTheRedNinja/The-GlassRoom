@@ -94,54 +94,30 @@ extension DetailViewPage {
         }
     }
 
+    @ViewBuilder
     func viewForMaterial(materials: [AssignmentMaterial], geometry: GeometryProxy) -> some View {
-        VStack {
-            if materials.count > 1 {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 15), count: Int(floor((geometry.size.width - 70) / 200))), spacing: 20) {
-                    ForEach(materials, id: \.id) { material in
-                        ZStack {
-                            if let driveFile = material.driveFile {
-                                LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
-                            }
+        let gridCount = Int(floor((geometry.size.width - 70) / 200))
+        LazyVGrid(columns: .init(repeating: GridItem(.flexible(), spacing: 15),
+                                 count: (materials.count > 1) ? gridCount : 0),
+                  spacing: 20) {
+            ForEach(materials, id: \.id) { material in
+                ZStack {
+                    if let driveFile = material.driveFile?.driveFile {
+                        LinkPreview(url: URL(string: driveFile.alternateLink)!)
+                    }
 
-                            if let youtubeVideo = material.youtubeVideo {
-                                LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
-                            }
+                    if let youtubeVideo = material.youtubeVideo {
+                        LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
+                    }
 
-                            if let link = material.form?.formUrl {
-                                LinkPreview(url: URL(string: link)!)
-                            }
+                    if let link = material.form?.formUrl {
+                        LinkPreview(url: URL(string: link)!)
+                    }
 
-                            if let materialLink = material.link {
-                                LinkPreview(url: URL(string: materialLink.url)!)
-                            }
-                        }
+                    if let materialLink = material.link {
+                        LinkPreview(url: URL(string: materialLink.url)!)
                     }
                 }
-                .padding(.horizontal)
-            } else {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 15), count: 1), spacing: 20) {
-                    ForEach(materials, id: \.id) { material in
-                        ZStack {
-                            if let driveFile = material.driveFile {
-                                LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
-                            }
-
-                            if let youtubeVideo = material.youtubeVideo {
-                                LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
-                            }
-
-                            if let link = material.form?.formUrl {
-                                LinkPreview(url: URL(string: link)!)
-                            }
-
-                            if let materialLink = material.link {
-                                LinkPreview(url: URL(string: materialLink.url)!)
-                            }
-                        }
-                    }
-                }
-                .padding(.horizontal)
             }
         }
     }

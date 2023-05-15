@@ -14,6 +14,17 @@ struct CourseWorkDetailView: DetailViewPage {
 
     var courseWork: CourseWork
 
+    @ObservedObject var submissionManager: CourseWorkSubmissionDataManager
+
+    init(textContent: Binding<String>, copiedLink: Binding<Bool>, courseWork: CourseWork) {
+        self.textContent = textContent
+        self.copiedLink = copiedLink
+        self.courseWork = courseWork
+
+        self.submissionManager = .getManager(for: courseWork.courseId, courseWorkId: courseWork.id)
+        submissionManager.loadList(bypassCache: true)
+    }
+
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
@@ -51,6 +62,12 @@ struct CourseWorkDetailView: DetailViewPage {
                             viewForMaterial(materials: material, geometry: geometry)
                         }
                     }
+
+                    VStack {
+                        ForEach(submissionManager.submissions, id: \.id) { submission in
+                            Text("Submission: \(submission.courseWorkType.rawValue)")
+                        }
+                    }
                 }
                 .padding(.all)
             }
@@ -60,9 +77,6 @@ struct CourseWorkDetailView: DetailViewPage {
             if let description = courseWork.description {
                 textContent.wrappedValue = makeLinksHyperLink(description)
             }
-
-//            let manager = CourseWorkSubmissionDataManager.getManager(for: courseWork.courseId, courseWorkId: courseWork.id)
-//            manager.refreshList()
         }
         .onChange(of: courseWork) { _ in
             copiedLink.wrappedValue = false

@@ -28,6 +28,22 @@ class CourseWorkSubmissionDataManager: ObservableObject {
         }
     }
 
+    func loadList(bypassCache: Bool = false) {
+        loading = true
+        if bypassCache {
+            refreshList()
+        } else {
+            // load from cache first, if that fails load from the list.
+            let cachedSubmissions = readCache()
+            if cachedSubmissions.isEmpty {
+                refreshList()
+            } else {
+                self.submissions = cachedSubmissions
+                loading = false
+            }
+        }
+    }
+
     func clearCache(courseId: String) {
         FileSystem.write([StudentSubmission](), to: "\(courseId)_\(courseWorkId)_submissions.json")
     }

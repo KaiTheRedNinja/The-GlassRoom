@@ -8,6 +8,6 @@
 import Foundation
 
 public struct SharedDriveFile: Codable {
-    public var driveFile: DriveFile
-    public var shareMode: ShareMode
+    public var driveFile: DriveFile?
+    public var shareMode: ShareMode?
 }
