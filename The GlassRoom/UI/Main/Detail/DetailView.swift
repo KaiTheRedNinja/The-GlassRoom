@@ -11,6 +11,9 @@ import GlassRoomAPI
 import LinkPresentation
 
 struct DetailView: View {
+    
+    @State var textContent = String()
+    @State var copiedLink = false
     @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
     
@@ -42,15 +45,39 @@ struct DetailView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 HStack {
+                    
                     Spacer()
+                    
                     Link(destination: URL(string: announcement.alternateLink)!) {
                         Label("Open in browser", systemImage: "safari")
                     }
+                    
+                    ShareLink(item: announcement.alternateLink) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.leading, 5)
+                    
+                    Button {
+                        copiedLink = true
+                        let pasteboard = NSPasteboard.general
+                        pasteboard.declareTypes([.string], owner: nil)
+                        pasteboard.setString("\(announcement.alternateLink)", forType: .string)
+                    } label: {
+                        HStack {
+                            Image(systemName: "link")
+                            if copiedLink {
+                                Text("Copied!")
+                            }
+                        }
+                    }
+                    .padding(.leading, 5)
+                    .buttonStyle(.plain)
                 }
                 .padding(.top, 2)
                 
                 HStack {
-                    Text(announcement.text)
+                    Text(.init(textContent))
                     Spacer()
                 }
 
@@ -63,6 +90,14 @@ struct DetailView: View {
                 }
             }
             .padding(.all)
+        }
+        .onAppear {
+            copiedLink = false
+            textContent = makeLinksHyperLink(announcement.text)
+        }
+        .onChange(of: announcement) { _ in
+            copiedLink = false
+            textContent = makeLinksHyperLink(announcement.text)
         }
     }
 
@@ -79,17 +114,39 @@ struct DetailView: View {
                     Link(destination: URL(string: courseWork.alternateLink)!) {
                         Label("Open in browser", systemImage: "safari")
                     }
+                    
+                    ShareLink(item: courseWork.alternateLink) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.leading, 5)
+                    
+                    Button {
+                        copiedLink = true
+                        let pasteboard = NSPasteboard.general
+                        pasteboard.declareTypes([.string], owner: nil)
+                        pasteboard.setString("\(courseWork.alternateLink)", forType: .string)
+                    } label: {
+                        HStack {
+                            Image(systemName: "link")
+                            if copiedLink {
+                                Text("Copied!")
+                            }
+                        }
+                    }
+                    .padding(.leading, 5)
+                    .buttonStyle(.plain)
                 }
                 .padding(.top, 2)
                 .padding(.bottom, 10)
                 
-                if let description = courseWork.description {
+                if let _ = courseWork.description {
                     Divider()
                         .padding(.bottom, 10)
                     
                     VStack(alignment: .leading) {
                         HStack {
-                            Text(description)
+                            Text(.init(textContent))
                             Spacer()
                         }
                     }
@@ -107,6 +164,34 @@ struct DetailView: View {
             }
             .padding(.all)
         }
+        .onAppear {
+            copiedLink = false
+            if let description = courseWork.description {
+                textContent = makeLinksHyperLink(description)
+            }
+        }
+        .onChange(of: courseWork) { _ in
+            copiedLink = false
+            if let description = courseWork.description {
+                textContent = makeLinksHyperLink(description)
+            }
+        }
+    }
+    
+    func makeLinksHyperLink(_ ogText: String) -> String {
+        var input = ogText
+        
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        let matches = detector.matches(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count))
+        
+        for match in matches {
+            guard let range = Range(match.range, in: input) else { continue }
+            let url = input[range]
+            
+            input = input.replacingOccurrences(of: url, with: "[\(url)](\(url))")
+        }
+        
+        return input
     }
 
     func viewForMaterial(materials: [AssignmentMaterial]) -> some View {
@@ -116,26 +201,18 @@ struct DetailView: View {
                     ZStack {
                         if let driveFile = material.driveFile {
                             LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
-                            //                                            .frame(height: 100)
-                            //                                            .scaledToFit()
                         }
 
                         if let youtubeVideo = material.youtubeVideo {
                             LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
-                            //                                            .frame(height: 100)
-                            //                                            .scaledToFit()
                         }
 
-                        if let formUrl = material.form?.formUrl {
-                            LinkPreview(url: URL(string: formUrl)!)
-                            //                                            .frame(height: 100)
-                            //                                            .scaledToFit()
+                        if let link = material.form?.formUrl {
+                            LinkPreview(url: URL(string: link)!)
                         }
 
                         if let materialLink = material.link {
                             LinkPreview(url: URL(string: materialLink.url)!)
-                            //                                            .frame(height: 100)
-                            //                                            .scaledToFit()
                         }
                     }
                 }

@@ -7,7 +7,11 @@
 
 import Foundation
 
-public struct CourseAnnouncement: Codable { // Not called Announcement since thats ambiguous
+public struct CourseAnnouncement: Codable, Equatable {
+    public static func == (lhs: CourseAnnouncement, rhs: CourseAnnouncement) -> Bool {
+        return lhs.id == rhs.id
+    }
+    // Not called Announcement since thats ambiguous
     public var courseId: String
     public var id: String
     public var text: String
