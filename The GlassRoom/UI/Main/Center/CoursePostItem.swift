@@ -16,6 +16,21 @@ struct CoursePostItem: View {
     
     var body: some View {
         HStack {
+            VStack {
+                if coursework != nil {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundColor(.accentColor)
+                } else if announcement != nil {
+                    Image(systemName: "megaphone")
+                        .foregroundColor(.accentColor)
+                } else if coursematerial != nil {
+                    Image(systemName: "doc")
+                        .foregroundColor(.accentColor)
+                }
+                Spacer()
+            }
+            .frame(width: 15)
+
             if let coursework = self.coursework {
                 listItemView(.courseWork(coursework),
                              id: coursework.id,
@@ -50,22 +65,10 @@ struct CoursePostItem: View {
                       dueDate: DueDate? = nil,
                       dueTime: TimeOfDay? = nil) -> some View {
         VStack(alignment: .leading) {
-            HStack {
-                if coursework != nil {
-                    Image(systemName: "square.and.pencil")
-                        .foregroundColor(.accentColor)
-                } else if announcement != nil {
-                    Image(systemName: "megaphone")
-                        .foregroundColor(.accentColor)
-                } else if coursematerial != nil {
-                    Image(systemName: "doc")
-                        .foregroundColor(.accentColor)
-                }
-                Text(title.replacingOccurrences(of: "\n", with: " "))
-                    .font(.body)
-                    .fontWeight(.bold)
-                    .lineLimit(2)
-            }
+            Text(title.replacingOccurrences(of: "\n", with: " "))
+                .font(.body)
+                .fontWeight(.bold)
+                .lineLimit(2)
 
             HStack {
                 Image(systemName: "timer")
