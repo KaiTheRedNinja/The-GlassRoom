@@ -13,6 +13,7 @@ import LinkPresentation
 struct DetailView: View {
     
     @State var textContent = String()
+    @State var copiedLink = false
     @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
     
@@ -42,10 +43,34 @@ struct DetailView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 HStack {
+                    
                     Spacer()
+                    
                     Link(destination: URL(string: announcement.alternateLink)!) {
                         Label("Open in browser", systemImage: "safari")
                     }
+                    
+                    ShareLink(item: announcement.alternateLink) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.leading, 5)
+                    
+                    Button {
+                        copiedLink = true
+                        let pasteboard = NSPasteboard.general
+                        pasteboard.declareTypes([.string], owner: nil)
+                        pasteboard.setString("\(announcement.alternateLink)", forType: .string)
+                    } label: {
+                        HStack {
+                            Image(systemName: "link")
+                            if copiedLink {
+                                Text("Copied!")
+                            }
+                        }
+                    }
+                    .padding(.leading, 5)
+                    .buttonStyle(.plain)
                 }
                 .padding(.top, 2)
                 
@@ -87,9 +112,11 @@ struct DetailView: View {
             .padding(.all)
         }
         .onAppear {
+            copiedLink = false
             textContent = makeLinksHyperLink(announcement.text)
         }
         .onChange(of: announcement) { _ in
+            copiedLink = false
             textContent = makeLinksHyperLink(announcement.text)
         }
     }
@@ -107,6 +134,28 @@ struct DetailView: View {
                     Link(destination: URL(string: courseWork.alternateLink)!) {
                         Label("Open in browser", systemImage: "safari")
                     }
+                    
+                    ShareLink(item: courseWork.alternateLink) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.leading, 5)
+                    
+                    Button {
+                        copiedLink = true
+                        let pasteboard = NSPasteboard.general
+                        pasteboard.declareTypes([.string], owner: nil)
+                        pasteboard.setString("\(courseWork.alternateLink)", forType: .string)
+                    } label: {
+                        HStack {
+                            Image(systemName: "link")
+                            if copiedLink {
+                                Text("Copied!")
+                            }
+                        }
+                    }
+                    .padding(.leading, 5)
+                    .buttonStyle(.plain)
                 }
                 .padding(.top, 2)
                 .padding(.bottom, 10)
@@ -162,11 +211,13 @@ struct DetailView: View {
             .padding(.all)
         }
         .onAppear {
+            copiedLink = false
             if let description = courseWork.description {
                 textContent = makeLinksHyperLink(description)
             }
         }
         .onChange(of: courseWork) { _ in
+            copiedLink = false
             if let description = courseWork.description {
                 textContent = makeLinksHyperLink(description)
             }
