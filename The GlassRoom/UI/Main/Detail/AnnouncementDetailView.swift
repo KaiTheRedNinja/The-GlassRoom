@@ -19,12 +19,14 @@ struct AnnouncementDetailView: DetailViewPage {
             ScrollView {
                 VStack(alignment: .leading) {
                     HStack {
-
-                        Spacer()
-
                         viewForButtons(announcement.alternateLink)
+                        Spacer()
                     }
                     .padding(.top, 2)
+                    .padding(.bottom, 10)
+
+                    Divider()
+                        .padding(.bottom, 10)
 
                     HStack {
                         Text(textContent.wrappedValue)

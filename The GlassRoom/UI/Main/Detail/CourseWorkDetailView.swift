@@ -26,51 +26,45 @@ struct CourseWorkDetailView: DetailViewPage {
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView {
-                VStack {
+        ScrollView {
+            VStack(alignment: .leading) {
+                VStack(alignment: .leading) {
                     HStack {
                         Text(courseWork.title)
                             .font(.title2)
                             .fontWeight(.bold)
-
+                            .multilineTextAlignment(.leading)
                         Spacer()
-
-                        viewForButtons(courseWork.alternateLink)
                     }
-                    .padding(.top, 2)
-                    .padding(.bottom, 10)
+                    viewForButtons(courseWork.alternateLink)
+                }
+                .padding(.top, 2)
+                .padding(.bottom, 10)
 
-                    if let _ = courseWork.description {
-                        Divider()
-                            .padding(.bottom, 10)
+                if let _ = courseWork.description {
+                    Divider()
+                        .padding(.bottom, 10)
 
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text(textContent.wrappedValue)
-                                Spacer()
-                            }
-                        }
-                    }
-
-                    Spacer()
-
-                    VStack {
-                        if let material = courseWork.materials {
-                            Divider()
-
-                            viewForMaterial(materials: material, geometry: geometry)
-                        }
-                    }
-
-                    VStack {
-                        ForEach(submissionManager.submissions, id: \.id) { submission in
-                            Text("Submission: \(submission.courseWorkType.rawValue)")
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(textContent.wrappedValue)
+                            Spacer()
                         }
                     }
                 }
-                .padding(.all)
+
+                Spacer()
+
+                VStack {
+                    if let material = courseWork.materials {
+                        Divider()
+                        GeometryReader { geometry in
+                            viewForMaterial(materials: material, geometry: geometry)
+                        }
+                    }
+                }
             }
+            .padding(.all)
         }
         .onAppear {
             copiedLink.wrappedValue = false
@@ -82,6 +76,13 @@ struct CourseWorkDetailView: DetailViewPage {
             copiedLink.wrappedValue = false
             if let description = courseWork.description {
                 textContent.wrappedValue = makeLinksHyperLink(description)
+            }
+        }
+        .safeAreaInset(edge: .bottom) {
+            VStack {
+                ForEach(submissionManager.submissions, id: \.id) { submission in
+                    Text("Submission: \(submission.courseWorkType.rawValue)")
+                }
             }
         }
     }

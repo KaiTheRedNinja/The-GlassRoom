@@ -15,45 +15,46 @@ struct CourseMaterialDetailView: DetailViewPage {
     var courseWorkMaterial: CourseWorkMaterial
 
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView {
-                VStack {
+        ScrollView {
+            VStack {
+                VStack(alignment: .leading) {
                     HStack {
                         Text(courseWorkMaterial.title)
                             .font(.title2)
                             .fontWeight(.bold)
-
+                            .multilineTextAlignment(.leading)
                         Spacer()
-
-                        viewForButtons(courseWorkMaterial.alternateLink)
                     }
-                    .padding(.top, 2)
-                    .padding(.bottom, 10)
+                    viewForButtons(courseWorkMaterial.alternateLink)
+                }
+                .padding(.top, 2)
+                .padding(.bottom, 10)
 
-                    if let _ = courseWorkMaterial.description {
-                        Divider()
-                            .padding(.bottom, 10)
+                if let _ = courseWorkMaterial.description {
+                    Divider()
+                        .padding(.bottom, 10)
 
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text(textContent.wrappedValue)
-                                Spacer()
-                            }
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(textContent.wrappedValue)
+                            Spacer()
                         }
                     }
+                }
 
-                    Spacer()
+                Spacer()
 
-                    VStack {
-                        if let material = courseWorkMaterial.materials {
-                            Divider()
+                VStack {
+                    if let material = courseWorkMaterial.materials {
+                        Divider()
 
+                        GeometryReader { geometry in
                             viewForMaterial(materials: material, geometry: geometry)
                         }
                     }
                 }
-                .padding(.all)
             }
+            .padding(.all)
         }
         .onAppear {
             copiedLink.wrappedValue = false
