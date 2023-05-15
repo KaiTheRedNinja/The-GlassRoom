@@ -13,6 +13,10 @@ struct LinkPreview: NSViewRepresentable {
     typealias NSViewType = LPLinkView
     
     var url: URL
+
+    init(url: URL) {
+        self.url = url
+    }
     
     func makeNSView(context: NSViewRepresentableContext<LinkPreview>) -> LinkPreview.NSViewType {
         return LPLinkView(url: url)

@@ -39,10 +39,13 @@ class CoursePostsDataManager: ObservableObject {
     init(courseId: String) {
         self.courseId = courseId
 
+        refreshCourseMaterialsList()
+
         CoursePostsDataManager.loadedManagers[courseId] = self
     }
 
     func loadList(bypassCache: Bool = false) {
+        return
         announcementsLoading = true
         courseWorksLoading = true
 
@@ -73,6 +76,9 @@ class CoursePostsDataManager: ObservableObject {
     }
 
     func refreshList(requestNextPageIfExists: Bool = false) {
+        announcementsLoading = true
+        courseWorksLoading = true
+
         refreshAnnouncementsList(requestNextPageIfExists: true)
         refreshCourseWorksList(requestNextPageIfExists: true)
     }
@@ -167,7 +173,6 @@ extension CoursePostsDataManager {
         ) { response in
             switch response {
             case .success(let success):
-                print("Success: \(success)")
                 DispatchQueue.main.async {
                     self.courseCourseWorks.mergeWith(other: success.courseWork,
                                                      isSame: { $0.id == $1.id },
@@ -187,6 +192,45 @@ extension CoursePostsDataManager {
                 DispatchQueue.main.async {
                     self.courseWorksLoading = false
                 }
+            }
+        }
+    }
+
+    // MARK: Course materials
+    func refreshCourseMaterialsList(nextPageToken: String? = nil, requestNextPageIfExists: Bool = false) {
+        GlassRoomAPI.GRCourses.GRCourseWorkMaterials.list(
+            params: .init(courseId: courseId),
+            query: .init(courseWorkMaterialStates: [.published],
+                         orderBy: nil,
+                         pageSize: nil,
+                         pageToken: nil,
+                         materialLink: nil,
+                         materialDriveId: nil),
+            data: .init()
+        ) { response in
+            switch response {
+            case .success(let success):
+                print("Success: \(success)")
+//                DispatchQueue.main.async {
+//                    self.courseCourseWorks.mergeWith(other: success.courseWork,
+//                                                     isSame: { $0.id == $1.id },
+//                                                     isBefore: { $0.creationDate > $1.creationDate })
+//                }
+//                if let token = success.nextPageToken, requestNextPageIfExists {
+//                    self.refreshCourseMaterialsList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
+//                } else {
+//                    DispatchQueue.main.async {
+//                        print("REARCHED FINAL PAGE")
+//                        self.courseWorksNextPageToken = success.nextPageToken
+//                        self.courseWorksLoading = false
+//                        self.writeCourseWorksCache()
+//                    }
+//                }
+            case .failure(let failure):
+                print("Failure: \(failure.localizedDescription)")
+//                DispatchQueue.main.async {
+//                    self.courseWorksLoading = false
+//                }
             }
         }
     }

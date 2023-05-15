@@ -85,7 +85,7 @@ extension GlassRoomAPI.GRCourses.GRCourseWorkMaterials: GlassRoomCreatableDeleta
 
         public func stringDictionaryEncoded() -> [String: String] {
             var dict = [String: String]()
-            if let courseWorkMaterialStates { dict["courseWorkMaterialStates"] = courseWorkMaterialStates.description } // TODO: Check this
+            if let courseWorkMaterialStates { dict["courseWorkMaterialStates"] = courseWorkMaterialStates.map({ $0.rawValue }).joined(separator: ",") }
             if let orderBy { dict["orderBy"] = orderBy }
             if let pageSize { dict["pageSize"] = pageSize.description }
             if let pageToken { dict["pageToken"] = pageToken }

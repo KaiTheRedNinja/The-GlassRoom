@@ -8,8 +8,8 @@
 import Foundation
 
 public struct Form: Codable {
-    public var formURL: String
-    public var responseURL: String
+    public var formUrl: String
+    public var responseUrl: String?
     public var title: String
-    public var thumbnailURL: String?
+    public var thumbnailUrl: String?
 }

@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-public enum CourseWorkMaterialState: Codable {
-    case coursework_material_state_unspecified
-    case published
-    case draft
-    case deleted
+public enum CourseWorkMaterialState: String, Codable {
+    case coursework_material_state_unspecified = "COURSEWORK_MATERIAL_STATE_UNSPECIFIED"
+    case published = "PUBLISHED"
+    case draft = "DRAFT"
+    case deleted = "DELETED"
 }

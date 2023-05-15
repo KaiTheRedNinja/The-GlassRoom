@@ -11,5 +11,5 @@ public struct DriveFile: Codable {
     public var id: String
     public var title: String?
     public var alternateLink: String
-    public var thumbnailURL: String?
+    public var thumbnailUrl: String?
 }

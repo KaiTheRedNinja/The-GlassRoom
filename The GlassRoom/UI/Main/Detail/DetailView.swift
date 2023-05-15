@@ -54,38 +54,10 @@ struct DetailView: View {
 
                 Spacer()
 
-                if announcement.materials != nil {
+                if let material = announcement.materials {
                     Divider()
 
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(announcement.materials ?? [], id: \.id) { material in
-                                if let driveFile = material.driveFile {
-                                    LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
-                                }
-
-                                if let youtubeVideo = material.youtubeVideo {
-                                    LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
-                                }
-
-                                if let form = material.form {
-                                    LinkPreview(url: URL(string: form.formURL)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
-                                }
-
-                                if let materialLink = material.link {
-                                    LinkPreview(url: URL(string: materialLink.url)!)
-//                                            .frame(height: 100)
-//                                            .scaledToFit()
-                                }
-                            }
-                        }
-                    }
+                    viewForMaterial(materials: material)
                 }
             }
             .padding(.all)
@@ -124,42 +96,48 @@ struct DetailView: View {
                 Spacer()
                 
                 VStack {
-                    if courseWork.materials != nil {
+                    if let material = courseWork.materials {
                         Divider()
 
-                        ScrollView(.horizontal) {
-                            HStack {
-                                ForEach(courseWork.materials ?? [], id: \.id) { material in
-                                    if let driveFile = material.driveFile {
-                                        LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
-    //                                            .frame(height: 100)
-    //                                            .scaledToFit()
-                                    }
-
-                                    if let youtubeVideo = material.youtubeVideo {
-                                        LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
-    //                                            .frame(height: 100)
-    //                                            .scaledToFit()
-                                    }
-
-                                    if let form = material.form {
-                                        LinkPreview(url: URL(string: form.formURL)!)
-    //                                            .frame(height: 100)
-    //                                            .scaledToFit()
-                                    }
-
-                                    if let materialLink = material.link {
-                                        LinkPreview(url: URL(string: materialLink.url)!)
-    //                                            .frame(height: 100)
-    //                                            .scaledToFit()
-                                    }
-                                }
-                            }
-                        }
+                        viewForMaterial(materials: material)
                     }
                 }
             }
             .padding(.all)
+        }
+    }
+
+    func viewForMaterial(materials: [AssignmentMaterial]) -> some View {
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(materials, id: \.id) { material in
+                    ZStack {
+                        if let driveFile = material.driveFile {
+                            LinkPreview(url: URL(string: driveFile.driveFile.alternateLink)!)
+                            //                                            .frame(height: 100)
+                            //                                            .scaledToFit()
+                        }
+
+                        if let youtubeVideo = material.youtubeVideo {
+                            LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
+                            //                                            .frame(height: 100)
+                            //                                            .scaledToFit()
+                        }
+
+                        if let formUrl = material.form?.formUrl {
+                            LinkPreview(url: URL(string: formUrl)!)
+                            //                                            .frame(height: 100)
+                            //                                            .scaledToFit()
+                        }
+
+                        if let materialLink = material.link {
+                            LinkPreview(url: URL(string: materialLink.url)!)
+                            //                                            .frame(height: 100)
+                            //                                            .scaledToFit()
+                        }
+                    }
+                }
+            }
         }
     }
 }
