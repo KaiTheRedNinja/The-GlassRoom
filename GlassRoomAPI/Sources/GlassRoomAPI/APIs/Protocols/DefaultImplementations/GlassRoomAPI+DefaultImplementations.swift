@@ -144,6 +144,7 @@ public extension GlassRoomAttachmentModifiable {
 }
 
 public extension GlassRoomReclaimable {
+    @available(*, deprecated, message: "This method may not work")
     static func reclaimSubmission(
         params: ReclaimPathParameters,
         query: ReclaimQueryParameters,
@@ -161,6 +162,7 @@ public extension GlassRoomReclaimable {
 }
 
 public extension GlassRoomReturnable {
+    @available(*, deprecated, message: "This method may not work")
     static func returnSubmission(
         params: ReturnPathParameters,
         query: ReturnQueryParameters,
@@ -178,6 +180,7 @@ public extension GlassRoomReturnable {
 }
 
 public extension GlassRoomSubmittable {
+    @available(*, deprecated, message: "This method may not work")
     static func turnInSubmission(
         params: TurnInPathParameters,
         query: TurnInQueryParameters,

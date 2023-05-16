@@ -138,22 +138,23 @@ struct CourseWorkDetailView: DetailViewPage {
     }
 
     func turnInButtonPressed(submission: StudentSubmission) {
-        GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.turnInSubmission(
-            params: .init(
-                courseId: submission.courseId,
-                courseWorkId: submission.courseWorkId,
-                id: submission.id
-            ),
-            query: VoidStringCodable(),
-            data: VoidStringCodable()) { response in
-                switch response {
-                case .success(let success):
-                    print(success)
-                    return
-                case .failure(let failure):
-                    print("failure: \(failure.localizedDescription)")
-                }
-            }
+        // TODO: Redirect them to the app
+//        GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.turnInSubmission(
+//            params: .init(
+//                courseId: submission.courseId,
+//                courseWorkId: submission.courseWorkId,
+//                id: submission.id
+//            ),
+//            query: VoidStringCodable(),
+//            data: VoidStringCodable()) { response in
+//                switch response {
+//                case .success(let success):
+//                    print(success)
+//                    return
+//                case .failure(let failure):
+//                    print("failure: \(failure.localizedDescription)")
+//                }
+//            }
     }
     
     func submissionState(_ state: SubmissionState) -> some View {
