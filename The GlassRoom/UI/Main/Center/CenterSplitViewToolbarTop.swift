@@ -30,7 +30,7 @@ struct CenterSplitViewToolbarTop: View {
             }, set: { newValue in
                 currentPage = .allCases[newValue]
             }), options: CourseDisplayOption.allCases.map({ $0.rawValue }))
-            .animation(.default, value: currentPage)
+            .animation(.spring(), value: currentPage)
 
             if let selectedCourse, selectedCourse == .allEnrolled || selectedCourse == .allTeaching {
                 filterView

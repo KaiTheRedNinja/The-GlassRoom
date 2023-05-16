@@ -121,6 +121,35 @@ extension DetailViewPage {
             }
         }
     }
+    
+    @ViewBuilder
+    func viewForAttachment(materials: AssignmentSubmission) -> some View {
+        if let materialAttachments = materials.attachments {
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(materialAttachments, id: \.id) { attachment in
+                        HStack {
+                            if let driveFile = attachment.driveFile {
+                                LinkPreview(url: URL(string: driveFile.alternateLink)!)
+                            }
+                            
+                            if let youtubeVideo = attachment.youtubeVideo {
+                                LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
+                            }
+                            
+                            if let link = attachment.form?.formUrl {
+                                LinkPreview(url: URL(string: link)!)
+                            }
+                            
+                            if let materialLink = attachment.link {
+                                LinkPreview(url: URL(string: materialLink.url)!)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 struct DetailView_Previews: PreviewProvider {

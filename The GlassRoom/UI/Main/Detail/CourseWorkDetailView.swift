@@ -48,13 +48,13 @@ struct CourseWorkDetailView: DetailViewPage {
 
                     VStack(alignment: .leading) {
                         HStack {
-                            Text(textContent.wrappedValue)
+                            Text(.init(textContent.wrappedValue))
                                 .textSelection(.enabled)
                             Spacer()
                         }
                     }
                 }
-
+                
                 Spacer()
 
                 VStack {
@@ -81,10 +81,129 @@ struct CourseWorkDetailView: DetailViewPage {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            VStack {
+            viewForStudentSubmission
+        }
+    }
+    
+    var viewForStudentSubmission: some View {
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 ForEach(submissionManager.submissions, id: \.id) { submission in
-                    Text("Submission: \(submission.courseWorkType.rawValue)")
+                    studentSubmissionTypes(submission)
                 }
+            }
+        }
+    }
+    
+    func studentSubmissionTypes(_ submission: StudentSubmission) -> some View {
+        VStack {
+            if submission.courseWorkType != .course_work_type_unspecified {
+                
+                Divider()
+                    .padding(.vertical, 5)
+                
+                if submission.courseWorkType == .assignment {
+                    // assignment
+                    VStack(alignment: .leading) {
+                        HStack {
+                            submissionState(submission.state)
+                            
+                            Spacer()
+                            
+                            Button {
+                                GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.turnInSubmission(
+                                    params: .init(
+                                        courseId: submission.courseId,
+                                        courseWorkId: submission.courseWorkId,
+                                        id: submission.userId
+                                    ),
+                                    query: VoidStringCodable(),
+                                    data: VoidStringCodable()) { response in
+                                        switch response {
+                                        case .success(let success):
+                                            print(success)
+                                            return
+                                        case .failure(let failure):
+                                            print("failure: \(failure.localizedDescription)")
+                                        }
+                                    }
+                            } label: {
+                                buttonText(submission.state)
+                            }
+                        }
+                        
+                        if let assignmentSubmission = submission.assignmentSubmission {
+
+                            if assignmentSubmission.attachments != nil {
+                                viewForAttachment(materials: assignmentSubmission)
+                                    .frame(height: 100)
+                            }
+                        }
+                    }
+                    .padding(.all)
+                } else if submission.courseWorkType == .multiple_choice_question {
+                    // mcq
+                    Text("MCQ")
+                } else if submission.courseWorkType == .short_answer_question {
+                    // saq
+                    Text("Short answer")
+                }
+            }
+        }
+    }
+    
+    func submissionState(_ state: SubmissionState) -> some View {
+        VStack(alignment: .leading) {
+            switch state {
+            case .turned_in:
+                Text("Submitted")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.green)
+            case .reclaimed_by_student:
+                Text("Unsubmitted")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.red)
+            case .returned:
+                Text("Returned")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.gray)
+            case .submission_state_unspecified:
+                Text("Unspecified")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.red)
+            case .new:
+                Text("Assigned")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.green)
+            case .created:
+                Text("Assigned")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.green)
+            }
+        }
+    }
+    
+    func buttonText(_ state: SubmissionState) -> some View {
+        VStack(alignment: .leading) {
+            switch state {
+            case .turned_in:
+                Text("Unsubmit")
+            case .reclaimed_by_student:
+                Text("Submit")
+            case .returned:
+                Text("Resubmit")
+            case .submission_state_unspecified:
+                Text("Submit")
+            case .new:
+                Text("Submit")
+            case .created:
+                Text("Submit")
             }
         }
     }

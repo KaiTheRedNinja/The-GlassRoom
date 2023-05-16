@@ -37,7 +37,7 @@ struct CourseMaterialDetailView: DetailViewPage {
 
                     VStack(alignment: .leading) {
                         HStack {
-                            Text(textContent.wrappedValue)
+                            Text(.init(textContent.wrappedValue))
                                 .textSelection(.enabled)
                             Spacer()
                         }
