@@ -11,6 +11,7 @@ import GlassRoomAPI
 class GlobalCoursesDataManager: ObservableObject {
     @Published private(set) var courses: [Course]
     @Published private(set) var loading: Bool = false
+    @Published private(set) var configuration: CoursesConfiguration = .loadedFromFileSystem()
 
     static var global: GlobalCoursesDataManager = .init()
     private init() {

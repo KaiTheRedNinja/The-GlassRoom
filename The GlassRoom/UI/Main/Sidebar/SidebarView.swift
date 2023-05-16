@@ -64,28 +64,31 @@ struct CourseCategoryHeaderView: View {
 struct CourseView: View {
     var course: Course
 
+    @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
+
     var body: some View {
-        VStack {
-            let isLoaded = CoursePostsDataManager.loadedManagers.keys.contains(course.id)
-            HStack {
-                Text(course.name)
-//                    .font(.system(.body, weight: isLoaded ? .semibold : .regular))
-                    .lineLimit(1)
-//                    .opacity(isLoaded ? 1 : 0.5)
-                Spacer()
-            }
-            if let description = course.description {
+        HStack {
+            coursesManager.configuration.colorFor(course.id)
+                .frame(width: 6, height: 15)
+                .cornerRadius(3)
+            VStack {
                 HStack {
-                    Text(description)
-                        .font(.caption)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(2)
-//                        .opacity(isLoaded ? 1 : 0.5)
+                    Text(course.name)
+                        .lineLimit(1)
                     Spacer()
                 }
+                if let description = course.description {
+                    HStack {
+                        Text(description)
+                            .font(.caption)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(2)
+                        Spacer()
+                    }
+                }
             }
+            .padding(.trailing, 5)
         }
-        .padding(.horizontal, 5)
     }
 }
 
