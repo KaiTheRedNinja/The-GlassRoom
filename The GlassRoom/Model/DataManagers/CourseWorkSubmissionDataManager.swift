@@ -30,15 +30,18 @@ class CourseWorkSubmissionDataManager: ObservableObject {
 
     func loadList(bypassCache: Bool = false) {
         loading = true
+        let cachedSubmissions = readCache()
+        if !cachedSubmissions.isEmpty {
+            submissions = cachedSubmissions
+        }
+        
         if bypassCache {
             refreshList()
         } else {
             // load from cache first, if that fails load from the list.
-            let cachedSubmissions = readCache()
             if cachedSubmissions.isEmpty {
                 refreshList()
             } else {
-                self.submissions = cachedSubmissions
                 loading = false
             }
         }

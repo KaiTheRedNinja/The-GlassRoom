@@ -7,8 +7,9 @@
 
 import Foundation
 
-public struct Attachment: Codable {
-    public var driveFile: SharedDriveFile?
+public struct Attachment: Codable, Identifiable {
+    public let id = UUID()
+    public var driveFile: DriveFile?
     public var youtubeVideo: YouTubeVideo?
     public var link: LinkItem?
     public var form: Form?
