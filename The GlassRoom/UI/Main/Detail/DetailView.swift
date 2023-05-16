@@ -96,9 +96,9 @@ extension DetailViewPage {
 
     @ViewBuilder
     func viewForMaterial(materials: [AssignmentMaterial], geometry: GeometryProxy) -> some View {
-        let gridCount = Int(floor((geometry.size.width - 70) / 200))
+        let gridCount = Int(floor((geometry.size.width - 70) / 350)) < 1 ? 1 : Int(floor((geometry.size.width - 70) / 350))
         LazyVGrid(columns: .init(repeating: GridItem(.flexible(), spacing: 15),
-                                 count: (materials.count > 1) ? gridCount : 1),
+                                 count: gridCount), // set to (materials.count > 1) ? gridCount : 1 if you want link to stretch detailview's width
                   spacing: 20) {
             ForEach(materials, id: \.id) { material in
                 ZStack {
