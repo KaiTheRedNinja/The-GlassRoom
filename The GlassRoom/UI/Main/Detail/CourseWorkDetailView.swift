@@ -107,26 +107,11 @@ struct CourseWorkDetailView: DetailViewPage {
                     VStack(alignment: .leading) {
                         HStack {
                             submissionState(submission.state)
-                            
+
                             Spacer()
-                            
+
                             Button {
-                                GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.turnInSubmission(
-                                    params: .init(
-                                        courseId: submission.courseId,
-                                        courseWorkId: submission.courseWorkId,
-                                        id: submission.userId
-                                    ),
-                                    query: VoidStringCodable(),
-                                    data: VoidStringCodable()) { response in
-                                        switch response {
-                                        case .success(let success):
-                                            print(success)
-                                            return
-                                        case .failure(let failure):
-                                            print("failure: \(failure.localizedDescription)")
-                                        }
-                                    }
+                                turnInButtonPressed(submission: submission)
                             } label: {
                                 buttonText(submission.state)
                             }
@@ -150,6 +135,25 @@ struct CourseWorkDetailView: DetailViewPage {
                 }
             }
         }
+    }
+
+    func turnInButtonPressed(submission: StudentSubmission) {
+        GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.turnInSubmission(
+            params: .init(
+                courseId: submission.courseId,
+                courseWorkId: submission.courseWorkId,
+                id: submission.id
+            ),
+            query: VoidStringCodable(),
+            data: VoidStringCodable()) { response in
+                switch response {
+                case .success(let success):
+                    print(success)
+                    return
+                case .failure(let failure):
+                    print("failure: \(failure.localizedDescription)")
+                }
+            }
     }
     
     func submissionState(_ state: SubmissionState) -> some View {

@@ -84,6 +84,11 @@ enum APICaller<ResponseData: Decodable> {
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             if let data {
                 do {
+                    if ResponseData.self == VoidStringCodable.self,
+                       let decodedString = String(data: data, encoding: .utf8),
+                       decodedString != "{}" {
+                        print("Expected \"{}\", recieved \"\(decodedString)\"")
+                    }
                     let result = try JSONDecoder().decode(ResponseData.self, from: data)
                     callback(.success(result))
                 } catch {
