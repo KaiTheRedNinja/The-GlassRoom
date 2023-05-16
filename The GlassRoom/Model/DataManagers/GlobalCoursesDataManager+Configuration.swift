@@ -9,11 +9,17 @@ import SwiftUI
 
 extension GlobalCoursesDataManager {
     class CoursesConfiguration: ObservableObject, Codable {
-        var replacedCourseNames: [String: String]
-        var customColors: [String: Color]
+        @Published var replacedCourseNames: [NameReplacement]
+        @Published var customColors: [String: Color]
 
-        private init(replacedCourseNames: [String: String] = [:],
-             customColors: [String: Color] = [:]) {
+        struct NameReplacement: Codable, Identifiable {
+            var id = UUID()
+            var matchString: String
+            var replacement: String
+        }
+
+        private init(replacedCourseNames: [NameReplacement] = [],
+                     customColors: [String: Color] = [:]) {
             self.replacedCourseNames = replacedCourseNames
             self.customColors = customColors
         }
@@ -24,7 +30,7 @@ extension GlobalCoursesDataManager {
                 let savedConfig = FileSystem.read(CoursesConfiguration.self, from: .courseConfigurations) {
                 return savedConfig
             }
-            return .init(replacedCourseNames: [:], customColors: [:])
+            return .init(replacedCourseNames: [], customColors: [:])
         }
 
         func saveToFileSystem() {
@@ -56,6 +62,24 @@ extension GlobalCoursesDataManager {
             let blueComponent = blueValue
 
             return .init(red: redComponent, green: greenComponent, blue: blueComponent)
+        }
+
+        enum Keys: CodingKey {
+            case replacedCourseNames, customColors
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: Keys.self)
+            try container.encode(replacedCourseNames, forKey: .replacedCourseNames)
+            try container.encode(customColors, forKey: .customColors)
+        }
+
+        public required init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: Keys.self)
+            self.replacedCourseNames = try container.decode([NameReplacement].self,
+                                                            forKey: .replacedCourseNames)
+            self.customColors = try container.decode([String: Color].self,
+                                                     forKey: .customColors)
         }
     }
 }

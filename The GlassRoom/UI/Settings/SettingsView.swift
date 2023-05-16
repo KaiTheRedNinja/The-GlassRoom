@@ -29,13 +29,21 @@ struct SettingsView: View {
                     Label("General", systemImage: settingsTabSelection == 1 ? "gearshape.fill" : "gearshape")
                 }
                 .tag(1)
+
+            CustomisationView()
+                .frame(width: 680, height: 300)
+                .tabItem {
+                    Label("Customisation", systemImage: settingsTabSelection == 2 ? "paintpalette.fill" : "paintpalette")
+                }
+                .tag(2)
+
             
             shortcuts
                 .frame(width: 680, height: 300)
                 .tabItem {
-                    Label("Shortucts", systemImage: settingsTabSelection == 2 ? "keyboard.fill" : "keyboard")
+                    Label("Shortucts", systemImage: settingsTabSelection == 3 ? "keyboard.fill" : "keyboard")
                 }
-                .tag(2)
+                .tag(3)
         }
     }
     

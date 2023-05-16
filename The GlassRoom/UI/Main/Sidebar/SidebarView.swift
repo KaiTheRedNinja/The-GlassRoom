@@ -45,32 +45,9 @@ struct SidebarView: View {
             guard coursesManager.courses.isEmpty else { return }
             coursesManager.loadList()
         }
-        .sheet(item: $colorChangingCourse) { _ in
-            VStack {
-                List(selection: $colorChangingCourse) {
-                    ForEach(coursesManager.courses, id: \.id) { course in
-                        ColorPicker(
-                            course.name,
-                            selection: .init(get: {
-                                coursesManager.configuration.colorFor(course.id)
-                            }, set: { newColor in
-                                coursesManager.configuration.customColors[course.id] = newColor
-                            })
-                        )
-                        .tag(course)
-                    }
-                }
-                .padding(.top, 15)
-                HStack {
-                    Spacer()
-                    Button("Save") {
-                        coursesManager.configuration.saveToFileSystem()
-                        colorChangingCourse = nil
-                    }
-                }
-            }
-            .frame(width: 450, height: 400)
-        }
+//        .sheet(item: $colorChangingCourse) { _ in
+//
+//        }
     }
 }
 
