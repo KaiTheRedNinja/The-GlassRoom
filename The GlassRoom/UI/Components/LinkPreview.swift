@@ -20,18 +20,14 @@ struct LinkPreview: NSViewRepresentable {
     }
     
     func makeNSView(context: NSViewRepresentableContext<LinkPreview>) -> LinkPreview.NSViewType {
-        print("URL: \(url)")
-
         let linkView = LPLinkView(url: url)
 
         // if its a docs, detect the id
         if url.absoluteString.contains("/docs.google.com/") || url.absoluteString.contains("/drive.google.com/") {
-            print("Its a drive link")
             // detect the file id
             let fileIds = url.absoluteString.findMatches(pattern: "/d/[a-zA-Z0-9-_]+/")
             if let fileIdRaw = fileIds.first {
                 let fileId = String(fileIdRaw.dropFirst(3).dropLast(1))
-                print("File id: \(fileId)")
 
                 GlassRoomAPI.GDDriveDetails.get(
                     params: .init(fileId: fileId),
@@ -40,14 +36,10 @@ struct LinkPreview: NSViewRepresentable {
                 ) { result in
                     switch result {
                     case .success(let success):
-                        print("Success: \(success.name ?? "no name")")
-                        print("Metadata 1: \(linkView.metadata.description)")
                         let metadata = LPLinkMetadata()
                         metadata.originalURL = url
                         metadata.url = metadata.originalURL
                         metadata.title = success.name
-//                        metadata.imageProvider = NSItemProvider.init(contentsOf:
-//                                                                        Bundle.main.url(forResource: "apple-pie", withExtension: "jpg"))
                         linkView.metadata = metadata
                     case .failure(let failure):
                         print("Failure: \(failure.localizedDescription)")
