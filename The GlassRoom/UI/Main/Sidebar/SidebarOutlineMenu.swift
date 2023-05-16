@@ -6,20 +6,27 @@
 //
 
 import SwiftUI
+import GlassRoomAPI
 
 /// A subclass of `NSMenu` implementing the contextual menu for the project navigator
 final class SidebarOutlineMenu: NSMenu {
-    var outlineView: NSOutlineView
+    var outlineView: SidebarOutlineViewController
 
     var item: Any?
 
-    init(sender: NSOutlineView) {
+    init(sender: SidebarOutlineViewController) {
         outlineView = sender
         super.init(title: "Options")
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    /// Updates the menu for the selected item and hides it if no item is provided.
+    override func update() {
+        removeAllItems()
+        setupMenu()
     }
     
     /// Creates a `NSMenuItem` depending on the given arguments
@@ -38,11 +45,18 @@ final class SidebarOutlineMenu: NSMenu {
     /// Setup the menu and disables certain items when `isFile` is false
     /// - Parameter isFile: A flag indicating that the item is a file instead of a directory
     private func setupMenu() {
-        guard let item else { return }
-        let description = menuItem("Description: \(item)", action: nil)
+        guard item is Course else { return }
+        let changeColor = menuItem("Change Color", action: #selector(changeColor))
 
         items = [
-            description
+            changeColor
         ]
+    }
+
+    @objc
+    func changeColor() {
+        guard let item = item as? Course else { return }
+        print("Changing color")
+        outlineView.colorChangingCourse?.wrappedValue = item
     }
 }

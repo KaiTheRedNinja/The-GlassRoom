@@ -35,6 +35,10 @@ extension GlobalCoursesDataManager {
 
         /// Generates a seemingly random color for a string
         func colorFor(_ courseId: String) -> Color {
+            if let customColor = customColors[courseId] {
+                return customColor
+            }
+
             let asciiValue = courseId.reduce(0) { partialResult, char in
                 partialResult + Int(char.asciiValue ?? 0)
             }

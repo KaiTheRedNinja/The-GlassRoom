@@ -23,6 +23,7 @@ final class SidebarOutlineViewController: NSViewController {
     private var shouldSendSelectionUpdate: Bool = true
 
     var selectedCourse: Binding<GeneralCourse?>? = nil
+    var colorChangingCourse: Binding<Course?>? = nil
     var courses: [Course] = []
 
     /// Setup the ``scrollView`` and ``outlineView``
@@ -37,7 +38,7 @@ final class SidebarOutlineViewController: NSViewController {
         self.outlineView.autosaveExpandedItems = true
 //        self.outlineView.autosaveName =
         self.outlineView.headerView = nil
-        self.outlineView.menu = SidebarOutlineMenu(sender: outlineView)
+        self.outlineView.menu = SidebarOutlineMenu(sender: self)
         self.outlineView.menu?.delegate = self
         self.outlineView.doubleAction = #selector(onItemDoubleClicked)
 
