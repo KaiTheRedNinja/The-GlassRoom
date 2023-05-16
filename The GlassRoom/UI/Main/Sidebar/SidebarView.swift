@@ -69,9 +69,9 @@ struct CourseView: View {
             let isLoaded = CoursePostsDataManager.loadedManagers.keys.contains(course.id)
             HStack {
                 Text(course.name)
-                    .font(.system(.body, weight: isLoaded ? .semibold : .regular))
+//                    .font(.system(.body, weight: isLoaded ? .semibold : .regular))
                     .lineLimit(1)
-                    .opacity(isLoaded ? 1 : 0.5)
+//                    .opacity(isLoaded ? 1 : 0.5)
                 Spacer()
             }
             if let description = course.description {
@@ -80,7 +80,7 @@ struct CourseView: View {
                         .font(.caption)
                         .multilineTextAlignment(.leading)
                         .lineLimit(2)
-                        .opacity(isLoaded ? 1 : 0.5)
+//                        .opacity(isLoaded ? 1 : 0.5)
                     Spacer()
                 }
             }

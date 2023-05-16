@@ -67,7 +67,7 @@ struct CoursePostItem: View {
             Text(title.replacingOccurrences(of: "\n", with: " "))
                 .font(.body)
                 .fontWeight(.bold)
-                .lineLimit(2)
+                .lineLimit(1)
 
             HStack {
                 Image(systemName: "timer")
@@ -87,7 +87,7 @@ struct CoursePostItem: View {
                     Text("\(convertDate(updateTime, .abbreviated, .standard))")
                         .offset(x: 3)
                 }
-                .lineLimit(2)
+                .lineLimit(1)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .offset(x: 2)
