@@ -33,8 +33,6 @@ public enum GlassRoomAPI {
     public enum GRInvitations: GlassRoomAPIProtocol {}
     /**Requires `https://www.googleapis.com/auth/classroom.rosters` scope**/
     public enum GRUserProfiles: GlassRoomAPIProtocol {
-
-    // MARK: Unfinished APIs
         /**Requires `https://www.googleapis.com/auth/classroom.guardianlinks.students` scope**/
         @available(macOS, unavailable, message: "Not implemented yet")
         public enum GRGuardianInvitations: GlassRoomAPIProtocol {}
@@ -42,10 +40,12 @@ public enum GlassRoomAPI {
         @available(macOS, unavailable, message: "Not implemented yet")
         public enum GRGuardians: GlassRoomAPIProtocol {}
     }
-
     /**Requires `https://www.googleapis.com/auth/classroom.push-notifications` scope**/
     @available(macOS, unavailable, message: "Not implemented yet")
     public enum GRRegistrations: GlassRoomAPIProtocol {}
+
+    /**Requires `https://www.googleapis.com/auth/drive.readonly` scope**/
+    public enum GDDriveDetails: GlassRoomAPIProtocol {}
 }
 
 public struct VoidStringCodable: StringCodable, Codable {
