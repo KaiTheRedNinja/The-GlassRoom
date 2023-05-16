@@ -55,6 +55,21 @@ struct CenterSplitViewToolbarTop: View {
                 showSelectionPopup.toggle()
             } label: {
                 Image(systemName: "line.3.horizontal.decrease.circle")
+                    .overlay(alignment: .bottomTrailing) {
+                        let count = displayedCourseManager.displayedAggregateCourseIds.count
+                        if count > 0 {
+                            ZStack {
+                                Circle()
+                                    .fill(.ultraThinMaterial)
+                                Image(systemName: count <= 50 ? "\(count).circle" : "plus.circle")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding(1)
+                            }
+                            .frame(width: 10, height: 10)
+                            .offset(x: 1, y: 1)
+                        }
+                    }
             }
             .popover(isPresented: $showSelectionPopup) {
                 List {
