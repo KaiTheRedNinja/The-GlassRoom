@@ -14,6 +14,8 @@ struct CustomisationView: View {
     @State var selectedNameReplacement: UUID?
     @State var showEditPopup: Bool = false
 
+    @State var replacedCourseNames: [NameReplacement] = []
+
     var body: some View {
         VStack {
             HStack {
@@ -32,7 +34,7 @@ struct CustomisationView: View {
                 }
 
                 // TODO: Reload this when replaced course names changes
-                Table(coursesManager.configuration.replacedCourseNames, selection: $selectedNameReplacement) {
+                Table(replacedCourseNames, selection: $selectedNameReplacement) {
                     TableColumn("Match String") { nameReplacement in
                         Text(nameReplacement.matchString)
                     }
@@ -77,6 +79,12 @@ struct CustomisationView: View {
                     .buttonStyle(.plain)
                     .padding(.vertical, 3)
                 }
+                .onAppear {
+                    replacedCourseNames = coursesManager.configuration.replacedCourseNames
+                }
+                .onChange(of: coursesManager.configuration.replacedCourseNames) { _ in
+                    replacedCourseNames = coursesManager.configuration.replacedCourseNames
+                }
             }
             HStack {
                 Spacer()
@@ -93,7 +101,10 @@ struct CustomisationView: View {
                 EditNameReplacementView(nameReplacement: nameReplacement) { newMatchString, newReplacement in
                     coursesManager.configuration.replacedCourseNames[nameReplacementIndex].matchString = newMatchString
                     coursesManager.configuration.replacedCourseNames[nameReplacementIndex].replacement = newReplacement
+
+                    replacedCourseNames = coursesManager.configuration.replacedCourseNames
                 }
+                .padding(15)
             }
         }
     }
@@ -119,7 +130,6 @@ struct CustomisationView: View {
                 TextField("Match Text", text: $replacement)
                 Button("Save") {
                     submitChange(matchString, replacement)
-                    GlobalCoursesDataManager.global.configuration.objectWillChange.send()
                     presentationMode.wrappedValue.dismiss()
                 }
             }

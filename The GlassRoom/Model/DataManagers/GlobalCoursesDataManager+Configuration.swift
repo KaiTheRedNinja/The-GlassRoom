@@ -12,7 +12,7 @@ extension GlobalCoursesDataManager {
         @Published var replacedCourseNames: [NameReplacement]
         @Published var customColors: [String: Color]
 
-        struct NameReplacement: Codable, Identifiable {
+        struct NameReplacement: Codable, Identifiable, Equatable {
             var id = UUID()
             var matchString: String
             var replacement: String
