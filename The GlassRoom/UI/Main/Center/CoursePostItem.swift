@@ -9,21 +9,20 @@ import SwiftUI
 import GlassRoomAPI
 
 struct CoursePostItem: View {
-    
-    @State var announcement: CourseAnnouncement? = nil
-    @State var coursework: CourseWork? = nil
-    @State var coursematerial: CourseWorkMaterial? = nil
+
+    var coursePost: CoursePost
     
     var body: some View {
         HStack {
             VStack {
-                if coursework != nil {
+                switch coursePost {
+                case .announcement(_):
                     Image(systemName: "square.and.pencil")
                         .foregroundColor(.accentColor)
-                } else if announcement != nil {
+                case .courseWork(_):
                     Image(systemName: "megaphone")
                         .foregroundColor(.accentColor)
-                } else if coursematerial != nil {
+                case .courseMaterial(_):
                     Image(systemName: "doc")
                         .foregroundColor(.accentColor)
                 }
@@ -31,23 +30,23 @@ struct CoursePostItem: View {
             }
             .frame(width: 15)
 
-            if let coursework = self.coursework {
-                listItemView(.courseWork(coursework),
+            switch coursePost {
+            case .announcement(let announcement):
+                listItemView(coursePost,
+                             id: announcement.id,
+                             title: announcement.text,
+                             creationTime: announcement.creationTime,
+                             updateTime: announcement.updateTime)
+            case .courseWork(let coursework):
+                listItemView(coursePost,
                              id: coursework.id,
                              title: coursework.title,
                              creationTime: coursework.creationTime,
                              updateTime: coursework.updateTime,
                              dueDate: coursework.dueDate,
                              dueTime: coursework.dueTime)
-
-            } else if let announcement = self.announcement {
-                listItemView(.announcement(announcement),
-                             id: announcement.id,
-                             title: announcement.text,
-                             creationTime: announcement.creationTime,
-                             updateTime: announcement.updateTime)
-            } else if let coursematerial = self.coursematerial {
-                listItemView(.courseMaterial(coursematerial),
+            case .courseMaterial(let coursematerial):
+                listItemView(coursePost,
                              id: coursematerial.id,
                              title: coursematerial.title,
                              creationTime: coursematerial.creationTime,

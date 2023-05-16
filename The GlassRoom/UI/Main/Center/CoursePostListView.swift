@@ -92,21 +92,10 @@ struct CoursePostListView: View {
                         }
                         .padding(.bottom, -5)
                     }
-                    switch post {
-                    case .announcement(let announcement):
-                        CoursePostItem(announcement: announcement)
-                            .padding(.vertical, 2.5)
-                            .tag(CoursePost.announcement(announcement))
-                    case .courseWork(let courseWork):
-                        CoursePostItem(coursework: courseWork)
-                            .padding(.vertical, 2.5)
-                            .tag(CoursePost.courseWork(courseWork))
-                    case .courseMaterial(let courseMaterial):
-                        CoursePostItem(coursematerial: courseMaterial)
-                            .padding(.vertical, 2.5)
-                            .tag(CoursePost.courseMaterial(courseMaterial))
-                    }
+                    CoursePostItem(coursePost: post)
+                        .padding(.vertical, 2.5)
                 }
+                .tag(post)
             }
 
             if hasNextPage {
