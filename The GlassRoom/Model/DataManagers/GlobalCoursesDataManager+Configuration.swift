@@ -20,15 +20,15 @@ extension GlobalCoursesDataManager {
 
         static func loadedFromFileSystem() -> CoursesConfiguration {
             // if the file exists in CourseCache
-            if FileSystem.exists(file: "courseConfiguration.json"),
-                let savedConfig = FileSystem.read(CoursesConfiguration.self, from: "courseConfiguration.json") {
+            if FileSystem.exists(file: .courseConfigurations),
+                let savedConfig = FileSystem.read(CoursesConfiguration.self, from: .courseConfigurations) {
                 return savedConfig
             }
             return .init(replacedCourseNames: [:], customColors: [:])
         }
 
         func saveToFileSystem() {
-            FileSystem.write(self, to: "courseConfiguration.json") { error in
+            FileSystem.write(self, to: .courseConfigurations) { error in
                 print("Error writing: \(error.localizedDescription)")
             }
         }

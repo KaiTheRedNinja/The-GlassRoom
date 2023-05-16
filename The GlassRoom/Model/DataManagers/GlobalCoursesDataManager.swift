@@ -35,7 +35,7 @@ class GlobalCoursesDataManager: ObservableObject {
     }
 
     func clearCache() {
-        FileSystem.write([Course](), to: "courseCache.json")
+        FileSystem.write([Course](), to: .courses)
     }
 
     // MARK: Private methods
@@ -57,7 +57,11 @@ class GlobalCoursesDataManager: ObservableObject {
         ) { response in
             switch response {
             case .success(let success):
-                self.courses.mergeWith(other: success.courses, isSame: { $0.id == $1.id }, isBefore: { $0.creationDate > $1.creationDate })
+                DispatchQueue.main.async {
+                    self.courses.mergeWith(other: success.courses,
+                                           isSame: { $0.id == $1.id },
+                                           isBefore: { $0.creationDate > $1.creationDate })
+                }
                 if let token = success.nextPageToken, requestNextPageIfExists {
                     self.refreshList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
                 } else {
@@ -68,22 +72,24 @@ class GlobalCoursesDataManager: ObservableObject {
                 }
             case .failure(let failure):
                 print("Failure: \(failure.localizedDescription)")
-                self.loading = false
+                DispatchQueue.main.async {
+                    self.loading = false
+                }
             }
         }
     }
 
     private func readCache() -> [Course] {
         // if the file exists in CourseCache
-        if FileSystem.exists(file: "courseCache.json"),
-           let cacheItems = FileSystem.read([Course].self, from: "courseCache.json") {
+        if FileSystem.exists(file: .courses),
+           let cacheItems = FileSystem.read([Course].self, from: .courses) {
             return cacheItems
         }
         return []
     }
 
     private func writeCache() {
-        FileSystem.write(courses, to: "courseCache.json") { error in
+        FileSystem.write(courses, to: .courses) { error in
             print("Error writing: \(error.localizedDescription)")
         }
     }

@@ -101,9 +101,9 @@ class CoursePostsDataManager: ObservableObject {
     }
 
     func clearCache(courseId: String) {
-        FileSystem.write([CourseAnnouncement](), to: "\(courseId)_courseAnnouncements.json")
-        FileSystem.write([CourseWork](), to: "\(courseId)_courseWorks.json")
-        FileSystem.write([CourseWorkMaterial](), to: "\(courseId)_courseMaterials.json")
+        FileSystem.write([CourseAnnouncement](), to: .announcements(courseId))
+        FileSystem.write([CourseWork](), to: .courseWorks(courseId))
+        FileSystem.write([CourseWorkMaterial](), to: .courseMaterials(courseId))
     }
 
     // MARK: Static functions
@@ -122,15 +122,15 @@ extension CoursePostsDataManager {
     // MARK: Announcements
     func readAnnouncementsCache() -> [CourseAnnouncement] {
         // if the file exists in CourseCache
-        if FileSystem.exists(file: "\(courseId)_courseAnnouncements.json"),
-           let cacheItems = FileSystem.read([CourseAnnouncement].self, from: "\(courseId)_courseAnnouncements.json") {
+        if FileSystem.exists(file: .announcements(courseId)),
+           let cacheItems = FileSystem.read([CourseAnnouncement].self, from: .announcements(courseId)) {
             return cacheItems
         }
         return []
     }
 
     func writeAnnouncementsCache() {
-        FileSystem.write(courseAnnouncements, to: "\(courseId)_courseAnnouncements.json") { error in
+        FileSystem.write(courseAnnouncements, to: .announcements(courseId)) { error in
             print("Error writing: \(error.localizedDescription)")
         }
     }
@@ -172,15 +172,15 @@ extension CoursePostsDataManager {
     // MARK: Course Works
     func readCourseWorksCache() -> [CourseWork] {
         // if the file exists in CourseCache
-        if FileSystem.exists(file: "\(courseId)_courseWorks.json"),
-           let cacheItems = FileSystem.read([CourseWork].self, from: "\(courseId)_courseWorks.json") {
+        if FileSystem.exists(file: .courseWorks(courseId)),
+           let cacheItems = FileSystem.read([CourseWork].self, from: .courseWorks(courseId)) {
             return cacheItems
         }
         return []
     }
 
     func writeCourseWorksCache() {
-        FileSystem.write(courseCourseWorks, to: "\(courseId)_courseWorks.json") { error in
+        FileSystem.write(courseCourseWorks, to: .courseWorks(courseId)) { error in
             print("Error writing: \(error.localizedDescription)")
         }
     }
@@ -221,15 +221,15 @@ extension CoursePostsDataManager {
     // MARK: Course materials
     func readCourseMaterialsCache() -> [CourseWorkMaterial] {
         // if the file exists in CourseCache
-        if FileSystem.exists(file: "\(courseId)_courseMaterials.json"),
-           let cacheItems = FileSystem.read([CourseWorkMaterial].self, from: "\(courseId)_courseMaterials.json") {
+        if FileSystem.exists(file: .courseMaterials(courseId)),
+           let cacheItems = FileSystem.read([CourseWorkMaterial].self, from: .courseMaterials(courseId)) {
             return cacheItems
         }
         return []
     }
 
     func writeCourseMaterialsCache() {
-        FileSystem.write(courseCourseMaterials, to: "\(courseId)_courseMaterials.json") { error in
+        FileSystem.write(courseCourseMaterials, to: .courseMaterials(courseId)) { error in
             print("Error writing: \(error.localizedDescription)")
         }
     }

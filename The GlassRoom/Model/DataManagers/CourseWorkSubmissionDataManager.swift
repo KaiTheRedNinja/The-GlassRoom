@@ -44,21 +44,21 @@ class CourseWorkSubmissionDataManager: ObservableObject {
         }
     }
 
-    func clearCache(courseId: String) {
-        FileSystem.write([StudentSubmission](), to: "\(courseId)_\(courseWorkId)_submissions.json")
+    func clearCache() {
+        FileSystem.write([StudentSubmission](), to: .submissions(courseId, courseWorkId))
     }
 
     func readCache() -> [StudentSubmission] {
         // if the file exists in CourseCache
-        if FileSystem.exists(file: "\(courseId)_\(courseWorkId)_submissions.json"),
-           let cacheItems = FileSystem.read([StudentSubmission].self, from: "\(courseId)_\(courseWorkId)_submissions.json") {
+        if FileSystem.exists(file: .submissions(courseId, courseWorkId)),
+           let cacheItems = FileSystem.read([StudentSubmission].self, from: .submissions(courseId, courseWorkId)) {
             return cacheItems
         }
         return []
     }
 
     func writeCache() {
-        FileSystem.write(submissions, to: "\(courseId)_\(courseWorkId)_submissions.json") { error in
+        FileSystem.write(submissions, to: .submissions(courseId, courseWorkId)) { error in
             print("Error writing: \(error.localizedDescription)")
         }
     }

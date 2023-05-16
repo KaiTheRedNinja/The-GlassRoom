@@ -8,9 +8,29 @@
 import Foundation
 
 enum FileSystem {
+    enum FileName {
+        case courses
+        case courseConfigurations
+        case announcements(String)
+        case courseWorks(String)
+        case courseMaterials(String)
+        case submissions(String, String)
+
+        var fileName: String {
+            switch self {
+            case .courses: return "courseCache.json"
+            case .courseConfigurations: return "courseConfigurations.json"
+            case .announcements(let courseId): return "courses/\(courseId)/announcements.json"
+            case .courseWorks(let courseId): return "courses/\(courseId)/courseWorks/courseWorks.json"
+            case .courseMaterials(let courseId): return "courses/\(courseId)/courseMaterials.json"
+            case .submissions(let courseId, let courseWorkId): return "courses/\(courseId)/courseWorks/\(courseWorkId)_submissions.json"
+            }
+        }
+    }
+
     /// Reads a type from a file
-    static func read<T: Decodable>(_ type: T.Type, from file: String) -> T? {
-        let filename = getDocumentsDirectory().appendingPathComponent(file)
+    static func read<T: Decodable>(_ type: T.Type, from file: FileName) -> T? {
+        let filename = getDocumentsDirectory().appendingPathComponent(file.fileName)
         if let data = try? Data(contentsOf: filename) {
             if let values = try? JSONDecoder().decode(T.self, from: data) {
                 return values
@@ -21,7 +41,7 @@ enum FileSystem {
     }
 
     /// Writes a type to a file
-    static func write<T: Encodable>(_ value: T, to file: String, error onError: @escaping (Error) -> Void = { _ in }) {
+    static func write<T: Encodable>(_ value: T, to file: FileName, error onError: @escaping (Error) -> Void = { _ in }) {
         var encoded: Data
 
         do {
@@ -31,7 +51,12 @@ enum FileSystem {
             return
         }
 
-        let filename = getDocumentsDirectory().appendingPathComponent(file)
+        let filename = getDocumentsDirectory().appendingPathComponent(file.fileName)
+        if file.fileName.contains("/") {
+            try? FileManager.default.createDirectory(atPath: filename.deletingLastPathComponent().path,
+                                                     withIntermediateDirectories: true,
+                                                     attributes: nil)
+        }
         do {
             try encoded.write(to: filename)
             return
@@ -43,8 +68,8 @@ enum FileSystem {
     }
 
     /// Checks if a file exists at a path
-    static func exists(file: String) -> Bool {
-        let path = getDocumentsDirectory().appendingPathComponent(file)
+    static func exists(file: FileName) -> Bool {
+        let path = getDocumentsDirectory().appendingPathComponent(file.fileName)
         return FileManager.default.fileExists(atPath: path.relativePath)
     }
 
