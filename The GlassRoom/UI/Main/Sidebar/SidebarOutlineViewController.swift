@@ -23,7 +23,6 @@ final class SidebarOutlineViewController: NSViewController {
     private var shouldSendSelectionUpdate: Bool = true
 
     var selectedCourse: Binding<GeneralCourse?>? = nil
-    var colorChangingCourse: Binding<Course?>? = nil
     var courses: [Course] = []
 
     /// Setup the ``scrollView`` and ``outlineView``

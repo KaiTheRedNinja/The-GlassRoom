@@ -64,6 +64,17 @@ extension GlobalCoursesDataManager {
             return .init(red: redComponent, green: greenComponent, blue: blueComponent)
         }
 
+        func nameFor(_ courseName: String) -> String {
+            // change all the replacement strings
+            var mutableCourseName = courseName
+            for replacedCourseName in replacedCourseNames {
+                mutableCourseName.removingRegexMatches(pattern: replacedCourseName.matchString,
+                                                       replaceWith: replacedCourseName.replacement)
+            }
+            return mutableCourseName.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+
+        // MARK: Codable
         enum Keys: CodingKey {
             case replacedCourseNames, customColors
         }
@@ -81,6 +92,16 @@ extension GlobalCoursesDataManager {
             self.customColors = try container.decode([String: Color].self,
                                                      forKey: .customColors)
         }
+    }
+}
+
+extension String {
+    mutating func removingRegexMatches(pattern: String, replaceWith: String = "") {
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+            let range = NSRange(location: 0, length: count)
+            self = regex.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: replaceWith)
+        } catch { return }
     }
 }
 

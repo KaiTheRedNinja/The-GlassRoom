@@ -35,7 +35,7 @@ struct CustomisationView: View {
 
                 // TODO: Reload this when replaced course names changes
                 Table(replacedCourseNames, selection: $selectedNameReplacement) {
-                    TableColumn("Match String") { nameReplacement in
+                    TableColumn("Match Regex") { nameReplacement in
                         Text(nameReplacement.matchString)
                     }
                     TableColumn("Replacement") { nameReplacement in
@@ -49,6 +49,7 @@ struct CustomisationView: View {
                             coursesManager.configuration.replacedCourseNames.removeAll {
                                 $0.id == selectedNameReplacement
                             }
+                            replacedCourseNames = coursesManager.configuration.replacedCourseNames
                         } label: {
                             Image(systemName: "minus")
                         }
@@ -90,6 +91,7 @@ struct CustomisationView: View {
                 Spacer()
                 Button("Save") {
                     coursesManager.configuration.saveToFileSystem()
+                    coursesManager.configuration.objectWillChange.send()
                 }
             }
         }
@@ -126,7 +128,7 @@ struct CustomisationView: View {
 
         var body: some View {
             Form {
-                TextField("Match Text", text: $matchString)
+                TextField("Match Regex", text: $matchString)
                 TextField("Match Text", text: $replacement)
                 Button("Save") {
                     submitChange(matchString, replacement)

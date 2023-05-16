@@ -12,12 +12,9 @@ struct SidebarView: View {
     @Binding var selection: GeneralCourse?
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
 
-    @State var colorChangingCourse: Course?
-
     var body: some View {
         SidebarOutlineView(
             selectedCourse: $selection,
-            colorChangingCourse: $colorChangingCourse,
             courses: coursesManager.courses
         )
         .overlay {
@@ -45,9 +42,6 @@ struct SidebarView: View {
             guard coursesManager.courses.isEmpty else { return }
             coursesManager.loadList()
         }
-//        .sheet(item: $colorChangingCourse) { _ in
-//
-//        }
     }
 }
 
@@ -76,17 +70,18 @@ struct CourseCategoryHeaderView: View {
 struct CourseView: View {
     var course: Course
 
-    @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
+    @ObservedObject var configuration: GlobalCoursesDataManager.CoursesConfiguration =
+        GlobalCoursesDataManager.global.configuration
 
     var body: some View {
         HStack {
-            coursesManager.configuration.colorFor(course.id)
+            configuration.colorFor(course.id)
                 .frame(width: 6)
                 .cornerRadius(3)
                 .padding(.vertical, 3)
             VStack {
                 HStack {
-                    Text(course.name)
+                    Text(configuration.nameFor(course.name))
                         .lineLimit(1)
                     Spacer()
                 }
