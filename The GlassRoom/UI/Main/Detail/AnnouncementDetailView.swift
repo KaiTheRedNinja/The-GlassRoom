@@ -30,6 +30,7 @@ struct AnnouncementDetailView: DetailViewPage {
 
                     HStack {
                         Text(textContent.wrappedValue)
+                            .textSelection(.enabled)
                         Spacer()
                     }
 

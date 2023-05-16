@@ -13,6 +13,8 @@ struct MainView: View {
     @State var selectedPost: CoursePost?
     @State var showSearch: Bool = false
 
+    @ObservedObject var userModel: UserAuthModel = .shared
+
     var body: some View {
         NavigationSplitView {
             SidebarView(selection: $selectedCourse)

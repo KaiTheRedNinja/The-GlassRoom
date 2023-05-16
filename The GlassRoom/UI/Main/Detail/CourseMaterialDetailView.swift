@@ -23,6 +23,7 @@ struct CourseMaterialDetailView: DetailViewPage {
                             .font(.title2)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.leading)
+                            .textSelection(.enabled)
                         Spacer()
                     }
                     viewForButtons(courseWorkMaterial.alternateLink)
@@ -37,6 +38,7 @@ struct CourseMaterialDetailView: DetailViewPage {
                     VStack(alignment: .leading) {
                         HStack {
                             Text(textContent.wrappedValue)
+                                .textSelection(.enabled)
                             Spacer()
                         }
                     }

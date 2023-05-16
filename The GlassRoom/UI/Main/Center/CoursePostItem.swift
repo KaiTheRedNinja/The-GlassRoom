@@ -17,10 +17,10 @@ struct CoursePostItem: View {
             VStack {
                 switch coursePost {
                 case .announcement(_):
-                    Image(systemName: "square.and.pencil")
+                    Image(systemName: "megaphone")
                         .foregroundColor(.accentColor)
                 case .courseWork(_):
-                    Image(systemName: "megaphone")
+                    Image(systemName: "square.and.pencil")
                         .foregroundColor(.accentColor)
                 case .courseMaterial(_):
                     Image(systemName: "doc")
