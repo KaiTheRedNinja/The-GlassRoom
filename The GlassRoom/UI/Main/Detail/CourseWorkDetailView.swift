@@ -84,6 +84,7 @@ struct CourseWorkDetailView: DetailViewPage {
         }
         .safeAreaInset(edge: .bottom) {
             viewForStudentSubmission
+                .background(.thickMaterial)
         }
     }
     

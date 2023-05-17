@@ -106,15 +106,15 @@ extension DetailViewPage {
                     if let driveFile = material.driveFile?.driveFile {
                         LinkPreview(url: URL(string: driveFile.alternateLink)!)
                     }
-
+                    
                     if let youtubeVideo = material.youtubeVideo {
                         LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
                     }
-
+                    
                     if let link = material.form?.formUrl {
                         LinkPreview(url: URL(string: link)!)
                     }
-
+                    
                     if let materialLink = material.link {
                         LinkPreview(url: URL(string: materialLink.url)!)
                     }
