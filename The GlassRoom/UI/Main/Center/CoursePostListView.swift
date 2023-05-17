@@ -53,6 +53,7 @@ struct CoursePostListView: View {
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
+                    .keyboardShortcut("r", modifiers: .command)
                     .buttonStyle(.plain)
                     .contextMenu {
                         Button("Use Cache") {
