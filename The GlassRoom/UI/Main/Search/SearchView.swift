@@ -15,6 +15,8 @@ struct SearchView: View {
     @Binding var selectedPost: CoursePost?
 
     @State var selection: String?
+    
+    @FocusState var textfieldFocused: Bool
 
     @ObservedObject var courseManager: GlobalCoursesDataManager = .global
     @Environment(\.presentationMode) var presentationMode
@@ -40,7 +42,8 @@ struct SearchView: View {
                         }
                         .opacity(0)
                     }
-                TextField("Search Classes or Announcements", text: $searchTerm)
+                TextField("Search Classes or Posts", text: $searchTerm)
+                    .focused($textfieldFocused)
                     .textFieldStyle(.plain)
                     .font(.system(.title2))
                     .frame(maxHeight: .infinity)
@@ -52,20 +55,33 @@ struct SearchView: View {
             .frame(height: 30)
             .padding(.horizontal, 15)
             .padding(.top, 5)
-            List(selection: $selection) {
-                ForEach(matchingCourses(), id: \.id) { course in
-                    Text(course.name)
-                        .tag("course_" + course.id)
-                        .onTapGesture {
-                            selection = "course_" + course.id
-                        }
-                        .onTapGesture(count: 2) {
-                            open()
-                        }
+            
+            HStack {
+                List(selection: $selection) {
+                    ForEach(matchingCourses(), id: \.id) { course in
+                        Text(course.name)
+                            .tag("course_" + course.id)
+                            .onTapGesture {
+                                if "course_\(course.id)" == selection {
+                                    open()
+                                } else {
+                                    selection = "course_" + course.id
+                                }
+                            }
+                    }
                 }
+                // TODO: Posts preview
+//                if let selection, let course = courseManager.courses.first(where: { "course_" + $0.id == selection }) {
+//                    SingleCoursePostListView(selectedPost: .constant(nil),
+//                                             displayOption: .constant(.allPosts),
+//                                             posts: .getManager(for: selection.replacingOccurrences(of: "course_", with: "")))
+//                }
             }
         }
         .frame(width: 450, height: 400)
+        .onAppear {
+            textfieldFocused = true
+        }
     }
 
     func open() {

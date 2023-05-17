@@ -41,28 +41,26 @@ struct CoursePostListView: View {
         }
         .safeAreaInset(edge: .bottom) {
             HStack(alignment: .center) {
-                Button {
-                    loadList(false)
-                    loadList(true)
-                } label: {
-                    Image(systemName: "arrow.clockwise")
-                }
-                .buttonStyle(.plain)
-                .contextMenu {
-                    Button("Use Cache") {
-                        loadList(true)
-                    }
-                }
-                .offset(y: -1)
-
                 if isLoading {
                     ProgressView()
-                        .progressViewStyle(.linear)
-                        .frame(maxWidth: .infinity)
-                        .padding(10)
+                        .progressViewStyle(.circular)
+                        .scaleEffect(.init(0.5))
                 } else {
-                    Spacer()
+                    Button {
+                        loadList(false)
+                        loadList(true)
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    .buttonStyle(.plain)
+                    .contextMenu {
+                        Button("Use Cache") {
+                            loadList(true)
+                        }
+                    }
+                    .offset(y: -1)
                 }
+                Spacer()
             }
             .padding(.horizontal, 5)
             .frame(height: 25)
