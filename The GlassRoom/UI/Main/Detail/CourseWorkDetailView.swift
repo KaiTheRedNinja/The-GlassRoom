@@ -146,9 +146,7 @@ struct CourseWorkDetailView: DetailViewPage {
         }
     }
 
-    func turnInButtonPressed(submission: StudentSubmission) {
-        // TODO: Redirect them to the browser
-        
+    func turnInButtonPressed(submission: StudentSubmission) {        
 //        GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.turnInSubmission(
 //            params: .init(
 //                courseId: submission.courseId,
