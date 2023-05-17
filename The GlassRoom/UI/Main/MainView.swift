@@ -20,6 +20,7 @@ struct MainView: View {
             SidebarView(selection: $selectedCourse)
         } content: {
             CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
+                .frame(minWidth: 200)
         } detail: {
             DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
                 .frame(minWidth: 400)

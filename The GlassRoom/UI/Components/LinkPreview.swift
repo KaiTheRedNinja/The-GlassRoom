@@ -14,9 +14,11 @@ struct LinkPreview: NSViewRepresentable {
     typealias NSViewType = LPLinkView
     
     var url: URL
+    var isAttachment: Bool
 
-    init(url: URL) {
+    init(url: URL, isAttachment: Bool) {
         self.url = url
+        self.isAttachment = isAttachment
     }
     
     func makeNSView(context: NSViewRepresentableContext<LinkPreview>) -> LinkPreview.NSViewType {
@@ -77,6 +79,10 @@ struct LinkPreview: NSViewRepresentable {
                 // if the title already is loaded, use that instead
                 if let existingTitle = nsView.metadata.title {
                     metadata.title = existingTitle
+                }
+                
+                if isAttachment {
+                    metadata.imageProvider = nil
                 }
 
                 MetaCache.cache(metadata: metadata)
