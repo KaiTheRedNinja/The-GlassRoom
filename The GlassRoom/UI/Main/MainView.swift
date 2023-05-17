@@ -49,7 +49,11 @@ struct MainView: View {
     }
 
     func loadCachedStreams() {
-        let courses = GlobalCoursesDataManager.global.courses
+        let coursesManager = GlobalCoursesDataManager.global
+        if coursesManager.courses.isEmpty {
+            coursesManager.loadList()
+        }
+        let courses = coursesManager.courses
         for course in courses {
             let manager = CoursePostsDataManager.getManager(for: course.id)
             DispatchQueue.main.async {

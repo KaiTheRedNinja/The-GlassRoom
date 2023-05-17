@@ -111,6 +111,12 @@ class CourseWorkSubmissionDataManager: ObservableObject {
            let manager = courseManagers[courseWorkId] {
             return manager
         }
-        return .init(courseId: courseId, courseWorkId: courseWorkId)
+        let newInstance = CourseWorkSubmissionDataManager(courseId: courseId, courseWorkId: courseWorkId)
+        if loadedManagers[courseId] != nil {
+            loadedManagers[courseId]?[courseWorkId] = newInstance
+        } else {
+            loadedManagers[courseId] = [courseWorkId: newInstance]
+        }
+        return newInstance
     }
 }

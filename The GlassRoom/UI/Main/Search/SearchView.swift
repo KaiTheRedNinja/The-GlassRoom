@@ -31,14 +31,18 @@ struct SearchView: View {
                     .foregroundColor(.gray)
                     .background {
                         ZStack {
-                            Button("U") {
+                            Button("U") { // up
                                 changeSelection(by: -1)
                             }
                             .keyboardShortcut(KeyEquivalent.upArrow, modifiers: [])
-                            Button("D") {
+                            Button("D") { // down
                                 changeSelection(by: 1)
                             }
                             .keyboardShortcut(KeyEquivalent.downArrow, modifiers: [])
+                            Button("E") { // enter
+                                open()
+                            }
+                            .keyboardShortcut(KeyEquivalent.return, modifiers: [])
                         }
                         .opacity(0)
                     }
@@ -70,24 +74,32 @@ struct SearchView: View {
                             }
                     }
                 }
-                // TODO: Posts preview
-//                if let selection, let course = courseManager.courses.first(where: { "course_" + $0.id == selection }) {
-//                    SingleCoursePostListView(selectedPost: .constant(nil),
-//                                             displayOption: .constant(.allPosts),
-//                                             posts: .getManager(for: selection.replacingOccurrences(of: "course_", with: "")))
-//                }
+                if let selection {
+                    SingleCoursePostListView(
+                        selectedPost: .init(get: { nil }, set: { newPost in
+                            // TODO: Open the post
+                            guard let newPost else { return }
+                            open(post: newPost)
+                        }),
+                        displayOption: .constant(.allPosts),
+                        posts: .getManager(for: selection.replacingOccurrences(of: "course_", with: ""))
+                    )
+                    .id(selection)
+                }
             }
         }
-        .frame(width: 450, height: 400)
+        .frame(width: 680,
+               height: 500)
         .onAppear {
             textfieldFocused = true
         }
     }
 
-    func open() {
+    func open(post: CoursePost? = nil) {
         defer { presentationMode.wrappedValue.dismiss() }
         guard let selection else { return }
         selectedCourse = .course(selection.replacingOccurrences(of: "course_", with: ""))
+        selectedPost = post
     }
 
     func changeSelection(by offset: Int) {

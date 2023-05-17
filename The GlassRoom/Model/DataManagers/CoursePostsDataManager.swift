@@ -113,7 +113,9 @@ class CoursePostsDataManager: ObservableObject {
         if let manager = loadedManagers[courseId] {
             return manager
         }
-        return .init(courseId: courseId)
+        let newInstance = CoursePostsDataManager(courseId: courseId)
+        loadedManagers[courseId] = newInstance
+        return newInstance
     }
 }
 

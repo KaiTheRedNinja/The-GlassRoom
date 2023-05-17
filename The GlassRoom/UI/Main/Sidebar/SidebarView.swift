@@ -38,10 +38,6 @@ struct SidebarView: View {
                     .padding(10)
             }
         }
-        .onAppear {
-            guard coursesManager.courses.isEmpty else { return }
-            coursesManager.loadList()
-        }
     }
 }
 
