@@ -28,47 +28,47 @@ struct CourseWorkDetailView: DetailViewPage {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
+        GeometryReader { geometry in
+            ScrollView {
                 VStack(alignment: .leading) {
-                    HStack {
-                        Text(courseWork.title)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.leading)
-                            .textSelection(.enabled)
-                        Spacer()
-                    }
-                    viewForButtons(courseWork.alternateLink)
-                }
-                .padding(.top, 2)
-                .padding(.bottom, 10)
-
-                if let _ = courseWork.description {
-                    Divider()
-                        .padding(.bottom, 10)
-
                     VStack(alignment: .leading) {
                         HStack {
-                            Text(.init(textContent.wrappedValue))
+                            Text(courseWork.title)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .multilineTextAlignment(.leading)
                                 .textSelection(.enabled)
                             Spacer()
                         }
+                        viewForButtons(courseWork.alternateLink)
                     }
-                }
-                
-                Spacer()
-
-                VStack {
-                    if let material = courseWork.materials {
+                    .padding(.top, 2)
+                    .padding(.bottom, 10)
+                    
+                    if let _ = courseWork.description {
                         Divider()
-                        GeometryReader { geometry in
+                            .padding(.bottom, 10)
+                        
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text(.init(textContent.wrappedValue))
+                                    .textSelection(.enabled)
+                                Spacer()
+                            }
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    VStack {
+                        if let material = courseWork.materials {
+                            Divider()
                             viewForMaterial(materials: material, geometry: geometry)
                         }
                     }
                 }
+                .padding(.all)
             }
-            .padding(.all)
         }
         .onAppear {
             copiedLink.wrappedValue = false
