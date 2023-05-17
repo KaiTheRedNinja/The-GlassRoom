@@ -39,6 +39,7 @@ struct CoursePostListView: View {
                 .frame(maxHeight: .infinity)
             }
         }
+        .animation(.default, value: postData)
         .safeAreaInset(edge: .bottom) {
             HStack(alignment: .center) {
                 if isLoading {
