@@ -381,14 +381,11 @@ struct CourseWorkDetailView: DetailViewPage {
         
         if let duedateDate = dateFormatter.date(from: string) {
             if duedateDate > Date.now {
-                print("asadfalse")
                 return false
             } else {
-                print("asadtrue")
                 return true
             }
         }
-        print("asadfalsedef")
         return false
     }
 }
