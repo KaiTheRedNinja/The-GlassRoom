@@ -11,8 +11,17 @@ import GlassRoomAPI
 extension GlobalCoursesDataManager {
     class CoursesConfiguration: ObservableObject, Codable {
         @Published var replacedCourseNames: [NameReplacement]
-        @Published var courseGroups: [CourseGroup]
+        @Published var courseGroups: [CourseGroup] {
+            didSet {
+                groupIdMap = [:]
+                for group in courseGroups {
+                    groupIdMap[group.id] = group
+                }
+            }
+        }
         @Published var customColors: [String: Color]
+
+        @Published var groupIdMap: [String: CourseGroup] = [:]
 
         private init(replacedCourseNames: [NameReplacement] = [],
                      courseGroups: [CourseGroup] = [],
@@ -160,7 +169,7 @@ struct NameReplacement: Codable, Identifiable, Equatable {
 }
 
 struct CourseGroup: Codable, Identifiable, Equatable {
-    var id = UUID()
+    var id = UUID().uuidString
     var groupName: String
     var groupType: Course.CourseType
     var courses: [String]

@@ -96,13 +96,14 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
                     !matchingCourseGroups.contains(where: { $0.courses.contains(course.id) }) // must not be in any other grp
                 }).count
                 return matchingCourseGroups.count + coursesCount
-            case .group(let courseGroup):
-                return courseGroup.courses.count
+            case .group(let string):
+                if let courseGroup = courseGroups.first(where: { $0.id == string }) {
+                    return courseGroup.courses.count
+                }
             }
         }
 
         fatalError("Unexpected item: \(item)")
-        return 0
     }
 
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
@@ -130,12 +131,14 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
                 })
 
                 if index < courseGroups.count { // use the course groups
-                    return GeneralCourse.group(matchingCourseGroups[index])
+                    return GeneralCourse.group(matchingCourseGroups[index].id)
                 } else {
                     return GeneralCourse.course(matchingCourses[index-courseGroups.count].id)
                 }
-            case .group(let courseGroup):
-                return GeneralCourse.course(courseGroup.courses[index])
+            case .group(let string):
+                if let courseGroup = courseGroups.first(where: { $0.id == string }) {
+                    return GeneralCourse.course(courseGroup.courses[index])
+                }
             }
         }
 

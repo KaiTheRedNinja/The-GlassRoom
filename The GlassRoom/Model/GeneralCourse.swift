@@ -12,7 +12,7 @@ enum GeneralCourse: Hashable, Identifiable {
     case course(String)
     case allTeaching
     case allEnrolled
-    case group(CourseGroup)
+    case group(String)
 
     var id: String {
         switch self {
@@ -23,7 +23,7 @@ enum GeneralCourse: Hashable, Identifiable {
         case .allEnrolled:
             return "allEnrolled"
         case .group(let group):
-            return group.courses.joined(separator: ":")
+            return group
         }
     }
 

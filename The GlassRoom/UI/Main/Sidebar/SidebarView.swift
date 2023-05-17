@@ -99,16 +99,20 @@ struct SidebarCourseView: View {
             }
             .padding(.horizontal, 5)
             .disabled(true)
-        case .group(let courseGroup):
-            HStack {
-                Text(courseGroup.groupName)
-                    .bold()
-                    .foregroundColor(.gray)
-                    .padding(.bottom, 2.5)
-                Spacer()
+        case .group(let string):
+            if let group = configuration.groupIdMap[string] {
+                HStack {
+                    Text(group.groupName)
+                        .bold()
+                        .foregroundColor(.gray)
+                        .padding(.bottom, 2.5)
+                    Spacer()
+                }
+                .padding(.horizontal, 5)
+                .disabled(true)
+            } else {
+                Text("Invalid course group")
             }
-            .padding(.horizontal, 5)
-            .disabled(true)
         }
     }
 }
