@@ -115,12 +115,33 @@ struct CoursePostItem: View {
     
     func getTimeFromDueTime(_ dueTime: TimeOfDay) -> String {
         guard let hours = dueTime.hours else {
-            guard let minutes = dueTime.minutes else { return "-" }
-            return "00:\(minutes)"
+            guard let minutes = dueTime.minutes else { return "-" } // no time
+            // only minutes
+            let string = "00:\(minutes)"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.date(from: string)
+            
+            return string
         }
-        guard let minutes = dueTime.minutes else { return "\((hours + 8) % 24):00" }
+        guard let minutes = dueTime.minutes else {
+            // only hours
+            let string = "\((hours + 8) % 24):00"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.date(from: string)
+            
+            return string
+            
+        }
         
-        return "\((hours + 8) % 24):\(minutes)"
+        // hours and minutes
+        let string = "\((hours + 8) % 24):\(minutes)"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.date(from: string)
+        
+        return string
     }
 }
 

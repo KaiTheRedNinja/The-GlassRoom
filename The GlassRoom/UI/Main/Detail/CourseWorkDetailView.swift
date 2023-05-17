@@ -109,7 +109,23 @@ struct CourseWorkDetailView: DetailViewPage {
                     VStack(alignment: .leading) {
                         HStack {
                             VStack(alignment: .leading) {
+                                if let dueDate = courseWork.dueDate {
+                                    HStack {
+                                        Image(systemName: "calendar")
+                                        if let dueTime = courseWork.dueTime {
+                                            Text("\(dueDate.day)/\(dueDate.month)/\(dueDate.year) - \(getTimeFromDueTime(dueTime))".replacingOccurrences(of: ",", with: ""))
+                                        } else {
+                                            Text("\(dueDate.day)/\(dueDate.month)/\(dueDate.year)".replacingOccurrences(of: ",", with: ""))
+                                        }
+                                    }
+                                    .lineLimit(1)
+                                    .font(.headline)
+                                    .foregroundColor(isSubmitted(submission.state) ? .secondary : .primary)
+                                    .padding(.bottom, 5)
+                                }
+                                
                                 submissionState(submission, submission.state)
+                                
                                 if let gradeUpon = courseWork.maxPoints {
                                     if let grade = submission.assignedGrade {
                                         viewForGrades(grade, gradeUpon)
@@ -203,10 +219,24 @@ struct CourseWorkDetailView: DetailViewPage {
                         .fontWeight(.bold)
                 }
             case .reclaimed_by_student:
-                Text("Assigned")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.green.opacity(0.7))
+                if let dueTime = courseWork.dueTime {
+                    if let dueDate = courseWork.dueDate {
+                        Text(isOverdue(dueDate, dueTime) ? "Missing" : "Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(isOverdue(dueDate, dueTime) ? .red.opacity(0.7) : .green.opacity(0.7))
+                    } else {
+                        Text("Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.green.opacity(0.7))
+                    }
+                } else {
+                    Text("Assigned")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.green.opacity(0.7))
+                }
             case .returned:
                 Text("Returned")
                     .font(.headline)
@@ -217,15 +247,43 @@ struct CourseWorkDetailView: DetailViewPage {
                     .fontWeight(.bold)
                     .foregroundColor(.red.opacity(0.7))
             case .new:
-                Text("Assigned")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.green.opacity(0.7))
+                if let dueTime = courseWork.dueTime {
+                    if let dueDate = courseWork.dueDate {
+                        Text(isOverdue(dueDate, dueTime) ? "Missing" : "Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(isOverdue(dueDate, dueTime) ? .red.opacity(0.7) : .green.opacity(0.7))
+                    } else {
+                        Text("Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.green.opacity(0.7))
+                    }
+                } else {
+                    Text("Assigned")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.green.opacity(0.7))
+                }
             case .created:
-                Text("Assigned")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.green.opacity(0.7))
+                if let dueTime = courseWork.dueTime {
+                    if let dueDate = courseWork.dueDate {
+                        Text(isOverdue(dueDate, dueTime) ? "Missing" : "Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(isOverdue(dueDate, dueTime) ? .red.opacity(0.7) : .green.opacity(0.7))
+                    } else {
+                        Text("Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.green.opacity(0.7))
+                    }
+                } else {
+                    Text("Assigned")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.green.opacity(0.7))
+                }
             }
         }
     }
@@ -259,5 +317,78 @@ struct CourseWorkDetailView: DetailViewPage {
                     .foregroundColor(.primary)
             }
         }
+    }
+    
+    func getTimeFromDueTime(_ dueTime: TimeOfDay) -> String {
+        guard let hours = dueTime.hours else {
+            guard let minutes = dueTime.minutes else { return "-" } // no time
+            // only minutes
+            let string = "00:\(minutes)"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.date(from: string)
+            
+            return string
+        }
+        guard let minutes = dueTime.minutes else {
+            // only hours
+            let string = "\((hours + 8) % 24):00"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.date(from: string)
+            
+            return string
+            
+        }
+        
+        // hours and minutes
+        let string = "\((hours + 8) % 24):\(minutes)"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.date(from: string)
+        
+        return string
+    }
+    
+    func isSubmitted(_ state: SubmissionState) -> Bool {
+        switch state {
+        case .submission_state_unspecified:
+            return false
+        case .new:
+            return false
+        case .created:
+            return false
+        case .turned_in:
+            return true
+        case .returned:
+            return true
+        case .reclaimed_by_student:
+            return false
+        }
+    }
+    
+    func isOverdue(_ dueDate: DueDate, _ dueTime: TimeOfDay) -> Bool {
+        let twentyFourHourTime = getTimeFromDueTime(dueTime)
+        let dueString = "\(dueDate.day)/\(dueDate.month)/\(dueDate.year) - \(twentyFourHourTime)"
+        
+        let string = dueString
+
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "d/M/yyyy - HH:mm"
+
+        dateFormatter.date(from: string)
+        
+        if let duedateDate = dateFormatter.date(from: string) {
+            if duedateDate > Date.now {
+                print("asadfalse")
+                return false
+            } else {
+                print("asadtrue")
+                return true
+            }
+        }
+        print("asadfalsedef")
+        return false
     }
 }
