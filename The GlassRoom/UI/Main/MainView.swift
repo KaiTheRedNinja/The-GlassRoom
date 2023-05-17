@@ -43,6 +43,20 @@ struct MainView: View {
                 Image(systemName: "gearshape")
             }
         }
+        .onAppear {
+            loadCachedStreams()
+        }
+    }
+
+    func loadCachedStreams() {
+        let courses = GlobalCoursesDataManager.global.courses
+        for course in courses {
+            let manager = CoursePostsDataManager.getManager(for: course.id)
+            DispatchQueue.main.async {
+                manager.loadList(onlyCache: true)
+            }
+        }
+        print("Loaded managers: \(CoursePostsDataManager.loadedManagers.keys)")
     }
 }
 

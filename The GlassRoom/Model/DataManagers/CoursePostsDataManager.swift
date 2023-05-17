@@ -50,7 +50,7 @@ class CoursePostsDataManager: ObservableObject {
         CoursePostsDataManager.loadedManagers[courseId] = self
     }
 
-    func loadList(bypassCache: Bool = false) {
+    func loadList(bypassCache: Bool = false, onlyCache: Bool = false) {
         announcementsLoading = true
         courseWorksLoading = true
         courseMaterialsLoading = true
@@ -69,19 +69,19 @@ class CoursePostsDataManager: ObservableObject {
             refreshCourseMaterialsList()
         } else {
             // load from cache first, if that fails load from the list.
-            if cachedAnnouncements.isEmpty {
+            if cachedAnnouncements.isEmpty && !onlyCache {
                 refreshAnnouncementsList()
             } else {
                 self.courseAnnouncements = cachedAnnouncements
                 announcementsLoading = false
             }
-            if cachedCourseWorks.isEmpty {
+            if cachedCourseWorks.isEmpty && !onlyCache {
                 refreshCourseWorksList()
             } else {
                 self.courseCourseWorks = cachedCourseWorks
                 courseWorksLoading = false
             }
-            if cachedCourseMaterials.isEmpty {
+            if cachedCourseMaterials.isEmpty && !onlyCache {
                 refreshCourseMaterialsList()
             } else {
                 self.courseCourseMaterials = cachedCourseMaterials

@@ -151,7 +151,7 @@ protocol PostDataSource: ObservableObject {
     var loading: Bool { get }
     var hasNextPage: Bool { get }
 
-    func loadList(bypassCache: Bool)
+    func loadList(bypassCache: Bool, onlyCache: Bool)
     func refreshList(requestNextPageIfExists: Bool)
 }
 
