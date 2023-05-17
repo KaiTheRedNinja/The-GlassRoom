@@ -108,7 +108,18 @@ struct CourseWorkDetailView: DetailViewPage {
                     // assignment
                     VStack(alignment: .leading) {
                         HStack {
-                            submissionState(submission.state)
+                            VStack(alignment: .leading) {
+                                submissionState(submission, submission.state)
+                                if let gradeUpon = courseWork.maxPoints {
+                                    if let grade = submission.assignedGrade {
+                                        viewForGrades(grade, gradeUpon)
+                                            .font(.subheadline)
+                                    } else {
+                                        Text("^[\(Int(gradeUpon)) \("point")](inflect: true)")
+                                            .font(.subheadline)
+                                    }
+                                }
+                            }
 
                             Spacer()
 
@@ -145,6 +156,12 @@ struct CourseWorkDetailView: DetailViewPage {
             }
         }
     }
+    
+    func viewForGrades(_ grade: Double, _ gradeUpon: Double) -> some View {
+        VStack {
+            Text("\(grade.formatted())/\(gradeUpon.formatted())")
+        }
+    }
 
     func turnInButtonPressed(submission: StudentSubmission) {        
 //        GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.turnInSubmission(
@@ -166,39 +183,49 @@ struct CourseWorkDetailView: DetailViewPage {
         
     }
     
-    func submissionState(_ state: SubmissionState) -> some View {
+    func submissionState(_ submission: StudentSubmission, _ state: SubmissionState) -> some View {
         VStack(alignment: .leading) {
             switch state {
             case .turned_in:
-                Text("Submitted")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.green)
+                if let late = submission.late {
+                    if late {
+                        Text("Turned in late")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                    } else {
+                        Text("Submitted")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                    }
+                } else {
+                    Text("Submitted")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                }
             case .reclaimed_by_student:
-                Text("Unsubmitted")
+                Text("Assigned")
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.red)
+                    .foregroundColor(.green.opacity(0.7))
             case .returned:
                 Text("Returned")
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.gray)
             case .submission_state_unspecified:
                 Text("Unspecified")
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.red)
+                    .foregroundColor(.red.opacity(0.7))
             case .new:
                 Text("Assigned")
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.green)
+                    .foregroundColor(.green.opacity(0.7))
             case .created:
                 Text("Assigned")
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.green)
+                    .foregroundColor(.green.opacity(0.7))
             }
         }
     }
@@ -209,21 +236,27 @@ struct CourseWorkDetailView: DetailViewPage {
             case .turned_in:
 //                Text("Unsubmit")
                 Text("Unsubmit in browser")
+                    .foregroundColor(.primary)
             case .reclaimed_by_student:
 //                Text("Submit")
                 Text("Submit in browser")
+                    .foregroundColor(.primary)
             case .returned:
 //                Text("Resubmit")
                 Text("Resubmit in browser")
+                    .foregroundColor(.primary)
             case .submission_state_unspecified:
 //                Text("Submit")
                 Text("Submit in browser")
+                    .foregroundColor(.primary)
             case .new:
 //                Text("Submit")
                 Text("Submit in browser")
+                    .foregroundColor(.primary)
             case .created:
 //                Text("Submit")
                 Text("Submit in browser")
+                    .foregroundColor(.primary)
             }
         }
     }

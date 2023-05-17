@@ -121,7 +121,7 @@ extension DetailViewPage {
                 }
             }
         }
-                  .animation(.spring(response: 0.7, dampingFraction: 0.8), value: geometry.size)
+        .animation(.spring(dampingFraction: 0.8), value: geometry.size)
     }
     
     @ViewBuilder
@@ -150,6 +150,7 @@ extension DetailViewPage {
                     }
                 }
             }
+            .cornerRadius(8)
         }
     }
 }
