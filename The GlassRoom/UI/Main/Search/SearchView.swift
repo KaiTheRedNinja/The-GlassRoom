@@ -71,7 +71,7 @@ struct SearchView: View {
     func open() {
         defer { presentationMode.wrappedValue.dismiss() }
         guard let selection else { return }
-        selectedCourse = .course(selection.replacingOccurrences(of: "course_", with: selection))
+        selectedCourse = .course(selection.replacingOccurrences(of: "course_", with: ""))
     }
 
     func changeSelection(by offset: Int) {
