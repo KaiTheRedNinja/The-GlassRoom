@@ -106,68 +106,114 @@ struct CourseWorkDetailView: DetailViewPage {
                 
                 if submission.courseWorkType == .assignment {
                     // assignment
-                    VStack(alignment: .leading) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                if let dueDate = courseWork.dueDate {
-                                    HStack {
-                                        Image(systemName: "calendar")
-                                        if let dueTime = courseWork.dueTime {
-                                            Text("\(getDateFromDueDate(dueDate)) - \(getTimeFromDueTime(dueTime))".replacingOccurrences(of: ",", with: ""))
-                                        } else {
-                                            Text("\(getDateFromDueDate(dueDate))".replacingOccurrences(of: ",", with: ""))
-                                        }
-                                    }
-                                    .lineLimit(1)
-                                    .font(.headline)
-                                    .foregroundColor(isSubmitted(submission.state) ? .secondary : .primary)
-                                    .padding(.bottom, 5)
-                                }
-                                
-                                submissionState(submission, submission.state)
-                                
-                                if let gradeUpon = courseWork.maxPoints {
-                                    if let grade = submission.assignedGrade {
-                                        viewForGrades(grade, gradeUpon)
-                                            .font(.subheadline)
-                                    } else {
-                                        Text("^[\(Int(gradeUpon)) \("point")](inflect: true)")
-                                            .font(.subheadline)
-                                    }
-                                }
-                            }
-
-                            Spacer()
-
-//                            Button {
-//                                turnInButtonPressed(submission: submission)
-//                            } label: {
-//                                buttonText(submission.state)
-//                            }
-                            
-                            Button {
-                                guard let url = URL(string: submission.alternateLink) else { return }
-                                openURL(url)
-                            } label: {
-                                buttonText(submission.state)
-                            }
-                        }
-                        
-                        if let assignmentSubmission = submission.assignmentSubmission {
-
-                            if assignmentSubmission.attachments != nil {
-                                viewForAttachment(materials: assignmentSubmission)
-                                    .frame(height: 100)
-                            }
-                        }
-                    }
-                    .padding(.all)
+                    viewForAssignment(submission)
                 } else if submission.courseWorkType == .multiple_choice_question {
                     // mcq
                     Text("MCQ")
+                        .onAppear {
+                            print(submission)
+                        }
                 } else if submission.courseWorkType == .short_answer_question {
                     // saq
-                    Text("Short answer")
+                    viewForShortAnswer(submission)
+                }
+            }
+        }
+    }
+    
+    func viewForAssignment(_ submission: StudentSubmission) -> some View {
+        VStack(alignment: .leading) {
+            HStack {
+                VStack(alignment: .leading) {
+                    viewForCourseWorkDueDate(submission)
+                    
+                    submissionState(submission, submission.state)
+                    
+                    viewForCourseWorkGrades(submission)
+                }
+
+                Spacer()
+                
+                viewForSubmitButton(submission)
+            }
+            
+            if let assignmentSubmission = submission.assignmentSubmission {
+                if assignmentSubmission.attachments != nil {
+                    viewForAttachment(materials: assignmentSubmission)
+                        .frame(height: 100)
+                }
+            }
+        }
+        .padding(.all)
+    }
+    
+    func viewForShortAnswer(_ submission: StudentSubmission) -> some View {
+        VStack(alignment: .leading) {
+            HStack {
+                VStack(alignment: .leading) {
+                    viewForCourseWorkDueDate(submission)
+                    
+                    submissionState(submission, submission.state)
+                    
+                    viewForCourseWorkGrades(submission)
+                }
+
+                Spacer()
+                
+                viewForSubmitButton(submission)
+            }
+            
+            if let shortAnswerSubmission = submission.shortAnswerSubmission {
+                GroupBox {
+                    Text(shortAnswerSubmission.answer)
+                        .textSelection(.enabled)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.all, 5)
+                }
+            }
+        }
+        .padding(.all)
+    }
+    
+    func viewForSubmitButton(_ submission: StudentSubmission) -> some View {
+        VStack {
+            Button {
+                guard let url = URL(string: submission.alternateLink) else { return }
+                openURL(url)
+            } label: {
+                buttonText(submission.state)
+            }
+        }
+    }
+    
+    func viewForCourseWorkDueDate(_ submission: StudentSubmission) -> some View {
+        VStack {
+            if let dueDate = courseWork.dueDate {
+                HStack {
+                    Image(systemName: "calendar")
+                    if let dueTime = courseWork.dueTime {
+                        Text("\(getDateFromDueDate(dueDate)) - \(getTimeFromDueTime(dueTime))".replacingOccurrences(of: ",", with: ""))
+                    } else {
+                        Text("\(getDateFromDueDate(dueDate))".replacingOccurrences(of: ",", with: ""))
+                    }
+                }
+                .lineLimit(1)
+                .font(.headline)
+                .foregroundColor(isSubmitted(submission.state) ? .secondary : .primary)
+                .padding(.bottom, 5)
+            }
+        }
+    }
+    
+    func viewForCourseWorkGrades(_ submission: StudentSubmission) -> some View {
+        VStack {
+            if let gradeUpon = courseWork.maxPoints {
+                if let grade = submission.assignedGrade {
+                    viewForGrades(grade, gradeUpon)
+                        .font(.subheadline)
+                } else {
+                    Text("^[\(Int(gradeUpon)) \("point")](inflect: true)")
+                        .font(.subheadline)
                 }
             }
         }
@@ -183,26 +229,6 @@ struct CourseWorkDetailView: DetailViewPage {
     func calculatePercentage(_ grade: Double, _ gradeUpon: Double) -> String {
         let percentage = grade / gradeUpon * 100
         return (round(100 * percentage) / 100).formatted()
-    }
-
-    func turnInButtonPressed(submission: StudentSubmission) {        
-//        GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.turnInSubmission(
-//            params: .init(
-//                courseId: submission.courseId,
-//                courseWorkId: submission.courseWorkId,
-//                id: submission.id
-//            ),
-//            query: VoidStringCodable(),
-//            data: VoidStringCodable()) { response in
-//                switch response {
-//                case .success(let success):
-//                    print(success)
-//                    return
-//                case .failure(let failure):
-//                    print("failure: \(failure.localizedDescription)")
-//                }
-//            }
-        
     }
     
     func submissionState(_ submission: StudentSubmission, _ state: SubmissionState) -> some View {
