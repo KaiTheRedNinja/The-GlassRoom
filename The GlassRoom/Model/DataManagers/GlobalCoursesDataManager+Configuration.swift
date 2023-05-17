@@ -10,6 +10,7 @@ import SwiftUI
 extension GlobalCoursesDataManager {
     class CoursesConfiguration: ObservableObject, Codable {
         @Published var replacedCourseNames: [NameReplacement]
+        @Published var courseGroups: [CourseGroup]
         @Published var customColors: [String: Color]
 
         struct NameReplacement: Codable, Identifiable, Equatable {
@@ -18,19 +19,36 @@ extension GlobalCoursesDataManager {
             var replacement: String
         }
 
+        struct CourseGroup: Codable, Identifiable, Equatable {
+            var id = UUID()
+            var groupName: String
+            var groups: [UUID]
+        }
+
         private init(replacedCourseNames: [NameReplacement] = [],
+                     courseGroups: [CourseGroup] = [],
                      customColors: [String: Color] = [:]) {
             self.replacedCourseNames = replacedCourseNames
+            self.courseGroups = courseGroups
             self.customColors = customColors
         }
 
+        private static var fileSystemInstance: CoursesConfiguration?
         static func loadedFromFileSystem() -> CoursesConfiguration {
+            if let fileSystemInstance {
+                return fileSystemInstance
+            }
             // if the file exists in CourseCache
             if FileSystem.exists(file: .courseConfigurations),
                 let savedConfig = FileSystem.read(CoursesConfiguration.self, from: .courseConfigurations) {
+                fileSystemInstance = savedConfig
                 return savedConfig
             }
-            return .init(replacedCourseNames: [], customColors: [:])
+            let newInstance = CoursesConfiguration(replacedCourseNames: [],
+                                                   courseGroups: [],
+                                                   customColors: [:])
+            fileSystemInstance = newInstance
+            return newInstance
         }
 
         func saveToFileSystem() {
@@ -76,12 +94,13 @@ extension GlobalCoursesDataManager {
 
         // MARK: Codable
         enum Keys: CodingKey {
-            case replacedCourseNames, customColors
+            case replacedCourseNames, courseGroups, customColors
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: Keys.self)
             try container.encode(replacedCourseNames, forKey: .replacedCourseNames)
+            try container.encode(courseGroups, forKey: .courseGroups)
             try container.encode(customColors, forKey: .customColors)
         }
 
@@ -89,6 +108,8 @@ extension GlobalCoursesDataManager {
             let container = try decoder.container(keyedBy: Keys.self)
             self.replacedCourseNames = try container.decode([NameReplacement].self,
                                                             forKey: .replacedCourseNames)
+            self.courseGroups = try container.decode([CourseGroup].self,
+                                                     forKey: .courseGroups)
             self.customColors = try container.decode([String: Color].self,
                                                      forKey: .customColors)
         }
