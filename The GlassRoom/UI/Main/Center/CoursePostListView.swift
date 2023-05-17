@@ -44,7 +44,8 @@ struct CoursePostListView: View {
                 if isLoading {
                     ProgressView()
                         .progressViewStyle(.circular)
-                        .scaleEffect(.init(0.5))
+                        .scaleEffect(.init(0.45))
+                        .offset(x: -10)
                 } else {
                     Button {
                         loadList(false)

@@ -174,9 +174,15 @@ struct CourseWorkDetailView: DetailViewPage {
     }
     
     func viewForGrades(_ grade: Double, _ gradeUpon: Double) -> some View {
-        VStack {
+        HStack {
             Text("\(grade.formatted())/\(gradeUpon.formatted())")
+            Text("(\(calculatePercentage(grade, gradeUpon))%)")
         }
+    }
+    
+    func calculatePercentage(_ grade: Double, _ gradeUpon: Double) -> String {
+        let percentage = grade / gradeUpon * 100
+        return (round(100 * percentage) / 100).formatted()
     }
 
     func turnInButtonPressed(submission: StudentSubmission) {        
