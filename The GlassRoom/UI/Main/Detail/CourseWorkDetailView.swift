@@ -113,9 +113,9 @@ struct CourseWorkDetailView: DetailViewPage {
                                     HStack {
                                         Image(systemName: "calendar")
                                         if let dueTime = courseWork.dueTime {
-                                            Text("\(dueDate.day)/\(dueDate.month)/\(dueDate.year) - \(getTimeFromDueTime(dueTime))".replacingOccurrences(of: ",", with: ""))
+                                            Text("\(getDateFromDueDate(dueDate)) - \(getTimeFromDueTime(dueTime))".replacingOccurrences(of: ",", with: ""))
                                         } else {
-                                            Text("\(dueDate.day)/\(dueDate.month)/\(dueDate.year)".replacingOccurrences(of: ",", with: ""))
+                                            Text("\(getDateFromDueDate(dueDate))".replacingOccurrences(of: ",", with: ""))
                                         }
                                     }
                                     .lineLimit(1)
@@ -356,6 +356,20 @@ struct CourseWorkDetailView: DetailViewPage {
         return string
     }
     
+    func getDateFromDueDate(_ dueDate: DueDate) -> String {
+        let dueString = "\(dueDate.day)/\(dueDate.month)/\(dueDate.year)"
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "d/M/yyyy"
+        let date = dateFormatter.date(from: dueString)
+        
+        if let nonNilDate = date {
+            return nonNilDate.formatted(.dateTime.day().month().year())
+        } else {
+            return dueString
+        }
+    }
+    
     func isSubmitted(_ state: SubmissionState) -> Bool {
         switch state {
         case .submission_state_unspecified:
@@ -377,15 +391,13 @@ struct CourseWorkDetailView: DetailViewPage {
         let twentyFourHourTime = getTimeFromDueTime(dueTime)
         let dueString = "\(dueDate.day)/\(dueDate.month)/\(dueDate.year) - \(twentyFourHourTime)"
         
-        let string = dueString
-
         let dateFormatter = DateFormatter()
 
         dateFormatter.dateFormat = "d/M/yyyy - HH:mm"
 
-        dateFormatter.date(from: string)
+        dateFormatter.date(from: dueString)
         
-        if let duedateDate = dateFormatter.date(from: string) {
+        if let duedateDate = dateFormatter.date(from: dueString) {
             if duedateDate > Date.now {
                 return false
             } else {
