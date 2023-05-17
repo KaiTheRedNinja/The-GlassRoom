@@ -71,12 +71,7 @@ struct SearchView: View {
     func open() {
         defer { presentationMode.wrappedValue.dismiss() }
         guard let selection else { return }
-        let firstMatch = courseManager.courses.first(where: { "course_" + $0.id == selection })
-        if let firstMatch {
-            selectedCourse = .course(firstMatch)
-        } else {
-            selectedCourse = nil
-        }
+        selectedCourse = .course(selection.replacingOccurrences(of: "course_", with: selection))
     }
 
     func changeSelection(by offset: Int) {

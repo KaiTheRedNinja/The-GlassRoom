@@ -24,6 +24,7 @@ final class SidebarOutlineViewController: NSViewController {
 
     var selectedCourse: Binding<GeneralCourse?>? = nil
     var courses: [Course] = []
+    var courseGroups: [CourseGroup] = []
 
     /// Setup the ``scrollView`` and ``outlineView``
     override func loadView() {
@@ -79,35 +80,79 @@ final class SidebarOutlineViewController: NSViewController {
 extension SidebarOutlineViewController: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         guard let item else {
-            return Course.CourseType.allCases.count
+            return 2 // teaching and enrolled
         }
-        if item is Course {
-            return 0
-        } else if let item = item as? Course.CourseType {
-            return courses.filter({ $0.courseType == item }).count
+        if let item = item as? GeneralCourse {
+            switch item {
+            case .course(_):
+                return 0
+            case .allTeaching, .allEnrolled:
+                let matchType = item == .allTeaching ? Course.CourseType.teaching : .enrolled
+                let matchingCourseGroups = courseGroups.filter({ group in
+                    group.groupType == matchType // must match type
+                })
+                let coursesCount = courses.filter({ course in
+                    course.courseType == matchType && // must match type
+                    !matchingCourseGroups.contains(where: { $0.courses.contains(course.id) }) // must not be in any other grp
+                }).count
+                return matchingCourseGroups.count + coursesCount
+            case .group(let courseGroup):
+                return courseGroup.courses.count
+            }
         }
 
+        fatalError("Unexpected item: \(item)")
         return 0
     }
 
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         guard let item else {
-            return Course.CourseType.allCases[index]
+            if index == 0 {
+                return GeneralCourse.allTeaching
+            }
+            if index == 1 {
+                return GeneralCourse.allEnrolled
+            }
+            fatalError("Unexpected top level value found: \(index)")
         }
-        if item is Course {
-            return 0
-        } else if let item = item as? Course.CourseType {
-            return courses.filter({ $0.courseType == item })[index]
+        if let item = item as? GeneralCourse {
+            switch item {
+            case .course(let string):
+                return string
+            case .allTeaching, .allEnrolled:
+                let matchType = item == .allTeaching ? Course.CourseType.teaching : .enrolled
+                let matchingCourseGroups = courseGroups.filter({ group in
+                    group.groupType == matchType // must match type
+                })
+                let matchingCourses = courses.filter({ course in
+                    course.courseType == matchType && // must match type
+                    !matchingCourseGroups.contains(where: { $0.courses.contains(course.id) }) // must not be in any other grp
+                })
+
+                if index < courseGroups.count { // use the course groups
+                    return GeneralCourse.group(matchingCourseGroups[index])
+                } else {
+                    return GeneralCourse.course(matchingCourses[index-courseGroups.count].id)
+                }
+            case .group(let courseGroup):
+                return GeneralCourse.course(courseGroup.courses[index])
+            }
         }
 
-        return 0
+        fatalError("Unexpected item: \(item)")
     }
 
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        if let item = item as? Course.CourseType, Course.CourseType.allCases.contains(item) {
-            return true
+        if let item = item as? GeneralCourse {
+            switch item {
+            case .course(_):
+                return false
+            default:
+                return true
+            }
         }
-        return false
+
+        fatalError("Non-course item found in outlineview")
     }
 
     func updateSelection() {
@@ -116,20 +161,12 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
             return
         }
 
-        switch item {
-        case .course(let course):
-            // go through the rows individually
-            for rowIndex in 0..<outlineView.numberOfRows {
-                guard let rowItem = outlineView.item(atRow: rowIndex) as? Course else { continue }
-                if rowItem.id == course.id {
-                    outlineView.selectRowIndexes(.init(integer: rowIndex), byExtendingSelection: false)
-                    return
-                }
+        for rowIndex in 0..<outlineView.numberOfRows {
+            guard let rowItem = outlineView.item(atRow: rowIndex) as? GeneralCourse else { continue }
+            if rowItem.id == item.id {
+                outlineView.selectRowIndexes(.init(integer: rowIndex), byExtendingSelection: false)
+                return
             }
-        case .allTeaching, .allEnrolled:
-            let row = outlineView.row(forItem: item == .allTeaching ? Course.CourseType.teaching : .enrolled)
-            guard row >= 0 else { return }
-            outlineView.selectRowIndexes(.init(integer: row), byExtendingSelection: false)
         }
 
         // if nothing found, no match.
@@ -152,64 +189,56 @@ extension SidebarOutlineViewController: NSOutlineViewDelegate {
     }
 
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        guard let tableColumn else { return nil }
+        guard let tableColumn, let item = item as? GeneralCourse else {
+            fatalError("Table column or item not found")
+        }
 
-        let frameRect = NSRect(x: 0,
-                               y: 0,
+        let frameRect = NSRect(x: 0.0,
+                               y: 0.0,
                                width: tableColumn.width,
                                height: self.outlineView(outlineView, heightOfRowByItem: item))
 
-        if let item = item as? Course.CourseType {
-            let contentView = NSHostingView(rootView: {
-                CourseCategoryHeaderView(type: item)
-            }())
-            contentView.frame = frameRect
-            return contentView
-        }
-        if let item = item as? Course {
-            let contentView = NSHostingView(rootView: {
-                CourseView(course: item)
-            }())
-            contentView.frame = frameRect
-            return contentView
-        }
+        let contentView = NSHostingView(rootView: {
+            SidebarCourseView(course: item)
+        }())
+        contentView.frame = frameRect
 
-        return nil
+        return contentView
     }
 
     func outlineViewSelectionDidChange(_ notification: Notification) {
         shouldSendSelectionUpdate = false
-        let row = outlineView.selectedRow
-        if row == -1 {
-            selectedCourse?.wrappedValue = nil
-        } else {
-            let item = outlineView.item(atRow: row)
-            if let item = item as? Course {
-                selectedCourse?.wrappedValue = .course(item)
-            } else if let item = item as? Course.CourseType {
-                switch item {
-                case .teaching: selectedCourse?.wrappedValue = .allTeaching
-                case .enrolled: selectedCourse?.wrappedValue = .allEnrolled
-                }
-            } else {
-                selectedCourse?.wrappedValue = nil
+        defer {
+            DispatchQueue.main.async {
+                self.shouldSendSelectionUpdate = true
             }
         }
-        DispatchQueue.main.async {
-            self.shouldSendSelectionUpdate = true
+
+        let row = outlineView.selectedRow
+        guard row != -1, let item = outlineView.item(atRow: row) as? GeneralCourse else {
+            print("Could not identify item at row \(row)")
+            selectedCourse?.wrappedValue = nil
+            return
         }
+
+        selectedCourse?.wrappedValue = item
     }
 
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        if let item = item as? Course {
-            if item.description == nil {
-                return 22
-            } else {
-                return 40
-            }
-        } else {
-            return 22
+        guard let item = item as? GeneralCourse else {
+            fatalError("Asked for height of non course item: \(item)")
         }
+        switch item {
+        case .course(let string):
+            if let course = courses.first(where: { $0.id == string }) {
+                if course.description != nil {
+                    return 40
+                }
+            }
+        default: break
+        }
+
+        return 22
     }
 
     func outlineViewItemDidExpand(_ notification: Notification) {}

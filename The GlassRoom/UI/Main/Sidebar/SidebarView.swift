@@ -51,51 +51,64 @@ extension Course: Identifiable, Hashable {
     }
 }
 
-struct CourseCategoryHeaderView: View {
-    var type: Course.CourseType
+struct SidebarCourseView: View {
+    var course: GeneralCourse
 
-    var body: some View {
-        HStack {
-            Text(type.rawValue)
-                .bold()
-                .foregroundColor(.gray)
-                .padding(.bottom, 2.5)
-            Spacer()
-        }
-        .padding(.horizontal, 5)
-        .disabled(true)
-    }
-}
-
-struct CourseView: View {
-    var course: Course
-
+    @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
     @ObservedObject var configuration: GlobalCoursesDataManager.CoursesConfiguration =
         GlobalCoursesDataManager.global.configuration
 
     var body: some View {
-        HStack {
-            configuration.colorFor(course.id)
-                .frame(width: 6)
-                .cornerRadius(3)
-                .padding(.vertical, 3)
-            VStack {
+        switch course {
+        case .course(let string):
+            if let course = coursesManager.courseIdMap[string] {
                 HStack {
-                    Text(configuration.nameFor(course.name))
-                        .lineLimit(1)
-                    Spacer()
-                }
-                if let description = course.description {
-                    HStack {
-                        Text(description)
-                            .font(.caption)
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(2)
-                        Spacer()
+                    configuration.colorFor(course.id)
+                        .frame(width: 6)
+                        .cornerRadius(3)
+                        .padding(.vertical, 3)
+                    VStack {
+                        HStack {
+                            Text(configuration.nameFor(course.name))
+                                .lineLimit(1)
+                            Spacer()
+                        }
+                        if let description = course.description {
+                            HStack {
+                                Text(description)
+                                    .font(.caption)
+                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(2)
+                                Spacer()
+                            }
+                        }
                     }
+                    .padding(.trailing, 5)
                 }
+            } else {
+                Text("Invalid Course")
             }
-            .padding(.trailing, 5)
+        case .allTeaching, .allEnrolled:
+            let title = course == .allTeaching ? "Teaching" : "Enrolled"
+            HStack {
+                Text(title)
+                    .bold()
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 2.5)
+                Spacer()
+            }
+            .padding(.horizontal, 5)
+            .disabled(true)
+        case .group(let courseGroup):
+            HStack {
+                Text(courseGroup.groupName)
+                    .bold()
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 2.5)
+                Spacer()
+            }
+            .padding(.horizontal, 5)
+            .disabled(true)
         }
     }
 }

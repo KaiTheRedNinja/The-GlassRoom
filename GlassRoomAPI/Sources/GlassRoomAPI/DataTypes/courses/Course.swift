@@ -58,7 +58,7 @@ public extension Course {
         }
     }
 
-    enum CourseType: String, CaseIterable {
+    enum CourseType: String, CaseIterable, Codable {
         case teaching = "Teaching"
         case enrolled = "Enrolled"
 

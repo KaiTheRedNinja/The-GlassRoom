@@ -9,18 +9,21 @@ import Foundation
 import GlassRoomAPI
 
 enum GeneralCourse: Hashable, Identifiable {
-    case course(Course)
+    case course(String)
     case allTeaching
     case allEnrolled
+    case group(CourseGroup)
 
     var id: String {
         switch self {
-        case .course(let course):
-            return course.id
+        case .course(let id):
+            return id
         case .allTeaching:
             return "allTeaching"
         case .allEnrolled:
             return "allEnrolled"
+        case .group(let group):
+            return group.courses.joined(separator: ":")
         }
     }
 

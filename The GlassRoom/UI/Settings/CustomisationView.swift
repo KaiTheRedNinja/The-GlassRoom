@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CustomisationView: View {
-    typealias NameReplacement = GlobalCoursesDataManager.CoursesConfiguration.NameReplacement
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
 
     @State var selectedNameReplacement: UUID?

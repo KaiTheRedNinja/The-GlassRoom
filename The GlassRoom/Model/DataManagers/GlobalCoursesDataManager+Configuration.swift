@@ -6,24 +6,13 @@
 //
 
 import SwiftUI
+import GlassRoomAPI
 
 extension GlobalCoursesDataManager {
     class CoursesConfiguration: ObservableObject, Codable {
         @Published var replacedCourseNames: [NameReplacement]
         @Published var courseGroups: [CourseGroup]
         @Published var customColors: [String: Color]
-
-        struct NameReplacement: Codable, Identifiable, Equatable {
-            var id = UUID()
-            var matchString: String
-            var replacement: String
-        }
-
-        struct CourseGroup: Codable, Identifiable, Equatable {
-            var id = UUID()
-            var groupName: String
-            var groups: [UUID]
-        }
 
         private init(replacedCourseNames: [NameReplacement] = [],
                      courseGroups: [CourseGroup] = [],
@@ -162,4 +151,17 @@ extension Color: Codable {
 
         return (r, g, b, a)
     }
+}
+
+struct NameReplacement: Codable, Identifiable, Equatable {
+    var id = UUID()
+    var matchString: String
+    var replacement: String
+}
+
+struct CourseGroup: Codable, Identifiable, Equatable {
+    var id = UUID()
+    var groupName: String
+    var groupType: Course.CourseType
+    var courses: [String]
 }

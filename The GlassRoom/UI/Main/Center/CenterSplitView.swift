@@ -78,7 +78,7 @@ struct CenterSplitView: View {
         guard let selectedCourse else { return }
         switch selectedCourse {
         case .course(let course):
-            let selectedCourseId = course.id
+            let selectedCourseId = course
             let manager = CoursePostsDataManager.getManager(for: selectedCourseId)
             self.coursePostsManager = manager
             if manager.courseAnnouncements.isEmpty {

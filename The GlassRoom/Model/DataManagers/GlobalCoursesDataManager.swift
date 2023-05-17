@@ -9,9 +9,18 @@ import Foundation
 import GlassRoomAPI
 
 class GlobalCoursesDataManager: ObservableObject {
-    @Published private(set) var courses: [Course]
+    @Published private(set) var courses: [Course] {
+        didSet {
+            courseIdMap = [:]
+            for course in courses {
+                courseIdMap[course.id] = course
+            }
+        }
+    }
     @Published private(set) var loading: Bool = false
     @Published private(set) var configuration: CoursesConfiguration = .loadedFromFileSystem()
+
+    @Published var courseIdMap: [String: Course] = [:]
 
     static var global: GlobalCoursesDataManager = .init()
     private init() {
