@@ -109,10 +109,7 @@ struct CourseWorkDetailView: DetailViewPage {
                     viewForAssignment(submission)
                 } else if submission.courseWorkType == .multiple_choice_question {
                     // mcq
-                    Text("MCQ")
-                        .onAppear {
-                            print(submission)
-                        }
+                    viewForMCQ(submission)
                 } else if submission.courseWorkType == .short_answer_question {
                     // saq
                     viewForShortAnswer(submission)
@@ -169,6 +166,43 @@ struct CourseWorkDetailView: DetailViewPage {
                         .textSelection(.enabled)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.all, 5)
+                }
+            }
+        }
+        .padding(.all)
+    }
+    
+    func viewForMCQ(_ submission: StudentSubmission) -> some View {
+        VStack(alignment: .leading) {
+            HStack {
+                VStack(alignment: .leading) {
+                    viewForCourseWorkDueDate(submission)
+                    
+                    submissionState(submission, submission.state)
+                    
+                    viewForCourseWorkGrades(submission)
+                }
+                
+                Spacer()
+                
+                viewForSubmitButton(submission)
+            }
+            
+            if let multipleChoiceSubmission = submission.multipleChoiceSubmission {
+                if let mcquestions = courseWork.multipleChoiceQuestion {
+                    ForEach(mcquestions.choices, id: \.self) { choice in
+                        GroupBox {
+                            HStack {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.green)
+                                    .opacity(choice == multipleChoiceSubmission.answer ? 1 : 0)
+                                
+                                Text(choice)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.all, 5)
+                        }
+                    }
                 }
             }
         }
