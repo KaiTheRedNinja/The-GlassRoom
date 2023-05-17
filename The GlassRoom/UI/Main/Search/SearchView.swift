@@ -63,7 +63,7 @@ struct SearchView: View {
             HStack {
                 List(selection: $selection) {
                     ForEach(matchingCourses(), id: \.id) { course in
-                        Text(course.name)
+                        Text(courseManager.configuration.nameFor(course.name))
                             .tag("course_" + course.id)
                             .onTapGesture {
                                 if "course_\(course.id)" == selection {
@@ -125,7 +125,10 @@ struct SearchView: View {
         if searchTerm.isEmpty { return courses }
 
         let filteredCourses = courses.filter { course in
-            course.name.lowercased().contains(searchTerm) || (course.description?.lowercased().contains(searchTerm) ?? false)
+            let fixedName = courseManager.configuration.nameFor(course.name).lowercased()
+            let nameContains = fixedName.contains(searchTerm) || course.name.lowercased().contains(searchTerm)
+//            let descriptionContains = (course.description?.lowercased().contains(searchTerm) ?? false)
+            return nameContains
         }
         // if the filtered courses do not contain the selected course, select the first one.
         if let selection {
