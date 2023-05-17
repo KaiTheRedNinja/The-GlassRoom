@@ -30,7 +30,7 @@ struct SingleCoursePostListView: View {
                            isEmpty: postsManager.isEmpty,
                            isLoading: postsManager.loading,
                            hasNextPage: postsManager.hasNextPage,
-                           loadList: postsManager.loadList,
+                           loadList: { postsManager.loadList(bypassCache: $0) },
                            refreshList: { postsManager.refreshList() })
     }
 
