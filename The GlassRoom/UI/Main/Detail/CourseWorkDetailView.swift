@@ -13,6 +13,8 @@ struct CourseWorkDetailView: DetailViewPage {
     var copiedLink: Binding<Bool>
 
     var courseWork: CourseWork
+    
+    @Environment(\.openURL) private var openURL
 
     @ObservedObject var submissionManager: CourseWorkSubmissionDataManager
 
@@ -26,47 +28,47 @@ struct CourseWorkDetailView: DetailViewPage {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
+        GeometryReader { geometry in
+            ScrollView {
                 VStack(alignment: .leading) {
-                    HStack {
-                        Text(courseWork.title)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.leading)
-                            .textSelection(.enabled)
-                        Spacer()
-                    }
-                    viewForButtons(courseWork.alternateLink)
-                }
-                .padding(.top, 2)
-                .padding(.bottom, 10)
-
-                if let _ = courseWork.description {
-                    Divider()
-                        .padding(.bottom, 10)
-
                     VStack(alignment: .leading) {
                         HStack {
-                            Text(.init(textContent.wrappedValue))
+                            Text(courseWork.title)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .multilineTextAlignment(.leading)
                                 .textSelection(.enabled)
                             Spacer()
                         }
+                        viewForButtons(courseWork.alternateLink)
                     }
-                }
-                
-                Spacer()
-
-                VStack {
-                    if let material = courseWork.materials {
+                    .padding(.top, 2)
+                    .padding(.bottom, 10)
+                    
+                    if let _ = courseWork.description {
                         Divider()
-                        GeometryReader { geometry in
+                            .padding(.bottom, 10)
+                        
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text(.init(textContent.wrappedValue))
+                                    .textSelection(.enabled)
+                                Spacer()
+                            }
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    VStack {
+                        if let material = courseWork.materials {
+                            Divider()
                             viewForMaterial(materials: material, geometry: geometry)
                         }
                     }
                 }
+                .padding(.all)
             }
-            .padding(.all)
         }
         .onAppear {
             copiedLink.wrappedValue = false
@@ -100,7 +102,6 @@ struct CourseWorkDetailView: DetailViewPage {
             if submission.courseWorkType != .course_work_type_unspecified {
                 
                 Divider()
-                    .padding(.vertical, 5)
                 
                 if submission.courseWorkType == .assignment {
                     // assignment
@@ -110,8 +111,15 @@ struct CourseWorkDetailView: DetailViewPage {
 
                             Spacer()
 
+//                            Button {
+//                                turnInButtonPressed(submission: submission)
+//                            } label: {
+//                                buttonText(submission.state)
+//                            }
+                            
                             Button {
-                                turnInButtonPressed(submission: submission)
+                                guard let url = URL(string: submission.alternateLink) else { return }
+                                openURL(url)
                             } label: {
                                 buttonText(submission.state)
                             }
@@ -138,7 +146,8 @@ struct CourseWorkDetailView: DetailViewPage {
     }
 
     func turnInButtonPressed(submission: StudentSubmission) {
-        // TODO: Redirect them to the app
+        // TODO: Redirect them to the browser
+        
 //        GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.turnInSubmission(
 //            params: .init(
 //                courseId: submission.courseId,
@@ -155,6 +164,7 @@ struct CourseWorkDetailView: DetailViewPage {
 //                    print("failure: \(failure.localizedDescription)")
 //                }
 //            }
+        
     }
     
     func submissionState(_ state: SubmissionState) -> some View {
@@ -162,32 +172,32 @@ struct CourseWorkDetailView: DetailViewPage {
             switch state {
             case .turned_in:
                 Text("Submitted")
-                    .font(.subheadline)
+                    .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.green)
             case .reclaimed_by_student:
                 Text("Unsubmitted")
-                    .font(.subheadline)
+                    .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.red)
             case .returned:
                 Text("Returned")
-                    .font(.subheadline)
+                    .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
             case .submission_state_unspecified:
                 Text("Unspecified")
-                    .font(.subheadline)
+                    .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.red)
             case .new:
                 Text("Assigned")
-                    .font(.subheadline)
+                    .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.green)
             case .created:
                 Text("Assigned")
-                    .font(.subheadline)
+                    .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.green)
             }
@@ -198,17 +208,23 @@ struct CourseWorkDetailView: DetailViewPage {
         VStack(alignment: .leading) {
             switch state {
             case .turned_in:
-                Text("Unsubmit")
+//                Text("Unsubmit")
+                Text("Unsubmit in browser")
             case .reclaimed_by_student:
-                Text("Submit")
+//                Text("Submit")
+                Text("Submit in browser")
             case .returned:
-                Text("Resubmit")
+//                Text("Resubmit")
+                Text("Resubmit in browser")
             case .submission_state_unspecified:
-                Text("Submit")
+//                Text("Submit")
+                Text("Submit in browser")
             case .new:
-                Text("Submit")
+//                Text("Submit")
+                Text("Submit in browser")
             case .created:
-                Text("Submit")
+//                Text("Submit")
+                Text("Submit in browser")
             }
         }
     }
