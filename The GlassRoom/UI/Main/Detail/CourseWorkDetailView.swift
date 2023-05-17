@@ -84,6 +84,7 @@ struct CourseWorkDetailView: DetailViewPage {
         }
         .safeAreaInset(edge: .bottom) {
             viewForStudentSubmission
+                .background(.thickMaterial)
         }
     }
     
@@ -107,7 +108,34 @@ struct CourseWorkDetailView: DetailViewPage {
                     // assignment
                     VStack(alignment: .leading) {
                         HStack {
-                            submissionState(submission.state)
+                            VStack(alignment: .leading) {
+                                if let dueDate = courseWork.dueDate {
+                                    HStack {
+                                        Image(systemName: "calendar")
+                                        if let dueTime = courseWork.dueTime {
+                                            Text("\(dueDate.day)/\(dueDate.month)/\(dueDate.year) - \(getTimeFromDueTime(dueTime))".replacingOccurrences(of: ",", with: ""))
+                                        } else {
+                                            Text("\(dueDate.day)/\(dueDate.month)/\(dueDate.year)".replacingOccurrences(of: ",", with: ""))
+                                        }
+                                    }
+                                    .lineLimit(1)
+                                    .font(.headline)
+                                    .foregroundColor(isSubmitted(submission.state) ? .secondary : .primary)
+                                    .padding(.bottom, 5)
+                                }
+                                
+                                submissionState(submission, submission.state)
+                                
+                                if let gradeUpon = courseWork.maxPoints {
+                                    if let grade = submission.assignedGrade {
+                                        viewForGrades(grade, gradeUpon)
+                                            .font(.subheadline)
+                                    } else {
+                                        Text("^[\(Int(gradeUpon)) \("point")](inflect: true)")
+                                            .font(.subheadline)
+                                    }
+                                }
+                            }
 
                             Spacer()
 
@@ -144,10 +172,14 @@ struct CourseWorkDetailView: DetailViewPage {
             }
         }
     }
+    
+    func viewForGrades(_ grade: Double, _ gradeUpon: Double) -> some View {
+        VStack {
+            Text("\(grade.formatted())/\(gradeUpon.formatted())")
+        }
+    }
 
-    func turnInButtonPressed(submission: StudentSubmission) {
-        // TODO: Redirect them to the browser
-        
+    func turnInButtonPressed(submission: StudentSubmission) {        
 //        GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.turnInSubmission(
 //            params: .init(
 //                courseId: submission.courseId,
@@ -167,39 +199,91 @@ struct CourseWorkDetailView: DetailViewPage {
         
     }
     
-    func submissionState(_ state: SubmissionState) -> some View {
+    func submissionState(_ submission: StudentSubmission, _ state: SubmissionState) -> some View {
         VStack(alignment: .leading) {
             switch state {
             case .turned_in:
-                Text("Submitted")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.green)
+                if let late = submission.late {
+                    if late {
+                        Text("Turned in late")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                    } else {
+                        Text("Submitted")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                    }
+                } else {
+                    Text("Submitted")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                }
             case .reclaimed_by_student:
-                Text("Unsubmitted")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.red)
+                if let dueTime = courseWork.dueTime {
+                    if let dueDate = courseWork.dueDate {
+                        Text(isOverdue(dueDate, dueTime) ? "Missing" : "Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(isOverdue(dueDate, dueTime) ? .red.opacity(0.7) : .green.opacity(0.7))
+                    } else {
+                        Text("Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.green.opacity(0.7))
+                    }
+                } else {
+                    Text("Assigned")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.green.opacity(0.7))
+                }
             case .returned:
                 Text("Returned")
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.gray)
             case .submission_state_unspecified:
                 Text("Unspecified")
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.red)
+                    .foregroundColor(.red.opacity(0.7))
             case .new:
-                Text("Assigned")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.green)
+                if let dueTime = courseWork.dueTime {
+                    if let dueDate = courseWork.dueDate {
+                        Text(isOverdue(dueDate, dueTime) ? "Missing" : "Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(isOverdue(dueDate, dueTime) ? .red.opacity(0.7) : .green.opacity(0.7))
+                    } else {
+                        Text("Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.green.opacity(0.7))
+                    }
+                } else {
+                    Text("Assigned")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.green.opacity(0.7))
+                }
             case .created:
-                Text("Assigned")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.green)
+                if let dueTime = courseWork.dueTime {
+                    if let dueDate = courseWork.dueDate {
+                        Text(isOverdue(dueDate, dueTime) ? "Missing" : "Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(isOverdue(dueDate, dueTime) ? .red.opacity(0.7) : .green.opacity(0.7))
+                    } else {
+                        Text("Assigned")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.green.opacity(0.7))
+                    }
+                } else {
+                    Text("Assigned")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.green.opacity(0.7))
+                }
             }
         }
     }
@@ -210,22 +294,98 @@ struct CourseWorkDetailView: DetailViewPage {
             case .turned_in:
 //                Text("Unsubmit")
                 Text("Unsubmit in browser")
+                    .foregroundColor(.primary)
             case .reclaimed_by_student:
 //                Text("Submit")
                 Text("Submit in browser")
+                    .foregroundColor(.primary)
             case .returned:
 //                Text("Resubmit")
                 Text("Resubmit in browser")
+                    .foregroundColor(.primary)
             case .submission_state_unspecified:
 //                Text("Submit")
                 Text("Submit in browser")
+                    .foregroundColor(.primary)
             case .new:
 //                Text("Submit")
                 Text("Submit in browser")
+                    .foregroundColor(.primary)
             case .created:
 //                Text("Submit")
                 Text("Submit in browser")
+                    .foregroundColor(.primary)
             }
         }
+    }
+    
+    func getTimeFromDueTime(_ dueTime: TimeOfDay) -> String {
+        guard let hours = dueTime.hours else {
+            guard let minutes = dueTime.minutes else { return "-" } // no time
+            // only minutes
+            let string = "00:\(minutes)"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.date(from: string)
+            
+            return string
+        }
+        guard let minutes = dueTime.minutes else {
+            // only hours
+            let string = "\((hours + 8) % 24):00"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.date(from: string)
+            
+            return string
+            
+        }
+        
+        // hours and minutes
+        let string = "\((hours + 8) % 24):\(minutes)"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.date(from: string)
+        
+        return string
+    }
+    
+    func isSubmitted(_ state: SubmissionState) -> Bool {
+        switch state {
+        case .submission_state_unspecified:
+            return false
+        case .new:
+            return false
+        case .created:
+            return false
+        case .turned_in:
+            return true
+        case .returned:
+            return true
+        case .reclaimed_by_student:
+            return false
+        }
+    }
+    
+    func isOverdue(_ dueDate: DueDate, _ dueTime: TimeOfDay) -> Bool {
+        let twentyFourHourTime = getTimeFromDueTime(dueTime)
+        let dueString = "\(dueDate.day)/\(dueDate.month)/\(dueDate.year) - \(twentyFourHourTime)"
+        
+        let string = dueString
+
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "d/M/yyyy - HH:mm"
+
+        dateFormatter.date(from: string)
+        
+        if let duedateDate = dateFormatter.date(from: string) {
+            if duedateDate > Date.now {
+                return false
+            } else {
+                return true
+            }
+        }
+        return false
     }
 }

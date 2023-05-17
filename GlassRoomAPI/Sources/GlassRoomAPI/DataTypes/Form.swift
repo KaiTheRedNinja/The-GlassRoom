@@ -10,6 +10,6 @@ import Foundation
 public struct Form: Codable {
     public var formUrl: String
     public var responseUrl: String?
-    public var title: String
+    public var title: String?
     public var thumbnailUrl: String?
 }

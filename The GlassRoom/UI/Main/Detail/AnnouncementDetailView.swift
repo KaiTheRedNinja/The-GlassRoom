@@ -38,7 +38,6 @@ struct AnnouncementDetailView: DetailViewPage {
 
                     if let material = announcement.materials {
                         Divider()
-
                         viewForMaterial(materials: material, geometry: geometry)
                     }
                 }

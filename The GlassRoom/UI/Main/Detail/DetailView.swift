@@ -104,23 +104,24 @@ extension DetailViewPage {
             ForEach(materials, id: \.id) { material in
                 ZStack {
                     if let driveFile = material.driveFile?.driveFile {
-                        LinkPreview(url: URL(string: driveFile.alternateLink)!)
+                        LinkPreview(url: URL(string: driveFile.alternateLink)!, isAttachment: false)
                     }
-
+                    
                     if let youtubeVideo = material.youtubeVideo {
-                        LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
+                        LinkPreview(url: URL(string: youtubeVideo.alternateLink)!, isAttachment: false)
                     }
-
+                    
                     if let link = material.form?.formUrl {
-                        LinkPreview(url: URL(string: link)!)
+                        LinkPreview(url: URL(string: link)!, isAttachment: false)
                     }
-
+                    
                     if let materialLink = material.link {
-                        LinkPreview(url: URL(string: materialLink.url)!)
+                        LinkPreview(url: URL(string: materialLink.url)!, isAttachment: false)
                     }
                 }
             }
         }
+        .animation(.spring(dampingFraction: 0.8), value: geometry.size)
     }
     
     @ViewBuilder
@@ -131,24 +132,25 @@ extension DetailViewPage {
                     ForEach(materialAttachments, id: \.id) { attachment in
                         HStack {
                             if let driveFile = attachment.driveFile {
-                                LinkPreview(url: URL(string: driveFile.alternateLink)!)
+                                LinkPreview(url: URL(string: driveFile.alternateLink)!, isAttachment: true)
                             }
                             
                             if let youtubeVideo = attachment.youtubeVideo {
-                                LinkPreview(url: URL(string: youtubeVideo.alternateLink)!)
+                                LinkPreview(url: URL(string: youtubeVideo.alternateLink)!, isAttachment: true)
                             }
                             
                             if let link = attachment.form?.formUrl {
-                                LinkPreview(url: URL(string: link)!)
+                                LinkPreview(url: URL(string: link)!, isAttachment: true)
                             }
                             
                             if let materialLink = attachment.link {
-                                LinkPreview(url: URL(string: materialLink.url)!)
+                                LinkPreview(url: URL(string: materialLink.url)!, isAttachment: true)
                             }
                         }
                     }
                 }
             }
+            .cornerRadius(8)
         }
     }
 }

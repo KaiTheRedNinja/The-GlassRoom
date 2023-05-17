@@ -67,7 +67,7 @@ struct CoursePostItem: View {
             Text(title.replacingOccurrences(of: "\n", with: " "))
                 .font(.body)
                 .fontWeight(.bold)
-                .lineLimit(1)
+                .lineLimit(2)
 
             HStack {
                 Image(systemName: "timer")
@@ -75,7 +75,7 @@ struct CoursePostItem: View {
                 Text(convertDate(creationTime, .abbreviated, .standard))
                     .offset(x: 1.5)
             }
-            .lineLimit(2)
+            .lineLimit(1)
             .font(.subheadline)
             .foregroundColor(.secondary)
             .offset(x: 1.5)
@@ -104,6 +104,7 @@ struct CoursePostItem: View {
                             .offset(x: 1)
                     }
                 }
+                .lineLimit(1)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .offset(x: 1)
@@ -114,12 +115,33 @@ struct CoursePostItem: View {
     
     func getTimeFromDueTime(_ dueTime: TimeOfDay) -> String {
         guard let hours = dueTime.hours else {
-            guard let minutes = dueTime.minutes else { return "-" }
-            return "00:\(minutes)"
+            guard let minutes = dueTime.minutes else { return "-" } // no time
+            // only minutes
+            let string = "00:\(minutes)"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.date(from: string)
+            
+            return string
         }
-        guard let minutes = dueTime.minutes else { return "\((hours + 8) % 24):00" }
+        guard let minutes = dueTime.minutes else {
+            // only hours
+            let string = "\((hours + 8) % 24):00"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.date(from: string)
+            
+            return string
+            
+        }
         
-        return "\((hours + 8) % 24):\(minutes)"
+        // hours and minutes
+        let string = "\((hours + 8) % 24):\(minutes)"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.date(from: string)
+        
+        return string
     }
 }
 

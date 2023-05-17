@@ -80,7 +80,7 @@ extension GlassRoomAPI.GRCourses: GlassRoomCreatableDeletable, GlassRoomGettable
             var dict = [String: String]()
             if let studentId { dict["studentId"] = studentId }
             if let teacherId { dict["teacherId"] = teacherId }
-            if let courseStates { dict["courseStates"] = courseStates.description } // TODO: Format this correctly
+            if let courseStates { dict["courseStates"] = courseStates.map({ $0.rawValue }).joined(separator: ",") }
             if let pageSize { dict["pageSize"] = pageSize.description }
             if let pageToken { dict["pageToken"] = pageToken }
             return dict
