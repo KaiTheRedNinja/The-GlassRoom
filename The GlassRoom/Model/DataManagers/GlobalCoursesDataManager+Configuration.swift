@@ -30,6 +30,11 @@ extension GlobalCoursesDataManager {
             self.replacedCourseNames = replacedCourseNames
             self.courseGroups = courseGroups
             self.customColors = customColors
+
+            groupIdMap = [:]
+            for group in courseGroups {
+                groupIdMap[group.id] = group
+            }
         }
 
         private static var fileSystemInstance: CoursesConfiguration?
@@ -111,6 +116,11 @@ extension GlobalCoursesDataManager {
                                                      forKey: .courseGroups)
             self.customColors = try container.decode([String: Color].self,
                                                      forKey: .customColors)
+
+            groupIdMap = [:]
+            for group in courseGroups {
+                groupIdMap[group.id] = group
+            }
         }
     }
 }

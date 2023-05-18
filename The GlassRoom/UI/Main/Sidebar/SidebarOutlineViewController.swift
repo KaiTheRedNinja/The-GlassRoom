@@ -26,6 +26,8 @@ final class SidebarOutlineViewController: NSViewController {
     var courses: [Course] = []
     var courseGroups: [CourseGroup] = []
 
+    var updateGroups: (([CourseGroup]) -> Void)?
+
     /// Setup the ``scrollView`` and ``outlineView``
     override func loadView() {
         self.scrollView = NSScrollView()
@@ -179,8 +181,8 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
     }
 
     // MARK: Drag and drop
-    /// write dragged file(s) to pasteboard
     func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
+        // only allow Course items to be dragged
         guard let item = item as? GeneralCourse else { return nil }
         switch item {
         case .course(let string):
@@ -220,6 +222,10 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
         if let pasteboardItems = info.draggingPasteboard.readObjects(forClasses: [NSString.self]) {
             let itemStrings = pasteboardItems.compactMap { $0 as? String }
 
+            guard !itemStrings.contains(destinationItem.id) else {
+                return []
+            }
+
             if !itemStrings.contains(where: { itemString in
                 // if its invalid or wrong type, return true to exit.
                 guard let courseItem = courses.first(where: { $0.id == itemString }) else {
@@ -257,18 +263,40 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
         let itemStrings = pasteboardItems.compactMap { $0 as? String }
 
         guard let itemDestination = item as? GeneralCourse else { return false }
-        switch itemDestination {
-        case .course(let string):
-            Log.info("Creating group: \(itemStrings) and course \(string) #\(index)")
-        case .group(let string):
-            Log.info("Moving item to group: \(itemStrings) to course \(string) #\(index)")
-        case .allTeaching, .allEnrolled:
-            // check that we're not trying to move a teaching to an enrolling
-            let courseType = itemDestination == .allTeaching ? Course.CourseType.teaching : .enrolled
-            Log.info("Moving item \(itemStrings) to category \(courseType.rawValue) #\(index)")
+
+        // remove the items from where they came from
+        for index in 0..<courseGroups.count {
+            courseGroups[index].courses.removeAll(where: { itemStrings.contains($0) })
         }
 
-        return false
+        switch itemDestination {
+        case .course(let destinationString):
+            guard let firstString = itemStrings.first,
+                  let courseItemType = courses.first(where: { $0.id == firstString })?.courseType else {
+                Log.error("Could not get course item from \(itemStrings) to create new course")
+                return false
+            }
+            Log.info("Creating group: \(itemStrings) and course \(destinationString) #\(index)")
+            // get the course type of the item strings
+            var newGroupStrings = itemStrings
+            newGroupStrings.insert(destinationString, at: 0)
+            courseGroups.append(.init(groupName: "New Group",
+                                      groupType: courseItemType,
+                                      courses: newGroupStrings))
+        case .group(let destinationString):
+            guard let groupIndex = courseGroups.firstIndex(where: { $0.id == destinationString })
+            else { return false }
+            Log.info("Moving item to group: \(itemStrings) to group \(destinationString) #\(index)")
+            let insertionIndex = max(0, index)
+            courseGroups[groupIndex].courses.insert(contentsOf: itemStrings, at: insertionIndex)
+        case .allTeaching, .allEnrolled:
+            // no further actions required, since by default
+            // everything would go under either teaching or enrolled.
+            break
+        }
+
+        updateGroups?(courseGroups)
+        return true
     }
 }
 

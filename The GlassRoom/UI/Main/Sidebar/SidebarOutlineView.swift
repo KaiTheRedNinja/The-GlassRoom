@@ -15,15 +15,25 @@ struct SidebarOutlineView: NSViewControllerRepresentable {
     @Binding var selectedCourse: GeneralCourse?
     var courses: [Course]
 
+    @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
+
     func makeNSViewController(context: Context) -> SidebarOutlineViewController {
         let controller = SidebarOutlineViewController()
         controller.courses = self.courses
+        controller.courseGroups = configuration.courseGroups
+
         controller.selectedCourse = $selectedCourse
+
+        controller.updateGroups = { groups in
+            configuration.courseGroups = groups
+            configuration.saveToFileSystem()
+        }
         return controller
     }
 
     func updateNSViewController(_ nsViewController: SidebarOutlineViewController, context: Context) {
         nsViewController.courses = self.courses
+        nsViewController.courseGroups = configuration.courseGroups
         nsViewController.selectedCourse = $selectedCourse
         nsViewController.outlineView.reloadData()
         nsViewController.updateSelection()

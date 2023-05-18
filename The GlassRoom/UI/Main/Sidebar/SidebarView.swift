@@ -55,6 +55,13 @@ struct SidebarCourseView: View {
         GlobalCoursesDataManager.global.configuration
 
     var body: some View {
+        ZStack {
+            content
+        }
+    }
+
+    @ViewBuilder
+    var content: some View {
         switch course {
         case .course(let string):
             if let course = coursesManager.courseIdMap[string] {
