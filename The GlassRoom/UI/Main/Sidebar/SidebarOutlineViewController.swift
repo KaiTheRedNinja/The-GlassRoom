@@ -277,6 +277,10 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
                 return false
             }
             Log.info("Creating group: \(itemStrings) and course \(destinationString) #\(index)")
+            // remove the destinationString from where they came from
+            for index in 0..<courseGroups.count {
+                courseGroups[index].courses.removeAll(where: { $0 == destinationString })
+            }
             // get the course type of the item strings
             var newGroupStrings = itemStrings
             newGroupStrings.insert(destinationString, at: 0)
