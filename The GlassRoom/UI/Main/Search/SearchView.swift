@@ -46,6 +46,7 @@ struct SearchView: View {
                         }
                         .opacity(0)
                     }
+                
                 TextField("Search Classes or Posts", text: $searchTerm)
                     .focused($textfieldFocused)
                     .textFieldStyle(.plain)
@@ -59,6 +60,8 @@ struct SearchView: View {
             .frame(height: 30)
             .padding(.horizontal, 15)
             .padding(.top, 5)
+            
+            Divider()
             
             HStack {
                 List(selection: $selection) {
@@ -75,6 +78,8 @@ struct SearchView: View {
                     }
                 }
                 if let selection {
+                    Divider()
+                        .offset(x: 8)
                     SingleCoursePostListView(
                         selectedPost: .init(get: { nil }, set: { newPost in
                             // TODO: Open the post
