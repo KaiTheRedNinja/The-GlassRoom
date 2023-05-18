@@ -14,39 +14,20 @@ struct DebugAPICallsView: View {
     @State var selectedId: UUID?
 
     var body: some View {
-        List(selection: $selectedId) {
-            ForEach(apiCalls.apiHistory) { history in
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(history.requestType)
-                        Image(systemName: "arrow.right")
-                        Text(history.expectedResponseType)
-                    }
-                    .font(.caption)
-                    .bold()
-                    Text(history.requestUrl)
-                        .lineLimit(selectedId == history.id ? nil : 3)
-                    GroupBox {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            VStack(alignment: .leading) {
-                                ForEach(Array(history.parameters), id: \.key) { param in
-                                    HStack {
-                                        Text(param.key)
-                                            .lineLimit(1)
-                                            .frame(width: 150)
-                                            .multilineTextAlignment(.leading)
-                                        Text(param.value)
-                                            .lineLimit(1)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Divider()
-                }
-                .tag(history.id)
-            }
+        Table(apiCalls.apiHistory) {
+            TableColumn("Request Type", value: \.requestType)
+            TableColumn("Return Type", value: \.expectedResponseType)
+            TableColumn("URL", value: \.requestUrl)
+            TableColumn("Parameters", value: \.parametersString)
         }
+    }
+}
+
+extension APILogger.APICall {
+    var parametersString: String {
+        parameters
+            .map({ $0.key + ": " + $0.value })
+            .joined(separator: "  |  ")
     }
 }
 
