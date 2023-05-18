@@ -9,5 +9,5 @@ import Foundation
 
 public struct SubmissionHistory: Codable {
     public var stateHistory: StateHistory
-    public var gradeHistory: GradeHistory
+    public var gradeHistory: GradeHistory?
 }

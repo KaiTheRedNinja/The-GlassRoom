@@ -276,4 +276,18 @@ extension CoursePostsDataManager {
             }
         }
     }
+    
+    func createNewPost() {
+//        GlassRoomAPI.GRCourses.GRCourseWork.create(params: .init(courseId: "abc"),
+//                                                   query: .init(),
+//                                                   data: .init(from: )
+//        ) { response in
+//            switch response {
+//            case .success(let success):
+//                print(success)
+//            case .failure(let failure):
+//                print(failure.localizedDescription)
+//            }
+//        }
+    }
 }

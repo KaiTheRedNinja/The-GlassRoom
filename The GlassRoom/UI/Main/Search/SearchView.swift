@@ -22,7 +22,7 @@ struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 Image(systemName: "magnifyingglass")
                     .resizable()
@@ -62,8 +62,9 @@ struct SearchView: View {
             .padding(.top, 5)
             
             Divider()
+                .padding(.top, 10)
             
-            HStack {
+            HStack(spacing: 0) {
                 List(selection: $selection) {
                     ForEach(matchingCourses(), id: \.id) { course in
                         Text(courseManager.configuration.nameFor(course.name))
@@ -79,7 +80,6 @@ struct SearchView: View {
                 }
                 if let selection {
                     Divider()
-                        .offset(x: 8)
                     SingleCoursePostListView(
                         selectedPost: .init(get: { nil }, set: { newPost in
                             // TODO: Open the post
