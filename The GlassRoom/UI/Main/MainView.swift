@@ -15,8 +15,8 @@ struct MainView: View {
 
     @ObservedObject var userModel: UserAuthModel = .shared
 
-    @ObservedObject var apiCalls: APILogger = .global
     @State var showApiCalls: Bool = false
+    @State var showLogs: Bool = false
 
     @AppStorage("debugMode") var debugMode: Bool = false
 
@@ -37,11 +37,22 @@ struct MainView: View {
         .toolbar {
             if debugMode {
                 Button {
+                    showLogs.toggle()
+                } label: {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                }
+                .popover(isPresented: $showLogs) {
+                    DebugLogsView()
+                }
+
+                Button {
                     showApiCalls.toggle()
                 } label: {
                     Image(systemName: "arrow.left.arrow.right")
                 }
-                .popover(isPresented: $showApiCalls) { apiCallPopover }
+                .popover(isPresented: $showApiCalls) {
+                    DebugAPICallsView()
+                }
             }
 
             Button {
@@ -60,42 +71,6 @@ struct MainView: View {
         .onAppear {
             loadCachedStreams()
         }
-    }
-
-    var apiCallPopover: some View {
-        List {
-            ForEach(apiCalls.apiHistory) { history in
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(history.requestType)
-                        Image(systemName: "arrow.right")
-                        Text(history.expectedResponseType)
-                    }
-                    .font(.caption)
-                    .bold()
-                    Text(history.requestUrl)
-                        .lineLimit(3)
-                    GroupBox {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            VStack(alignment: .leading) {
-                                ForEach(Array(history.parameters), id: \.key) { param in
-                                    HStack {
-                                        Text(param.key)
-                                            .lineLimit(1)
-                                            .frame(width: 150)
-                                            .multilineTextAlignment(.leading)
-                                        Text(param.value)
-                                            .lineLimit(1)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Divider()
-                }
-            }
-        }
-        .frame(width: 400, height: 300)
     }
 
     func loadCachedStreams() {

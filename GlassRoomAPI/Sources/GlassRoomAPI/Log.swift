@@ -27,12 +27,12 @@ public class Log: ObservableObject {
         }
     }
 
-    public static func info(_ content: Any, file: String = #file, line: Int = #line) {
+    public static func info(_ content: Any, file: String = #fileID, line: Int = #line) {
         Log.global.info(content: content, file: file, line: line)
         print("[INFO \(file):\(line)]: \(content)")
     }
 
-    public static func error(_ content: Any, file: String = #file, line: Int = #line) {
+    public static func error(_ content: Any, file: String = #fileID, line: Int = #line) {
         Log.global.error(content: content, file: file, line: line)
         print("[ERROR \(file):\(line)]: \(content)")
     }
