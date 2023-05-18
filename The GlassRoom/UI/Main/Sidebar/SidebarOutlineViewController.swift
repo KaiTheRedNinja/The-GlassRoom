@@ -219,7 +219,7 @@ extension SidebarOutlineViewController: NSOutlineViewDelegate {
 
         let row = outlineView.selectedRow
         guard row != -1, let item = outlineView.item(atRow: row) as? GeneralCourse else {
-            print("Could not identify item at row \(row)")
+            Log.error("Could not identify item at row \(row)")
             selectedCourse?.wrappedValue = nil
             return
         }

@@ -45,18 +45,6 @@ final class SidebarOutlineMenu: NSMenu {
     /// Setup the menu and disables certain items when `isFile` is false
     /// - Parameter isFile: A flag indicating that the item is a file instead of a directory
     private func setupMenu() {
-//        guard item is Course else { return }
-//        let changeColor = menuItem("Change Color", action: #selector(changeColor))
-
-        items = [
-//            changeColor
-        ]
-    }
-
-    @objc
-    func changeColor() {
-//        guard let item = item as? Course else { return }
-//        print("Changing color")
-//        outlineView.colorChangingCourse?.wrappedValue = item
+        items = []
     }
 }

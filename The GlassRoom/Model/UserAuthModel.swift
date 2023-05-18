@@ -72,7 +72,7 @@ class UserAuthModel: ObservableObject {
     private func restoreSignIn() {
         GIDSignIn.sharedInstance.restorePreviousSignIn { _, error in
             if let error = error {
-                print("Error: \(error.localizedDescription)")
+                Log.error("Error: \(error.localizedDescription)")
                 self.errorMessage = "error: \(error.localizedDescription)"
             }
 
@@ -82,7 +82,7 @@ class UserAuthModel: ObservableObject {
 
     func signIn() {
         guard let presentingWindow = NSApp.windows.first else {
-            print("Could not get presenting view controller")
+            Log.error("Could not get presenting view controller")
             return
         }
 
@@ -128,11 +128,11 @@ class UserAuthModel: ObservableObject {
 
     func requestPermissions() {
         guard let user = GIDSignIn.sharedInstance.currentUser else {
-            print("Could not get user")
+            Log.error("Could not get user")
             return
         }
         guard let presentingWindow = NSApp.windows.first else {
-            print("Could not get presenting view controller")
+            Log.error("Could not get presenting view controller")
             return
         }
 

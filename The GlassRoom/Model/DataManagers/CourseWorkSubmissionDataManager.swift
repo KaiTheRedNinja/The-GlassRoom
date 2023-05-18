@@ -62,7 +62,7 @@ class CourseWorkSubmissionDataManager: ObservableObject {
 
     func writeCache() {
         FileSystem.write(submissions, to: .submissions(courseId, courseWorkId)) { error in
-            print("Error writing: \(error.localizedDescription)")
+            Log.error("Error writing: \(error.localizedDescription)")
         }
     }
 
@@ -95,7 +95,7 @@ class CourseWorkSubmissionDataManager: ObservableObject {
                     }
                 }
             case .failure(let failure):
-                print("Failure: \(failure.localizedDescription)")
+                Log.error("Failure: \(failure.localizedDescription)")
                 DispatchQueue.main.async {
                     self.loading = false
                 }

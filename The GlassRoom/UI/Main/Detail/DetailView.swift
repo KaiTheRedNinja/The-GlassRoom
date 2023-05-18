@@ -58,7 +58,7 @@ extension DetailViewPage {
             let url = input[range]
 
             input = input.replacingOccurrences(of: url, with: "[\(url)](\(url))")
-//            print(url)
+//            Log.info(url)
         }
 
         return input

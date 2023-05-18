@@ -51,7 +51,7 @@ extension GlobalCoursesDataManager {
 
         func saveToFileSystem() {
             FileSystem.write(self, to: .courseConfigurations) { error in
-                print("Error writing: \(error.localizedDescription)")
+                Log.error("Error writing: \(error.localizedDescription)")
             }
         }
 

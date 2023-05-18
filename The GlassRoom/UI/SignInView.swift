@@ -43,13 +43,11 @@ struct SignInView: View {
 
     func checkState() {
         if let isLoggedIn = userModel.isLoggedIn, isLoggedIn == true {
-            print("Signed in!")
             DispatchQueue.main.async {
                 showSignInWithGoogle = false
                 showMoreScopes = true
             }
         } else {
-            print("Not signed in")
             DispatchQueue.main.async {
                 // we can assume that they need more scopes, since
                 // if they didn't this screen would not be showing.

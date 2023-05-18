@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GlassRoomAPI
 
 enum FileSystem {
     enum FileName {
@@ -76,7 +77,7 @@ enum FileSystem {
     /// Gets the documents directory
     static func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        print("Documents directory at \(paths[0])")
+//        Log.info("Documents directory at \(paths[0])")
         return paths[0]
     }
 }
@@ -87,7 +88,7 @@ public extension URL {
         do {
             return try FileManager.default.attributesOfItem(atPath: path)
         } catch let error as NSError {
-            print("FileAttribute error: \(error)")
+            Log.error("FileAttribute error: \(error)")
         }
         return nil
     }

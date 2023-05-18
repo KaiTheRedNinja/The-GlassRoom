@@ -140,7 +140,7 @@ extension CoursePostsDataManager {
 
     func writeAnnouncementsCache() {
         FileSystem.write(courseAnnouncements, to: .announcements(courseId)) { error in
-            print("Error writing: \(error.localizedDescription)")
+            Log.error("Error writing: \(error.localizedDescription)")
         }
     }
 
@@ -169,8 +169,7 @@ extension CoursePostsDataManager {
                         self.writeAnnouncementsCache()
                     }
                 }
-            case .failure(let failure):
-                print("Failure: \(failure.localizedDescription)")
+            case .failure(_):
                 DispatchQueue.main.async {
                     self.announcementsLoading = false
                 }
@@ -190,7 +189,7 @@ extension CoursePostsDataManager {
 
     func writeCourseWorksCache() {
         FileSystem.write(courseCourseWorks, to: .courseWorks(courseId)) { error in
-            print("Error writing: \(error.localizedDescription)")
+            Log.error("Error writing: \(error.localizedDescription)")
         }
     }
 
@@ -218,8 +217,7 @@ extension CoursePostsDataManager {
                         self.writeCourseWorksCache()
                     }
                 }
-            case .failure(let failure):
-                print("Failure: \(failure.localizedDescription)")
+            case .failure(_):
                 DispatchQueue.main.async {
                     self.courseWorksLoading = false
                 }
@@ -239,7 +237,7 @@ extension CoursePostsDataManager {
 
     func writeCourseMaterialsCache() {
         FileSystem.write(courseCourseMaterials, to: .courseMaterials(courseId)) { error in
-            print("Error writing: \(error.localizedDescription)")
+            Log.error("Error writing: \(error.localizedDescription)")
         }
     }
 
@@ -270,8 +268,7 @@ extension CoursePostsDataManager {
                         self.writeCourseMaterialsCache()
                     }
                 }
-            case .failure(let failure):
-                print("Failure: \(failure.localizedDescription)")
+            case .failure(_):
                 DispatchQueue.main.async {
                     self.courseMaterialsLoading = false
                 }

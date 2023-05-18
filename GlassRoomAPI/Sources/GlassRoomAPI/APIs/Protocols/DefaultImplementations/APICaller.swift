@@ -80,7 +80,7 @@ enum APICaller<ResponseData: Decodable> {
 
         // If there are any empty path parameters, return nil
         if filledURL.contains("/{\\w+}/") {
-            print("Filled url contains placeholder: \(filledURL)")
+            Log.error("Filled url contains placeholder: \(filledURL)")
             callback(.failure(NSError(domain: "Filled url contains placeholder: \(filledURL)",
                                       code: 1)))
             return
@@ -88,7 +88,7 @@ enum APICaller<ResponseData: Decodable> {
 
         // create the URL
         guard let url = URL(string: filledURL) else {
-            print("Failed to create url: \(filledURL)")
+            Log.error("Failed to create url: \(filledURL)")
             callback(.failure(NSError(domain: "Failed to create url: \(filledURL)",
                                       code: 2)))
             return
@@ -115,13 +115,15 @@ enum APICaller<ResponseData: Decodable> {
                     if ResponseData.self == VoidStringCodable.self,
                        let decodedString = String(data: data, encoding: .utf8),
                        decodedString != "{}" {
-                        print("Expected \"{}\", recieved \"\(decodedString)\"")
+                        Log.error("Expected \"{}\", recieved \"\(decodedString)\"")
                     }
                     let result = try JSONDecoder().decode(ResponseData.self, from: data)
                     callback(.success(result))
                 } catch {
-                    print("Failure Data: \(String(data: data, encoding: .utf8) ?? "undecodable")")
-                    print("Decoding error: \(error)")
+                    Log.error("""
+Decoding error: \(error)
+Failure Data: \(String(data: data, encoding: .utf8) ?? "undecodable")
+""")
                     callback(.failure(error))
                 }
             } else if let error {

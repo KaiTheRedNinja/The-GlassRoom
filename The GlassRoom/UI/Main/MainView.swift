@@ -110,7 +110,7 @@ struct MainView: View {
                 manager.loadList(onlyCache: true)
             }
         }
-        print("Loaded managers: \(CoursePostsDataManager.loadedManagers.keys)")
+        Log.info("Loaded managers: \(CoursePostsDataManager.loadedManagers.keys)")
     }
 }
 

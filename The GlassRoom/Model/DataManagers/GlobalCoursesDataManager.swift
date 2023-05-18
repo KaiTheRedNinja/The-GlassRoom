@@ -79,8 +79,7 @@ class GlobalCoursesDataManager: ObservableObject {
                         self.writeCache()
                     }
                 }
-            case .failure(let failure):
-                print("Failure: \(failure.localizedDescription)")
+            case .failure(_):
                 DispatchQueue.main.async {
                     self.loading = false
                 }
@@ -99,7 +98,7 @@ class GlobalCoursesDataManager: ObservableObject {
 
     private func writeCache() {
         FileSystem.write(courses, to: .courses) { error in
-            print("Error writing: \(error.localizedDescription)")
+            Log.error("Error writing: \(error.localizedDescription)")
         }
     }
 }

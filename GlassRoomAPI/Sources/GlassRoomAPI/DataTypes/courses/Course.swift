@@ -45,7 +45,7 @@ public extension Course {
         if let date = dateFormatter.date(from: creationTime) {
             return date
         } else {
-            print("Could not get date for: \(creationTime)")
+            Log.error("Could not get date for: \(creationTime)")
             return Date()
         }
     }

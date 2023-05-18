@@ -44,7 +44,7 @@ struct LinkPreview: NSViewRepresentable {
                         metadata.title = success.name
                         linkView.metadata = metadata
                     case .failure(let failure):
-                        print("Failure: \(failure.localizedDescription)")
+                        Log.error("Failure: \(failure.localizedDescription)")
                     }
                 }
             }
@@ -103,7 +103,7 @@ struct MetaCache {
             UserDefaults.standard.setValue(data, forKey: metadata.url!.absoluteString)
         }
         catch let error {
-            print("Error when cachine: \(error.localizedDescription)")
+            Log.error("Error when caching: \(error.localizedDescription)")
         }
     }
 
@@ -115,7 +115,7 @@ struct MetaCache {
         }
 
         catch let error {
-            print("Error when cachine: \(error.localizedDescription)")
+            Log.error("Error when caching: \(error.localizedDescription)")
             return nil
         }
     }
@@ -132,7 +132,7 @@ extension String {
                 nsStr.substring(with: $0.range)
             }
         } catch {
-            print("Error creating regular expression: \(error)")
+            Log.error("Error creating regular expression: \(error)")
             return []
         }
     }
