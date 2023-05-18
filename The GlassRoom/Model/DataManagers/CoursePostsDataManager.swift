@@ -13,6 +13,9 @@ class CoursePostsDataManager: ObservableObject {
     @Published private(set) var courseCourseWorks: [CourseWork] = []
     @Published private(set) var courseCourseMaterials: [CourseWorkMaterial] = []
 
+    // used to determine if it should refresh or not
+    @Published private(set) var lastRefreshDate: Date?
+
     var postData: [CoursePost] {
         self.courseAnnouncements.map({ .announcement($0) })
             .mergedWith(other: courseCourseWorks.map({ .courseWork($0) })) { lhs, rhs in
@@ -67,22 +70,26 @@ class CoursePostsDataManager: ObservableObject {
             refreshAnnouncementsList()
             refreshCourseWorksList()
             refreshCourseMaterialsList()
+            lastRefreshDate = .now
         } else {
             // load from cache first, if that fails load from the list.
-            if cachedAnnouncements.isEmpty && !onlyCache {
+            if (cachedAnnouncements.isEmpty || lastRefreshDate == nil) && !onlyCache {
                 refreshAnnouncementsList()
+                lastRefreshDate = .now
             } else {
                 self.courseAnnouncements = cachedAnnouncements
                 announcementsLoading = false
             }
-            if cachedCourseWorks.isEmpty && !onlyCache {
+            if (cachedCourseWorks.isEmpty || lastRefreshDate == nil) && !onlyCache {
                 refreshCourseWorksList()
+                lastRefreshDate = .now
             } else {
                 self.courseCourseWorks = cachedCourseWorks
                 courseWorksLoading = false
             }
-            if cachedCourseMaterials.isEmpty && !onlyCache {
+            if (cachedCourseMaterials.isEmpty || lastRefreshDate == nil) && !onlyCache {
                 refreshCourseMaterialsList()
+                lastRefreshDate = .now
             } else {
                 self.courseCourseMaterials = cachedCourseMaterials
                 courseMaterialsLoading = false
