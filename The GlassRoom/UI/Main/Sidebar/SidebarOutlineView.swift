@@ -20,10 +20,7 @@ struct SidebarOutlineView: NSViewControllerRepresentable {
     func makeNSViewController(context: Context) -> SidebarOutlineViewController {
         let controller = SidebarOutlineViewController()
         controller.courses = self.courses
-        controller.courseGroups = configuration.courseGroups
-
         controller.selectedCourse = $selectedCourse
-
         controller.updateGroups = { groups in
             configuration.courseGroups = groups
             configuration.saveToFileSystem()
