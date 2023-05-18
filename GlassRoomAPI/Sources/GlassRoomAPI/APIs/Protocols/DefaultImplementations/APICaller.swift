@@ -6,9 +6,33 @@
 //
 
 import Foundation
+import SwiftUI
 
 public enum APISecretManager {
     public static var accessToken: String = ""
+}
+
+public class APILogger: ObservableObject {
+    @Published public private(set) var apiHistory: [APICall] = []
+
+    func add(item: APICall) {
+        DispatchQueue.main.async {
+            self.apiHistory.append(item)
+        }
+    }
+
+    private init() {}
+    public static var global: APILogger = .init()
+
+    public struct APICall: Hashable, Identifiable {
+        public var id = UUID()
+
+        public var requestType: String
+        public var requestUrl: String
+        public var parameters: [String: String]
+        public var expectedResponseType: String
+        public var sendDate: Date = Date()
+    }
 }
 
 enum APICaller<ResponseData: Decodable> {
@@ -82,6 +106,10 @@ enum APICaller<ResponseData: Decodable> {
 
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+            APILogger.global.add(item: .init(requestType: httpMethod,
+                                             requestUrl: urlString,
+                                             parameters: pathParameters,
+                                             expectedResponseType: String(describing: responseType)))
             if let data {
                 do {
                     if ResponseData.self == VoidStringCodable.self,

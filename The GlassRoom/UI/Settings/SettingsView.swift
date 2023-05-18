@@ -11,6 +11,8 @@ struct SettingsView: View {
     
     @AppStorage("settingsTabSelection", store: .standard) var settingsTabSelection = 0
     @ObservedObject var userModel: UserAuthModel = .shared
+
+    @AppStorage("debugMode") var debugMode: Bool = false
     
     @Environment(\.dismiss) var dismiss
     
@@ -127,6 +129,7 @@ struct SettingsView: View {
     var general: some View {
         VStack {
             Text("General Settings")
+            Toggle("Debug Mode", isOn: $debugMode)
         }
     }
     

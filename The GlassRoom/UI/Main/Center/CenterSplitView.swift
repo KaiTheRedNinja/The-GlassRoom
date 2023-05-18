@@ -81,7 +81,7 @@ struct CenterSplitView: View {
             let selectedCourseId = course
             let manager = CoursePostsDataManager.getManager(for: selectedCourseId)
             self.coursePostsManager = manager
-            if manager.courseAnnouncements.isEmpty {
+            if manager.courseAnnouncements.isEmpty || manager.lastRefreshDate == nil {
                 manager.loadList(bypassCache: true)
             }
             
