@@ -42,6 +42,9 @@ final class SidebarOutlineViewController: NSViewController {
         self.outlineView.menu?.delegate = self
         self.outlineView.doubleAction = #selector(onItemDoubleClicked)
 
+        outlineView.setDraggingSourceOperationMask(.move, forLocal: false)
+        outlineView.registerForDraggedTypes([.string])
+
         let column = NSTableColumn(identifier: .init(rawValue: "Cell"))
         column.title = "Cell"
         outlineView.addTableColumn(column)
@@ -173,6 +176,99 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
         }
 
         // if nothing found, no match.
+    }
+
+    // MARK: Drag and drop
+    /// write dragged file(s) to pasteboard
+    func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
+        guard let item = item as? GeneralCourse else { return nil }
+        switch item {
+        case .course(let string):
+            return string as NSString
+        default: return nil
+        }
+    }
+
+    /// declare valid drop target
+    func outlineView(
+        _ outlineView: NSOutlineView,
+        validateDrop info: NSDraggingInfo,
+        proposedItem item: Any?,
+        proposedChildIndex index: Int
+    ) -> NSDragOperation {
+        guard let destinationItem = item as? GeneralCourse else { return [] }
+
+        var courseType: Course.CourseType
+        switch destinationItem {
+        case .group(let groupString):
+            guard let groupItem = courseGroups.first(where: { $0.id == groupString }) else {
+                Log.error("Could not get group item for \(groupString)")
+                return []
+            }
+            courseType = groupItem.groupType
+        case .course(let itemString):
+            guard let courseItem = courses.first(where: { $0.id == itemString }) else {
+                Log.error("Could not get course item for \(itemString)")
+                return []
+            }
+            courseType = courseItem.courseType
+        case .allTeaching, .allEnrolled:
+            courseType = destinationItem == .allTeaching ? Course.CourseType.teaching : .enrolled
+        }
+
+        // check that we're not trying to move a teaching to an enrolling, vice versa
+        if let pasteboardItems = info.draggingPasteboard.readObjects(forClasses: [NSString.self]) {
+            let itemStrings = pasteboardItems.compactMap { $0 as? String }
+
+            if !itemStrings.contains(where: { itemString in
+                // if its invalid or wrong type, return true to exit.
+                guard let courseItem = courses.first(where: { $0.id == itemString }) else {
+                    Log.error("Could not get course item for \(itemString)")
+                    return true
+                }
+                if courseItem.courseType != courseType {
+                    return true
+                }
+
+                return false
+            }) {
+                return .move
+            }
+        }
+
+        return []
+    }
+
+    /// handle successful or unsuccessful drop
+    func outlineView(
+        _ outlineView: NSOutlineView,
+        acceptDrop info: NSDraggingInfo,
+        item: Any?,
+        childIndex index: Int
+    ) -> Bool {
+        // validate it first, just in case
+        guard self.outlineView(outlineView,
+                               validateDrop: info,
+                               proposedItem: item,
+                               proposedChildIndex: index) == .move
+        else { return false }
+
+        guard let pasteboardItems = info.draggingPasteboard.readObjects(forClasses: [NSString.self]) else { return false }
+        let itemStrings = pasteboardItems.compactMap { $0 as? String }
+
+        guard let itemDestination = item as? GeneralCourse else { return false }
+        switch itemDestination {
+        case .course(let string):
+            Log.info("Creating group: \(itemStrings) and course \(string) #\(index)")
+        case .group(let string):
+            Log.info("Moving item to group: \(itemStrings) to course \(string) #\(index)")
+        case .allTeaching, .allEnrolled:
+            // check that we're not trying to move a teaching to an enrolling
+            let courseType = itemDestination == .allTeaching ? Course.CourseType.teaching : .enrolled
+            Log.info("Moving item \(itemStrings) to category \(courseType.rawValue) #\(index)")
+        }
+
+        return false
     }
 }
 
