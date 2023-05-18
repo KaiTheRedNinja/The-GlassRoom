@@ -14,11 +14,8 @@ struct MainView: View {
     @State var showSearch: Bool = false
 
     @ObservedObject var userModel: UserAuthModel = .shared
-
-    @State var showApiCalls: Bool = false
-    @State var showLogs: Bool = false
-
     @AppStorage("debugMode") var debugMode: Bool = false
+    @Environment(\.openWindow) var openWindow
 
     var body: some View {
         NavigationSplitView {
@@ -37,21 +34,15 @@ struct MainView: View {
         .toolbar {
             if debugMode {
                 Button {
-                    showLogs.toggle()
+                    openWindow(id: "debugLogsView")
                 } label: {
                     Image(systemName: "exclamationmark.triangle.fill")
                 }
-                .popover(isPresented: $showLogs) {
-                    DebugLogsView()
-                }
 
                 Button {
-                    showApiCalls.toggle()
+                    openWindow(id: "debugAPICallsView")
                 } label: {
                     Image(systemName: "arrow.left.arrow.right")
-                }
-                .popover(isPresented: $showApiCalls) {
-                    DebugAPICallsView()
                 }
             }
 

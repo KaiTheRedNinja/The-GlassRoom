@@ -14,7 +14,17 @@ struct The_GlassRoomApp: App {
             ContentView()
                 .focusable(false)
         }
-        
+
+        WindowGroup(id: "debugLogsView") {
+            DebugLogsView()
+                .navigationTitle("Logs")
+        }
+
+        WindowGroup(id: "debugAPICallsView") {
+            DebugAPICallsView()
+                .navigationTitle("API Calls")
+        }
+
         Settings {
             SettingsView()
                 .focusable(false)

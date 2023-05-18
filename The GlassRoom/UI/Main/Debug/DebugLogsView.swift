@@ -29,7 +29,6 @@ struct DebugLogsView: View {
                 .tag(history.id)
             }
         }
-        .frame(width: 400, height: 300)
     }
 }
 
