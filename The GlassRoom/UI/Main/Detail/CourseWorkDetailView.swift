@@ -120,7 +120,7 @@ struct CourseWorkDetailView: DetailViewPage {
     
     func viewForAssignment(_ submission: StudentSubmission) -> some View {
         VStack(alignment: .leading) {
-            HStack {
+            HStack(alignment: .center) {
                 VStack(alignment: .leading) {
                     viewForCourseWorkDueDate(submission)
                     
@@ -133,6 +133,7 @@ struct CourseWorkDetailView: DetailViewPage {
                 
                 viewForSubmitButton(submission)
             }
+            .padding(.bottom, 5)
             
             if let assignmentSubmission = submission.assignmentSubmission {
                 if assignmentSubmission.attachments != nil {
@@ -146,7 +147,7 @@ struct CourseWorkDetailView: DetailViewPage {
     
     func viewForShortAnswer(_ submission: StudentSubmission) -> some View {
         VStack(alignment: .leading) {
-            HStack {
+            HStack(alignment: .center) {
                 VStack(alignment: .leading) {
                     viewForCourseWorkDueDate(submission)
                     
@@ -174,7 +175,7 @@ struct CourseWorkDetailView: DetailViewPage {
     
     func viewForMCQ(_ submission: StudentSubmission) -> some View {
         VStack(alignment: .leading) {
-            HStack {
+            HStack(alignment: .center) {
                 VStack(alignment: .leading) {
                     viewForCourseWorkDueDate(submission)
                     
