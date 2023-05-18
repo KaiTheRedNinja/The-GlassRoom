@@ -298,6 +298,36 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
         updateGroups?(courseGroups)
         return true
     }
+
+    func outlineView(_ outlineView: NSOutlineView, persistentObjectForItem item: Any?) -> Any? {
+        guard let item = item as? GeneralCourse else { return nil }
+        switch item {
+        case .course(let string):
+            return "course_\(string)"
+        case .allTeaching:
+            return "allTeaching"
+        case .allEnrolled:
+            return "allEnrolled"
+        case .group(let string):
+            return "group_\(string)"
+        }
+    }
+
+    func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
+        guard let object = object as? String else { return nil }
+        let components = object.split(separator: "_")
+        guard let firstComponent = components.first else { return nil }
+
+        switch firstComponent {
+        case "course": return GeneralCourse.course(String(components[1]))
+        case "allTeaching": return GeneralCourse.allTeaching
+        case "allEnrolled": return GeneralCourse.allEnrolled
+        case "group": return GeneralCourse.group(String(components[1]))
+        default:
+            Log.error("Requested item for unrecognised persistent object \(object)")
+            return nil
+        }
+    }
 }
 
 // MARK: - NSOutlineViewDelegate
