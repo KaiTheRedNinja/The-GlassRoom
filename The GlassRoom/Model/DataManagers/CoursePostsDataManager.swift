@@ -7,6 +7,7 @@
 
 import Foundation
 import GlassRoomAPI
+import GlassRoomTypes
 
 class CoursePostsDataManager: ObservableObject {
     @Published private(set) var courseAnnouncements: [CourseAnnouncement] = []

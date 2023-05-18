@@ -7,6 +7,7 @@
 
 import Foundation
 import GlassRoomAPI
+import GlassRoomTypes
 
 class GlobalCoursesDataManager: ObservableObject {
     @Published private(set) var courses: [Course] {

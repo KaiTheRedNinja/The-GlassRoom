@@ -9,6 +9,7 @@ import AppKit
 import SwiftUI
 import LinkPresentation
 import GlassRoomAPI
+import GlassRoomTypes
 
 struct LinkPreview: NSViewRepresentable {
     typealias NSViewType = LPLinkView

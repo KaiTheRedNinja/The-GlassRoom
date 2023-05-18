@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GlassRoomTypes
 
 extension GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions: GlassRoomGettableListable,
                                                                     GlassRoomAttachmentModifiable,

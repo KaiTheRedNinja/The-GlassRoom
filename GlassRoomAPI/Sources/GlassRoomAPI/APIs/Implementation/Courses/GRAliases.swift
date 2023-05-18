@@ -5,6 +5,8 @@
 //  Created by Kai Quan Tay on 11/5/23.
 //
 
+import GlassRoomTypes
+
 extension GlassRoomAPI.GRCourses.GRAliases: GlassRoomCreatableDeletable, GlassRoomListable {
     public typealias CreatePathParameters = CourseIDPathParameters
     public typealias CreateQueryParameters = VoidStringCodable

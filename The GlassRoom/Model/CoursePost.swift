@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import GlassRoomAPI
+import GlassRoomTypes
 
 enum CoursePost: Hashable, Identifiable {
     case announcement(CourseAnnouncement)

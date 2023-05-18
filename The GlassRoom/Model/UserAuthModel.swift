@@ -7,7 +7,7 @@
 
 import SwiftUI
 import GoogleSignIn
-import GlassRoomAPI
+import GlassRoomTypes
 
 class UserAuthModel: ObservableObject {
     static let shared: UserAuthModel = .init()

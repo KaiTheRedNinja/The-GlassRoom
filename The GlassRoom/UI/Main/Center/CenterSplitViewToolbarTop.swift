@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import GlassRoomAPI
+import GlassRoomTypes
 
 struct CenterSplitViewToolbarTop: View {
     typealias CourseDisplayOption = CenterSplitView.CourseDisplayOption

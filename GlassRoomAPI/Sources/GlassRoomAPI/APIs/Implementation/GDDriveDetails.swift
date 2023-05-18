@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GlassRoomTypes
 
 extension GlassRoomAPI.GDDriveDetails: GlassRoomGettable {
     public typealias GetPathParameters = FileIDPathParameters

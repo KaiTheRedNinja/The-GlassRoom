@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomAPI
+import GlassRoomTypes
 
 extension GlobalCoursesDataManager {
     class CoursesConfiguration: ObservableObject, Codable {

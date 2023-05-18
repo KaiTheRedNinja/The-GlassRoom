@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import GlassRoomAPI
+import GlassRoomTypes
 
 enum FileSystem {
     enum FileName {

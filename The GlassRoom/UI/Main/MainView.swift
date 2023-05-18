@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import GlassRoomAPI
+import GlassRoomTypes
 
 struct MainView: View {
     @State var selectedCourse: GeneralCourse?

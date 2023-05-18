@@ -7,33 +7,7 @@
 
 import Foundation
 import SwiftUI
-
-public enum APISecretManager {
-    public static var accessToken: String = ""
-}
-
-public class APILogger: ObservableObject {
-    @Published public private(set) var apiHistory: [APICall] = []
-
-    func add(item: APICall) {
-        DispatchQueue.main.async {
-            self.apiHistory.append(item)
-        }
-    }
-
-    private init() {}
-    public static var global: APILogger = .init()
-
-    public struct APICall: Hashable, Identifiable {
-        public var id = UUID()
-
-        public var requestType: String
-        public var requestUrl: String
-        public var parameters: [String: String]
-        public var expectedResponseType: String
-        public var sendDate: Date = Date()
-    }
-}
+import GlassRoomTypes
 
 enum APICaller<ResponseData: Decodable> {
     /// Does an API request

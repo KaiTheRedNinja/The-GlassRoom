@@ -7,7 +7,7 @@
 
 
 import SwiftUI
-import GlassRoomAPI
+import GlassRoomTypes
 import LinkPresentation
 
 struct DetailView: View {

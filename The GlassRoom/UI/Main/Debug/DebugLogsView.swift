@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import GlassRoomAPI
+import GlassRoomTypes
 
 struct DebugLogsView: View {
     @ObservedObject var logs: Log = .global

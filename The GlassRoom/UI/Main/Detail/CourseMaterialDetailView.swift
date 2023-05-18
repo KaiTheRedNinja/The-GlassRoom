@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import GlassRoomAPI
+import GlassRoomTypes
 
 struct CourseMaterialDetailView: DetailViewPage {
     var textContent: Binding<String>

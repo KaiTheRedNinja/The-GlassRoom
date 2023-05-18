@@ -7,6 +7,7 @@
 
 import Foundation
 import GlassRoomAPI
+import GlassRoomTypes
 
 class CourseWorkSubmissionDataManager: ObservableObject {
     @Published private(set) var submissions: [StudentSubmission] = []
