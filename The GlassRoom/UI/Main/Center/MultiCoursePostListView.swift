@@ -33,26 +33,32 @@ struct MultiCoursePostListView: View {
     }
 
     var body: some View {
-        CoursePostListView(selectedPost: $selectedPost,
-                           showPostCourseOrigin: true,
-                           postData: postData,
-                           isEmpty: isEmpty,
-                           isLoading: isLoading,
-                           hasNextPage: hasNextPage,
-                           loadList: loadList,
-                           refreshList: refreshList)
-        .onChange(of: displayedCourseManager.displayedAggregateCourseIds) { _ in
-            postsManager.array = displayedCourseManager.displayedAggregateCourseIds.map { value in
-                let manager = CoursePostsDataManager.getManager(for: value)
-                if manager.postData.isEmpty {
-                    manager.loadList()
+        switch displayOption {
+        case .userRegister:
+            // TODO: User register list for multiple courses
+            Text("User Register List")
+        default:
+            CoursePostListView(selectedPost: $selectedPost,
+                               showPostCourseOrigin: true,
+                               postData: postData,
+                               isEmpty: isEmpty,
+                               isLoading: isLoading,
+                               hasNextPage: hasNextPage,
+                               loadList: loadList,
+                               refreshList: refreshList)
+            .onChange(of: displayedCourseManager.displayedAggregateCourseIds) { _ in
+                postsManager.array = displayedCourseManager.displayedAggregateCourseIds.map { value in
+                    let manager = CoursePostsDataManager.getManager(for: value)
+                    if manager.postData.isEmpty {
+                        manager.loadList()
+                    }
+                    return manager
                 }
-                return manager
+                updatePostData()
             }
-            updatePostData()
-        }
-        .onChange(of: displayOption) { _ in
-            updatePostData()
+            .onChange(of: displayOption) { _ in
+                updatePostData()
+            }
         }
     }
 
@@ -82,6 +88,7 @@ struct MultiCoursePostListView: View {
                 default: return false
                 }
             }
+        default: postData = []
         }
     }
     var isEmpty: Bool { postData.isEmpty }

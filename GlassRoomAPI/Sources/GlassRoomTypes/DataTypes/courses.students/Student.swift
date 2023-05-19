@@ -11,5 +11,5 @@ public struct Student: Codable {
     public var courseId: String
     public var userId: String
     public var profile: UserProfile
-    public var studentWorkFolder: DriveFolder
+    public var studentWorkFolder: DriveFolder?
 }

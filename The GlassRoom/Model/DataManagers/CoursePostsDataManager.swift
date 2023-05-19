@@ -34,10 +34,10 @@ class CoursePostsDataManager: ObservableObject {
     let courseId: String
 
     var loading: Bool {
-        announcementsLoading || courseWorksLoading
+        announcementsLoading || courseWorksLoading || courseMaterialsLoading
     }
     var hasNextPage: Bool {
-        announcementsNextPageToken != nil || courseWorksNextPageToken != nil
+        announcementsNextPageToken != nil || courseWorksNextPageToken != nil || courseMaterialsNextPageToken != nil
     }
 
     @Published private(set) var announcementsLoading: Bool = false
@@ -64,10 +64,11 @@ class CoursePostsDataManager: ObservableObject {
         let cachedCourseWorks = readCourseWorksCache()
         let cachedCourseMaterials = readCourseMaterialsCache()
 
+        if !cachedAnnouncements.isEmpty { courseAnnouncements = cachedAnnouncements }
+        if !cachedCourseWorks.isEmpty { courseCourseWorks = cachedCourseWorks }
+        if !cachedCourseMaterials.isEmpty { courseCourseMaterials = cachedCourseMaterials }
+
         if bypassCache {
-            if !cachedAnnouncements.isEmpty { courseAnnouncements = cachedAnnouncements }
-            if !cachedCourseWorks.isEmpty { courseCourseWorks = cachedCourseWorks }
-            if !cachedCourseMaterials.isEmpty { courseCourseMaterials = cachedCourseMaterials }
             refreshAnnouncementsList()
             refreshCourseWorksList()
             refreshCourseMaterialsList()

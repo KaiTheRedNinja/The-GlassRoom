@@ -20,15 +20,18 @@ extension GlobalCoursesDataManager {
                 }
             }
         }
+        @Published var archive: CourseGroup?
         @Published var customColors: [String: Color]
 
         @Published var groupIdMap: [String: CourseGroup] = [:]
 
         private init(replacedCourseNames: [NameReplacement] = [],
                      courseGroups: [CourseGroup] = [],
+                     archive: CourseGroup?,
                      customColors: [String: Color] = [:]) {
             self.replacedCourseNames = replacedCourseNames
             self.courseGroups = courseGroups
+            self.archive = archive
             self.customColors = customColors
 
             groupIdMap = [:]
@@ -50,6 +53,7 @@ extension GlobalCoursesDataManager {
             }
             let newInstance = CoursesConfiguration(replacedCourseNames: [],
                                                    courseGroups: [],
+                                                   archive: nil,
                                                    customColors: [:])
             fileSystemInstance = newInstance
             return newInstance
@@ -96,13 +100,14 @@ extension GlobalCoursesDataManager {
 
         // MARK: Codable
         enum Keys: CodingKey {
-            case replacedCourseNames, courseGroups, customColors
+            case replacedCourseNames, courseGroups, archive, customColors
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: Keys.self)
             try container.encode(replacedCourseNames, forKey: .replacedCourseNames)
             try container.encode(courseGroups, forKey: .courseGroups)
+            try container.encode(archive, forKey: .archive)
             try container.encode(customColors, forKey: .customColors)
         }
 
@@ -112,6 +117,7 @@ extension GlobalCoursesDataManager {
                                                             forKey: .replacedCourseNames)
             self.courseGroups = try container.decode([CourseGroup].self,
                                                      forKey: .courseGroups)
+            self.archive = try container.decode((CourseGroup?).self, forKey: .archive)
             self.customColors = try container.decode([String: Color].self,
                                                      forKey: .customColors)
 
@@ -182,4 +188,8 @@ struct CourseGroup: Codable, Identifiable, Equatable {
     var groupName: String
     var groupType: Course.CourseType
     var courses: [String]
+
+    var isArchive: Bool { id == CourseGroup.archiveId }
+
+    static let archiveId = "Archive"
 }

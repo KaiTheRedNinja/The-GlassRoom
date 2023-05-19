@@ -112,7 +112,16 @@ struct SidebarCourseView: View {
             .padding(.horizontal, 5)
             .disabled(true)
         case .group(let string):
-            if let group = configuration.groupIdMap[string] {
+            if string == CourseGroup.archiveId {
+                HStack {
+                    Text("Archive")
+                        .bold()
+                        .foregroundColor(.gray)
+                    Spacer()
+                }
+                .padding(.horizontal, 5)
+                .disabled(true)
+            } else if let group = configuration.groupIdMap[string] {
                 HStack {
                     Text(group.groupName)
                         .bold()

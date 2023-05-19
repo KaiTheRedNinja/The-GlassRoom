@@ -128,12 +128,13 @@ struct SearchView: View {
     func matchingCourses() -> [Course] {
         let courses = courseManager.courses
         if searchTerm.isEmpty { return courses }
+        let archived = courseManager.configuration.archive?.courses ?? []
 
         let filteredCourses = courses.filter { course in
             let fixedName = courseManager.configuration.nameFor(course.name).lowercased()
             let nameContains = fixedName.contains(searchTerm) || course.name.lowercased().contains(searchTerm)
 //            let descriptionContains = (course.description?.lowercased().contains(searchTerm) ?? false)
-            return nameContains
+            return nameContains && !archived.contains(course.id)
         }
         // if the filtered courses do not contain the selected course, select the first one.
         if let selection {

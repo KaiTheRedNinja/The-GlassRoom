@@ -30,7 +30,7 @@ extension GlassRoomAPI.GRCourses.GRStudents: GlassRoomCreatableDeletable, GlassR
     public static var apiGettable: String = "https://classroom.googleapis.com/v1/courses/{courseId}/students/{userId}"
 
     public typealias ListPathParameters = CourseIDPathParameters
-    public typealias ListQueryParameters = VoidStringCodable
+    public typealias ListQueryParameters = ListableQueryParameters
     public typealias ListRequestData = VoidStringCodable
     public typealias ListResponseData = ListableResponseData
 

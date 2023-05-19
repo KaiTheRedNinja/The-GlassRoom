@@ -15,6 +15,7 @@ struct SingleCoursePostListView: View {
     @State var plusPressed = false
 
     @ObservedObject var postsManager: CoursePostsDataManager
+    @ObservedObject var profilesManager: GlobalUserProfilesDataManager = .global
 
     init(selectedPost: Binding<CoursePost?>,
          displayOption: Binding<CenterSplitView.CourseDisplayOption>,
@@ -27,33 +28,37 @@ struct SingleCoursePostListView: View {
     }
 
     var body: some View {
-        CoursePostListView(selectedPost: $selectedPost,
-                           postData: postData,
-                           isEmpty: postsManager.isEmpty,
-                           isLoading: postsManager.loading,
-                           hasNextPage: postsManager.hasNextPage,
-                           loadList: { postsManager.loadList(bypassCache: $0) },
-                           refreshList: { postsManager.refreshList() },
-                           onPlusPress: { plusPressed.toggle() })
-        .sheet(isPresented: $plusPressed) {
-            CreateNewPostView(onCreatePost: { post in
-                switch post {
-                case .announcement(let announcement):
-                    postsManager.createNewAnnouncement(courseId: postsManager.courseId,
-                                                       title: announcement.text,
-                                                       announcementState: announcement.state)
-                case .courseWork(let courseWork):
-                    postsManager.createNewCourseWork(courseId: postsManager.courseId,
-                                                     title: courseWork.title,
-                                                     description: courseWork.description,
-                                                     courseWorkState: courseWork.state)
-                case .courseMaterial(let courseMaterial):
-                    postsManager.createNewCourseWorkMaterial(courseId: postsManager.courseId,
-                                                             title: courseMaterial.title,
-                                                             description: courseMaterial.description,
-                                                             courseWorkMaterialState: courseMaterial.state)
-                }
-            })
+        switch displayOption {
+        case .userRegister:
+            CourseRegisterListView(teachers: profilesManager.teachers[postsManager.courseId] ?? [],
+                                   students: profilesManager.students[postsManager.courseId] ?? [],
+                                   isEmpty: (profilesManager.teachers[postsManager.courseId] ?? []).isEmpty &&
+                                            (profilesManager.students[postsManager.courseId] ?? []).isEmpty,
+                                   isLoading: profilesManager.loading,
+                                   hasNextPage: profilesManager.hasNextPage,
+                                   loadList: { profilesManager.loadList(for: postsManager.courseId, bypassCache: $0) },
+                                   refreshList: { profilesManager.refreshList(for: postsManager.courseId) })
+            .onAppear {
+                profilesManager.loadList(for: postsManager.courseId)
+            }
+        default:
+            CoursePostListView(selectedPost: $selectedPost,
+                               postData: postData,
+                               isEmpty: postsManager.isEmpty,
+                               isLoading: postsManager.loading,
+                               hasNextPage: postsManager.hasNextPage,
+                               loadList: { postsManager.loadList(bypassCache: $0) },
+                               refreshList: { postsManager.refreshList() },
+                               onPlusPress: { plusPressed.toggle() })
+            .sheet(isPresented: $plusPressed) {
+                CreateNewPostView(onCreateAnnouncement: {
+
+                }, onCreateCourseWork: {
+
+                }, onCreateCourseWorkMaterial: {
+
+                })
+            }
         }
     }
 
@@ -83,6 +88,7 @@ struct SingleCoursePostListView: View {
                 default: return false
                 }
             }
+        default: return []
         }
     }
 }

@@ -84,7 +84,15 @@ struct CenterSplitView: View {
             if manager.courseAnnouncements.isEmpty || manager.lastRefreshDate == nil {
                 manager.loadList(bypassCache: true)
             }
-            
+
+            // if the class register is currently focused, reload it
+            let profileManager = GlobalUserProfilesDataManager.global
+            if currentPage == .userRegister,
+               (profileManager.students[course]?.isEmpty ?? true) &&
+               (profileManager.teachers[course]?.isEmpty ?? true) {
+                profileManager.loadList(for: course)
+            }
+
             // TODO: Intelligently refresh
         default: return
         }
@@ -95,8 +103,11 @@ struct CenterSplitView: View {
         case announcements = "Announcements"
         case courseWork = "Course Works"
         case courseMaterial = "Course Material"
+        case userRegister = "Register"
 
-        static var allCases: [CenterSplitView.CourseDisplayOption] = [.allPosts, .announcements, .courseWork, .courseMaterial]
+        static var allCases: [CenterSplitView.CourseDisplayOption] = [
+            .allPosts, .announcements, .courseWork, .courseMaterial, .userRegister
+        ]
     }
 }
 

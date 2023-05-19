@@ -44,6 +44,9 @@
 		93ACB2432A10D0FF0040C88E /* CoursePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2422A10D0FF0040C88E /* CoursePost.swift */; };
 		93ACB2472A10D5C00040C88E /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2462A10D5C00040C88E /* SegmentedControl.swift */; };
 		93ACB2492A10D8930040C88E /* CenterSplitViewToolbarTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2482A10D8930040C88E /* CenterSplitViewToolbarTop.swift */; };
+		93AED6902A1769DA0005854C /* GlobalUserProfilesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED68F2A1769DA0005854C /* GlobalUserProfilesDataManager.swift */; };
+		93AED6922A1781A50005854C /* CourseRegisterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6912A1781A50005854C /* CourseRegisterListView.swift */; };
+		93AED6942A179D9F0005854C /* CourseRegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6932A179D9F0005854C /* CourseRegisterItem.swift */; };
 		93E0B8B42A136DD400ED917A /* CustomisationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0B8B32A136DD400ED917A /* CustomisationView.swift */; };
 		93F229742A10DD0200B44C85 /* GeneralCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229732A10DD0200B44C85 /* GeneralCourse.swift */; };
 		93F229762A10E5B800B44C85 /* CoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229752A10E5B800B44C85 /* CoursePostListView.swift */; };
@@ -91,6 +94,10 @@
 		93ACB2422A10D0FF0040C88E /* CoursePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePost.swift; sourceTree = "<group>"; };
 		93ACB2462A10D5C00040C88E /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		93ACB2482A10D8930040C88E /* CenterSplitViewToolbarTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterSplitViewToolbarTop.swift; sourceTree = "<group>"; };
+		93AED68E2A1744110005854C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		93AED68F2A1769DA0005854C /* GlobalUserProfilesDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserProfilesDataManager.swift; sourceTree = "<group>"; };
+		93AED6912A1781A50005854C /* CourseRegisterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterListView.swift; sourceTree = "<group>"; };
+		93AED6932A179D9F0005854C /* CourseRegisterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterItem.swift; sourceTree = "<group>"; };
 		93E0B8B32A136DD400ED917A /* CustomisationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisationView.swift; sourceTree = "<group>"; };
 		93F229732A10DD0200B44C85 /* GeneralCourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCourse.swift; sourceTree = "<group>"; };
 		93F229752A10E5B800B44C85 /* CoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostListView.swift; sourceTree = "<group>"; };
@@ -180,6 +187,8 @@
 				934858052A123405008B84A7 /* SingleCoursePostListView.swift */,
 				93F229752A10E5B800B44C85 /* CoursePostListView.swift */,
 				6AD406D32A10D96800343500 /* CoursePostItem.swift */,
+				93AED6912A1781A50005854C /* CourseRegisterListView.swift */,
+				93AED6932A179D9F0005854C /* CourseRegisterItem.swift */,
 			);
 			path = Center;
 			sourceTree = "<group>";
@@ -220,6 +229,7 @@
 			children = (
 				93757D782A0F9BEB0063AB67 /* GlobalCoursesDataManager.swift */,
 				9348580F2A133982008B84A7 /* GlobalCoursesDataManager+Configuration.swift */,
+				93AED68F2A1769DA0005854C /* GlobalUserProfilesDataManager.swift */,
 				934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */,
 				934858072A1249CD008B84A7 /* CourseWorkSubmissionDataManager.swift */,
 				93757D7A2A0F9E6D0063AB67 /* FileManager.swift */,
@@ -242,6 +252,7 @@
 		937EA5AD2A0CD9F8005F11C5 = {
 			isa = PBXGroup;
 			children = (
+				93AED68E2A1744110005854C /* README.md */,
 				937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */,
 				937EA5B82A0CD9F8005F11C5 /* The GlassRoom */,
 				937EA5B72A0CD9F8005F11C5 /* Products */,
@@ -386,6 +397,7 @@
 				6AA0583B2A0FEB90005A9BDB /* LinkPreview.swift in Sources */,
 				93F229782A10E9CE00B44C85 /* Date+Format.swift in Sources */,
 				93ACB23A2A106F550040C88E /* SearchView.swift in Sources */,
+				93AED6922A1781A50005854C /* CourseRegisterListView.swift in Sources */,
 				934858102A133982008B84A7 /* GlobalCoursesDataManager+Configuration.swift in Sources */,
 				93757D612A0E74500063AB67 /* UserAuthModel.swift in Sources */,
 				93757D722A0F9A240063AB67 /* SidebarView.swift in Sources */,
@@ -402,8 +414,10 @@
 				93757D762A0F9B220063AB67 /* DetailView.swift in Sources */,
 				93757D632A0E79650063AB67 /* Secrets.swift in Sources */,
 				93E0B8B42A136DD400ED917A /* CustomisationView.swift in Sources */,
+				93AED6942A179D9F0005854C /* CourseRegisterItem.swift in Sources */,
 				93F229742A10DD0200B44C85 /* GeneralCourse.swift in Sources */,
 				93757D792A0F9BEB0063AB67 /* GlobalCoursesDataManager.swift in Sources */,
+				93AED6902A1769DA0005854C /* GlobalUserProfilesDataManager.swift in Sources */,
 				9348580C2A125DAB008B84A7 /* CourseWorkDetailView.swift in Sources */,
 				93F229762A10E5B800B44C85 /* CoursePostListView.swift in Sources */,
 				9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */,
@@ -550,7 +564,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = DBBLGF84W3;
+				DEVELOPMENT_TEAM = Z88Z98GRZQ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -561,7 +575,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
