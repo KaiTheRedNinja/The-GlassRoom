@@ -36,12 +36,23 @@ struct SingleCoursePostListView: View {
                            refreshList: { postsManager.refreshList() },
                            onPlusPress: { plusPressed.toggle() })
         .sheet(isPresented: $plusPressed) {
-            CreateNewPostView(onCreateAnnouncement: {
-                
-            }, onCreateCourseWork: {
-                
-            }, onCreateCourseWorkMaterial: {
-                
+            CreateNewPostView(onCreatePost: { post in
+                switch post {
+                case .announcement(let announcement):
+                    postsManager.createNewAnnouncement(courseId: postsManager.courseId,
+                                                       title: announcement.text,
+                                                       announcementState: announcement.state)
+                case .courseWork(let courseWork):
+                    postsManager.createNewCourseWork(courseId: postsManager.courseId,
+                                                     title: courseWork.title,
+                                                     description: courseWork.description,
+                                                     courseWorkState: courseWork.state)
+                case .courseMaterial(let courseMaterial):
+                    postsManager.createNewCourseWorkMaterial(courseId: postsManager.courseId,
+                                                             title: courseMaterial.title,
+                                                             description: courseMaterial.description,
+                                                             courseWorkMaterialState: courseMaterial.state)
+                }
             })
         }
     }

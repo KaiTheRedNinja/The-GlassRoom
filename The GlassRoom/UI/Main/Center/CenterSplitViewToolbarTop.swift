@@ -29,7 +29,19 @@ struct CenterSplitViewToolbarTop: View {
                 }
             }, set: { newValue in
                 currentPage = .allCases[newValue]
-            }), options: CourseDisplayOption.allCases.map({ $0.rawValue }))
+            }), options: CourseDisplayOption.allCases.map({ $0.rawValue })) { label in
+                if label == "All Posts" {
+                    return "list.bullet"
+                } else if label == "Announcements" {
+                    return "megaphone"
+                } else if label == "Course Works" {
+                    return "square.and.pencil"
+                } else if label == "Course Material" {
+                    return "doc"
+                }
+        
+                return "questionmark.circle"
+            }
             .animation(.spring(), value: currentPage)
 
             if let selectedCourse, selectedCourse == .allEnrolled || selectedCourse == .allTeaching {

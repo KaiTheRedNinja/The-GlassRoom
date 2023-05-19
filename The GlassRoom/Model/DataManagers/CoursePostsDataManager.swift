@@ -306,7 +306,7 @@ extension CoursePostsDataManager {
     func createNewCourseWork(courseId: String,
                              courseWorkType: CourseWorkType? = .course_work_type_unspecified,
                              title: String,
-                             description: String? = nil,
+                             description: String?,
                              courseWorkState: CourseWorkState
     ) {
         let creationAndUpdateTime = Date().iso8601withFractionalSeconds

@@ -68,12 +68,13 @@ struct CoursePostListView: View {
                 
                 Spacer()
                 
-                Button {
-                    if let onPlusPress {
+                if let onPlusPress {
+                    Button {
                         onPlusPress()
+                    } label: {
+                        Image(systemName: "plus")
                     }
-                } label: {
-                    Image(systemName: "plus")
+                    .buttonStyle(.plain)
                 }
             }
             .padding(.horizontal, 5)
