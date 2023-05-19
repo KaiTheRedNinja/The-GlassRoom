@@ -16,6 +16,9 @@ enum FileSystem {
         case courseWorks(String)
         case courseMaterials(String)
         case submissions(String, String)
+        case studentReferences(String)
+        case teacherReferences(String)
+        case userProfiles
 
         var fileName: String {
             switch self {
@@ -25,6 +28,9 @@ enum FileSystem {
             case .courseWorks(let courseId): return "courses/\(courseId)/courseWorks/courseWorks.json"
             case .courseMaterials(let courseId): return "courses/\(courseId)/courseMaterials.json"
             case .submissions(let courseId, let courseWorkId): return "courses/\(courseId)/courseWorks/\(courseWorkId)_submissions.json"
+            case .studentReferences(let courseId): return "courses/\(courseId)/studentReferences.json"
+            case .teacherReferences(let courseId): return "courses/\(courseId)/teacherReferences.json"
+            case .userProfiles: return "userProfiles.json"
             }
         }
     }

@@ -34,12 +34,12 @@ struct SingleCoursePostListView: View {
                                    students: profilesManager.students[postsManager.courseId] ?? [],
                                    isEmpty: (profilesManager.teachers[postsManager.courseId] ?? []).isEmpty &&
                                             (profilesManager.students[postsManager.courseId] ?? []).isEmpty,
-                                   isLoading: false,
-                                   hasNextPage: false,
-                                   loadList: { _ in profilesManager.loadProfiles(for: postsManager.courseId) },
-                                   refreshList: { profilesManager.loadProfiles(for: postsManager.courseId) })
+                                   isLoading: profilesManager.loading,
+                                   hasNextPage: profilesManager.hasNextPage,
+                                   loadList: { profilesManager.loadList(for: postsManager.courseId, bypassCache: $0) },
+                                   refreshList: { profilesManager.refreshList(for: postsManager.courseId) })
             .onAppear {
-                GlobalUserProfilesDataManager.global.loadProfiles(for: postsManager.courseId)
+                profilesManager.loadList(for: postsManager.courseId)
             }
         default:
             CoursePostListView(selectedPost: $selectedPost,

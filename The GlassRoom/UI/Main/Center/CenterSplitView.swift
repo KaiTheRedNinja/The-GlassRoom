@@ -90,7 +90,7 @@ struct CenterSplitView: View {
             if currentPage == .userRegister,
                (profileManager.students[course]?.isEmpty ?? true) &&
                (profileManager.teachers[course]?.isEmpty ?? true) {
-                profileManager.loadProfiles(for: course)
+                profileManager.loadList(for: course)
             }
 
             // TODO: Intelligently refresh
