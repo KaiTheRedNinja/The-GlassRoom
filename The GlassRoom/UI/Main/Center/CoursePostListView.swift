@@ -22,7 +22,7 @@ struct CoursePostListView: View {
     /// Refresh, using the next page token if needed
     var refreshList: () -> Void
     
-    @ObservedObject var postsManager: CoursePostsDataManager
+    var onPlusPress: (() -> Void)?
 
     var body: some View {
         ZStack {
@@ -69,7 +69,9 @@ struct CoursePostListView: View {
                 Spacer()
                 
                 Button {
-                    postsManager.createNewPost()
+                    if let onPlusPress {
+                        onPlusPress()
+                    }
                 } label: {
                     Image(systemName: "plus")
                 }

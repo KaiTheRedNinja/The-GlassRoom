@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import GlassRoomTypes
 
 struct SingleCoursePostListView: View {
     @Binding var selectedPost: CoursePost?
     @Binding var displayOption: CenterSplitView.CourseDisplayOption
     @State var updateFlag: Int
+    @State var plusPressed = false
 
     @ObservedObject var postsManager: CoursePostsDataManager
 
@@ -31,7 +33,17 @@ struct SingleCoursePostListView: View {
                            isLoading: postsManager.loading,
                            hasNextPage: postsManager.hasNextPage,
                            loadList: { postsManager.loadList(bypassCache: $0) },
-                           refreshList: { postsManager.refreshList() })
+                           refreshList: { postsManager.refreshList() },
+                           onPlusPress: { plusPressed.toggle() })
+        .sheet(isPresented: $plusPressed) {
+            CreateNewPostView(onCreateAnnouncement: {
+                
+            }, onCreateCourseWork: {
+                
+            }, onCreateCourseWorkMaterial: {
+                
+            })
+        }
     }
 
     var postData: [CoursePost] {

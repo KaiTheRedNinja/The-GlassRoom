@@ -36,6 +36,55 @@ public struct CourseWork: Codable, Equatable {
     public var gradeCategory: GradeCategory?
     public var assignment: Assignment?
     public var multipleChoiceQuestion: MultipleChoiceQuestion?
+    
+    public init(courseId: String,
+                id: String,
+                title: String,
+                description: String? = nil,
+                materials: [AssignmentMaterial]? = nil,
+                state: CourseWorkState,
+                alternateLink: String,
+                creationTime: String,
+                updateTime: String,
+                dueDate: DueDate? = nil,
+                dueTime: TimeOfDay? = nil,
+                scheduledTime: String? = nil,
+                maxPoints: Double? = nil,
+                workType: CourseWorkType,
+                associatedWithDeveloper: Bool? = nil,
+                assigneeMode: AssigneeMode? = nil,
+                individualStudentsOptions: IndividualStudentsOptions? = nil,
+                submissionModificationMode: SubmissionModificationMode? = nil,
+                creatorUserId: String,
+                topicId: String? = nil,
+                gradeCategory: GradeCategory? = nil,
+                assignment: Assignment? = nil,
+                multipleChoiceQuestion: MultipleChoiceQuestion? = nil
+    ) {
+        self.courseId = courseId
+        self.id = id
+        self.title = title
+        self.description = description
+        self.materials = materials
+        self.state = state
+        self.alternateLink = alternateLink
+        self.creationTime = creationTime
+        self.updateTime = updateTime
+        self.dueDate = dueDate
+        self.dueTime = dueTime
+        self.scheduledTime = scheduledTime
+        self.maxPoints = maxPoints
+        self.workType = workType
+        self.associatedWithDeveloper = associatedWithDeveloper
+        self.assigneeMode = assigneeMode
+        self.individualStudentsOptions = individualStudentsOptions
+        self.submissionModificationMode = submissionModificationMode
+        self.creatorUserId = creatorUserId
+        self.topicId = topicId
+        self.gradeCategory = gradeCategory
+        self.assignment = assignment
+        self.multipleChoiceQuestion = multipleChoiceQuestion
+    }
 }
 
 public extension CourseWork {

@@ -24,6 +24,34 @@ public struct CourseAnnouncement: Codable, Equatable {
     public var assigneeMode: AssigneeMode?
     public var individualStudentsOptions: IndividualStudentsOptions?
     public var creatorUserId: String
+    
+    public init(courseId:
+                String,
+                id: String,
+                text: String,
+                materials: [AssignmentMaterial]? = nil,
+                state: AnnouncementState,
+                alternateLink: String,
+                creationTime: String,
+                updateTime: String,
+                scheduledTime: String? = nil,
+                assigneeMode: AssigneeMode? = nil,
+                individualStudentsOptions: IndividualStudentsOptions? = nil,
+                creatorUserId: String
+    ) {
+        self.courseId = courseId
+        self.id = id
+        self.text = text
+        self.materials = materials
+        self.state = state
+        self.alternateLink = alternateLink
+        self.creationTime = creationTime
+        self.updateTime = updateTime
+        self.scheduledTime = scheduledTime
+        self.assigneeMode = assigneeMode
+        self.individualStudentsOptions = individualStudentsOptions
+        self.creatorUserId = creatorUserId
+    }
 }
 
 public extension CourseAnnouncement {
