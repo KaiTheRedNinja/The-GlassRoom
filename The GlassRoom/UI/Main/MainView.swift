@@ -66,11 +66,12 @@ struct MainView: View {
 
     func loadCachedStreams() {
         let coursesManager = GlobalCoursesDataManager.global
+        let archived = coursesManager.configuration.archive?.courses ?? []
         if coursesManager.courses.isEmpty {
             coursesManager.loadList()
         }
         let courses = coursesManager.courses
-        for course in courses {
+        for course in courses where !archived.contains(course.id) {
             let manager = CoursePostsDataManager.getManager(for: course.id)
             DispatchQueue.main.async {
                 manager.loadList(onlyCache: true)
