@@ -36,14 +36,27 @@ class GlobalUserProfilesDataManager: ObservableObject {
         GlassRoomAPI.GRCourses.GRStudents.list(
             params: .init(courseId: courseId),
             query: .init(pageSize: nil, pageToken: nil),
-            data: .init()) { result in
-                switch result {
-                case .success(let success):
-                    Log.info("Success! \(success.students)")
-                case .failure(let failure):
-                    Log.error("Failure :( \(failure.localizedDescription)")
-                }
+            data: .init()
+        ) { result in
+            switch result {
+            case .success(let success):
+                Log.info("Success! \(success.students.description)")
+            case .failure(let failure):
+                Log.error("Failure :( \(failure.localizedDescription)")
             }
+        }
+        GlassRoomAPI.GRCourses.GRTeachers.list(
+            params: .init(courseId: courseId),
+            query: .init(pageSize: nil, pageToken: nil),
+            data: .init()
+        ) { result in
+            switch result {
+            case .success(let success):
+                Log.info("Success! \(success.teachers.description)")
+            case .failure(let failure):
+                Log.error("Failure :( \(failure.localizedDescription)")
+            }
+        }
     }
 
     // MARK: Types
