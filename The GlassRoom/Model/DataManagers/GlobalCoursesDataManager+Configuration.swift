@@ -67,23 +67,21 @@ extension GlobalCoursesDataManager {
                 return customColor
             }
 
-            let asciiValue = courseId.reduce(0) { partialResult, char in
-                partialResult + Int(char.asciiValue ?? 0)
+            var total: Int = 0
+            for u in courseId.unicodeScalars {
+                total += Int(UInt32(u))
             }
 
-            let redRoot = 17
-            let greenRoot = 59
-            let blueRoot = 83
+            srand48(total * 47)
+            let r = CGFloat(drand48())
 
-            let redValue = Double(asciiValue%redRoot)/Double(redRoot)
-            let greenValue = Double(asciiValue%greenRoot)/Double(greenRoot)
-            let blueValue = Double(asciiValue%blueRoot)/Double(blueRoot)
+            srand48(total)
+            let g = CGFloat(drand48())
 
-            let redComponent = redValue
-            let greenComponent = greenValue
-            let blueComponent = blueValue
+            srand48(total / 47)
+            let b = CGFloat(drand48())
 
-            return .init(red: redComponent, green: greenComponent, blue: blueComponent)
+            return .init(nsColor: .init(red: r, green: g, blue: b, alpha: 1))
         }
 
         func nameFor(_ courseName: String) -> String {
