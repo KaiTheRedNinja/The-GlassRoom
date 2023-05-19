@@ -147,10 +147,10 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
                     !matchingCourseGroups.contains(where: { $0.courses.contains(course.id) }) // must not be in any other grp
                 })
 
-                if index < courseGroups.count { // use the course groups
+                if index < matchingCourseGroups.count { // use the course groups
                     return GeneralCourse.group(matchingCourseGroups[index].id)
                 } else {
-                    return GeneralCourse.course(matchingCourses[index-courseGroups.count].id)
+                    return GeneralCourse.course(matchingCourses[index-matchingCourseGroups.count].id)
                 }
             case .group(let string):
                 if string == CourseGroup.archiveId,

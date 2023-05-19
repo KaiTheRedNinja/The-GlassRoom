@@ -95,8 +95,11 @@ struct CenterSplitView: View {
         case announcements = "Announcements"
         case courseWork = "Course Works"
         case courseMaterial = "Course Material"
+        case userRegister = "Register"
 
-        static var allCases: [CenterSplitView.CourseDisplayOption] = [.allPosts, .announcements, .courseWork, .courseMaterial]
+        static var allCases: [CenterSplitView.CourseDisplayOption] = [
+            .allPosts, .announcements, .courseWork, .courseMaterial, .userRegister
+        ]
     }
 }
 

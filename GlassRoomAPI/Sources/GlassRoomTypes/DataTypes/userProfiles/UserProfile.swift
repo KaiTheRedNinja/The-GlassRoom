@@ -10,8 +10,8 @@ import Foundation
 public struct UserProfile: Codable {
     public var id: String
     public var name: UPName
-    public var emailAddress: String
-    public var photoUrl: String
-    public var permissions: [GlobalPermission]
-    public var verifiedTeacher: Bool
+    public var emailAddress: String?
+    public var photoUrl: String?
+    public var permissions: [GlobalPermission]?
+    public var verifiedTeacher: Bool?
 }

@@ -110,7 +110,7 @@ struct SegmentedControlItem: View {
             return "doc"
         }
         
-        return ""
+        return "questionmark.circle"
     }
 
     private var textColor: Color {

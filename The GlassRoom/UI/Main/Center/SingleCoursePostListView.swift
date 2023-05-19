@@ -27,22 +27,30 @@ struct SingleCoursePostListView: View {
     }
 
     var body: some View {
-        CoursePostListView(selectedPost: $selectedPost,
-                           postData: postData,
-                           isEmpty: postsManager.isEmpty,
-                           isLoading: postsManager.loading,
-                           hasNextPage: postsManager.hasNextPage,
-                           loadList: { postsManager.loadList(bypassCache: $0) },
-                           refreshList: { postsManager.refreshList() },
-                           onPlusPress: { plusPressed.toggle() })
-        .sheet(isPresented: $plusPressed) {
-            CreateNewPostView(onCreateAnnouncement: {
-                
-            }, onCreateCourseWork: {
-                
-            }, onCreateCourseWorkMaterial: {
-                
-            })
+        switch displayOption {
+        case .userRegister:
+            Text("User Register")
+                .onAppear {
+                    GlobalUserProfilesDataManager.global.loadProfiles(for: postsManager.courseId)
+                }
+        default:
+            CoursePostListView(selectedPost: $selectedPost,
+                               postData: postData,
+                               isEmpty: postsManager.isEmpty,
+                               isLoading: postsManager.loading,
+                               hasNextPage: postsManager.hasNextPage,
+                               loadList: { postsManager.loadList(bypassCache: $0) },
+                               refreshList: { postsManager.refreshList() },
+                               onPlusPress: { plusPressed.toggle() })
+            .sheet(isPresented: $plusPressed) {
+                CreateNewPostView(onCreateAnnouncement: {
+
+                }, onCreateCourseWork: {
+
+                }, onCreateCourseWorkMaterial: {
+
+                })
+            }
         }
     }
 
@@ -72,6 +80,7 @@ struct SingleCoursePostListView: View {
                 default: return false
                 }
             }
+        default: return []
         }
     }
 }

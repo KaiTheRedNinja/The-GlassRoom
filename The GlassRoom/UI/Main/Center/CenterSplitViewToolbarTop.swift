@@ -26,6 +26,7 @@ struct CenterSplitViewToolbarTop: View {
                 case .announcements: return 1
                 case .courseWork: return 2
                 case .courseMaterial: return 3
+                case .userRegister: return 4
                 }
             }, set: { newValue in
                 currentPage = .allCases[newValue]
