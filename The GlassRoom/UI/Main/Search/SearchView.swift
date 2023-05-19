@@ -14,13 +14,28 @@ struct SearchView: View {
     @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
 
-    @State var selection: String?
+    @State var selection: Selection?
     @State var showPostsPreview: Bool = false
 
     @FocusState var textfieldFocused: Bool
 
     @ObservedObject var courseManager: GlobalCoursesDataManager = .global
     @Environment(\.presentationMode) var presentationMode
+
+    @State var resultCourses: [Course] = []
+    @State var resultPosts: [(Course, [CoursePost])] = []
+
+    enum Selection: Hashable {
+        case course(String)
+        case postsParent(String)
+
+        var value: String {
+            switch self {
+            case .course(let string): return string
+            case .postsParent(let string): return string
+            }
+        }
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -87,42 +102,40 @@ struct SearchView: View {
 
     var searchResults: some View {
         List(selection: $selection) {
-            let courses = matchingCourses()
-            let postParents = matchingPostsParentCourses()
-            if !courses.isEmpty {
+            if !resultCourses.isEmpty {
                 Section("Courses") {
-                    ForEach(courses, id: \.id) { course in
+                    ForEach(resultCourses, id: \.id) { course in
                         HStack {
                             Text(courseManager.configuration.nameFor(course.name))
                                 .onTapGesture {
-                                    if "course_\(course.id)" == selection {
+                                    if selection == .course(course.id) {
                                         open()
                                     } else {
-                                        selection = "course_" + course.id
+                                        selection = .course(course.id)
                                     }
                                 }
-                            if selection == "course_" + course.id && !showPostsPreview {
+                            if selection == .course(course.id) && !showPostsPreview {
                                 Spacer()
                                 Text("Press -> for preview")
                                     .font(.caption)
                                     .foregroundColor(.gray)
                             }
                         }
-                        .tag("course_" + course.id)
+                        .tag(Selection.course(course.id))
                     }
                 }
             }
 
-            if !postParents.isEmpty {
+            if !resultPosts.isEmpty {
                 Section("Posts") {
-                    ForEach(postParents, id: \.0.id) { (course, posts) in
+                    ForEach(resultPosts, id: \.0.id) { (course, posts) in
                         HStack {
                             Text(courseManager.configuration.nameFor(course.name))
                                 .onTapGesture {
-                                    if "course_\(course.id)" == selection {
+                                    if selection == .postsParent(course.id) {
                                         open()
                                     } else {
-                                        selection = "course_" + course.id
+                                        selection = .postsParent(course.id)
                                     }
                                 }
                             Text("\(posts.count) Matches")
@@ -133,6 +146,7 @@ struct SearchView: View {
                                 .font(.caption)
                                 .foregroundColor(.gray)
                         }
+                        .tag(Selection.postsParent(course.id))
                     }
                 }
             }
@@ -142,12 +156,25 @@ struct SearchView: View {
                 showPostsPreview = false
             }
         }
+        .onChange(of: searchTerm) { _ in
+            DispatchQueue.main.async {
+                resultCourses = matchingCourses()
+                resultPosts = matchingPostsParentCourses()
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.async {
+                resultCourses = matchingCourses()
+                resultPosts = matchingPostsParentCourses()
+            }
+        }
     }
 
     @ViewBuilder
     var postsPreview: some View {
         if let selection, showPostsPreview {
             Divider()
+            // TODO: Filter
             SingleCoursePostListView(
                 selectedPost: .init(get: { nil }, set: { newPost in
                     // TODO: Open the post
@@ -155,7 +182,7 @@ struct SearchView: View {
                     open(post: newPost)
                 }),
                 displayOption: .constant(.allPosts),
-                posts: .getManager(for: selection.replacingOccurrences(of: "course_", with: ""))
+                posts: .getManager(for: selection.value)
             )
             .id(selection)
         }
@@ -177,15 +204,15 @@ struct SearchView: View {
         }
         // if the filtered courses do not contain the selected course, select the first one.
         if let selection {
-            if !filteredCourses.contains(where: { "course_" + $0.id == selection }),
+            if !filteredCourses.contains(where: { selection == .course($0.id) }),
                let firstCourse = filteredCourses.first?.id {
                 DispatchQueue.main.async {
-                    self.selection = "course_" + firstCourse
+                    self.selection = .course(firstCourse)
                 }
             }
         } else if let firstCourse = filteredCourses.first?.id {
             DispatchQueue.main.async {
-                selection = "course_" + firstCourse
+                selection = .course(firstCourse)
             }
         }
         return filteredCourses
@@ -222,25 +249,25 @@ struct SearchView: View {
     func open(post: CoursePost? = nil) {
         defer { presentationMode.wrappedValue.dismiss() }
         guard let selection else { return }
-        selectedCourse = .course(selection.replacingOccurrences(of: "course_", with: ""))
+        selectedCourse = .course(selection.value)
         selectedPost = post
     }
 
     func changeSelection(by offset: Int) {
         let courses = matchingCourses()
         guard let selection,
-              let selectedIndex = courses.firstIndex(where: { "course_" + $0.id == selection })
+              let selectedIndex = courses.firstIndex(where: { selection == .course($0.id) })
         else {
             if let firstCourse = courses.first?.id {
                 DispatchQueue.main.async {
-                    self.selection = "course_" + firstCourse
+                    self.selection = .course(firstCourse)
                 }
             }
             return
         }
         let newCourse = courses[(selectedIndex+offset)%%courses.count]
         DispatchQueue.main.async {
-            self.selection = "course_" + newCourse.id
+            self.selection = .course(newCourse.id)
         }
     }
 }
