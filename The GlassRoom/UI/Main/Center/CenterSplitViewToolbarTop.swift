@@ -46,7 +46,7 @@ struct CenterSplitViewToolbarTop: View {
             Divider()
                 .offset(y: 1)
         }
-        .padding(.bottom, -7)
+        .padding(.bottom, -8)
     }
 
     var filterView: some View {

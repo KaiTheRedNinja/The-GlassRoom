@@ -35,7 +35,8 @@ struct MultiCoursePostListView: View {
     var body: some View {
         switch displayOption {
         case .userRegister:
-            Text("User Register")
+            // TODO: User register list for multiple courses
+            Text("User Register List")
         default:
             CoursePostListView(selectedPost: $selectedPost,
                                showPostCourseOrigin: true,

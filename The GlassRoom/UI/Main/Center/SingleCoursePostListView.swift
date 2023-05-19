@@ -15,6 +15,7 @@ struct SingleCoursePostListView: View {
     @State var plusPressed = false
 
     @ObservedObject var postsManager: CoursePostsDataManager
+    @ObservedObject var profilesManager: GlobalUserProfilesDataManager = .global
 
     init(selectedPost: Binding<CoursePost?>,
          displayOption: Binding<CenterSplitView.CourseDisplayOption>,
@@ -29,10 +30,17 @@ struct SingleCoursePostListView: View {
     var body: some View {
         switch displayOption {
         case .userRegister:
-            Text("User Register")
-                .onAppear {
-                    GlobalUserProfilesDataManager.global.loadProfiles(for: postsManager.courseId)
-                }
+            CourseRegisterListView(teachers: profilesManager.teachers[postsManager.courseId] ?? [],
+                                   students: profilesManager.students[postsManager.courseId] ?? [],
+                                   isEmpty: (profilesManager.teachers[postsManager.courseId] ?? []).isEmpty &&
+                                            (profilesManager.students[postsManager.courseId] ?? []).isEmpty,
+                                   isLoading: false,
+                                   hasNextPage: false,
+                                   loadList: { _ in profilesManager.loadProfiles(for: postsManager.courseId) },
+                                   refreshList: { profilesManager.loadProfiles(for: postsManager.courseId) })
+            .onAppear {
+                GlobalUserProfilesDataManager.global.loadProfiles(for: postsManager.courseId)
+            }
         default:
             CoursePostListView(selectedPost: $selectedPost,
                                postData: postData,
