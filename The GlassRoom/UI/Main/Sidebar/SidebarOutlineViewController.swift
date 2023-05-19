@@ -23,6 +23,7 @@ final class SidebarOutlineViewController: NSViewController {
     private var shouldSendSelectionUpdate: Bool = true
 
     var selectedCourse: Binding<GeneralCourse?>? = nil
+    var renamedGroup: Binding<String?>? = nil
     var courses: [Course] = []
     var courseGroups: [CourseGroup] = []
 

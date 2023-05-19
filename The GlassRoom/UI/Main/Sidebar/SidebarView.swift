@@ -12,9 +12,12 @@ struct SidebarView: View {
     @Binding var selection: GeneralCourse?
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
 
+    @State var renamedGroup: String?
+
     var body: some View {
         SidebarOutlineView(
             selectedCourse: $selection,
+            renamedGroup: $renamedGroup,
             courses: coursesManager.courses
         )
         .overlay {
@@ -38,6 +41,9 @@ struct SidebarView: View {
                     .padding(10)
             }
         }
+        .sheet(item: $renamedGroup) { item in
+            RenameCourseGroupView(groupString: item)
+        }
     }
 }
 
@@ -45,6 +51,10 @@ extension Course: Identifiable, Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+}
+
+extension String: Identifiable {
+    public var id: String { self }
 }
 
 struct SidebarCourseView: View {
