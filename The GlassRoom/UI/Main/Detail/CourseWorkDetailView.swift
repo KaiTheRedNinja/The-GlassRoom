@@ -160,13 +160,18 @@ struct CourseWorkDetailView: DetailViewPage {
                 
                 viewForSubmitButton(submission)
             }
+            .padding(.bottom, 5)
             
             if let shortAnswerSubmission = submission.shortAnswerSubmission {
                 GroupBox {
-                    Text(shortAnswerSubmission.answer)
-                        .textSelection(.enabled)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.all, 5)
+                    VStack {
+                        if let shortAnswer = shortAnswerSubmission.answer {
+                            Text(shortAnswer)
+                        }
+                    }
+                    .textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.all, 5)
                 }
             }
         }
@@ -188,6 +193,7 @@ struct CourseWorkDetailView: DetailViewPage {
                 
                 viewForSubmitButton(submission)
             }
+            .padding(.bottom, 5)
             
             if let multipleChoiceSubmission = submission.multipleChoiceSubmission {
                 if let mcquestions = courseWork.multipleChoiceQuestion {
@@ -390,7 +396,7 @@ struct CourseWorkDetailView: DetailViewPage {
         guard let hours = dueTime.hours else {
             guard let minutes = dueTime.minutes else { return "-" } // no time
             // only minutes
-            let string = "00:\(minutes)"
+            let string = "00:\(String(format: "%02d", minutes))"
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "HH:mm"
             dateFormatter.date(from: string)
@@ -409,7 +415,7 @@ struct CourseWorkDetailView: DetailViewPage {
         }
         
         // hours and minutes
-        let string = "\((hours + 8) % 24):\(minutes)"
+        let string = "\((hours + 8) % 24):\(String(format: "%02d", minutes))"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         dateFormatter.date(from: string)

@@ -51,12 +51,63 @@ struct SingleCoursePostListView: View {
                                refreshList: { postsManager.refreshList() },
                                onPlusPress: { plusPressed.toggle() })
             .sheet(isPresented: $plusPressed) {
-                CreateNewPostView(onCreateAnnouncement: {
-
-                }, onCreateCourseWork: {
-
-                }, onCreateCourseWorkMaterial: {
-
+                CreateNewPostView(onCreatePost: { post in
+                    switch post {
+                    case .announcement(let announcement):
+                        postsManager.createNewAnnouncement(courseId: postsManager.courseId,
+                                                           id: announcement.id,
+                                                           text: announcement.text,
+                                                           materials: announcement.materials,
+                                                           state: announcement.state,
+                                                           alternateLink: announcement.alternateLink,
+                                                           creationTime: announcement.creationTime,
+                                                           updateTime: announcement.updateTime,
+                                                           scheduledTime: announcement.scheduledTime,
+                                                           assigneeMode: announcement.assigneeMode,
+                                                           individualStudentsOptions: announcement.individualStudentsOptions,
+                                                           creatorUserId: announcement.creatorUserId)
+                        
+                    case .courseWork(let courseWork):
+                        postsManager.createNewCourseWork(courseId: postsManager.courseId,
+                                                         id: courseWork.id,
+                                                         title: courseWork.title,
+                                                         description: courseWork.description,
+                                                         materials: courseWork.materials,
+                                                         state: courseWork.state,
+                                                         alternateLink: courseWork.alternateLink,
+                                                         creationTime: courseWork.creationTime,
+                                                         updateTime: courseWork.updateTime,
+                                                         dueDate: courseWork.dueDate,
+                                                         dueTime: courseWork.dueTime,
+                                                         scheduledTime: courseWork.scheduledTime,
+                                                         maxPoints: courseWork.maxPoints,
+                                                         workType: courseWork.workType,
+                                                         associatedWithDeveloper: courseWork.associatedWithDeveloper,
+                                                         assigneeMode: courseWork.assigneeMode,
+                                                         individualStudentsOptions: courseWork.individualStudentsOptions,
+                                                         submissionModificationMode: courseWork.submissionModificationMode,
+                                                         creatorUserId: courseWork.creatorUserId,
+                                                         topicId: courseWork.topicId,
+                                                         gradeCategory: courseWork.gradeCategory,
+                                                         assignment: courseWork.assignment,
+                                                         multipleChoiceQuestion: courseWork.multipleChoiceQuestion)
+                        
+                    case .courseMaterial(let courseMaterial):
+                        postsManager.createNewCourseWorkMaterial(courseId: postsManager.courseId,
+                                                                 id: courseMaterial.id,
+                                                                 title: courseMaterial.title,
+                                                                 description: courseMaterial.description,
+                                                                 materials: courseMaterial.materials,
+                                                                 state: courseMaterial.state,
+                                                                 alternateLink: courseMaterial.alternateLink,
+                                                                 creationTime: courseMaterial.creationTime,
+                                                                 updateTime: courseMaterial.updateTime,
+                                                                 scheduledTime: courseMaterial.scheduledTime,
+                                                                 assigneeMode: courseMaterial.assigneeMode,
+                                                                 individualStudentsOptions: courseMaterial.individualStudentsOptions,
+                                                                 creatorUserId: courseMaterial.creatorUserId,
+                                                                 topicId: courseMaterial.topicId)
+                    }
                 })
             }
         }

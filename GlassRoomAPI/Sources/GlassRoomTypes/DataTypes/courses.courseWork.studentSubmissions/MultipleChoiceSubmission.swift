@@ -8,6 +8,6 @@
 import Foundation
 
 public struct MultipleChoiceSubmission: Codable {
-    public var answer: String
+    public var answer: String?
 }
 

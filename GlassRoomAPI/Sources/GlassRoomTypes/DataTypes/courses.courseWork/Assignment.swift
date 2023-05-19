@@ -9,4 +9,8 @@ import Foundation
 
 public struct Assignment: Codable {
     public var studentWorkFolder: DriveFolder
+    
+    public init(studentWorkFolder: DriveFolder) {
+        self.studentWorkFolder = studentWorkFolder
+    }
 }

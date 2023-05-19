@@ -8,5 +8,5 @@
 import Foundation
 
 public struct ShortAnswerSubmission: Codable {
-    public var answer: String
+    public var answer: String?
 }

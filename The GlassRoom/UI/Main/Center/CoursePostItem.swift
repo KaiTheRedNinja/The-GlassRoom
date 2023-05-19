@@ -140,7 +140,7 @@ struct CoursePostItem: View {
         guard let hours = dueTime.hours else {
             guard let minutes = dueTime.minutes else { return "-" } // no time
             // only minutes
-            let string = "00:\(minutes)"
+            let string = "00:\(String(format: "%02d", minutes)))"
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "HH:mm"
             dateFormatter.date(from: string)
@@ -159,7 +159,7 @@ struct CoursePostItem: View {
         }
         
         // hours and minutes
-        let string = "\((hours + 8) % 24):\(minutes)"
+        let string = "\((hours + 8) % 24):\(String(format: "%02d", minutes))"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         dateFormatter.date(from: string)

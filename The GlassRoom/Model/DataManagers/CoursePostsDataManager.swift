@@ -279,19 +279,32 @@ extension CoursePostsDataManager {
     }
     
     func createNewAnnouncement(courseId: String,
-                               title: String,
-                               announcementState: AnnouncementState
-    
+                               id: String,
+                               text: String,
+                               materials: [AssignmentMaterial]?,
+                               state: AnnouncementState,
+                               alternateLink: String,
+                               creationTime: String,
+                               updateTime: String,
+                               scheduledTime: String?,
+                               assigneeMode: AssigneeMode?,
+                               individualStudentsOptions: IndividualStudentsOptions?,
+                               creatorUserId: String
     ) {
         let creationAndUpdateTime = Date().iso8601withFractionalSeconds
         let newAnnouncement = CourseAnnouncement(courseId: courseId,
-                                                 id: "",
-                                                 text: title,
-                                                 state: announcementState,
-                                                 alternateLink: "",
+                                                 id: id,
+                                                 text: text,
+                                                 materials: materials,
+                                                 state: state,
+                                                 alternateLink: alternateLink,
                                                  creationTime: creationAndUpdateTime,
                                                  updateTime: creationAndUpdateTime,
-                                                 creatorUserId: "")
+                                                 scheduledTime: scheduledTime,
+                                                 assigneeMode: assigneeMode,
+                                                 individualStudentsOptions: individualStudentsOptions,
+                                                 creatorUserId: creatorUserId)
+        
         GlassRoomAPI.GRCourses.GRAnnouncements.create(params: .init(courseId: courseId),
                                                    query: VoidStringCodable(),
                                                    data: newAnnouncement) { response in
@@ -305,22 +318,55 @@ extension CoursePostsDataManager {
     }
     
     func createNewCourseWork(courseId: String,
-                             courseWorkType: CourseWorkType? = .course_work_type_unspecified,
+                             id: String,
                              title: String,
                              description: String?,
-                             courseWorkState: CourseWorkState
+                             materials: [AssignmentMaterial]?,
+                             state: CourseWorkState,
+                             alternateLink: String,
+                             creationTime: String,
+                             updateTime: String,
+                             dueDate: DueDate?,
+                             dueTime: TimeOfDay?,
+                             scheduledTime: String?,
+                             maxPoints: Double?,
+                             workType: CourseWorkType,
+                             associatedWithDeveloper: Bool?,
+                             assigneeMode: AssigneeMode?,
+                             individualStudentsOptions: IndividualStudentsOptions?,
+                             submissionModificationMode: SubmissionModificationMode?,
+                             creatorUserId: String,
+                             topicId: String?,
+                             gradeCategory: GradeCategory?,
+                             assignment: Assignment?,
+                             multipleChoiceQuestion: MultipleChoiceQuestion?
     ) {
         let creationAndUpdateTime = Date().iso8601withFractionalSeconds
         let newCourseWork = CourseWork(courseId: courseId,
-                                       id: "",
+                                       id: id,
                                        title: title,
                                        description: description,
-                                       state: courseWorkState,
-                                       alternateLink: "",
+                                       materials: materials,
+                                       state: state,
+                                       alternateLink: alternateLink,
                                        creationTime: creationAndUpdateTime,
                                        updateTime: creationAndUpdateTime,
-                                       workType: .assignment,
-                                       creatorUserId: "")
+                                       dueDate: dueDate,
+                                       dueTime: dueTime,
+                                       scheduledTime: scheduledTime,
+                                       maxPoints: maxPoints,
+                                       workType: workType,
+                                       associatedWithDeveloper: associatedWithDeveloper,
+                                       assigneeMode: assigneeMode,
+                                       individualStudentsOptions: individualStudentsOptions,
+                                       submissionModificationMode: submissionModificationMode,
+                                       creatorUserId: creatorUserId,
+                                       topicId: topicId,
+                                       gradeCategory: gradeCategory,
+                                       assignment: assignment,
+                                       multipleChoiceQuestion: multipleChoiceQuestion
+        )
+        
         GlassRoomAPI.GRCourses.GRCourseWork.create(params: .init(courseId: courseId),
                                                    query: VoidStringCodable(),
                                                    data: newCourseWork) { response in
@@ -334,20 +380,36 @@ extension CoursePostsDataManager {
     }
     
     func createNewCourseWorkMaterial(courseId: String,
+                                     id: String,
                                      title: String,
                                      description: String?,
-                                     courseWorkMaterialState: CourseWorkMaterialState
+                                     materials: [AssignmentMaterial]?,
+                                     state: CourseWorkMaterialState,
+                                     alternateLink: String,
+                                     creationTime: String,
+                                     updateTime: String,
+                                     scheduledTime: String?,
+                                     assigneeMode: AssigneeMode?,
+                                     individualStudentsOptions: IndividualStudentsOptions?,
+                                     creatorUserId: String,
+                                     topicId: String?
                                      
     ) {
         let creationAndUpdateTime = Date().iso8601withFractionalSeconds
         let newCourseWorkMaterial = CourseWorkMaterial(courseId: courseId,
-                                                       id: "",
+                                                       id: id,
                                                        title: title,
-                                                       state: courseWorkMaterialState,
-                                                       alternateLink: "",
+                                                       description: description,
+                                                       materials: materials,
+                                                       state: state,
+                                                       alternateLink: alternateLink,
                                                        creationTime: creationAndUpdateTime,
                                                        updateTime: creationAndUpdateTime,
-                                                       creatorUserId: "")
+                                                       scheduledTime: scheduledTime,
+                                                       assigneeMode: assigneeMode,
+                                                       individualStudentsOptions: individualStudentsOptions,
+                                                       creatorUserId: creatorUserId,
+                                                       topicId: topicId)
         
         GlassRoomAPI.GRCourses.GRCourseWorkMaterials.create(params: .init(courseId: courseId),
                                                    query: VoidStringCodable(),

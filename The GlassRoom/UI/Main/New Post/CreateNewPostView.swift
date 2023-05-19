@@ -25,6 +25,8 @@ struct CreateNewPostView: View {
     @State var hasDueDateAndTime = false
     @State var courseWorkMaxPoints = Int()
     @State var courseWorkType: CourseWorkType = .assignment
+    @State var MCQQuestions = [""]
+    @State var MCQQuestionsCount = 1
 
     var onCreatePost: ((CoursePost) -> Void)?
     
@@ -129,6 +131,44 @@ struct CreateNewPostView: View {
                         .font(.body)
                 }
                 
+                
+                if postTypeSelection == .coursework {
+                    if courseWorkType ==  .assignment {
+                        Section(header: Text(courseWorkType.rawValue.replacingOccurrences(of: "_", with: " ").capitalized)) {
+                            Text("kai help thanks")
+                        }
+                    } else if courseWorkType == .multiple_choice_question {
+                        Section {
+                            ForEach(0..<MCQQuestionsCount, id: \.self) { i in
+                                HStack {
+                                    Button {
+                                        MCQQuestions.remove(at: i)
+                                        MCQQuestionsCount -= 1
+                                    } label: {
+                                        Image(systemName: "minus")
+                                    }
+                                    
+                                    TextField("Choice \(i)", text: $MCQQuestions[i])
+                                }
+                                .tag(i)
+                            }
+                        } header: {
+                            HStack {
+                                Text(courseWorkType.rawValue.replacingOccurrences(of: "_", with: " ").capitalized)
+                                
+                                Spacer()
+                                
+                                Button {
+                                    MCQQuestions.append("")
+                                    MCQQuestionsCount += 1
+                                } label: {
+                                    Image(systemName: "plus")
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 Section("Coursework Points (Optional)") {
                     TextField("Max Points", text: Binding(
                         get: { String(courseWorkMaxPoints) },
@@ -147,6 +187,12 @@ struct CreateNewPostView: View {
                             .animation(.default, value: hasDueDateAndTime)
                     }
                 }
+                
+                Section("Additional materials (optional)") {
+                    Text("Kai please help")
+                }
+                
+                
             }
             .formStyle(.grouped)
         }
@@ -177,6 +223,7 @@ struct CreateNewPostView: View {
         // TODO: - Add ability to attach materials to posts
         // TODO: - Add ability to schedule posts
         // TODO: - Add ability to assign posts to only certain students
+        
         VStack {
             Button {
                 switch postTypeSelection {
@@ -190,7 +237,7 @@ struct CreateNewPostView: View {
                                            alternateLink: "",
                                            creationTime: "",
                                            updateTime: "",
-                                           scheduledTime: "",
+                                           scheduledTime: nil,
                                            assigneeMode: .all_students,
                                            individualStudentsOptions: nil,
                                            creatorUserId: ""
@@ -207,9 +254,9 @@ struct CreateNewPostView: View {
                                    alternateLink: "",
                                    creationTime: "",
                                    updateTime: "",
-                                   dueDate: convertDateToDueDate(dueDateAndTime),
-                                   dueTime: convertDateToTimeOfDay(dueDateAndTime),
-                                   scheduledTime: "",
+                                   dueDate: hasDueDateAndTime ? convertDateToDueDate(dueDateAndTime) : nil,
+                                   dueTime: hasDueDateAndTime ? convertDateToTimeOfDay(dueDateAndTime) : nil,
+                                   scheduledTime: nil,
                                    maxPoints: courseWorkMaxPoints < 1 ? nil : Double(courseWorkMaxPoints),
                                    workType: courseWorkType,
                                    associatedWithDeveloper: nil,
@@ -219,8 +266,8 @@ struct CreateNewPostView: View {
                                    creatorUserId: "",
                                    topicId: "",
                                    gradeCategory: nil,
-                                   assignment: nil,
-                                   multipleChoiceQuestion: nil
+                                   assignment: courseWorkType == .assignment ? Assignment(studentWorkFolder: DriveFolder(id: "", title: "", alternateLink: "")) : nil,
+                                   multipleChoiceQuestion: courseWorkType == .multiple_choice_question ? MultipleChoiceQuestion(choices: MCQQuestions) : nil
                                   )
                     ))
                 case .courseworkMaterial:
@@ -234,7 +281,7 @@ struct CreateNewPostView: View {
                                        alternateLink: "",
                                        creationTime: "",
                                        updateTime: "",
-                                       scheduledTime: "",
+                                       scheduledTime: nil,
                                        assigneeMode: .all_students,
                                        individualStudentsOptions: nil,
                                        creatorUserId: "",
@@ -259,29 +306,52 @@ struct CreateNewPostView: View {
     }
     
     func convertDateToDueDate(_ date: Date) -> DueDate? {
+        let utcDate = convertToUTC(date)
+        
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        let components = calendar.dateComponents([.year, .month, .day], from: utcDate)
         let day = components.day
         let month = components.month
         let year = components.year
-        
-        print("asad \(DueDate(year: year ?? 0, month: month ?? 0, day: day ?? 0))")
-        
+                
         return DueDate(year: year ?? 0, month: month ?? 0, day: day ?? 0)
     }
     
     func convertDateToTimeOfDay(_ date: Date) -> TimeOfDay? {
+        let utcDate = convertToUTC(date)
+                
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.hour, .minute, .second], from: date)
+        let components = calendar.dateComponents([.hour, .minute, .second, .nanosecond], from: utcDate)
         let hour = components.hour
         let minute = components.minute
         let second = components.second
-        
-        print("asad \(TimeOfDay(hours: hour, minutes: minute, seconds: second))")
-        
-        return TimeOfDay(hours: hour, minutes: minute, seconds: second, nanos: 1)
+        let nanos = components.nanosecond
+                
+        return TimeOfDay(hours: hour, minutes: minute, seconds: second, nanos: nanos)
     }
     
+    func convertToUTC(_ date: Date) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        // Set the local timezone
+        let localTimeZone = TimeZone.current
+        dateFormatter.timeZone = localTimeZone
+        
+        // Get the current UTC offset
+        let utcOffset = TimeZone.current.secondsFromGMT()
+        
+        // Calculate the UTC date
+        if let utcDate = Calendar.current.date(byAdding: .second, value: -utcOffset, to: date) {
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            let utcDateString = dateFormatter.string(from: utcDate)
+            if let utcDateConverted = dateFormatter.date(from: utcDateString) {
+                return utcDateConverted
+            }
+        }
+        
+        return Date()
+    }
 }
 
 struct CreateNewPostView_Previews: PreviewProvider {

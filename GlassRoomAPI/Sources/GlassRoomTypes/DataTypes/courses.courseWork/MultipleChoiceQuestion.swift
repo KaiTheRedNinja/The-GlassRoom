@@ -9,4 +9,8 @@ import Foundation
 
 public struct MultipleChoiceQuestion: Codable {
     public var choices: [String]
+    
+    public init(choices: [String]) {
+        self.choices = choices
+    }
 }

@@ -14,6 +14,7 @@ struct SegmentedControl: View {
 
     @Binding
     private var preselectedIndex: Int
+    var getSymbolForLabel: (String) -> String
 
     /// A view that creates a segmented control from an array of text labels.
     /// - Parameters:
@@ -24,18 +25,21 @@ struct SegmentedControl: View {
     init(
         _ selection: Binding<Int>,
         options: [String],
-        prominent: Bool = false
+        prominent: Bool = false,
+        getSymbolForLabel: @escaping (String) -> String
     ) {
         self._preselectedIndex = selection
         self.options = options
         self.prominent = prominent
+        self.getSymbolForLabel = getSymbolForLabel
     }
-
+    
     var body: some View {
         HStack(spacing: 8) {
             ForEach(options.indices, id: \.self) { index in
                 SegmentedControlItem(
                     label: options[index],
+                    image: getSymbolForLabel(options[index]),
                     active: preselectedIndex == index,
                     action: {
                         preselectedIndex = index
@@ -52,6 +56,7 @@ struct SegmentedControl: View {
 struct SegmentedControlItem: View {
     private let color: Color = Color(nsColor: .selectedControlColor)
     let label: String
+    let image: String
     let active: Bool
     let action: () -> Void
     let prominent: Bool
@@ -71,9 +76,9 @@ struct SegmentedControlItem: View {
     var body: some View {
         VStack {
             if active {
-                Label(label, systemImage: getSymbolForLabel(label))
+                Label(label, systemImage: image)
             } else {
-                Image(systemName: getSymbolForLabel(label))
+                Image(systemName: image)
             }
         }
         .font(.subheadline)
@@ -97,20 +102,6 @@ struct SegmentedControlItem: View {
             isPressing = false
         }
 
-    }
-    
-    func getSymbolForLabel(_ label: String) -> String {
-        if label == "All Posts" {
-            return "list.bullet"
-        } else if label == "Announcements" {
-            return "megaphone"
-        } else if label == "Course Works" {
-            return "square.and.pencil"
-        } else if label == "Course Material" {
-            return "doc"
-        }
-        
-        return "questionmark.circle"
     }
 
     private var textColor: Color {
