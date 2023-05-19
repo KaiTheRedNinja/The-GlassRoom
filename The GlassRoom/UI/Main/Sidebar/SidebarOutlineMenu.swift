@@ -50,10 +50,13 @@ final class SidebarOutlineMenu: NSMenu {
         case .group(_):
             items = [
                 menuItem("Rename Group", action: #selector(renameGroup)),
-                menuItem("Remove Group", action: #selector(deleteGroup))
+                menuItem("Remove Group", action: #selector(deleteGroup)),
+                menuItem("Archive Group", action: #selector(archive))
             ]
         default:
-            items = []
+            items = [
+                menuItem("Archive Course", action: #selector(archive))
+            ]
         }
     }
 
@@ -74,6 +77,32 @@ final class SidebarOutlineMenu: NSMenu {
         case .group(let string):
             outlineView.courseGroups.removeAll(where: { $0.id == string })
             outlineView.updateGroups?(outlineView.courseGroups)
+        default: return
+        }
+    }
+
+    @objc
+    func archive() {
+        guard let item = item as? GeneralCourse else { return }
+        switch item {
+        case .group(let string):
+            // archive all courses in the group
+            print("Archiving group \(string)")
+        case .course(let string):
+            // archive that course
+            print("Archiving course \(string)")
+            let config = GlobalCoursesDataManager.global.configuration
+            if config.archive == nil {
+                config.archive = .init(
+                    id: CourseGroup.archiveId,
+                    groupName: CourseGroup.archiveId,
+                    groupType: .enrolled,
+                    courses: [string])
+            } else {
+                config.archive?.courses.append(string)
+                config.objectWillChange.send()
+            }
+            config.saveToFileSystem()
         default: return
         }
     }

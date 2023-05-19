@@ -24,6 +24,8 @@ final class SidebarOutlineViewController: NSViewController {
 
     var selectedCourse: Binding<GeneralCourse?>? = nil
     var renamedGroup: Binding<String?>? = nil
+    var archive: Binding<CourseGroup?>? = nil
+
     var courses: [Course] = []
     var courseGroups: [CourseGroup] = []
 
@@ -86,7 +88,7 @@ final class SidebarOutlineViewController: NSViewController {
 extension SidebarOutlineViewController: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         guard let item else {
-            return 2 // teaching and enrolled
+            return 2 + (archive?.wrappedValue == nil ? 0 : 1) // teaching and enrolled and maybe archive
         }
         if let item = item as? GeneralCourse {
             switch item {
@@ -98,11 +100,16 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
                     group.groupType == matchType // must match type
                 })
                 let coursesCount = courses.filter({ course in
+                    !(archive?.wrappedValue?.courses.contains(course.id) ?? false) && // must not be archived
                     course.courseType == matchType && // must match type
                     !matchingCourseGroups.contains(where: { $0.courses.contains(course.id) }) // must not be in any other grp
                 }).count
                 return matchingCourseGroups.count + coursesCount
             case .group(let string):
+                if string == CourseGroup.archiveId,
+                   let courses = archive?.wrappedValue?.courses {
+                    return courses.count
+                }
                 if let courseGroup = courseGroups.first(where: { $0.id == string }) {
                     return courseGroup.courses.count
                 }
@@ -120,6 +127,9 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
             if index == 1 {
                 return GeneralCourse.allEnrolled
             }
+            if index == 2 {
+                return GeneralCourse.group(CourseGroup.archiveId)
+            }
             fatalError("Unexpected top level value found: \(index)")
         }
         if let item = item as? GeneralCourse {
@@ -132,6 +142,7 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
                     group.groupType == matchType // must match type
                 })
                 let matchingCourses = courses.filter({ course in
+                    !(archive?.wrappedValue?.courses.contains(course.id) ?? false) && // must not be archived
                     course.courseType == matchType && // must match type
                     !matchingCourseGroups.contains(where: { $0.courses.contains(course.id) }) // must not be in any other grp
                 })
@@ -142,6 +153,10 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
                     return GeneralCourse.course(matchingCourses[index-courseGroups.count].id)
                 }
             case .group(let string):
+                if string == CourseGroup.archiveId,
+                   let courseId = archive?.wrappedValue?.courses[index].id {
+                    return GeneralCourse.course(courseId)
+                }
                 if let courseGroup = courseGroups.first(where: { $0.id == string }) {
                     return GeneralCourse.course(courseGroup.courses[index])
                 }
@@ -204,6 +219,10 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
         var courseType: Course.CourseType
         switch destinationItem {
         case .group(let groupString):
+            // anything can be moved to the archive
+            if groupString == CourseGroup.archiveId {
+                return .move
+            }
             guard let groupItem = courseGroups.first(where: { $0.id == groupString }) else {
                 Log.error("Could not get group item for \(groupString)")
                 return []
@@ -289,11 +308,16 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
                                       groupType: courseItemType,
                                       courses: newGroupStrings))
         case .group(let destinationString):
-            guard let groupIndex = courseGroups.firstIndex(where: { $0.id == destinationString })
-            else { return false }
-            Log.info("Moving item to group: \(itemStrings) to group \(destinationString) #\(index)")
             let insertionIndex = max(0, index)
-            courseGroups[groupIndex].courses.insert(contentsOf: itemStrings, at: insertionIndex)
+            if destinationString == CourseGroup.archiveId {
+                Log.info("Archiving \(itemStrings)")
+                archive?.wrappedValue?.courses.insert(contentsOf: itemStrings, at: insertionIndex)
+            } else {
+                guard let groupIndex = courseGroups.firstIndex(where: { $0.id == destinationString })
+                else { return false }
+                Log.info("Moving item to group: \(itemStrings) to group \(destinationString) #\(index)")
+                courseGroups[groupIndex].courses.insert(contentsOf: itemStrings, at: insertionIndex)
+            }
         case .allTeaching, .allEnrolled:
             // no further actions required, since by default
             // everything would go under either teaching or enrolled.

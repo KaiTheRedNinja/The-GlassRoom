@@ -35,6 +35,7 @@ struct SidebarOutlineView: NSViewControllerRepresentable {
         nsViewController.courseGroups = configuration.courseGroups
         nsViewController.selectedCourse = $selectedCourse
         nsViewController.renamedGroup = $renamedGroup
+        nsViewController.archive = $configuration.archive
         nsViewController.outlineView.reloadData()
         nsViewController.updateSelection()
         return
