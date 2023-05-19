@@ -46,16 +46,19 @@ final class SidebarOutlineMenu: NSMenu {
     /// - Parameter isFile: A flag indicating that the item is a file instead of a directory
     private func setupMenu() {
         guard let item = item as? GeneralCourse else { return }
+
+        let isArchived = GlobalCoursesDataManager.global.configuration.archive?.courses.contains(item.id) ?? false
+
         switch item {
         case .group(_):
             items = [
                 menuItem("Rename Group", action: #selector(renameGroup)),
                 menuItem("Remove Group", action: #selector(deleteGroup)),
-                menuItem("Archive Group", action: #selector(archive))
+                menuItem("\(isArchived ? "Unarchive" : "Archive") Group", action: #selector(archive))
             ]
         default:
             items = [
-                menuItem("Archive Course", action: #selector(archive))
+                menuItem("\(isArchived ? "Unarchive" : "Archive") Course", action: #selector(archive))
             ]
         }
     }
@@ -84,26 +87,32 @@ final class SidebarOutlineMenu: NSMenu {
     @objc
     func archive() {
         guard let item = item as? GeneralCourse else { return }
-        switch item {
-        case .group(let string):
-            // archive all courses in the group
-            print("Archiving group \(string)")
-        case .course(let string):
-            // archive that course
-            print("Archiving course \(string)")
-            let config = GlobalCoursesDataManager.global.configuration
-            if config.archive == nil {
-                config.archive = .init(
-                    id: CourseGroup.archiveId,
-                    groupName: CourseGroup.archiveId,
-                    groupType: .enrolled,
-                    courses: [string])
-            } else {
-                config.archive?.courses.append(string)
-                config.objectWillChange.send()
+        let isArchived = GlobalCoursesDataManager.global.configuration.archive?.courses.contains(item.id) ?? false
+
+        if isArchived {
+            GlobalCoursesDataManager.global.configuration.archive?.courses.removeAll(where: { $0.id == item.id })
+        } else {
+            switch item {
+            case .group(let string):
+                // archive all courses in the group
+                print("Archiving group \(string)")
+            case .course(let string):
+                // archive that course
+                print("Archiving course \(string)")
+                let config = GlobalCoursesDataManager.global.configuration
+                if config.archive == nil {
+                    config.archive = .init(
+                        id: CourseGroup.archiveId,
+                        groupName: CourseGroup.archiveId,
+                        groupType: .enrolled,
+                        courses: [string])
+                } else {
+                    config.archive?.courses.append(string)
+                    config.objectWillChange.send()
+                }
+                config.saveToFileSystem()
+            default: return
             }
-            config.saveToFileSystem()
-        default: return
         }
     }
 }

@@ -285,6 +285,7 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
         guard let itemDestination = item as? GeneralCourse else { return false }
 
         // remove the items from where they came from
+        archive?.wrappedValue?.courses.removeAll(where: { itemStrings.contains($0) })
         for index in 0..<courseGroups.count {
             courseGroups[index].courses.removeAll(where: { itemStrings.contains($0) })
         }
