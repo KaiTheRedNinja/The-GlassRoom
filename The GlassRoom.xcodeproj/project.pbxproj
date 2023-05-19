@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A08172D2A1706120000705F /* CreateNewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A08172C2A1706120000705F /* CreateNewPostView.swift */; };
 		6AA0583B2A0FEB90005A9BDB /* LinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA0583A2A0FEB90005A9BDB /* LinkPreview.swift */; };
 		6AD406D02A10B6B100343500 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD406CF2A10B6B100343500 /* SettingsView.swift */; };
 		6AD406D42A10D96800343500 /* CoursePostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD406D32A10D96800343500 /* CoursePostItem.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A08172C2A1706120000705F /* CreateNewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewPostView.swift; sourceTree = "<group>"; };
 		6AA0583A2A0FEB90005A9BDB /* LinkPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPreview.swift; sourceTree = "<group>"; };
 		6AD406CF2A10B6B100343500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6AD406D32A10D96800343500 /* CoursePostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostItem.swift; sourceTree = "<group>"; };
@@ -109,6 +111,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A08172B2A1705740000705F /* New Post */ = {
+			isa = PBXGroup;
+			children = (
+				6A08172C2A1706120000705F /* CreateNewPostView.swift */,
+			);
+			path = "New Post";
+			sourceTree = "<group>";
+		};
 		6AA058392A0FEB80005A9BDB /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +156,7 @@
 				93757D7C2A0FBAD20063AB67 /* Sidebar */,
 				9373B01F2A10646500C8923B /* Center */,
 				93ACB2382A106F450040C88E /* Detail */,
+				6A08172B2A1705740000705F /* New Post */,
 				93ACB2372A106F3D0040C88E /* Search */,
 			);
 			path = Main;
@@ -380,6 +391,7 @@
 				93757D722A0F9A240063AB67 /* SidebarView.swift in Sources */,
 				9348580A2A125DA1008B84A7 /* AnnouncementDetailView.swift in Sources */,
 				9348580E2A125DB5008B84A7 /* CourseMaterialDetailView.swift in Sources */,
+				6A08172D2A1706120000705F /* CreateNewPostView.swift in Sources */,
 				93ACB2492A10D8930040C88E /* CenterSplitViewToolbarTop.swift in Sources */,
 				93757D682A0E7D280063AB67 /* SignInView.swift in Sources */,
 				934858032A11F7AA008B84A7 /* CoursePostsDataManager.swift in Sources */,
@@ -538,7 +550,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -549,7 +561,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -568,7 +580,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -579,7 +591,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

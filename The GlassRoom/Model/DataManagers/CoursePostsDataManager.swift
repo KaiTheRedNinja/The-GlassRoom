@@ -276,4 +276,87 @@ extension CoursePostsDataManager {
             }
         }
     }
+    
+    func createNewAnnouncement(courseId: String,
+                               title: String,
+                               announcementState: AnnouncementState
+    
+    ) {
+        let creationAndUpdateTime = Date().iso8601withFractionalSeconds
+        let newAnnouncement = CourseAnnouncement(courseId: courseId,
+                                                 id: "",
+                                                 text: title,
+                                                 state: announcementState,
+                                                 alternateLink: "",
+                                                 creationTime: creationAndUpdateTime,
+                                                 updateTime: creationAndUpdateTime,
+                                                 creatorUserId: "")
+        GlassRoomAPI.GRCourses.GRAnnouncements.create(params: .init(courseId: courseId),
+                                                   query: VoidStringCodable(),
+                                                   data: newAnnouncement) { response in
+            switch response {
+            case .success(let success):
+                print(success)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+    }
+    
+    func createNewCourseWork(courseId: String,
+                             courseWorkType: CourseWorkType? = .course_work_type_unspecified,
+                             title: String,
+                             description: String? = nil,
+                             courseWorkState: CourseWorkState
+    ) {
+        let creationAndUpdateTime = Date().iso8601withFractionalSeconds
+        let newCourseWork = CourseWork(courseId: courseId,
+                                       id: "",
+                                       title: title,
+                                       description: description,
+                                       state: courseWorkState,
+                                       alternateLink: "",
+                                       creationTime: creationAndUpdateTime,
+                                       updateTime: creationAndUpdateTime,
+                                       workType: .assignment,
+                                       creatorUserId: "")
+        GlassRoomAPI.GRCourses.GRCourseWork.create(params: .init(courseId: courseId),
+                                                   query: VoidStringCodable(),
+                                                   data: newCourseWork) { response in
+            switch response {
+            case .success(let success):
+                print(success)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+    }
+    
+    func createNewCourseWorkMaterial(courseId: String,
+                                     title: String,
+                                     description: String?,
+                                     courseWorkMaterialState: CourseWorkMaterialState
+                                     
+    ) {
+        let creationAndUpdateTime = Date().iso8601withFractionalSeconds
+        let newCourseWorkMaterial = CourseWorkMaterial(courseId: courseId,
+                                                       id: "",
+                                                       title: title,
+                                                       state: courseWorkMaterialState,
+                                                       alternateLink: "",
+                                                       creationTime: creationAndUpdateTime,
+                                                       updateTime: creationAndUpdateTime,
+                                                       creatorUserId: "")
+        
+        GlassRoomAPI.GRCourses.GRCourseWorkMaterials.create(params: .init(courseId: courseId),
+                                                   query: VoidStringCodable(),
+                                                   data: newCourseWorkMaterial) { response in
+            switch response {
+            case .success(let success):
+                print(success)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+    }
 }

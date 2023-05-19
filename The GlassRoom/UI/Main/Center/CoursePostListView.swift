@@ -21,6 +21,8 @@ struct CoursePostListView: View {
     var loadList: (_ bypassCache: Bool) -> Void
     /// Refresh, using the next page token if needed
     var refreshList: () -> Void
+    
+    var onPlusPress: (() -> Void)?
 
     var body: some View {
         ZStack {
@@ -63,14 +65,25 @@ struct CoursePostListView: View {
                     }
                     .offset(y: -1)
                 }
+                
                 Spacer()
+                
+                Button {
+                    if let onPlusPress {
+                        onPlusPress()
+                    }
+                } label: {
+                    Image(systemName: "plus")
+                }
             }
             .padding(.horizontal, 5)
             .frame(height: 25)
             .frame(maxWidth: .infinity)
             .background(.thinMaterial)
             .overlay(alignment: .top) {
-                Divider()
+                VStack(spacing: 0) {
+                    Divider()
+                }
             }
             .padding(.top, -7)
         }
