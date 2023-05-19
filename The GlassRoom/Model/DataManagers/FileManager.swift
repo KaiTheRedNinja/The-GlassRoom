@@ -21,16 +21,19 @@ enum FileSystem {
         case userProfiles
 
         var fileName: String {
+            guard let currentUserEmail = UserAuthModel.shared.email else {
+                fatalError("Could not save cache")
+            }
             switch self {
-            case .courses: return "courseCache.json"
-            case .courseConfigurations: return "courseConfigurations.json"
-            case .announcements(let courseId): return "courses/\(courseId)/announcements.json"
-            case .courseWorks(let courseId): return "courses/\(courseId)/courseWorks/courseWorks.json"
-            case .courseMaterials(let courseId): return "courses/\(courseId)/courseMaterials.json"
-            case .submissions(let courseId, let courseWorkId): return "courses/\(courseId)/courseWorks/\(courseWorkId)_submissions.json"
-            case .studentReferences(let courseId): return "courses/\(courseId)/studentReferences.json"
-            case .teacherReferences(let courseId): return "courses/\(courseId)/teacherReferences.json"
-            case .userProfiles: return "userProfiles.json"
+            case .courses: return "\(currentUserEmail)/courseCache.json"
+            case .courseConfigurations: return "\(currentUserEmail)/courseConfigurations.json"
+            case .announcements(let courseId): return "\(currentUserEmail)/courses/\(courseId)/announcements.json"
+            case .courseWorks(let courseId): return "\(currentUserEmail)/courses/\(courseId)/courseWorks/courseWorks.json"
+            case .courseMaterials(let courseId): return "\(currentUserEmail)/courses/\(courseId)/courseMaterials.json"
+            case .submissions(let courseId, let courseWorkId): return "\(currentUserEmail)/courses/\(courseId)/courseWorks/\(courseWorkId)_submissions.json"
+            case .studentReferences(let courseId): return "\(currentUserEmail)/courses/\(courseId)/studentReferences.json"
+            case .teacherReferences(let courseId): return "\(currentUserEmail)/courses/\(courseId)/teacherReferences.json"
+            case .userProfiles: return "\(currentUserEmail)/userProfiles.json"
             }
         }
     }
