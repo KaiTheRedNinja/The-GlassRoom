@@ -45,6 +45,24 @@ final class SidebarOutlineMenu: NSMenu {
     /// Setup the menu and disables certain items when `isFile` is false
     /// - Parameter isFile: A flag indicating that the item is a file instead of a directory
     private func setupMenu() {
-        items = []
+        guard let item = item as? GeneralCourse else { return }
+        switch item {
+        case .group(_):
+            items = [
+                menuItem("Rename", action: #selector(rename))
+            ]
+        default:
+            items = []
+        }
+    }
+
+    @objc
+    func rename() {
+        guard let item = item as? GeneralCourse else { return }
+        switch item {
+        case .group(let string):
+            outlineView.renamedGroup?.wrappedValue = string
+        default: return
+        }
     }
 }

@@ -15,7 +15,7 @@ import GlassRoomTypes
 final class SidebarOutlineViewController: NSViewController {
 
     var scrollView: NSScrollView!
-    var outlineView: NSOutlineView!
+    var outlineView: VerticallyAlignedOutlineView!
 
     /// This helps determine whether or not to send an `openTab` when the selection changes.
     /// Used b/c the state may update when the selection changes, but we don't necessarily want
@@ -23,6 +23,7 @@ final class SidebarOutlineViewController: NSViewController {
     private var shouldSendSelectionUpdate: Bool = true
 
     var selectedCourse: Binding<GeneralCourse?>? = nil
+    var renamedGroup: Binding<String?>? = nil
     var courses: [Course] = []
     var courseGroups: [CourseGroup] = []
 
@@ -34,7 +35,7 @@ final class SidebarOutlineViewController: NSViewController {
         self.scrollView.hasVerticalScroller = true
         self.view = scrollView
 
-        self.outlineView = NSOutlineView()
+        self.outlineView = VerticallyAlignedOutlineView()
         self.outlineView.dataSource = self
         self.outlineView.delegate = self
         self.outlineView.autosaveExpandedItems = true
@@ -277,6 +278,10 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
                 return false
             }
             Log.info("Creating group: \(itemStrings) and course \(destinationString) #\(index)")
+            // remove the destinationString from where they came from
+            for index in 0..<courseGroups.count {
+                courseGroups[index].courses.removeAll(where: { $0 == destinationString })
+            }
             // get the course type of the item strings
             var newGroupStrings = itemStrings
             newGroupStrings.insert(destinationString, at: 0)
@@ -297,6 +302,36 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
 
         updateGroups?(courseGroups)
         return true
+    }
+
+    func outlineView(_ outlineView: NSOutlineView, persistentObjectForItem item: Any?) -> Any? {
+        guard let item = item as? GeneralCourse else { return nil }
+        switch item {
+        case .course(let string):
+            return "course_\(string)"
+        case .allTeaching:
+            return "allTeaching"
+        case .allEnrolled:
+            return "allEnrolled"
+        case .group(let string):
+            return "group_\(string)"
+        }
+    }
+
+    func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
+        guard let object = object as? String else { return nil }
+        let components = object.split(separator: "_")
+        guard let firstComponent = components.first else { return nil }
+
+        switch firstComponent {
+        case "course": return GeneralCourse.course(String(components[1]))
+        case "allTeaching": return GeneralCourse.allTeaching
+        case "allEnrolled": return GeneralCourse.allEnrolled
+        case "group": return GeneralCourse.group(String(components[1]))
+        default:
+            Log.error("Requested item for unrecognised persistent object \(object)")
+            return nil
+        }
     }
 }
 
@@ -395,5 +430,11 @@ extension SidebarOutlineViewController: NSMenuDelegate {
             }
         }
         menu.update()
+    }
+}
+
+class VerticallyAlignedOutlineView: NSOutlineView {
+    override func frameOfOutlineCell(atRow row: Int) -> NSRect {
+        super.frameOfOutlineCell(atRow: row)
     }
 }
