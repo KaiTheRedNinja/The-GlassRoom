@@ -116,7 +116,7 @@ struct SearchView: View {
                                 }
                             if selection == .course(course.id) && !showPostsPreview {
                                 Spacer()
-                                Text("Press -> for preview")
+                                Text("Press → for preview")
                                     .font(.caption)
                                     .foregroundColor(.gray)
                             }
@@ -142,7 +142,7 @@ struct SearchView: View {
                                 .font(.caption)
                                 .foregroundColor(.gray)
                             Spacer()
-                            Text("Press -> for preview")
+                            Text("Press → for preview")
                                 .font(.caption)
                                 .foregroundColor(.gray)
                         }
