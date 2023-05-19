@@ -51,9 +51,13 @@ class GlobalUserProfilesDataManager: ObservableObject {
                                              studentWorkFolder: student.studentWorkFolder))
                 }
                 DispatchQueue.main.async {
-                    self.userProfiles.append(contentsOf: newProfiles)
+                    self.userProfiles.mergeWith(other: newProfiles,
+                                                isSame: { $0.id == $1.id },
+                                                isBefore: { $0.name.fullName < $1.name.fullName })
                     if self.students[courseId] != nil {
-                        self.students[courseId]?.append(contentsOf: newStudents)
+                        self.students[courseId]?.mergeWith(other: newStudents,
+                                                           isSame: { $0.userId == $1.userId },
+                                                           isBefore: { $0.userId < $1.userId })
                     } else {
                         self.students[courseId] = newStudents
                     }
@@ -79,9 +83,13 @@ class GlobalUserProfilesDataManager: ObservableObject {
                                              userId: teacher.userId))
                 }
                 DispatchQueue.main.async {
-                    self.userProfiles.append(contentsOf: newProfiles)
+                    self.userProfiles.mergeWith(other: newProfiles,
+                                                isSame: { $0.id == $1.id },
+                                                isBefore: { $0.name.fullName < $1.name.fullName })
                     if self.teachers[courseId] != nil {
-                        self.teachers[courseId]?.append(contentsOf: newTeachers)
+                        self.teachers[courseId]?.mergeWith(other: newTeachers,
+                                                           isSame: { $0.userId == $1.userId },
+                                                           isBefore: { $0.userId < $1.userId })
                     } else {
                         self.teachers[courseId] = newTeachers
                     }

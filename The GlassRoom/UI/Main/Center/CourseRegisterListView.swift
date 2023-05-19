@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GlassRoomTypes
 
 struct CourseRegisterListView: View {
     var teachers: [GlobalUserProfilesDataManager.TeacherReference]
@@ -80,22 +81,16 @@ struct CourseRegisterListView: View {
     var postsContent: some View {
         List {
             Section("Teachers") {
-                ForEach(teachers, id: \.userId) { teacherRef in
-                    if let teacher = profileManager.userProfilesMap[teacherRef.userId] {
-                        Text(teacher.name.fullName)
-                    } else {
-                        Text("Could not get teacher")
-                    }
+                let teachersMapped = teachers.compactMap({ profileManager.userProfilesMap[$0.userId] })
+                ForEach(teachersMapped.sorted(by: { $0.name.fullName < $1.name.fullName }), id: \.id) { teacher in
+                    Text(teacher.name.fullName)
                 }
             }
 
             Section("Students") {
-                ForEach(students, id: \.userId) { studentRef in
-                    if let student = profileManager.userProfilesMap[studentRef.userId] {
-                        Text(student.name.fullName)
-                    } else {
-                        Text("Could not get student")
-                    }
+                let studentsMapped = students.compactMap({ profileManager.userProfilesMap[$0.userId] })
+                ForEach(studentsMapped.sorted(by: { $0.name.fullName < $1.name.fullName }), id: \.id) { student in
+                    Text(student.name.fullName)
                 }
             }
 

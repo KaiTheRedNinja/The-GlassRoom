@@ -84,7 +84,15 @@ struct CenterSplitView: View {
             if manager.courseAnnouncements.isEmpty || manager.lastRefreshDate == nil {
                 manager.loadList(bypassCache: true)
             }
-            
+
+            // if the class register is currently focused, reload it
+            let profileManager = GlobalUserProfilesDataManager.global
+            if currentPage == .userRegister,
+               (profileManager.students[course]?.isEmpty ?? true) &&
+               (profileManager.teachers[course]?.isEmpty ?? true) {
+                profileManager.loadProfiles(for: course)
+            }
+
             // TODO: Intelligently refresh
         default: return
         }
