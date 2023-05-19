@@ -11,24 +11,43 @@ import GlassRoomTypes
 struct CoursePostItem: View {
 
     var coursePost: CoursePost
-    
+
+    @ObservedObject var profilesManager: GlobalUserProfilesDataManager = .global
+
     var body: some View {
         HStack {
             VStack {
                 switch coursePost {
-                case .announcement(_):
-                    Image(systemName: "megaphone")
-                        .foregroundColor(.accentColor)
+                case .announcement(let announcement):
+                    AsyncImage(url: URL(string: "https:" + (profilesManager.userProfilesMap[announcement.creatorUserId]?.photoUrl ?? ""))) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .mask { Circle() }
+                    } placeholder: {
+                        Image(systemName: "megaphone")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.accentColor)
+                            .frame(width: 20, height: 20)
+                    }
                 case .courseWork(_):
                     Image(systemName: "square.and.pencil")
+                        .resizable()
+                        .scaledToFit()
                         .foregroundColor(.accentColor)
+                        .frame(width: 20, height: 20)
                 case .courseMaterial(_):
                     Image(systemName: "doc")
+                        .resizable()
+                        .scaledToFit()
                         .foregroundColor(.accentColor)
+                        .frame(width: 20, height: 20)
                 }
                 Spacer()
             }
-            .frame(width: 15)
+            .padding(.top, 5)
+            .frame(width: 30)
 
             switch coursePost {
             case .announcement(let announcement):
