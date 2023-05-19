@@ -49,7 +49,8 @@ final class SidebarOutlineMenu: NSMenu {
         switch item {
         case .group(_):
             items = [
-                menuItem("Rename", action: #selector(rename))
+                menuItem("Rename Group", action: #selector(renameGroup)),
+                menuItem("Remove Group", action: #selector(deleteGroup))
             ]
         default:
             items = []
@@ -57,11 +58,22 @@ final class SidebarOutlineMenu: NSMenu {
     }
 
     @objc
-    func rename() {
+    func renameGroup() {
         guard let item = item as? GeneralCourse else { return }
         switch item {
         case .group(let string):
             outlineView.renamedGroup?.wrappedValue = string
+        default: return
+        }
+    }
+
+    @objc
+    func deleteGroup() {
+        guard let item = item as? GeneralCourse else { return }
+        switch item {
+        case .group(let string):
+            outlineView.courseGroups.removeAll(where: { $0.id == string })
+            outlineView.updateGroups?(outlineView.courseGroups)
         default: return
         }
     }

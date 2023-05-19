@@ -300,6 +300,8 @@ extension SidebarOutlineViewController: NSOutlineViewDataSource {
             break
         }
 
+        // clear any empty groups
+        courseGroups.removeAll(where: { $0.courses.isEmpty })
         updateGroups?(courseGroups)
         return true
     }
