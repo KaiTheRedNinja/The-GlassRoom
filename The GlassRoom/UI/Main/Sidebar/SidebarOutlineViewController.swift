@@ -15,7 +15,7 @@ import GlassRoomTypes
 final class SidebarOutlineViewController: NSViewController {
 
     var scrollView: NSScrollView!
-    var outlineView: NSOutlineView!
+    var outlineView: VerticallyAlignedOutlineView!
 
     /// This helps determine whether or not to send an `openTab` when the selection changes.
     /// Used b/c the state may update when the selection changes, but we don't necessarily want
@@ -35,7 +35,7 @@ final class SidebarOutlineViewController: NSViewController {
         self.scrollView.hasVerticalScroller = true
         self.view = scrollView
 
-        self.outlineView = NSOutlineView()
+        self.outlineView = VerticallyAlignedOutlineView()
         self.outlineView.dataSource = self
         self.outlineView.delegate = self
         self.outlineView.autosaveExpandedItems = true
@@ -430,5 +430,11 @@ extension SidebarOutlineViewController: NSMenuDelegate {
             }
         }
         menu.update()
+    }
+}
+
+class VerticallyAlignedOutlineView: NSOutlineView {
+    override func frameOfOutlineCell(atRow row: Int) -> NSRect {
+        super.frameOfOutlineCell(atRow: row)
     }
 }

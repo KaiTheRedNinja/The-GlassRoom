@@ -107,7 +107,6 @@ struct SidebarCourseView: View {
                 Text(title)
                     .bold()
                     .foregroundColor(.gray)
-                    .padding(.bottom, 2.5)
                 Spacer()
             }
             .padding(.horizontal, 5)
@@ -118,7 +117,6 @@ struct SidebarCourseView: View {
                     Text(group.groupName)
                         .bold()
                         .foregroundColor(.gray)
-                        .padding(.bottom, 2.5)
                     Spacer()
                 }
                 .padding(.horizontal, 5)
