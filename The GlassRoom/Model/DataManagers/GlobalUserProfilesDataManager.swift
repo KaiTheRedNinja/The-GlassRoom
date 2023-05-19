@@ -117,7 +117,6 @@ class GlobalUserProfilesDataManager: ObservableObject {
         ) { result in
             switch result {
             case .success(let success):
-                Log.info("Success! \(success.students.count)")
                 // save the data
                 var newProfiles: [UserProfile] = []
                 var newStudents: [StudentReference] = []
@@ -172,7 +171,6 @@ class GlobalUserProfilesDataManager: ObservableObject {
         ) { result in
             switch result {
             case .success(let success):
-                Log.info("Success! \(success.teachers.count)")
                 // save the data
                 var newProfiles: [UserProfile] = []
                 var newTeachers: [TeacherReference] = []

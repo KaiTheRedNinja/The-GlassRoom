@@ -83,14 +83,14 @@ struct CourseRegisterListView: View {
             Section("Teachers") {
                 let teachersMapped = teachers.compactMap({ profileManager.userProfilesMap[$0.userId] })
                 ForEach(teachersMapped.sorted(by: { $0.name.fullName < $1.name.fullName }), id: \.id) { teacher in
-                    Text(teacher.name.fullName)
+                    CourseRegisterItem(userProfile: teacher)
                 }
             }
 
             Section("Students") {
                 let studentsMapped = students.compactMap({ profileManager.userProfilesMap[$0.userId] })
                 ForEach(studentsMapped.sorted(by: { $0.name.fullName < $1.name.fullName }), id: \.id) { student in
-                    Text(student.name.fullName)
+                    CourseRegisterItem(userProfile: student)
                 }
             }
 
