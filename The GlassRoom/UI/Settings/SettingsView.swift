@@ -13,6 +13,7 @@ struct SettingsView: View {
     @ObservedObject var userModel: UserAuthModel = .shared
 
     @AppStorage("debugMode") var debugMode: Bool = false
+    @AppStorage("useSenderPfpAsIcon") var useSenderPfpAsIcon: Bool = true
     
     @Environment(\.dismiss) var dismiss
     
@@ -130,6 +131,7 @@ struct SettingsView: View {
         VStack {
             Text("General Settings")
             Toggle("Debug Mode", isOn: $debugMode)
+            Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
         }
     }
     

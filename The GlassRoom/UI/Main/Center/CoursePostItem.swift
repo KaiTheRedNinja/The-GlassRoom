@@ -14,12 +14,16 @@ struct CoursePostItem: View {
 
     @ObservedObject var profilesManager: GlobalUserProfilesDataManager = .global
 
+    @AppStorage("useSenderPfpAsIcon") var useSenderPfpAsIcon: Bool = true
+
     var body: some View {
         HStack {
             VStack {
                 switch coursePost {
                 case .announcement(let announcement):
-                    AsyncImage(url: URL(string: "https:" + (profilesManager.userProfilesMap[announcement.creatorUserId]?.photoUrl ?? ""))) { image in
+                    AsyncImage(url: useSenderPfpAsIcon ? URL(
+                        string: "https:" + (profilesManager.userProfilesMap[announcement.creatorUserId]?.photoUrl ?? "")
+                    ) : nil) { image in
                         image
                             .resizable()
                             .scaledToFit()
