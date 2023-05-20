@@ -8,6 +8,7 @@
 import SwiftUI
 import GlassRoomTypes
 
+let loadQueue = DispatchQueue(label: "loadQueue")
 struct SearchView: View {
     @SceneStorage("searchTerm") var searchTerm: String = ""
 
@@ -157,13 +158,13 @@ struct SearchView: View {
             }
         }
         .onChange(of: searchTerm) { _ in
-            DispatchQueue.main.async {
+            loadQueue.async {
                 resultCourses = matchingCourses()
                 resultPosts = matchingPostsParentCourses()
             }
         }
         .onAppear {
-            DispatchQueue.main.async {
+            loadQueue.async {
                 resultCourses = matchingCourses()
                 resultPosts = matchingPostsParentCourses()
             }
@@ -174,17 +175,30 @@ struct SearchView: View {
     var postsPreview: some View {
         if let selection, showPostsPreview {
             Divider()
-            // TODO: Filter
-            SingleCoursePostListView(
-                selectedPost: .init(get: { nil }, set: { newPost in
+            switch selection {
+            case .course(_):
+                SingleCoursePostListView(
+                    selectedPost: .init(get: { nil }, set: { newPost in
+                        // TODO: Open the post
+                        guard let newPost else { return }
+                        open(post: newPost)
+                    }),
+                    displayOption: .constant(.allPosts),
+                    posts: .getManager(for: selection.value)
+                )
+                .id(selection)
+            case .postsParent(let courseId):
+                List(selection: Binding<CoursePost?>(get: { nil }, set: { newPost in
                     // TODO: Open the post
                     guard let newPost else { return }
                     open(post: newPost)
-                }),
-                displayOption: .constant(.allPosts),
-                posts: .getManager(for: selection.value)
-            )
-            .id(selection)
+                })) {
+                    ForEach(resultPosts.first(where: { $0.0.id == courseId })?.1 ?? []) { post in
+                        CoursePostItem(coursePost: post)
+                            .tag(post)
+                    }
+                }
+            }
         }
     }
 
