@@ -48,9 +48,9 @@ struct AnnouncementDetailView: DetailViewPage {
             copiedLink.wrappedValue = false
             textContent.wrappedValue = makeLinksHyperLink(announcement.text)
         }
-        .onChange(of: announcement) { _ in
+        .onChange(of: announcement) { newAnnouncement in
             copiedLink.wrappedValue = false
-            textContent.wrappedValue = makeLinksHyperLink(announcement.text)
+            textContent.wrappedValue = makeLinksHyperLink(newAnnouncement.text)
         }
     }
 }

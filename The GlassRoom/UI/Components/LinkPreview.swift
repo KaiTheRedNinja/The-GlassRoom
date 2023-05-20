@@ -86,8 +86,8 @@ struct LinkPreview: NSViewRepresentable {
                     metadata.imageProvider = nil
                 }
 
-                MetaCache.cache(metadata: metadata)
-                
+//                MetaCache.cache(metadata: metadata)
+
                 DispatchQueue.main.async {
                     nsView.metadata = metadata
                 }
@@ -96,9 +96,9 @@ struct LinkPreview: NSViewRepresentable {
     }
 }
 
+// NOTE: This causes size issues
 struct MetaCache {
     static func cache(metadata: LPLinkMetadata) {
-
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: metadata, requiringSecureCoding: true)
             UserDefaults.standard.setValue(data, forKey: metadata.url!.absoluteString)
