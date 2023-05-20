@@ -143,9 +143,6 @@ struct SearchView: View {
                                 .font(.caption)
                                 .foregroundColor(.gray)
                             Spacer()
-                            Text("Press → for preview")
-                                .font(.caption)
-                                .foregroundColor(.gray)
                         }
                         .tag(Selection.postsParent(course.id))
                     }
@@ -153,7 +150,12 @@ struct SearchView: View {
             }
         }
         .onChange(of: selection) { _ in
-            if selection == nil {
+            if let selection {
+                switch selection {
+                case .course(_): break
+                case .postsParent(_): showPostsPreview = true
+                }
+            } else {
                 showPostsPreview = false
             }
         }
@@ -268,20 +270,38 @@ struct SearchView: View {
     }
 
     func changeSelection(by offset: Int) {
-        let courses = matchingCourses()
-        guard let selection,
-              let selectedIndex = courses.firstIndex(where: { selection == .course($0.id) })
-        else {
-            if let firstCourse = courses.first?.id {
-                DispatchQueue.main.async {
-                    self.selection = .course(firstCourse)
+        // figure out what the current selection is
+
+        let selectedCourseIndex = resultCourses.firstIndex(where: { selection?.value == $0.id })
+        let selectedPostParentIndex = resultPosts.firstIndex(where: { selection?.value == $0.0.id })
+        var selectionIndex = -1
+
+        if let selection {
+            switch selection {
+            case .course(_):
+                if let selectedCourseIndex {
+                    selectionIndex = selectedCourseIndex
+                }
+            case .postsParent(_):
+                if let selectedPostParentIndex {
+                    selectionIndex = resultCourses.count + selectedPostParentIndex
                 }
             }
-            return
         }
-        let newCourse = courses[(selectedIndex+offset)%%courses.count]
-        DispatchQueue.main.async {
-            self.selection = .course(newCourse.id)
+        // else, not selected. Leave selection index at -1.
+
+        // figure out what the next one is and select it
+        let newIndex = (selectionIndex + offset)%%(resultCourses.count + resultPosts.count)
+        if newIndex < resultCourses.count { // new index is a course
+            let newCourse = resultCourses[newIndex]
+            DispatchQueue.main.async {
+                self.selection = .course(newCourse.id)
+            }
+        } else { // new index is a post parent
+            let newPostParent = resultPosts[newIndex-resultCourses.count]
+            DispatchQueue.main.async {
+                self.selection = .postsParent(newPostParent.0.id)
+            }
         }
     }
 }
