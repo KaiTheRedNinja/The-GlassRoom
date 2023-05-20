@@ -14,6 +14,7 @@ struct SettingsView: View {
 
     @AppStorage("debugMode") var debugMode: Bool = false
     @AppStorage("useSenderPfpAsIcon") var useSenderPfpAsIcon: Bool = true
+    @AppStorage("enableBionicReading") var enableBionicReading: Bool = false
     
     @Environment(\.dismiss) var dismiss
     
@@ -132,6 +133,7 @@ struct SettingsView: View {
             Text("General Settings")
             Toggle("Debug Mode", isOn: $debugMode)
             Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
+            Toggle("Enable bionic reading", isOn: $enableBionicReading)
         }
     }
     
