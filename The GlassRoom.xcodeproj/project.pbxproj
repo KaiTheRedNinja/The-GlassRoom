@@ -70,6 +70,7 @@
 		9348580B2A125DAB008B84A7 /* CourseWorkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWorkDetailView.swift; sourceTree = "<group>"; };
 		9348580D2A125DB5008B84A7 /* CourseMaterialDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseMaterialDetailView.swift; sourceTree = "<group>"; };
 		9348580F2A133982008B84A7 /* GlobalCoursesDataManager+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GlobalCoursesDataManager+Configuration.swift"; sourceTree = "<group>"; };
+		9359F6E32A1A3305001A8A1F /* PRIVACY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PRIVACY.md; sourceTree = "<group>"; };
 		93650B122A19A7E100F5D865 /* CoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostListView.swift; sourceTree = "<group>"; };
 		9373FBEF2A16E9B3007AB503 /* RenameCourseGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameCourseGroupView.swift; sourceTree = "<group>"; };
 		93757D602A0E74500063AB67 /* UserAuthModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthModel.swift; sourceTree = "<group>"; };
@@ -272,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				93AED68E2A1744110005854C /* README.md */,
+				9359F6E32A1A3305001A8A1F /* PRIVACY.md */,
 				937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */,
 				937EA5B82A0CD9F8005F11C5 /* The GlassRoom */,
 				937EA5B72A0CD9F8005F11C5 /* Products */,
