@@ -21,6 +21,7 @@
 		9348580C2A125DAB008B84A7 /* CourseWorkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348580B2A125DAB008B84A7 /* CourseWorkDetailView.swift */; };
 		9348580E2A125DB5008B84A7 /* CourseMaterialDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348580D2A125DB5008B84A7 /* CourseMaterialDetailView.swift */; };
 		934858102A133982008B84A7 /* GlobalCoursesDataManager+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348580F2A133982008B84A7 /* GlobalCoursesDataManager+Configuration.swift */; };
+		93650B132A19A7E100F5D865 /* CoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93650B122A19A7E100F5D865 /* CoursePostListView.swift */; };
 		9373FBF02A16E9B3007AB503 /* RenameCourseGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373FBEF2A16E9B3007AB503 /* RenameCourseGroupView.swift */; };
 		93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 93757D5C2A0E73DA0063AB67 /* GoogleSignIn */; };
 		93757D612A0E74500063AB67 /* UserAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D602A0E74500063AB67 /* UserAuthModel.swift */; };
@@ -49,7 +50,7 @@
 		93AED6942A179D9F0005854C /* CourseRegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6932A179D9F0005854C /* CourseRegisterItem.swift */; };
 		93E0B8B42A136DD400ED917A /* CustomisationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0B8B32A136DD400ED917A /* CustomisationView.swift */; };
 		93F229742A10DD0200B44C85 /* GeneralCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229732A10DD0200B44C85 /* GeneralCourse.swift */; };
-		93F229762A10E5B800B44C85 /* CoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229752A10E5B800B44C85 /* CoursePostListView.swift */; };
+		93F229762A10E5B800B44C85 /* UniversalCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229752A10E5B800B44C85 /* UniversalCoursePostListView.swift */; };
 		93F229782A10E9CE00B44C85 /* Date+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229772A10E9CE00B44C85 /* Date+Format.swift */; };
 		93F2297A2A10EA9D00B44C85 /* MultiCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229792A10EA9D00B44C85 /* MultiCoursePostListView.swift */; };
 /* End PBXBuildFile section */
@@ -69,6 +70,7 @@
 		9348580B2A125DAB008B84A7 /* CourseWorkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWorkDetailView.swift; sourceTree = "<group>"; };
 		9348580D2A125DB5008B84A7 /* CourseMaterialDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseMaterialDetailView.swift; sourceTree = "<group>"; };
 		9348580F2A133982008B84A7 /* GlobalCoursesDataManager+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GlobalCoursesDataManager+Configuration.swift"; sourceTree = "<group>"; };
+		93650B122A19A7E100F5D865 /* CoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostListView.swift; sourceTree = "<group>"; };
 		9373FBEF2A16E9B3007AB503 /* RenameCourseGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameCourseGroupView.swift; sourceTree = "<group>"; };
 		93757D602A0E74500063AB67 /* UserAuthModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthModel.swift; sourceTree = "<group>"; };
 		93757D622A0E79650063AB67 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -100,7 +102,7 @@
 		93AED6932A179D9F0005854C /* CourseRegisterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterItem.swift; sourceTree = "<group>"; };
 		93E0B8B32A136DD400ED917A /* CustomisationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisationView.swift; sourceTree = "<group>"; };
 		93F229732A10DD0200B44C85 /* GeneralCourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCourse.swift; sourceTree = "<group>"; };
-		93F229752A10E5B800B44C85 /* CoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostListView.swift; sourceTree = "<group>"; };
+		93F229752A10E5B800B44C85 /* UniversalCoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalCoursePostListView.swift; sourceTree = "<group>"; };
 		93F229772A10E9CE00B44C85 /* Date+Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Format.swift"; sourceTree = "<group>"; };
 		93F229792A10EA9D00B44C85 /* MultiCoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCoursePostListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,17 +180,34 @@
 			path = Debug;
 			sourceTree = "<group>";
 		};
+		93650B102A19A7B200F5D865 /* Post List */ = {
+			isa = PBXGroup;
+			children = (
+				93F229792A10EA9D00B44C85 /* MultiCoursePostListView.swift */,
+				934858052A123405008B84A7 /* SingleCoursePostListView.swift */,
+				93F229752A10E5B800B44C85 /* UniversalCoursePostListView.swift */,
+				93650B122A19A7E100F5D865 /* CoursePostListView.swift */,
+				6AD406D32A10D96800343500 /* CoursePostItem.swift */,
+			);
+			path = "Post List";
+			sourceTree = "<group>";
+		};
+		93650B112A19A7CE00F5D865 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				93AED6912A1781A50005854C /* CourseRegisterListView.swift */,
+				93AED6932A179D9F0005854C /* CourseRegisterItem.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		9373B01F2A10646500C8923B /* Center */ = {
 			isa = PBXGroup;
 			children = (
+				93650B102A19A7B200F5D865 /* Post List */,
+				93650B112A19A7CE00F5D865 /* Register */,
 				93757D732A0F9AC50063AB67 /* CenterSplitView.swift */,
 				93ACB2482A10D8930040C88E /* CenterSplitViewToolbarTop.swift */,
-				93F229792A10EA9D00B44C85 /* MultiCoursePostListView.swift */,
-				934858052A123405008B84A7 /* SingleCoursePostListView.swift */,
-				93F229752A10E5B800B44C85 /* CoursePostListView.swift */,
-				6AD406D32A10D96800343500 /* CoursePostItem.swift */,
-				93AED6912A1781A50005854C /* CourseRegisterListView.swift */,
-				93AED6932A179D9F0005854C /* CourseRegisterItem.swift */,
 			);
 			path = Center;
 			sourceTree = "<group>";
@@ -419,9 +438,10 @@
 				93757D792A0F9BEB0063AB67 /* GlobalCoursesDataManager.swift in Sources */,
 				93AED6902A1769DA0005854C /* GlobalUserProfilesDataManager.swift in Sources */,
 				9348580C2A125DAB008B84A7 /* CourseWorkDetailView.swift in Sources */,
-				93F229762A10E5B800B44C85 /* CoursePostListView.swift in Sources */,
+				93F229762A10E5B800B44C85 /* UniversalCoursePostListView.swift in Sources */,
 				9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */,
 				93757D662A0E7B430063AB67 /* Secrets (Sensitive).swift in Sources */,
+				93650B132A19A7E100F5D865 /* CoursePostListView.swift in Sources */,
 				934858082A1249CD008B84A7 /* CourseWorkSubmissionDataManager.swift in Sources */,
 				9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */,
 				938300EE2A0FBB4C006581B8 /* SidebarOutlineView.swift in Sources */,
@@ -564,7 +584,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = DBBLGF84W3;
+				DEVELOPMENT_TEAM = Z88Z98GRZQ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -575,7 +595,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -594,7 +614,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = DBBLGF84W3;
+				DEVELOPMENT_TEAM = Z88Z98GRZQ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -605,7 +625,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

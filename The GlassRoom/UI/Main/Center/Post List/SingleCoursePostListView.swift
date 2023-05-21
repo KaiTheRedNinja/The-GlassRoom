@@ -42,7 +42,7 @@ struct SingleCoursePostListView: View {
                 profilesManager.loadList(for: postsManager.courseId)
             }
         default:
-            CoursePostListView(selectedPost: $selectedPost,
+            UniversalCoursePostListView(selectedPost: $selectedPost,
                                postData: postData,
                                isEmpty: postsManager.isEmpty,
                                isLoading: postsManager.loading,

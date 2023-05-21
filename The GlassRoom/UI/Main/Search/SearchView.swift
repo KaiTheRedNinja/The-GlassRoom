@@ -195,10 +195,7 @@ struct SearchView: View {
                     guard let newPost else { return }
                     open(post: newPost)
                 })) {
-                    ForEach(resultPosts.first(where: { $0.0.id == courseId })?.1 ?? []) { post in
-                        CoursePostItem(coursePost: post)
-                            .tag(post)
-                    }
+                    CoursePostListView(postData: resultPosts.first(where: { $0.0.id == courseId })?.1 ?? [])
                 }
             }
         }

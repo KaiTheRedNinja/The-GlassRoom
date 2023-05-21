@@ -1,5 +1,5 @@
 //
-//  CoursePostListView.swift
+//  UniversalCoursePostListView.swift
 //  The GlassRoom
 //
 //  Created by Kai Quan Tay on 14/5/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import GlassRoomAPI
 
-struct CoursePostListView: View {
+struct UniversalCoursePostListView: View {
     @Binding var selectedPost: CoursePost?
 
     var showPostCourseOrigin: Bool = false
@@ -94,24 +94,7 @@ struct CoursePostListView: View {
 
     var postsContent: some View {
         List(selection: $selectedPost) {
-            ForEach(postData, id: \.id) { post in
-                VStack {
-                    if showPostCourseOrigin, let firstOccurence = courseManager.courses.first(where: { $0.id == post.courseId }) {
-                        HStack {
-                            Text(courseManager.configuration.nameFor(firstOccurence.name))
-                                .bold()
-                                .foregroundColor(.gray)
-                                .font(.caption)
-                                .lineLimit(1)
-                            Spacer()
-                        }
-                        .padding(.bottom, -5)
-                    }
-                    CoursePostItem(coursePost: post)
-                        .padding(.vertical, 2.5)
-                }
-                .tag(post)
-            }
+            CoursePostListView(postData: postData, showPostCourseOrigin: showPostCourseOrigin)
 
             if hasNextPage {
                 Button("Load next page") {
