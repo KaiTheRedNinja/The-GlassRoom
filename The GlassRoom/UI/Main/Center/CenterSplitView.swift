@@ -16,17 +16,26 @@ struct CenterSplitView: View {
     @State var currentPage: CourseDisplayOption = .allPosts
 
     @StateObject var displayedCoursesManager: DisplayedCourseManager = .init()
+
+    @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
+
+    @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = true
     
     var body: some View {
         ZStack {
             Color.white.opacity(0.001) // prevent view from jumping around
             if let selectedCourse {
+                if tintToCourseColor {
+                    configuration.colorFor(selectedCourse.id)
+                        .opacity(0.1)
+                }
                 switch selectedCourse {
                 case .course(_):
                     if let coursePostsManager {
                         SingleCoursePostListView(selectedPost: $selectedPost,
                                                  displayOption: $currentPage,
                                                  posts: coursePostsManager)
+                        .scrollContentBackground(.hidden)
                     } else {
                         Text("Course post manager not found")
                     }
@@ -34,6 +43,7 @@ struct CenterSplitView: View {
                     MultiCoursePostListView(selectedPost: $selectedPost,
                                             displayOption: $currentPage,
                                             displayedCourseIds: displayedCoursesManager)
+                    .scrollContentBackground(.hidden)
                 }
             } else {
                 ZStack {

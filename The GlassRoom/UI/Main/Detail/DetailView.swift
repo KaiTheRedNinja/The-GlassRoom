@@ -16,16 +16,29 @@ struct DetailView: View {
     @State var copiedLink = false
     @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
+
+    @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
+
+    @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = true
     
     var body: some View {
         if let selectedPost {
-            switch selectedPost {
-            case .announcement(let courseAnnouncement):
-                AnnouncementDetailView(textContent: $textContent, copiedLink: $copiedLink, announcement: courseAnnouncement)
-            case .courseWork(let courseWork):
-                CourseWorkDetailView(textContent: $textContent, copiedLink: $copiedLink, courseWork: courseWork)
-            case .courseMaterial(let courseWorkMaterial):
-                CourseMaterialDetailView(textContent: $textContent, copiedLink: $copiedLink, courseWorkMaterial: courseWorkMaterial)
+            ZStack {
+                if tintToCourseColor {
+                    configuration.colorFor(selectedPost.courseId)
+                        .opacity(0.1)
+                }
+                switch selectedPost {
+                case .announcement(let courseAnnouncement):
+                    AnnouncementDetailView(textContent: $textContent, copiedLink: $copiedLink, announcement: courseAnnouncement)
+                        .scrollContentBackground(.hidden)
+                case .courseWork(let courseWork):
+                    CourseWorkDetailView(textContent: $textContent, copiedLink: $copiedLink, courseWork: courseWork)
+                        .scrollContentBackground(.hidden)
+                case .courseMaterial(let courseWorkMaterial):
+                    CourseMaterialDetailView(textContent: $textContent, copiedLink: $copiedLink, courseWorkMaterial: courseWorkMaterial)
+                        .scrollContentBackground(.hidden)
+                }
             }
         } else {
             VStack {
