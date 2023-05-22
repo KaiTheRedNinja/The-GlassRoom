@@ -22,12 +22,12 @@ class CoursePostsDataManager: ObservableObject {
             .mergedWith(other: courseCourseWorks.map({ .courseWork($0) })) { lhs, rhs in
                 lhs.id == rhs.id
             } isBefore: { lhs, rhs in
-                lhs.creationDate > rhs.creationDate
+                lhs.updateDate > rhs.updateDate
             }
             .mergedWith(other: courseCourseMaterials.map({ .courseMaterial($0) })) { lhs, rhs in
                 lhs.id == rhs.id
             } isBefore: { lhs, rhs in
-                lhs.creationDate > rhs.creationDate
+                lhs.updateDate > rhs.updateDate
             }
     }
 

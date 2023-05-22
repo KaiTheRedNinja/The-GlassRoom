@@ -35,6 +35,17 @@ enum CoursePost: Hashable, Identifiable {
         }
     }
 
+    var updateDate: Date {
+        switch self {
+        case .announcement(let courseAnnouncement):
+            return courseAnnouncement.updateDate
+        case .courseWork(let courseWork):
+            return courseWork.updateDate
+        case .courseMaterial(let courseWorkMaterial):
+            return courseWorkMaterial.updateDate
+        }
+    }
+
     var courseId: String {
         switch self {
         case .announcement(let courseAnnouncement):

@@ -86,19 +86,3 @@ public struct CourseWork: Codable, Equatable {
         self.multipleChoiceQuestion = multipleChoiceQuestion
     }
 }
-
-public extension CourseWork {
-    var creationDate: Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-
-        if let date = dateFormatter.date(from: creationTime) {
-            return date
-        } else {
-            Log.error("Could not get date for: \(creationTime)")
-            return Date()
-        }
-    }
-}
