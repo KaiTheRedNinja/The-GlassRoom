@@ -41,7 +41,7 @@ final class SidebarOutlineViewController: NSViewController {
         self.outlineView.dataSource = self
         self.outlineView.delegate = self
         self.outlineView.autosaveExpandedItems = true
-//        self.outlineView.autosaveName =
+        self.outlineView.autosaveName = "coursesSidebarAutoSave"
         self.outlineView.headerView = nil
         self.outlineView.menu = SidebarOutlineMenu(sender: self)
         self.outlineView.menu?.delegate = self
@@ -64,8 +64,6 @@ final class SidebarOutlineViewController: NSViewController {
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalScroller = false
         scrollView.autohidesScrollers = true
-
-        outlineView.expandItem(outlineView.item(atRow: 1)) // 0 is teachers, 1 is students
     }
 
     init() {
