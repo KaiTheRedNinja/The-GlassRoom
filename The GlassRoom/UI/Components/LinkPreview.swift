@@ -67,7 +67,7 @@ struct LinkPreview: NSViewRepresentable {
     }
     
     func updateNSView(_ nsView: LinkPreview.NSViewType, context: NSViewRepresentableContext<LinkPreview>) {
-        if let cachedData = MetaCache.retrieve(urlString: url.absoluteString) {
+        if let cachedData = MetaCache.shared.retrieve(urlString: url.absoluteString) {
             nsView.metadata = cachedData
         } else {
             let provider = LPMetadataProvider()
@@ -86,7 +86,7 @@ struct LinkPreview: NSViewRepresentable {
                     metadata.imageProvider = nil
                 }
 
-//                MetaCache.cache(metadata: metadata)
+                MetaCache.shared.cache(metadata: metadata)
 
                 DispatchQueue.main.async {
                     nsView.metadata = metadata
@@ -97,28 +97,18 @@ struct LinkPreview: NSViewRepresentable {
 }
 
 // NOTE: This causes size issues
-struct MetaCache {
-    static func cache(metadata: LPLinkMetadata) {
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: metadata, requiringSecureCoding: true)
-            UserDefaults.standard.setValue(data, forKey: metadata.url!.absoluteString)
-        }
-        catch let error {
-            Log.error("Error when caching: \(error.localizedDescription)")
-        }
+class MetaCache {
+    private init() {}
+    static var shared: MetaCache = .init()
+
+    private var cache: [String: LPLinkMetadata] = [:]
+
+    func cache(metadata: LPLinkMetadata) {
+        cache[metadata.url!.absoluteString] = metadata
     }
 
-    static func retrieve(urlString: String) -> LPLinkMetadata? {
-        do {
-            guard let data = UserDefaults.standard.object(forKey: urlString) as? Data,
-                  let metadata = try NSKeyedUnarchiver.unarchivedObject(ofClass: LPLinkMetadata.self, from: data) else { return nil }
-            return metadata
-        }
-
-        catch let error {
-            Log.error("Error when caching: \(error.localizedDescription)")
-            return nil
-        }
+    func retrieve(urlString: String) -> LPLinkMetadata? {
+        return cache[urlString]
     }
 }
 
