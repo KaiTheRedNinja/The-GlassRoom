@@ -8,16 +8,20 @@
 import SwiftUI
 import GlassRoomTypes
 
-struct CourseWorkTeacherSubmissionsView: View {
+struct CourseWorkTeacherSubmissionsView<AttachmentView: View>: View {
     var submissions: [StudentSubmission]
+    var courseWork: CourseWork
+    var viewForAttachment: (AssignmentSubmission) -> AttachmentView
 
     @ObservedObject var profileManager: GlobalUserProfilesDataManager = .global
 
     @SceneStorage("searchTerm") var searchTerm: String = ""
 
+    @State var selectedSubmission: StudentSubmission?
+
     var body: some View {
         NavigationSplitView {
-            List {
+            List(selection: $selectedSubmission) {
                 Section("Turned In") {
                     ForEach(matchingSubmissions(submissions: submissions,
                                                 state: .turned_in,
@@ -58,7 +62,7 @@ struct CourseWorkTeacherSubmissionsView: View {
                 VStack {
                     TextField("Search Term", text: $searchTerm)
                         .cornerRadius(5)
-                        .offset(y: 3)
+                        .offset(y: 5)
                 }
                 .frame(height: 15)
                 .padding([.horizontal, .top], 4)
@@ -71,7 +75,13 @@ struct CourseWorkTeacherSubmissionsView: View {
                 }
             }
         } detail: {
-            Text("HELLO THERE")
+            VStack {
+                if let selectedSubmission {
+                    CourseWorkStudentSubmissionView(submission: selectedSubmission,
+                                                    courseWork: courseWork,
+                                                    viewForAttachment: viewForAttachment)
+                }
+            }
         }
         .frame(width: 600, height: 400)
     }
@@ -99,8 +109,21 @@ struct CourseWorkTeacherSubmissionsView: View {
     func viewForSubmission(submission: StudentSubmission) -> some View {
         if let user = profileManager.userProfilesMap[submission.userId] {
             CourseRegisterItem(userProfile: user)
+                .tag(submission)
         } else {
             Text("Users not loaded")
         }
+    }
+}
+
+
+extension StudentSubmission: Hashable {
+    public static func == (lhs: GlassRoomTypes.StudentSubmission, rhs: GlassRoomTypes.StudentSubmission) -> Bool {
+        lhs.id == rhs.id && lhs.updateTime == rhs.updateTime
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+        hasher.combine(self.updateTime)
     }
 }

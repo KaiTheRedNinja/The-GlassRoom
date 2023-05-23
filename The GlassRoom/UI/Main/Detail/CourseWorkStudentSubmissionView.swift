@@ -16,20 +16,15 @@ struct CourseWorkStudentSubmissionView<AttachmentView: View>: View {
     @Environment(\.openURL) private var openURL
 
     var body: some View {
-        VStack {
-            if submission.courseWorkType != .course_work_type_unspecified {
-                Divider()
-                if submission.courseWorkType == .assignment {
-                    // assignment
-                    viewForAssignment(submission)
-                } else if submission.courseWorkType == .multiple_choice_question {
-                    // mcq
-                    viewForMCQ(submission)
-                } else if submission.courseWorkType == .short_answer_question {
-                    // saq
-                    viewForShortAnswer(submission)
-                }
-            }
+        if submission.courseWorkType == .assignment {
+            // assignment
+            viewForAssignment(submission)
+        } else if submission.courseWorkType == .multiple_choice_question {
+            // mcq
+            viewForMCQ(submission)
+        } else if submission.courseWorkType == .short_answer_question {
+            // saq
+            viewForShortAnswer(submission)
         }
     }
 

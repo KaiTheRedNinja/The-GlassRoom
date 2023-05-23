@@ -86,7 +86,9 @@ struct CourseWorkDetailView: DetailViewPage {
                 .background(.thickMaterial)
         }
         .sheet(isPresented: $showSubmissionsView) {
-            CourseWorkTeacherSubmissionsView(submissions: submissionManager.submissions)
+            CourseWorkTeacherSubmissionsView(submissions: submissionManager.submissions,
+                                             courseWork: courseWork,
+                                             viewForAttachment: viewForAttachment)
         }
     }
 
@@ -94,9 +96,14 @@ struct CourseWorkDetailView: DetailViewPage {
     var viewForStudentSubmission: some View {
         if submissionManager.submissions.count <= 1, let submission = submissionManager.submissions.first {
             // student view
-            CourseWorkStudentSubmissionView(submission: submission,
-                                            courseWork: courseWork,
-                                            viewForAttachment: viewForAttachment)
+            VStack {
+                if submission.courseWorkType != .course_work_type_unspecified {
+                    Divider()
+                    CourseWorkStudentSubmissionView(submission: submission,
+                                                    courseWork: courseWork,
+                                                    viewForAttachment: viewForAttachment)
+                }
+            }
         } else {
             // teacher view
             HStack {
