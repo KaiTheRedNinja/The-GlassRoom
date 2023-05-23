@@ -131,11 +131,14 @@ struct SettingsView: View {
     
     var general: some View {
         VStack {
-            Text("General Settings")
-            Toggle("Debug Mode", isOn: $debugMode)
-            Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
-            Toggle("Enable bionic reading", isOn: $enableBionicReading)
-            Toggle("Tint posts background to course color", isOn: $tintToCourseColor)
+            Spacer()
+            VStack(alignment: .leading) {
+                Toggle("Debug Mode", isOn: $debugMode)
+                Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
+                Toggle("Enable bionic reading", isOn: $enableBionicReading)
+                Toggle("Tint posts background to course color", isOn: $tintToCourseColor)
+            }
+            Spacer()
         }
     }
     

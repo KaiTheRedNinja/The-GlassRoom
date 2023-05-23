@@ -75,6 +75,7 @@ struct SidebarCourseView: View {
         switch course {
         case .course(let string):
             if let course = coursesManager.courseIdMap[string] {
+                let postsManager = CoursePostsDataManager.loadedManagers[string]
                 HStack {
                     configuration.colorFor(course.id)
                         .frame(width: 6)
@@ -98,6 +99,7 @@ struct SidebarCourseView: View {
                     }
                     .padding(.trailing, 5)
                 }
+                .opacity((postsManager == nil || postsManager!.postData.isEmpty) ? 0.4 : 1)
             } else {
                 Text("Invalid Course")
             }

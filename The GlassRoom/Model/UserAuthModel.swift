@@ -44,6 +44,11 @@ class UserAuthModel: ObservableObject {
         let clientID = Secrets.getGoogleClientID()
         let signInConfig = GIDConfiguration(clientID: clientID)
 
+        // load the email
+        if let email = UserDefaults.standard.string(forKey: "userEmail") {
+            self.email = email
+        }
+
         GIDSignIn.sharedInstance.configuration = signInConfig
         restoreSignIn()
     }
@@ -69,6 +74,11 @@ class UserAuthModel: ObservableObject {
         self.isLoggedIn = true
         self.token = user.accessToken.tokenString
         checkPermissions()
+
+        // save the email
+        if let email {
+            UserDefaults.standard.set(email, forKey: "userEmail")
+        }
     }
 
     private func restoreSignIn() {
@@ -100,6 +110,7 @@ class UserAuthModel: ObservableObject {
 
     func signOut() {
         GIDSignIn.sharedInstance.signOut()
+        UserDefaults.standard.removeObject(forKey: "userEmail")
         self.checkStatus()
     }
 
