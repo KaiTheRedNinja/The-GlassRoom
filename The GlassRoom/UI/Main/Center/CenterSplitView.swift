@@ -13,7 +13,7 @@ struct CenterSplitView: View {
     @Binding var selectedPost: CoursePost?
     
     @State var coursePostsManager: CoursePostsDataManager?
-    @State var currentPage: CourseDisplayOption = .allPosts
+    @SceneStorage("currentPage") var currentPage: CourseDisplayOption = .allPosts
 
     @StateObject var displayedCoursesManager: DisplayedCourseManager = .init()
 
