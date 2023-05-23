@@ -29,27 +29,43 @@ struct SingleCoursePostListView: View {
 
     var body: some View {
         switch displayOption {
+        case .resources:
+            CourseResourcesListView(
+                courseMaterials: postsManager.courseCourseMaterials,
+                isEmpty: postsManager.courseCourseMaterials.isEmpty,
+                isLoading: postsManager.courseWorksLoading,
+                hasNextPage: postsManager.courseWorksNextPageToken != nil,
+                loadList: { postsManager.loadList(bypassCache: $0) },
+                refreshList: { postsManager.refreshList() }
+            )
+            .onAppear {
+                postsManager.loadList()
+            }
         case .userRegister:
-            CourseRegisterListView(teachers: profilesManager.teachers[postsManager.courseId] ?? [],
-                                   students: profilesManager.students[postsManager.courseId] ?? [],
-                                   isEmpty: (profilesManager.teachers[postsManager.courseId] ?? []).isEmpty &&
-                                            (profilesManager.students[postsManager.courseId] ?? []).isEmpty,
-                                   isLoading: profilesManager.loading,
-                                   hasNextPage: profilesManager.hasNextPage,
-                                   loadList: { profilesManager.loadList(for: postsManager.courseId, bypassCache: $0) },
-                                   refreshList: { profilesManager.refreshList(for: postsManager.courseId) })
+            CourseRegisterListView(
+                teachers: profilesManager.teachers[postsManager.courseId] ?? [],
+                students: profilesManager.students[postsManager.courseId] ?? [],
+                isEmpty: (profilesManager.teachers[postsManager.courseId] ?? []).isEmpty &&
+                         (profilesManager.students[postsManager.courseId] ?? []).isEmpty,
+                isLoading: profilesManager.loading,
+                hasNextPage: profilesManager.hasNextPage,
+                loadList: { profilesManager.loadList(for: postsManager.courseId, bypassCache: $0) },
+                refreshList: { profilesManager.refreshList(for: postsManager.courseId) }
+            )
             .onAppear {
                 profilesManager.loadList(for: postsManager.courseId)
             }
         default:
-            UniversalCoursePostListView(selectedPost: $selectedPost,
-                               postData: postData,
-                               isEmpty: postsManager.isEmpty,
-                               isLoading: postsManager.loading,
-                               hasNextPage: postsManager.hasNextPage,
-                               loadList: { postsManager.loadList(bypassCache: $0) },
-                               refreshList: { postsManager.refreshList() },
-                               onPlusPress: { plusPressed.toggle() })
+            UniversalCoursePostListView(
+                selectedPost: $selectedPost,
+                postData: postData,
+                isEmpty: postsManager.isEmpty,
+                isLoading: postsManager.loading,
+                hasNextPage: postsManager.hasNextPage,
+                loadList: { postsManager.loadList(bypassCache: $0) },
+                refreshList: { postsManager.refreshList() },
+                onPlusPress: { plusPressed.toggle() }
+            )
             .sheet(isPresented: $plusPressed) {
                 CreateNewPostView(onCreatePost: { post in
                     switch post {

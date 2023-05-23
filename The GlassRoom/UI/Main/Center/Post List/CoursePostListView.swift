@@ -15,6 +15,8 @@ struct CoursePostListView: View {
 
     @ObservedObject var courseManager: GlobalCoursesDataManager = .global
 
+    var postItemView: (CoursePost) -> AnyView = { AnyView(CoursePostItem(coursePost: $0)) }
+
     var body: some View {
         ForEach(Array(postData.enumerated()), id: \.1.id) { (index, post) in
             let thisPostTimeBatch = getTimeBatch(for: postData[index].creationDate)
@@ -40,7 +42,7 @@ struct CoursePostListView: View {
                     }
                     .padding(.bottom, -5)
                 }
-                CoursePostItem(coursePost: post)
+                postItemView(post)
                     .padding(.vertical, 2.5)
             }
             .tag(post)

@@ -26,7 +26,8 @@ struct CenterSplitViewToolbarTop: View {
                 case .announcements: return 1
                 case .courseWork: return 2
                 case .courseMaterial: return 3
-                case .userRegister: return 4
+                case .resources: return 4
+                case .userRegister: return 5
                 }
             }, set: { newValue in
                 currentPage = .allCases[newValue]
@@ -39,6 +40,10 @@ struct CenterSplitViewToolbarTop: View {
                     return "square.and.pencil"
                 } else if label == "Course Material" {
                     return "doc"
+                } else if label == "Resources" {
+                    return "link"
+                } else if label == "Register" {
+                    return "person.2"
                 }
         
                 return "questionmark.circle"
