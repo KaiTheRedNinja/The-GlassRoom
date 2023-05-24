@@ -76,43 +76,57 @@ struct CourseResourcesListView: View {
     }
 
     var postsContent: some View {
-        List {
-            CoursePostListView(postData: courseMaterials.map({ .courseMaterial($0) })) { post in AnyView(
-                GroupBox {
-                    VStack(alignment: .center) {
-                        switch post {
-                        case .courseMaterial(let material):
-                            Text(material.title)
-                            ForEach(material.materials ?? []) { material in
-                                ZStack {
-                                    if let driveFile = material.driveFile?.driveFile {
-                                        LinkPreview(url: URL(string: driveFile.alternateLink)!, isAttachment: false)
-                                    }
-
-                                    if let youtubeVideo = material.youtubeVideo {
-                                        LinkPreview(url: URL(string: youtubeVideo.alternateLink)!, isAttachment: false)
-                                    }
-
-                                    if let link = material.form?.formUrl {
-                                        LinkPreview(url: URL(string: link)!, isAttachment: false)
-                                    }
-
-                                    if let materialLink = material.link {
-                                        LinkPreview(url: URL(string: materialLink.url)!, isAttachment: false)
+        GeometryReader { geometry in
+            List {
+                CoursePostListView(postData: courseMaterials.map({ .courseMaterial($0) })) { post in AnyView(
+                    GroupBox {
+                        VStack(alignment: .leading) {
+                            switch post {
+                            case .courseMaterial(let material):
+                                Text(material.title)
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                    .lineLimit(2)
+                                    .padding([.top, .horizontal], 5)
+                                
+                                let gridCount = Int(floor((geometry.size.width - 70) / 350)) < 1 ? 1 : Int(floor((geometry.size.width - 70) / 350))
+                                LazyVGrid(columns: .init(repeating: GridItem(.flexible(), spacing: 15),
+                                                         count: gridCount), // set to (materials.count > 1) ? gridCount : 1 if you want link to stretch detailview's width
+                                          spacing: 20) {
+                                    ForEach(material.materials ?? []) { material in
+                                        ZStack {
+                                            if let driveFile = material.driveFile?.driveFile {
+                                                LinkPreview(url: URL(string: driveFile.alternateLink)!, isAttachment: false)
+                                            }
+                                            
+                                            if let youtubeVideo = material.youtubeVideo {
+                                                LinkPreview(url: URL(string: youtubeVideo.alternateLink)!, isAttachment: false)
+                                            }
+                                            
+                                            if let link = material.form?.formUrl {
+                                                LinkPreview(url: URL(string: link)!, isAttachment: false)
+                                            }
+                                            
+                                            if let materialLink = material.link {
+                                                LinkPreview(url: URL(string: materialLink.url)!, isAttachment: false)
+                                            }
+                                        }
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.all, 5)
                                     }
                                 }
-                                .frame(width: 200)
+                            default:
+                                Text("Non material found")
                             }
-                        default:
-                            Text("Non material found")
                         }
+                        .animation(.spring(dampingFraction: 0.8), value: geometry.size)
                     }
-                }
-            )}
-
-            if hasNextPage {
-                Button("Load next page") {
-                    refreshList()
+                )}
+                
+                if hasNextPage {
+                    Button("Load next page") {
+                        refreshList()
+                    }
                 }
             }
         }

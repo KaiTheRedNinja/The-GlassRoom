@@ -66,7 +66,7 @@ struct MainView: View {
             } detail: {
                 SplitView {
                     CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-                        .frame(minWidth: 250)
+                        .frame(minWidth: 420)
                 } rView: {
                     ZStack {
                         Rectangle()
@@ -85,7 +85,7 @@ struct MainView: View {
                 SidebarView(selection: $selectedCourse)
             } content: {
                 CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-                    .frame(minWidth: 230)
+                    .frame(minWidth: 400)
             } detail: {
                 DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
                     .frame(minWidth: 400)
