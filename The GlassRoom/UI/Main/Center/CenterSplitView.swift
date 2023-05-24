@@ -20,54 +20,105 @@ struct CenterSplitView: View {
     @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
 
     @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = true
+    @AppStorage("useFancyUI") var useFancyUI: Bool = false
     
     var body: some View {
         ZStack {
-            Color.white.opacity(0.001) // prevent view from jumping around
-            if let selectedCourse {
-                if tintToCourseColor {
-                    configuration.colorFor(selectedCourse.id)
-                        .opacity(0.1)
-                }
-                switch selectedCourse {
-                case .course(_):
-                    if let coursePostsManager {
-                        SingleCoursePostListView(selectedPost: $selectedPost,
-                                                 displayOption: $currentPage,
-                                                 posts: coursePostsManager)
-                        .scrollContentBackground(.hidden)
-                    } else {
-                        Text("Course post manager not found")
-                    }
-                default:
-                    MultiCoursePostListView(selectedPost: $selectedPost,
-                                            displayOption: $currentPage,
-                                            displayedCourseIds: displayedCoursesManager)
-                    .scrollContentBackground(.hidden)
-                }
-            } else {
-                ZStack {
-                    Text("No Course Selected")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.secondary)
-                        .padding(.horizontal)
-                        .minimumScaleFactor(0.1)
-                        .lineLimit(1)
-                }
-                .frame(maxHeight: .infinity)
-            }
+            content
         }
         .safeAreaInset(edge: .top) {
-            CenterSplitViewToolbarTop(selectedCourse: $selectedCourse,
-                                      currentPage: $currentPage,
-                                      displayedCourseManager: displayedCoursesManager)
+            if useFancyUI {
+                CenterSplitViewToolbarTop(selectedCourse: $selectedCourse,
+                                          currentPage: $currentPage,
+                                          displayedCourseManager: displayedCoursesManager)
+                .padding(3)
+                .background {
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                }
+                .cornerRadius(10)
+                .shadow(color: .primary.opacity(0.2), radius: 4)
+                .padding([.horizontal, .top], 10)
+                .background {
+                    Rectangle()
+                        .fill(.ultraThickMaterial)
+                        .padding(.bottom, -8)
+                }
+            } else {
+                CenterSplitViewToolbarTop(selectedCourse: $selectedCourse,
+                                          currentPage: $currentPage,
+                                          displayedCourseManager: displayedCoursesManager)
+                .overlay(alignment: .bottom) {
+                    Divider()
+                        .offset(y: 1)
+                }
+                .padding(.bottom, -8)
+            }
         }
         .onChange(of: selectedCourse) { _ in
             reloadAnnouncements()
         }
         .onAppear {
             reloadAnnouncements()
+        }
+    }
+
+    @ViewBuilder
+    var content: some View {
+        if useFancyUI {
+            ZStack {
+                listContent
+            }
+            .background {
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+            }
+            .cornerRadius(15)
+            .shadow(color: .primary.opacity(0.2), radius: 4)
+            .scrollIndicators(.never)
+            .padding(10)
+        } else {
+            ZStack {
+                listContent
+            }
+        }
+    }
+
+    @ViewBuilder
+    var listContent: some View {
+        Color.white.opacity(0.001) // prevent view from jumping around
+        if let selectedCourse {
+            if tintToCourseColor {
+                configuration.colorFor(selectedCourse.id)
+                    .opacity(0.1)
+            }
+            switch selectedCourse {
+            case .course(_):
+                if let coursePostsManager {
+                    SingleCoursePostListView(selectedPost: $selectedPost,
+                                             displayOption: $currentPage,
+                                             posts: coursePostsManager)
+                    .scrollContentBackground(.hidden)
+                } else {
+                    Text("Course post manager not found")
+                }
+            default:
+                MultiCoursePostListView(selectedPost: $selectedPost,
+                                        displayOption: $currentPage,
+                                        displayedCourseIds: displayedCoursesManager)
+                .scrollContentBackground(.hidden)
+            }
+        } else {
+            ZStack {
+                Text("No Course Selected")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal)
+                    .minimumScaleFactor(0.1)
+                    .lineLimit(1)
+            }
+            .frame(maxHeight: .infinity)
         }
     }
     

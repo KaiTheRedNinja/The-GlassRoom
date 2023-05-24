@@ -59,7 +59,6 @@ struct SingleCoursePostListView: View {
             UniversalCoursePostListView(
                 selectedPost: $selectedPost,
                 postData: postData,
-                isEmpty: postsManager.isEmpty,
                 isLoading: postsManager.loading,
                 hasNextPage: postsManager.hasNextPage,
                 loadList: { postsManager.loadList(bypassCache: $0) },

@@ -50,6 +50,7 @@ struct DetailView: View {
                     .lineLimit(1)
                     .padding(.horizontal)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }

@@ -97,7 +97,6 @@ struct SidebarCourseView: View {
                             }
                         }
                     }
-                    .padding(.trailing, 5)
                 }
                 .opacity((postsManager == nil || postsManager!.postData.isEmpty) ? 0.4 : 1)
             } else {
@@ -125,13 +124,21 @@ struct SidebarCourseView: View {
                 .disabled(true)
             } else if let group = configuration.groupIdMap[string] {
                 HStack {
-                    Text(group.groupName)
-                        .bold()
-                        .foregroundColor(.gray)
-                    Spacer()
+                    Image(systemName: "folder.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 14, height: 14)
+                        .offset(x: 3)
+                        .foregroundColor(.accentColor)
+                        .disabled(true)
+                    VStack {
+                        HStack {
+                            Text(group.groupName)
+                                .lineLimit(1)
+                            Spacer()
+                        }
+                    }
                 }
-                .padding(.horizontal, 5)
-                .disabled(true)
             } else {
                 Text("Invalid course group")
             }

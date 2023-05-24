@@ -41,7 +41,6 @@ struct MultiCoursePostListView: View {
             UniversalCoursePostListView(selectedPost: $selectedPost,
                                showPostCourseOrigin: true,
                                postData: postData,
-                               isEmpty: isEmpty,
                                isLoading: isLoading,
                                hasNextPage: hasNextPage,
                                loadList: loadList,

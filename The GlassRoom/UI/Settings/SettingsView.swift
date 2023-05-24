@@ -16,6 +16,7 @@ struct SettingsView: View {
     @AppStorage("useSenderPfpAsIcon") var useSenderPfpAsIcon: Bool = true
     @AppStorage("enableBionicReading") var enableBionicReading: Bool = false
     @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = true
+    @AppStorage("useFancyUI") var useFancyUI: Bool = false
     
     @Environment(\.dismiss) var dismiss
     
@@ -137,6 +138,7 @@ struct SettingsView: View {
                 Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
                 Toggle("Enable bionic reading", isOn: $enableBionicReading)
                 Toggle("Tint posts background to course color", isOn: $tintToCourseColor)
+                Toggle("Use fancy UI", isOn: $useFancyUI)
             }
             Spacer()
         }

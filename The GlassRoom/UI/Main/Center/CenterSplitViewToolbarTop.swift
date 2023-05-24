@@ -45,7 +45,7 @@ struct CenterSplitViewToolbarTop: View {
                 } else if label == "Register" {
                     return "person.2"
                 }
-        
+
                 return "questionmark.circle"
             }
             .animation(.spring(), value: currentPage)
@@ -59,11 +59,6 @@ struct CenterSplitViewToolbarTop: View {
         .frame(height: 25)
         .frame(maxWidth: .infinity)
         .background(.thinMaterial)
-        .overlay(alignment: .bottom) {
-            Divider()
-                .offset(y: 1)
-        }
-        .padding(.bottom, -8)
     }
 
     var filterView: some View {

@@ -15,18 +15,12 @@ struct MainView: View {
 
     @ObservedObject var userModel: UserAuthModel = .shared
     @AppStorage("debugMode") var debugMode: Bool = false
+    @AppStorage("useFancyUI") var useFancyUI: Bool = false
+
     @Environment(\.openWindow) var openWindow
 
     var body: some View {
-        NavigationSplitView {
-            SidebarView(selection: $selectedCourse)
-        } content: {
-            CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-                .frame(minWidth: 200)
-        } detail: {
-            DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-                .frame(minWidth: 400)
-        }
+        splitView
         .sheet(isPresented: $showSearch) {
             SearchView(selectedCourse: $selectedCourse,
                        selectedPost: $selectedPost)
@@ -61,6 +55,40 @@ struct MainView: View {
         }
         .onAppear {
             loadCachedStreams()
+        }
+    }
+
+    @ViewBuilder
+    var splitView: some View {
+        if useFancyUI {
+            NavigationSplitView {
+                SidebarView(selection: $selectedCourse)
+            } detail: {
+                SplitView {
+                    CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
+                        .frame(minWidth: 250)
+                } rView: {
+                    ZStack {
+                        Rectangle()
+                            .fill(.ultraThinMaterial)
+                        DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
+                    }
+                    .frame(minWidth: 400)
+                    .cornerRadius(15)
+                    .shadow(color: .primary.opacity(0.2), radius: 4)
+                    .padding(10)
+                }
+            }
+        } else {
+            NavigationSplitView {
+                SidebarView(selection: $selectedCourse)
+            } content: {
+                CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
+                    .frame(minWidth: 230)
+            } detail: {
+                DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
+                    .frame(minWidth: 400)
+            }
         }
     }
 

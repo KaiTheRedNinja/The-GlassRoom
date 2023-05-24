@@ -14,7 +14,6 @@ struct UniversalCoursePostListView: View {
     var showPostCourseOrigin: Bool = false
 
     var postData: [CoursePost]
-    var isEmpty: Bool
     var isLoading: Bool
     var hasNextPage: Bool
     /// Load the list, optionally bypassing the cache
@@ -26,7 +25,7 @@ struct UniversalCoursePostListView: View {
 
     var body: some View {
         ZStack {
-            if !isEmpty {
+            if !postData.isEmpty {
                 postsContent
             } else {
                 VStack {

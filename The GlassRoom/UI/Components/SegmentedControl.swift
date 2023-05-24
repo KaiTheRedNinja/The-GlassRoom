@@ -75,11 +75,7 @@ struct SegmentedControlItem: View {
 
     var body: some View {
         VStack {
-            if active {
-                Label(label, systemImage: image)
-            } else {
-                Image(systemName: image)
-            }
+            Image(systemName: image)
         }
         .font(.subheadline)
         .foregroundColor(textColor)
@@ -101,7 +97,7 @@ struct SegmentedControlItem: View {
         } onRelease: {
             isPressing = false
         }
-
+        .help(label)
     }
 
     private var textColor: Color {
