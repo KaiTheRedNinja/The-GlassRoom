@@ -39,11 +39,6 @@ struct CenterSplitView: View {
                 .cornerRadius(10)
                 .shadow(color: .primary.opacity(0.2), radius: 4)
                 .padding([.horizontal, .top], 10)
-                .background {
-                    Rectangle()
-                        .fill(.ultraThickMaterial)
-                        .padding(.bottom, -8)
-                }
             } else {
                 CenterSplitViewToolbarTop(selectedCourse: $selectedCourse,
                                           currentPage: $currentPage,
@@ -76,7 +71,8 @@ struct CenterSplitView: View {
             .cornerRadius(15)
             .shadow(color: .primary.opacity(0.2), radius: 4)
             .scrollIndicators(.never)
-            .padding(10)
+            .padding([.horizontal, .bottom], 10)
+            .padding([.top], 5)
         } else {
             ZStack {
                 listContent

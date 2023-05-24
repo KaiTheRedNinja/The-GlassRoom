@@ -76,7 +76,8 @@ struct MainView: View {
                     .frame(minWidth: 400)
                     .cornerRadius(15)
                     .shadow(color: .primary.opacity(0.2), radius: 4)
-                    .padding(10)
+                    .padding([.vertical, .trailing], 10)
+                    .padding(.leading, 5)
                 }
             }
         } else {
