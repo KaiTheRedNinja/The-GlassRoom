@@ -22,12 +22,15 @@ extension CoursePostProtocol {
     }
 }
 
-func postDateForString(string: String) -> Date {
+fileprivate var dateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     dateFormatter.locale = Locale(identifier: "en_US_POSIX")
     dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    return dateFormatter
+}()
 
+func postDateForString(string: String) -> Date {
     if let date = dateFormatter.date(from: string) {
         return date
     } else {

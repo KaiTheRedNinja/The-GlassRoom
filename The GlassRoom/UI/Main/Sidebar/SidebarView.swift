@@ -98,7 +98,7 @@ struct SidebarCourseView: View {
                         }
                     }
                 }
-                .opacity((postsManager == nil || postsManager!.postData.isEmpty) ? 0.4 : 1)
+                .opacity((postsManager == nil || postsManager!.postDataIsEmpty) ? 0.4 : 1)
             } else {
                 Text("Invalid Course")
             }

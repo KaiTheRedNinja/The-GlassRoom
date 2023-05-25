@@ -31,6 +31,10 @@ class CoursePostsDataManager: ObservableObject {
             }
     }
 
+    var postDataIsEmpty: Bool {
+        courseAnnouncements.isEmpty && courseCourseWorks.isEmpty && courseCourseMaterials.isEmpty
+    }
+
     let courseId: String
 
     var loading: Bool {
