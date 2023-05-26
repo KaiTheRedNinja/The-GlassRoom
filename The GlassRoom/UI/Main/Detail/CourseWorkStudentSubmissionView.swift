@@ -18,23 +18,23 @@ struct CourseWorkStudentSubmissionView<AttachmentView: View>: View {
     var body: some View {
         if submission.courseWorkType == .assignment {
             // assignment
-            viewForAssignment(submission)
+            viewForAssignment(submission, courseWork: courseWork)
         } else if submission.courseWorkType == .multiple_choice_question {
             // mcq
-            viewForMCQ(submission)
+            viewForMCQ(submission, courseWork: courseWork)
         } else if submission.courseWorkType == .short_answer_question {
             // saq
-            viewForShortAnswer(submission)
+            viewForShortAnswer(submission, courseWork: courseWork)
         }
     }
 
-    func viewForAssignment(_ submission: StudentSubmission) -> some View {
+    func viewForAssignment(_ submission: StudentSubmission, courseWork: CourseWork) -> some View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
                 VStack(alignment: .leading) {
                     viewForCourseWorkDueDate(submission)
 
-                    submissionState(submission, submission.state)
+                    submissionState(submission, courseWork)
 
                     viewForCourseWorkGrades(submission)
                 }
@@ -55,13 +55,13 @@ struct CourseWorkStudentSubmissionView<AttachmentView: View>: View {
         .padding(.all)
     }
 
-    func viewForShortAnswer(_ submission: StudentSubmission) -> some View {
+    func viewForShortAnswer(_ submission: StudentSubmission, courseWork: CourseWork) -> some View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
                 VStack(alignment: .leading) {
                     viewForCourseWorkDueDate(submission)
 
-                    submissionState(submission, submission.state)
+                    submissionState(submission, courseWork)
 
                     viewForCourseWorkGrades(submission)
                 }
@@ -88,13 +88,13 @@ struct CourseWorkStudentSubmissionView<AttachmentView: View>: View {
         .padding(.all)
     }
 
-    func viewForMCQ(_ submission: StudentSubmission) -> some View {
+    func viewForMCQ(_ submission: StudentSubmission, courseWork: CourseWork) -> some View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
                 VStack(alignment: .leading) {
                     viewForCourseWorkDueDate(submission)
 
-                    submissionState(submission, submission.state)
+                    submissionState(submission, courseWork)
 
                     viewForCourseWorkGrades(submission)
                 }
@@ -182,91 +182,40 @@ struct CourseWorkStudentSubmissionView<AttachmentView: View>: View {
         return (round(100 * percentage) / 100).formatted()
     }
 
-    func submissionState(_ submission: StudentSubmission, _ state: SubmissionState) -> some View {
+    func submissionState(_ submission: StudentSubmission, _ courseWork: CourseWork) -> some View {
         VStack(alignment: .leading) {
-            switch state {
-            case .turned_in:
-                if let late = submission.late {
-                    if late {
-                        Text("Turned in late")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                    } else {
-                        Text("Submitted")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                    }
-                } else {
-                    Text("Submitted")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                }
-            case .reclaimed_by_student:
-                if let dueTime = courseWork.dueTime {
-                    if let dueDate = courseWork.dueDate {
-                        Text(isOverdue(dueDate, dueTime) ? "Missing" : "Assigned")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(isOverdue(dueDate, dueTime) ? .red.opacity(0.7) : .green.opacity(0.7))
-                    } else {
-                        Text("Assigned")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.green.opacity(0.7))
-                    }
-                } else {
-                    Text("Assigned")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundColor(.green.opacity(0.7))
-                }
+            switch CourseSubmissionState(from: submission, courseWork: courseWork) {
+            case .assigned, .untouched:
+                Text("Assigned")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.green.opacity(0.7))
+            case .missing, .reclaimedMissing, .untouchedMissing:
+                Text("Missing")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.red.opacity(0.7))
+            case .submitted:
+                Text("Submitted")
+                    .font(.headline)
+                    .fontWeight(.bold)
+            case .turnedInLate:
+                Text("Turned in late")
+                    .font(.headline)
+                    .fontWeight(.bold)
+            case .reclaimed:
+                Text("Reclaimed")
+                    .font(.headline)
+                    .fontWeight(.bold)
             case .returned:
                 Text("Returned")
                     .font(.headline)
                     .fontWeight(.bold)
-            case .submission_state_unspecified:
+            case .unspecified:
                 Text("Unspecified")
                     .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.red.opacity(0.7))
-            case .new:
-                if let dueTime = courseWork.dueTime {
-                    if let dueDate = courseWork.dueDate {
-                        Text(isOverdue(dueDate, dueTime) ? "Missing" : "Assigned")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(isOverdue(dueDate, dueTime) ? .red.opacity(0.7) : .green.opacity(0.7))
-                    } else {
-                        Text("Assigned")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.green.opacity(0.7))
-                    }
-                } else {
-                    Text("Assigned")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundColor(.green.opacity(0.7))
-                }
-            case .created:
-                if let dueTime = courseWork.dueTime {
-                    if let dueDate = courseWork.dueDate {
-                        Text(isOverdue(dueDate, dueTime) ? "Missing" : "Assigned")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(isOverdue(dueDate, dueTime) ? .red.opacity(0.7) : .green.opacity(0.7))
-                    } else {
-                        Text("Assigned")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.green.opacity(0.7))
-                    }
-                } else {
-                    Text("Assigned")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundColor(.green.opacity(0.7))
-                }
             }
         }
     }
@@ -362,6 +311,108 @@ struct CourseWorkStudentSubmissionView<AttachmentView: View>: View {
         case .reclaimed_by_student:
             return false
         }
+    }
+
+    func isOverdue(_ dueDate: DueDate, _ dueTime: TimeOfDay) -> Bool {
+        let twentyFourHourTime = getTimeFromDueTime(dueTime)
+        let dueString = "\(dueDate.day)/\(dueDate.month)/\(dueDate.year) - \(twentyFourHourTime)"
+
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "d/M/yyyy - HH:mm"
+
+        dateFormatter.date(from: dueString)
+
+        if let duedateDate = dateFormatter.date(from: dueString) {
+            if duedateDate > Date.now {
+                return false
+            } else {
+                return true
+            }
+        }
+        return false
+    }
+}
+
+enum CourseSubmissionState {
+    case assigned
+    case missing
+
+    case submitted
+    case turnedInLate
+
+    case reclaimed
+    case reclaimedMissing
+
+    case untouched
+    case untouchedMissing
+
+    case returned
+    case unspecified
+
+    init(from submission: StudentSubmission, courseWork: CourseWork) {
+        let state = submission.state
+        self = .unspecified
+        switch state {
+        case .new:
+            if let dueTime = courseWork.dueTime, let dueDate = courseWork.dueDate {
+                self = isOverdue(dueDate, dueTime) ? .untouchedMissing : .untouched
+            } else {
+                self = .untouched
+            }
+        case .created:
+            if let dueTime = courseWork.dueTime, let dueDate = courseWork.dueDate {
+                self = isOverdue(dueDate, dueTime) ? .missing : .assigned
+            } else {
+                self = .assigned
+            }
+        case .turned_in:
+            if let dueTime = courseWork.dueTime, let dueDate = courseWork.dueDate {
+                self = isOverdue(dueDate, dueTime) ? .turnedInLate : .submitted
+            } else {
+                self = .submitted
+            }
+        case .reclaimed_by_student:
+            if let dueTime = courseWork.dueTime, let dueDate = courseWork.dueDate {
+                self = isOverdue(dueDate, dueTime) ? .reclaimedMissing : .reclaimed
+            } else {
+                self = .reclaimed
+            }
+        case .returned:
+            self = .returned
+        default: break
+        }
+    }
+
+    func getTimeFromDueTime(_ dueTime: TimeOfDay) -> String {
+        guard let hours = dueTime.hours else {
+            guard let minutes = dueTime.minutes else { return "-" } // no time
+            // only minutes
+            let string = "00:\(String(format: "%02d", minutes))"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.date(from: string)
+
+            return string
+        }
+        guard let minutes = dueTime.minutes else {
+            // only hours
+            let string = "\((hours + 8) % 24):00"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.date(from: string)
+
+            return string
+
+        }
+
+        // hours and minutes
+        let string = "\((hours + 8) % 24):\(String(format: "%02d", minutes))"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.date(from: string)
+
+        return string
     }
 
     func isOverdue(_ dueDate: DueDate, _ dueTime: TimeOfDay) -> Bool {

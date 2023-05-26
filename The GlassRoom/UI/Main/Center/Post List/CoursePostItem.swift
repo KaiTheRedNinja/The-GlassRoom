@@ -35,12 +35,50 @@ struct CoursePostItem: View {
                             .foregroundColor(.accentColor)
                             .frame(width: 20, height: 20)
                     }
-                case .courseWork(_):
+                case .courseWork(let courseWork):
                     Image(systemName: "square.and.pencil")
                         .resizable()
                         .scaledToFit()
                         .foregroundColor(.accentColor)
                         .frame(width: 20, height: 20)
+                        .overlay(alignment: .bottomTrailing) {
+                            let submissions = CourseWorkSubmissionDataManager.getManager(
+                                for: courseWork.courseId,
+                                courseWorkId: courseWork.id
+                            ).submissions
+
+                            if submissions.count == 1,
+                               let submission = submissions.first {
+                                ZStack {
+                                    switch CourseSubmissionState(from: submission, courseWork: courseWork) {
+                                    case .assigned, .untouched:
+                                        Color.gray.saturation(0.6)
+                                        Image(systemName: "checklist.unchecked").resizable().scaledToFit().padding(2)
+                                    case .missing, .untouchedMissing, .reclaimedMissing:
+                                        Color.red.saturation(0.6)
+                                        Image(systemName: "exclamationmark.square").resizable().scaledToFit().padding(2)
+                                    case .submitted:
+                                        Color.green.saturation(0.6)
+                                        Image(systemName: "checklist.checked").resizable().scaledToFit().padding(2)
+                                    case .turnedInLate:
+                                        Color.brown.saturation(0.6)
+                                        Image(systemName: "checklist").resizable().scaledToFit().padding(2) // might want to change this
+                                    case .reclaimed:
+                                        Color.yellow.saturation(0.6)
+                                        Image(systemName: "arrow.uturn.left").resizable().scaledToFit().padding(2)
+                                    case .returned:
+                                        Color.yellow.saturation(0.6)
+                                        Image(systemName: "return").resizable().scaledToFit().padding(2)
+                                    case .unspecified:
+                                        Color.gray.saturation(0.6)
+                                        Image(systemName: "questionmark.app.dashed").resizable().scaledToFit().padding(2)
+                                    }
+                                }
+                                .frame(width: 12, height: 12)
+                                .cornerRadius(3)
+                                .offset(x: 3, y: 3)
+                            }
+                        }
                 case .courseMaterial(_):
                     Image(systemName: "doc")
                         .resizable()
