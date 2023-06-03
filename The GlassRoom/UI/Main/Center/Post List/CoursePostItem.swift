@@ -41,12 +41,6 @@ struct CoursePostItem: View {
                         .scaledToFit()
                         .foregroundColor(.accentColor)
                         .frame(width: 20, height: 20)
-                        .overlay(alignment: .bottomTrailing) {
-                            CourseSubmissionBadge(courseWork: courseWork)
-                                .frame(width: 12, height: 12)
-                                .cornerRadius(3)
-                                .offset(x: 3, y: 3)
-                        }
                 case .courseMaterial(_):
                     Image(systemName: "doc")
                         .resizable()
@@ -67,13 +61,19 @@ struct CoursePostItem: View {
                              creationTime: announcement.creationTime,
                              updateTime: announcement.updateTime)
             case .courseWork(let coursework):
-                listItemView(coursePost,
-                             id: coursework.id,
-                             title: coursework.title,
-                             creationTime: coursework.creationTime,
-                             updateTime: coursework.updateTime,
-                             dueDate: coursework.dueDate,
-                             dueTime: coursework.dueTime)
+                VStack(alignment: .leading) {
+                    listItemView(coursePost,
+                                 id: coursework.id,
+                                 title: coursework.title,
+                                 creationTime: coursework.creationTime,
+                                 updateTime: coursework.updateTime,
+                                 dueDate: coursework.dueDate,
+                                 dueTime: coursework.dueTime)
+                    CourseSubmissionBadge(courseWork: coursework)
+                        .frame(height: 12)
+                        .cornerRadius(3)
+                        .offset(y: -5)
+                }
             case .courseMaterial(let coursematerial):
                 listItemView(coursePost,
                              id: coursematerial.id,

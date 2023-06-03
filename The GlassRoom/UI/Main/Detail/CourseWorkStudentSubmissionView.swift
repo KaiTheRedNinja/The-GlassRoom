@@ -434,4 +434,42 @@ enum CourseSubmissionState {
         }
         return false
     }
+
+    var description: String {
+        switch self {
+        case .assigned, .untouched:
+            return "Assigned"
+        case .missing, .untouchedMissing, .reclaimedMissing:
+            return "Missing"
+        case .submitted:
+            return "Submitted"
+        case .turnedInLate:
+            return "Turned In Late"
+        case .reclaimed:
+            return "Reclaimed"
+        case .returned:
+            return "Returned"
+        case .unspecified:
+            return "Unspecified"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .assigned, .untouched:
+            return Color.gray
+        case .missing, .untouchedMissing, .reclaimedMissing:
+            return Color.red
+        case .submitted:
+            return Color.green
+        case .turnedInLate:
+            return Color.brown
+        case .reclaimed:
+            return Color.yellow
+        case .returned:
+            return Color.yellow
+        case .unspecified:
+            return Color.gray
+        }
+    }
 }
