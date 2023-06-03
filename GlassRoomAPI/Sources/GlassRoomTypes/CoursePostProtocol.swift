@@ -30,8 +30,12 @@ fileprivate var dateFormatter: DateFormatter = {
     return dateFormatter
 }()
 
+fileprivate var postDateCache: [String: Date] = [:]
 func postDateForString(string: String) -> Date {
-    if let date = dateFormatter.date(from: string) {
+    if let date = postDateCache[string] {
+        return date
+    } else if let date = dateFormatter.date(from: string) {
+        postDateCache[string] = date
         return date
     } else {
         Log.error("Could not get date for: \(string)")
