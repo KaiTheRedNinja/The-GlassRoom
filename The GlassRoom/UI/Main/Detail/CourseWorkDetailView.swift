@@ -83,6 +83,7 @@ struct CourseWorkDetailView: DetailViewPage {
                         studentSubmissionSize = newVal
                     }
                     .offset(y: studentSubmissionOffset)
+                    .animation(.default, value: studentSubmissionOffset)
             }
         }
         .sheet(isPresented: $showSubmissionsView) {
