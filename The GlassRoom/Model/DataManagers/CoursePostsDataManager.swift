@@ -8,6 +8,7 @@
 import Foundation
 import GlassRoomAPI
 import GlassRoomTypes
+import Combine
 
 class CoursePostsDataManager: ObservableObject {
     @Published private(set) var courseAnnouncements: [CourseAnnouncement] = []
@@ -121,6 +122,7 @@ class CoursePostsDataManager: ObservableObject {
 
     // MARK: Static functions
     static private(set) var loadedManagers: [String: CoursePostsDataManager] = [:]
+    static private(set) var loadedManagersPublisher: CurrentValueSubject<[String: CoursePostsDataManager], Never> = .init([:])
 
     static func getManager(for courseId: String) -> CoursePostsDataManager {
         if let manager = loadedManagers[courseId] {
@@ -128,6 +130,9 @@ class CoursePostsDataManager: ObservableObject {
         }
         let newInstance = CoursePostsDataManager(courseId: courseId)
         loadedManagers[courseId] = newInstance
+
+        loadedManagersPublisher.send(loadedManagers)
+
         return newInstance
     }
 }

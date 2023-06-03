@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import Combine
 
 struct SidebarCourseView: View {
     var course: GeneralCourse
 
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
-    @ObservedObject var configuration: GlobalCoursesDataManager.CoursesConfiguration =
-    GlobalCoursesDataManager.global.configuration
+    @ObservedObject var configuration: GlobalCoursesDataManager.CoursesConfiguration = GlobalCoursesDataManager.global.configuration
+
+    @State var coursePostsDataManagerWatcher: AnyCancellable?
+    @State var postDataManagerWatcher: AnyCancellable?
+    @State var isUnloaded: Bool = false
 
     var body: some View {
         ZStack {
@@ -25,7 +29,6 @@ struct SidebarCourseView: View {
         switch course {
         case .course(let string):
             if let course = coursesManager.courseIdMap[string] {
-                let postsManager = CoursePostsDataManager.loadedManagers[string]
                 HStack {
                     configuration.colorFor(course.id)
                         .frame(width: 6)
@@ -48,7 +51,12 @@ struct SidebarCourseView: View {
                         }
                     }
                 }
-                .opacity((postsManager == nil || postsManager!.postDataIsEmpty) ? 0.4 : 1)
+                .opacity(isUnloaded ? 0.4 : 1)
+                .onAppear {
+                    coursePostsDataManagerWatcher = CoursePostsDataManager.loadedManagersPublisher.sink { value in
+                        testForLoad(value: value, id: string)
+                    }
+                }
             } else {
                 Text("Invalid Course")
             }
@@ -93,5 +101,19 @@ struct SidebarCourseView: View {
                 Text("Invalid course group")
             }
         }
+    }
+
+    func testForLoad(value: [String: CoursePostsDataManager], id: String) {
+        let postsManager = value[id]
+        if let postsManager, postDataManagerWatcher == nil {
+            postDataManagerWatcher = postsManager.objectWillChange.sink {
+                testForLoad(postsManager: postsManager)
+            }
+        }
+        testForLoad(postsManager: postsManager)
+    }
+
+    func testForLoad(postsManager: CoursePostsDataManager?) {
+        isUnloaded = (postsManager == nil || postsManager!.postDataIsEmpty)
     }
 }
