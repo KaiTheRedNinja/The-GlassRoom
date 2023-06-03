@@ -50,7 +50,7 @@ struct CourseMaterialDetailView: DetailViewPage {
                     VStack {
                         if let material = courseWorkMaterial.materials {
                             Divider()
-                            viewForMaterial(materials: material, geometry: geometry)
+                            viewForMaterial(materials: material, size: geometry.size)
                         }
                     }
                 }

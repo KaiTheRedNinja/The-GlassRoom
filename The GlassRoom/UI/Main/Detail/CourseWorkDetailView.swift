@@ -17,6 +17,9 @@ struct CourseWorkDetailView: DetailViewPage {
     @ObservedObject var submissionManager: CourseWorkSubmissionDataManager
     @State var showSubmissionsView: Bool = false
 
+    @State var studentSubmissionSize: CGSize?
+    @State var studentSubmissionOffset: CGFloat = 0
+
     init(textContent: Binding<String>, copiedLink: Binding<Bool>, courseWork: CourseWork) {
         self.textContent = textContent
         self.copiedLink = copiedLink
@@ -28,46 +31,32 @@ struct CourseWorkDetailView: DetailViewPage {
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
-                VStack(alignment: .leading) {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(courseWork.title)
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.leading)
-                                .textSelection(.enabled)
-                            Spacer()
+                FittingGeometryReader(spaceName: "detailScrollView") { proxy in
+                    content(size: geometry.size)
+                        .onAppear {
+                            guard let value = proxy?.frame(in: .named("detailScrollView")),
+                                  let studentSubmissionSize
+                            else { return }
+                            studentSubmissionOffset = calculateStudentSubmissionOffset(
+                                submissionSize: studentSubmissionSize,
+                                pageSize: geometry.size,
+                                scrollFrame: value
+                            )
                         }
-                        viewForButtons(courseWork.alternateLink)
-                    }
-                    .padding(.top, 2)
-                    .padding(.bottom, 10)
-                    
-                    if let _ = courseWork.description {
-                        Divider()
-                            .padding(.bottom, 10)
-                        
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text(.init(textContent.wrappedValue))
-                                    .textSelection(.enabled)
-                                Spacer()
+                        .onChange(of: proxy?.frame(in: .named("detailScrollView"))) { value in
+                            if let value, let studentSubmissionSize {
+                                studentSubmissionOffset = calculateStudentSubmissionOffset(
+                                    submissionSize: studentSubmissionSize,
+                                    pageSize: geometry.size,
+                                    scrollFrame: value
+                                )
+                                Log.info("New value: \(studentSubmissionOffset)")
                             }
                         }
-                    }
-                    
-                    Spacer()
-                    
-                    VStack {
-                        if let material = courseWork.materials {
-                            Divider()
-                            viewForMaterial(materials: material, geometry: geometry)
-                        }
-                    }
                 }
-                .padding(.all)
             }
         }
+        .coordinateSpace(name: "detailScrollView")
         .onAppear {
             DispatchQueue.main.async {
                 submissionManager.loadList(bypassCache: true)
@@ -84,14 +73,64 @@ struct CourseWorkDetailView: DetailViewPage {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            viewForStudentSubmission
-                .background(.thickMaterial)
+            FittingGeometryReader { proxy in
+                viewForStudentSubmission
+                    .background(.thickMaterial)
+                    .onAppear {
+                        studentSubmissionSize = proxy?.size
+                    }
+                    .onChange(of: proxy?.size) { newVal in
+                        studentSubmissionSize = newVal
+                    }
+                    .offset(y: studentSubmissionOffset)
+            }
         }
         .sheet(isPresented: $showSubmissionsView) {
             CourseWorkTeacherSubmissionsView(submissions: submissionManager.submissions,
                                              courseWork: courseWork,
                                              viewForAttachment: viewForAttachment)
         }
+    }
+
+    func content(size: CGSize) -> some View {
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(courseWork.title)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.leading)
+                        .textSelection(.enabled)
+                    Spacer()
+                }
+                viewForButtons(courseWork.alternateLink)
+            }
+            .padding(.top, 2)
+            .padding(.bottom, 10)
+
+            if let _ = courseWork.description {
+                Divider()
+                    .padding(.bottom, 10)
+
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(.init(textContent.wrappedValue))
+                            .textSelection(.enabled)
+                        Spacer()
+                    }
+                }
+            }
+
+            Spacer()
+
+            VStack {
+                if let material = courseWork.materials {
+                    Divider()
+                    viewForMaterial(materials: material, size: size)
+                }
+            }
+        }
+        .padding(.all)
     }
 
     @ViewBuilder
@@ -139,5 +178,16 @@ struct CourseWorkDetailView: DetailViewPage {
                 .padding(.leading, -10)
             }
         }
+    }
+
+    func calculateStudentSubmissionOffset(submissionSize: CGSize,
+                                          pageSize: CGSize,
+                                          scrollFrame: CGRect) -> CGFloat {
+        // the top of the submission should not be any lower than 100px from the bottom,
+        // or so high as to leave a gap at the bottom.
+        let maximumOffset = submissionSize.height-100
+        let proposedOffset = scrollFrame.maxY-pageSize.height
+
+        return max(0, min(maximumOffset, proposedOffset))
     }
 }
