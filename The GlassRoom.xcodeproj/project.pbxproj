@@ -12,6 +12,7 @@
 		6AD406D02A10B6B100343500 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD406CF2A10B6B100343500 /* SettingsView.swift */; };
 		6AD406D42A10D96800343500 /* CoursePostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD406D32A10D96800343500 /* CoursePostItem.swift */; };
 		6AD9CEDA2A0CEA120078E5D3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD9CED92A0CEA120078E5D3 /* MainView.swift */; };
+		93362DCA2A2B20E1006303CA /* SidebarCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93362DC92A2B20E1006303CA /* SidebarCourseView.swift */; };
 		933DF79B2A203C10008C92E6 /* CourseSubmissionBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF79A2A203C10008C92E6 /* CourseSubmissionBadge.swift */; };
 		9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934317492A164ADC00B16C6F /* DebugAPICallsView.swift */; };
 		9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343174B2A164AE800B16C6F /* DebugLogsView.swift */; };
@@ -67,6 +68,7 @@
 		6AD406CF2A10B6B100343500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6AD406D32A10D96800343500 /* CoursePostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostItem.swift; sourceTree = "<group>"; };
 		6AD9CED92A0CEA120078E5D3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		93362DC92A2B20E1006303CA /* SidebarCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCourseView.swift; sourceTree = "<group>"; };
 		933DF79A2A203C10008C92E6 /* CourseSubmissionBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSubmissionBadge.swift; sourceTree = "<group>"; };
 		934317492A164ADC00B16C6F /* DebugAPICallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugAPICallsView.swift; sourceTree = "<group>"; };
 		9343174B2A164AE800B16C6F /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				93757D712A0F9A240063AB67 /* SidebarView.swift */,
+				93362DC92A2B20E1006303CA /* SidebarCourseView.swift */,
 				93757D7D2A0FBAE70063AB67 /* SidebarOutlineViewController.swift */,
 				938300ED2A0FBB4C006581B8 /* SidebarOutlineView.swift */,
 				938300EF2A0FC009006581B8 /* SidebarOutlineMenu.swift */,
@@ -441,6 +444,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AD406D02A10B6B100343500 /* SettingsView.swift in Sources */,
+				93362DCA2A2B20E1006303CA /* SidebarCourseView.swift in Sources */,
 				6AA0583B2A0FEB90005A9BDB /* LinkPreview.swift in Sources */,
 				93F229782A10E9CE00B44C85 /* Date+Format.swift in Sources */,
 				93ACB23A2A106F550040C88E /* SearchView.swift in Sources */,

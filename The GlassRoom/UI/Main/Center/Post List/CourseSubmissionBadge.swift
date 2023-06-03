@@ -53,7 +53,9 @@ struct CourseSubmissionBadge: View {
             }
         }
         .onAppear {
-            submissionsManager.loadList()
+            DispatchQueue.main.async {
+                submissionsManager.loadList()
+            }
         }
     }
 }

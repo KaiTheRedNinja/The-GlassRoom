@@ -408,7 +408,9 @@ extension SidebarOutlineViewController: NSOutlineViewDelegate {
             return
         }
 
-        selectedCourse?.wrappedValue = item
+        DispatchQueue.main.async {
+            self.selectedCourse?.wrappedValue = item
+        }
     }
 
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {

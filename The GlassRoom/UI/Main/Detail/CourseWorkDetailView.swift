@@ -23,7 +23,6 @@ struct CourseWorkDetailView: DetailViewPage {
         self.courseWork = courseWork
 
         self.submissionManager = .getManager(for: courseWork.courseId, courseWorkId: courseWork.id)
-        submissionManager.loadList(bypassCache: true)
     }
 
     var body: some View {
@@ -70,9 +69,12 @@ struct CourseWorkDetailView: DetailViewPage {
             }
         }
         .onAppear {
-            copiedLink.wrappedValue = false
-            if let description = courseWork.description {
-                textContent.wrappedValue = makeLinksHyperLink(description)
+            DispatchQueue.main.async {
+                submissionManager.loadList(bypassCache: true)
+                copiedLink.wrappedValue = false
+                if let description = courseWork.description {
+                    textContent.wrappedValue = makeLinksHyperLink(description)
+                }
             }
         }
         .onChange(of: courseWork) { _ in
