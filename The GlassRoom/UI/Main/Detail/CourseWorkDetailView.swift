@@ -50,7 +50,6 @@ struct CourseWorkDetailView: DetailViewPage {
                                     pageSize: geometry.size,
                                     scrollFrame: value
                                 )
-                                Log.info("New value: \(studentSubmissionOffset)")
                             }
                         }
                 }

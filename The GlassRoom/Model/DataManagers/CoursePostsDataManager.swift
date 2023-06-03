@@ -258,7 +258,7 @@ extension CoursePostsDataManager {
             query: .init(courseWorkMaterialStates: [.published],
                          orderBy: nil,
                          pageSize: nil,
-                         pageToken: nil,
+                         pageToken: nextPageToken,
                          materialLink: nil,
                          materialDriveId: nil),
             data: .init()

@@ -80,25 +80,55 @@ struct CourseRegisterListView: View {
 
     var postsContent: some View {
         List {
-            Section("Teachers") {
+            Section("Teachers: \(teachers.count)") {
                 let teachersMapped = teachers.compactMap({ profileManager.userProfilesMap[$0.userId] })
                 ForEach(teachersMapped.sorted(by: { $0.name.fullName < $1.name.fullName }), id: \.id) { teacher in
                     CourseRegisterItem(userProfile: teacher)
                 }
             }
 
-            Section("Students") {
+            Section {
                 let studentsMapped = students.compactMap({ profileManager.userProfilesMap[$0.userId] })
                 ForEach(studentsMapped.sorted(by: { $0.name.fullName < $1.name.fullName }), id: \.id) { student in
                     CourseRegisterItem(userProfile: student)
                 }
-            }
-
-            if hasNextPage {
-                Button("Load next page") {
-                    refreshList()
+            } header: {
+                HStack {
+                    Text("Students: \(students.count)")
+                    Spacer()
+                    if students.count > 1 {
+                        Button("Random") {
+                            Task {
+                                await randomStudent()
+                            }
+                        }
+                    }
                 }
             }
+
+//            if hasNextPage {
+//                Button("Load next page") {
+//                    refreshList()
+//                }
+//            }
         }
+    }
+
+    func randomStudent() async {
+
+        guard let randomStudent = students.randomElement(),
+              let student = profileManager.userProfilesMap[randomStudent.userId]
+        else { return }
+
+        let alert = NSAlert.init()
+        alert.messageText = student.name.fullName
+        if let photoUrl = student.photoUrl {
+            let urlRequest = URLRequest(url: URL(string: "https:" + photoUrl)!)
+            let response = try? await URLSession.shared.data(for: urlRequest)
+            if let data = response?.0 {
+                alert.icon = NSImage(data: data)
+            }
+        }
+        alert.runModal()
     }
 }

@@ -58,7 +58,8 @@ final class SidebarOutlineMenu: NSMenu {
             ]
         default:
             items = [
-                menuItem("\(isArchived ? "Unarchive" : "Archive") Course", action: #selector(archive))
+                menuItem("\(isArchived ? "Unarchive" : "Archive") Course", action: #selector(archive)),
+                menuItem("Show Cache In Finder", action: #selector(showCacheInFinder))
             ]
         }
     }
@@ -118,6 +119,20 @@ final class SidebarOutlineMenu: NSMenu {
                 config.objectWillChange.send()
             }
             config.saveToFileSystem()
+        }
+    }
+
+    @objc
+    func showCacheInFinder() {
+        guard let item = item as? GeneralCourse else { return }
+        switch item {
+        case .course(let string):
+            let file = FileSystem.FileName.courseWorks(string)
+            let path = FileSystem.getDocumentsDirectory()
+                .appendingPathComponent(file.fileName)
+                .deletingLastPathComponent().deletingLastPathComponent()
+            NSWorkspace.shared.open(path)
+        default: return
         }
     }
 }

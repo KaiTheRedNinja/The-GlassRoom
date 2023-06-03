@@ -112,7 +112,7 @@ class GlobalUserProfilesDataManager: ObservableObject {
     func refreshStudentsList(courseId: String) {
         GlassRoomAPI.GRCourses.GRStudents.list(
             params: .init(courseId: courseId),
-            query: .init(pageSize: nil, pageToken: nil),
+            query: .init(pageSize: nil, pageToken: studentsNextPageToken),
             data: .init()
         ) { result in
             switch result {
@@ -166,7 +166,7 @@ class GlobalUserProfilesDataManager: ObservableObject {
     func refreshTeachersList(courseId: String) {
         GlassRoomAPI.GRCourses.GRTeachers.list(
             params: .init(courseId: courseId),
-            query: .init(pageSize: nil, pageToken: nil),
+            query: .init(pageSize: nil, pageToken: teachersNextPageToken),
             data: .init()
         ) { result in
             switch result {
