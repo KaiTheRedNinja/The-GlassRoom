@@ -30,10 +30,18 @@ struct SidebarCourseView: View {
         case .course(let string):
             if let course = coursesManager.courseIdMap[string] {
                 HStack {
-                    configuration.colorFor(course.id)
-                        .frame(width: 6)
-                        .cornerRadius(3)
-                        .padding(.vertical, 3)
+                    Circle()
+                        .fill(configuration.colorFor(course.id))
+                        .reverseMask {
+                            Image(systemName: configuration.iconFor(course.id))
+                                .resizable()
+                                .scaledToFit()
+                                .padding(3)
+                        }
+                        .frame(width: 16, height: 16)
+                        .offset(x: 3)
+                        .foregroundColor(.accentColor)
+                        .disabled(true)
                     VStack {
                         HStack {
                             Text(configuration.nameFor(course.name))
@@ -115,5 +123,21 @@ struct SidebarCourseView: View {
 
     func testForLoad(postsManager: CoursePostsDataManager?) {
         isUnloaded = (postsManager == nil || postsManager!.postDataIsEmpty)
+    }
+}
+
+extension View {
+    @inlinable
+    public func reverseMask<Mask: View>(
+        alignment: Alignment = .center,
+        @ViewBuilder _ mask: () -> Mask
+    ) -> some View {
+        self.mask {
+            Rectangle()
+                .overlay(alignment: alignment) {
+                    mask()
+                        .blendMode(.destinationOut)
+                }
+        }
     }
 }

@@ -57,6 +57,8 @@
 		93AED6902A1769DA0005854C /* GlobalUserProfilesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED68F2A1769DA0005854C /* GlobalUserProfilesDataManager.swift */; };
 		93AED6922A1781A50005854C /* CourseRegisterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6912A1781A50005854C /* CourseRegisterListView.swift */; };
 		93AED6942A179D9F0005854C /* CourseRegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6932A179D9F0005854C /* CourseRegisterItem.swift */; };
+		93CAF7302A2CB4D4005D265E /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 93CAF72F2A2CB4D4005D265E /* SymbolPicker */; };
+		93CAF7502A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CAF74F2A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift */; };
 		93E0B8B42A136DD400ED917A /* CustomisationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0B8B32A136DD400ED917A /* CustomisationView.swift */; };
 		93F229742A10DD0200B44C85 /* GeneralCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229732A10DD0200B44C85 /* GeneralCourse.swift */; };
 		93F229762A10E5B800B44C85 /* UniversalCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229752A10E5B800B44C85 /* UniversalCoursePostListView.swift */; };
@@ -119,6 +121,7 @@
 		93AED68F2A1769DA0005854C /* GlobalUserProfilesDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserProfilesDataManager.swift; sourceTree = "<group>"; };
 		93AED6912A1781A50005854C /* CourseRegisterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterListView.swift; sourceTree = "<group>"; };
 		93AED6932A179D9F0005854C /* CourseRegisterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterItem.swift; sourceTree = "<group>"; };
+		93CAF74F2A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SymbolPicker+SwiftUI.swift"; sourceTree = "<group>"; };
 		93E0B8B32A136DD400ED917A /* CustomisationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisationView.swift; sourceTree = "<group>"; };
 		93F229732A10DD0200B44C85 /* GeneralCourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCourse.swift; sourceTree = "<group>"; };
 		93F229752A10E5B800B44C85 /* UniversalCoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalCoursePostListView.swift; sourceTree = "<group>"; };
@@ -133,6 +136,7 @@
 			files = (
 				93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */,
 				93757D702A0F29B60063AB67 /* GlassRoomAPI in Frameworks */,
+				93CAF7302A2CB4D4005D265E /* SymbolPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +160,7 @@
 				9359F6E12A1A20FD001A8A1F /* SplitView.swift */,
 				93362DCB2A2B47EF006303CA /* FittingGeometryReader.swift */,
 				93761F382A2B81DF00E2008E /* TriStateToggle.swift */,
+				93CAF74F2A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -391,6 +396,7 @@
 			packageProductDependencies = (
 				93757D5C2A0E73DA0063AB67 /* GoogleSignIn */,
 				93757D6F2A0F29B60063AB67 /* GlassRoomAPI */,
+				93CAF72F2A2CB4D4005D265E /* SymbolPicker */,
 			);
 			productName = "The GlassRoom";
 			productReference = 937EA5B62A0CD9F8005F11C5 /* The GlassRoom.app */;
@@ -422,6 +428,7 @@
 			mainGroup = 937EA5AD2A0CD9F8005F11C5;
 			packageReferences = (
 				93757D5B2A0E73DA0063AB67 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				93CAF72E2A2CB4D4005D265E /* XCRemoteSwiftPackageReference "SymbolPicker" */,
 			);
 			productRefGroup = 937EA5B72A0CD9F8005F11C5 /* Products */;
 			projectDirPath = "";
@@ -484,6 +491,7 @@
 				9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */,
 				93757D662A0E7B430063AB67 /* Secrets (Sensitive).swift in Sources */,
 				93650B132A19A7E100F5D865 /* CoursePostListView.swift in Sources */,
+				93CAF7502A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift in Sources */,
 				93A201B52A1C2C4E00EDECD0 /* CompactLinkPreview.swift in Sources */,
 				934858082A1249CD008B84A7 /* CourseWorkSubmissionDataManager.swift in Sources */,
 				9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */,
@@ -710,6 +718,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		93CAF72E2A2CB4D4005D265E /* XCRemoteSwiftPackageReference "SymbolPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/francisfeng/SymbolPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -721,6 +737,11 @@
 		93757D6F2A0F29B60063AB67 /* GlassRoomAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GlassRoomAPI;
+		};
+		93CAF72F2A2CB4D4005D265E /* SymbolPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93CAF72E2A2CB4D4005D265E /* XCRemoteSwiftPackageReference "SymbolPicker" */;
+			productName = SymbolPicker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

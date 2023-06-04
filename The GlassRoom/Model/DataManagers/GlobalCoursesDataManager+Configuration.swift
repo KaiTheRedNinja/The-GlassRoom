@@ -22,17 +22,22 @@ extension GlobalCoursesDataManager {
         }
         @Published var archive: CourseGroup?
         @Published var customColors: [String: Color]
+        @Published var customIcons: [String: String]
 
         @Published var groupIdMap: [String: CourseGroup] = [:]
 
-        private init(replacedCourseNames: [NameReplacement] = [],
-                     courseGroups: [CourseGroup] = [],
-                     archive: CourseGroup?,
-                     customColors: [String: Color] = [:]) {
+        private init(
+            replacedCourseNames: [NameReplacement] = [],
+            courseGroups: [CourseGroup] = [],
+            archive: CourseGroup?,
+            customColors: [String: Color] = [:],
+            customIcons: [String: String] = [:]
+        ) {
             self.replacedCourseNames = replacedCourseNames
             self.courseGroups = courseGroups
             self.archive = archive
             self.customColors = customColors
+            self.customIcons = customIcons
 
             groupIdMap = [:]
             for group in courseGroups {
@@ -88,6 +93,15 @@ extension GlobalCoursesDataManager {
             return .init(nsColor: .init(red: r, green: g, blue: b, alpha: 1))
         }
 
+        func iconFor(_ courseId: String) -> String {
+            if let customIcon = customIcons[courseId] {
+                return customIcon
+            }
+
+            // TODO: Semirandom icon
+            return "person.2.fill"
+        }
+
         func nameFor(_ courseName: String) -> String {
             // change all the replacement strings
             var mutableCourseName = courseName
@@ -100,7 +114,7 @@ extension GlobalCoursesDataManager {
 
         // MARK: Codable
         enum Keys: CodingKey {
-            case replacedCourseNames, courseGroups, archive, customColors
+            case replacedCourseNames, courseGroups, archive, customColors, customIcons
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -109,17 +123,20 @@ extension GlobalCoursesDataManager {
             try container.encode(courseGroups, forKey: .courseGroups)
             try container.encode(archive, forKey: .archive)
             try container.encode(customColors, forKey: .customColors)
+            try container.encode(customIcons, forKey: .customIcons)
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: Keys.self)
-            self.replacedCourseNames = try container.decode([NameReplacement].self,
-                                                            forKey: .replacedCourseNames)
-            self.courseGroups = try container.decode([CourseGroup].self,
-                                                     forKey: .courseGroups)
-            self.archive = try container.decode((CourseGroup?).self, forKey: .archive)
-            self.customColors = try container.decode([String: Color].self,
-                                                     forKey: .customColors)
+            self.replacedCourseNames = (try? container.decode([NameReplacement].self,
+                                                             forKey: .replacedCourseNames)) ?? []
+            self.courseGroups = (try? container.decode([CourseGroup].self,
+                                                      forKey: .courseGroups)) ?? []
+            self.archive = try? container.decode((CourseGroup?).self, forKey: .archive)
+            self.customColors = (try? container.decode([String: Color].self,
+                                                      forKey: .customColors)) ?? [:]
+            self.customIcons = (try? container.decode([String: String].self,
+                                                     forKey: .customIcons)) ?? [:]
 
             groupIdMap = [:]
             for group in courseGroups {
