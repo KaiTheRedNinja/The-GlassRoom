@@ -195,7 +195,29 @@ struct CourseRegisterListView: View {
                 }
             }
             .joined(separator: "\n")
+
         // write it to a file
-        print("Attendances: \(attendanceString)")
+
+        guard let nsWindow = NSApplication.shared.keyWindow else {
+            Log.error("No keywindow found")
+            return
+        }
+        let panel = NSSavePanel()
+        panel.nameFieldStringValue = "attendance.csv"
+        panel.beginSheetModal(for: nsWindow) { response in
+            guard response.rawValue == 1,
+                  let url = panel.url,
+                  let data = attendanceString.data(using: .utf8)
+            else { return }
+
+            do {
+                try data.write(to: url)
+                return
+            } catch {
+                // failed to write file – bad permissions, bad filename,
+                // missing permissions, or more likely it can't be converted to the encoding
+                Log.error(error.localizedDescription)
+            }
+        }
     }
 }
