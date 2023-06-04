@@ -78,6 +78,9 @@ struct CourseRegisterListView: View {
 
     @ObservedObject var profileManager: GlobalUserProfilesDataManager = .global
 
+    @State var attendanceMode: Bool = false
+    @State var attendances: [String: TriToggleState] = [:]
+
     var postsContent: some View {
         List {
             Section("Teachers: \(teachers.count)") {
@@ -90,27 +93,49 @@ struct CourseRegisterListView: View {
             Section {
                 let studentsMapped = students.compactMap({ profileManager.userProfilesMap[$0.userId] })
                 ForEach(studentsMapped.sorted(by: { $0.name.fullName < $1.name.fullName }), id: \.id) { student in
-                    CourseRegisterItem(userProfile: student)
+                    HStack {
+                        if attendanceMode {
+                            TriStateToggle(toggleState: .init(get: {
+                                attendances[student.id] ?? .middle
+                            }, set: { newValue in
+                                attendances[student.id] = newValue
+                            }))
+                        }
+                        CourseRegisterItem(userProfile: student)
+                    }
+                }
+                if attendanceMode {
+                    Menu("Export Attendance Sheet") {
+                        Button("Sorted by Attendance") {
+                            exportStudents(sortStyle: .attendanceSorted)
+                        }
+                        Button("Sorted by Student Name") {
+                            exportStudents(sortStyle: .studentSorted)
+                        }
+                    }
+                    .buttonStyle(.borderless)
                 }
             } header: {
                 HStack {
                     Text("Students: \(students.count)")
                     Spacer()
                     if students.count > 1 {
-                        Button("Random") {
+                        Button {
                             Task {
                                 await randomStudent()
                             }
+                        } label: {
+                            Image(systemName: "dice")
+                        }
+
+                        Button {
+                            attendanceMode.toggle()
+                        } label: {
+                            Image(systemName: "checklist")
                         }
                     }
                 }
             }
-
-//            if hasNextPage {
-//                Button("Load next page") {
-//                    refreshList()
-//                }
-//            }
         }
     }
 
@@ -130,5 +155,47 @@ struct CourseRegisterListView: View {
             }
         }
         alert.runModal()
+    }
+
+    enum ExportSortStyle {
+        case attendanceSorted
+        case studentSorted
+    }
+    func exportStudents(sortStyle: ExportSortStyle) {
+        let studentsMapped = students.compactMap({ profileManager.userProfilesMap[$0.userId] })
+        let attendanceTuples = studentsMapped
+            .map { profile in
+                return (profile.name.fullName, attendances[profile.id] ?? .middle)
+            }
+        let attendanceSorted: [(String, TriToggleState)]
+
+        switch sortStyle {
+        case .attendanceSorted:
+            attendanceSorted = attendanceTuples
+                .sorted { lhs, rhs in
+                    if lhs.1 == rhs.1 {
+                        return lhs.0 < rhs.0
+                    } else {
+                        return lhs.1.rawValue < rhs.1.rawValue
+                    }
+                }
+        case .studentSorted:
+            attendanceSorted = attendanceTuples
+                .sorted { lhs, rhs in
+                    lhs.0 < rhs.0
+                }
+        }
+
+        let attendanceString = attendanceSorted
+            .map {
+                switch $0.1 {
+                case .middle: return "\($0.0), UNMARKED"
+                case .on: return "\($0.0), PRESENT"
+                case .off: return "\($0.0), ABSENT"
+                }
+            }
+            .joined(separator: "\n")
+        // write it to a file
+        print("Attendances: \(attendanceString)")
     }
 }
