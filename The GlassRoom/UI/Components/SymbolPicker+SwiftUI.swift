@@ -22,6 +22,11 @@ public struct SymbolPickerView: NSViewRepresentable {
             color: .init(selectedColor),
             delegate: context.coordinator
         )
+        if showSymbolPicker {
+            DispatchQueue.main.async {
+                adaptor.showPickIcon()
+            }
+        }
         return adaptor
     }
 
@@ -51,8 +56,6 @@ public struct SymbolPickerView: NSViewRepresentable {
             parent.selectedSymbol = symbol
             if let color {
                 parent.selectedColor = .init(nsColor: color)
-            } else {
-                parent.selectedColor = .accentColor
             }
         }
 

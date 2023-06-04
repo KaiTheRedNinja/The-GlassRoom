@@ -9,6 +9,10 @@ import SwiftUI
 
 struct CustomisationView: View {
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
+    @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
+
+    @State var selectedIconReplacement: String?
+    @State var showIconPopup: Bool = false
 
     @State var selectedNameReplacement: UUID?
     @State var showEditPopup: Bool = false
@@ -20,16 +24,51 @@ struct CustomisationView: View {
             HStack {
                 List() {
                     ForEach(coursesManager.courses, id: \.id) { course in
-                        ColorPicker(
-                            course.name,
-                            selection: .init(get: {
-                                coursesManager.configuration.colorFor(course.id)
-                            }, set: { newColor in
-                                coursesManager.configuration.customColors[course.id] = newColor
-                            })
-                        )
+                        HStack {
+                            Text(course.name)
+                            Spacer()
+                            Circle()
+                                .fill(configuration.colorFor(course.id))
+                                .reverseMask {
+                                    Image(systemName: configuration.iconFor(course.id))
+                                        .resizable()
+                                        .scaledToFit()
+                                        .padding(3)
+                                }
+                                .frame(width: 20, height: 18)
+                                .foregroundColor(.accentColor)
+                                .disabled(true)
+                        }
                         .tag(course)
+                        .onTapGesture {
+                            selectedIconReplacement = course.id
+                            showIconPopup = true
+                        }
                     }
+                }
+                .background {
+                    SymbolPickerView(
+                        showSymbolPicker: $showIconPopup,
+                        selectedSymbol: .init(get: {
+                            if let selectedIconReplacement {
+                                return configuration.iconFor(selectedIconReplacement)
+                            } else {
+                                return "person.2.fill"
+                            }
+                        }, set: { newValue in
+                            configuration.customIcons[selectedIconReplacement!] = newValue
+                        }),
+                        selectedColor: .init(get: {
+                            if let selectedIconReplacement {
+                                return configuration.colorFor(selectedIconReplacement)
+                            } else {
+                                return .accentColor
+                            }
+                        }, set: { newValue in
+                            configuration.customColors[selectedIconReplacement!] = newValue
+                        }),
+                        title: "Choose Icon and Color"
+                    )
                 }
 
                 // TODO: Reload this when replaced course names changes
@@ -45,16 +84,16 @@ struct CustomisationView: View {
                     HStack {
                         Button {
                             guard let selectedNameReplacement else { return }
-                            coursesManager.configuration.replacedCourseNames.removeAll {
+                            configuration.replacedCourseNames.removeAll {
                                 $0.id == selectedNameReplacement
                             }
-                            replacedCourseNames = coursesManager.configuration.replacedCourseNames
+                            replacedCourseNames = configuration.replacedCourseNames
                         } label: {
                             Image(systemName: "minus")
                         }
                         Button {
                             let newItem: NameReplacement
-                            if let existingItem = coursesManager.configuration.replacedCourseNames
+                            if let existingItem = configuration.replacedCourseNames
                                 .first(where: { $0.matchString == "Match String" }) {
                                 newItem = existingItem
                             } else {
@@ -63,7 +102,7 @@ struct CustomisationView: View {
                                     replacement: "Replacement"
                                 )
                             }
-                            coursesManager.configuration.replacedCourseNames.append(newItem)
+                            configuration.replacedCourseNames.append(newItem)
                             selectedNameReplacement = newItem.id
                             showEditPopup.toggle()
                         } label: {
@@ -80,30 +119,30 @@ struct CustomisationView: View {
                     .padding(.vertical, 3)
                 }
                 .onAppear {
-                    replacedCourseNames = coursesManager.configuration.replacedCourseNames
+                    replacedCourseNames = configuration.replacedCourseNames
                 }
-                .onChange(of: coursesManager.configuration.replacedCourseNames) { _ in
-                    replacedCourseNames = coursesManager.configuration.replacedCourseNames
+                .onChange(of: configuration.replacedCourseNames) { _ in
+                    replacedCourseNames = configuration.replacedCourseNames
                 }
             }
             HStack {
                 Spacer()
                 Button("Save") {
-                    coursesManager.configuration.saveToFileSystem()
-                    coursesManager.configuration.objectWillChange.send()
+                    configuration.saveToFileSystem()
+                    configuration.objectWillChange.send()
                 }
             }
         }
         .padding(15)
         .sheet(isPresented: $showEditPopup) {
             if let selectedNameReplacement,
-               let nameReplacementIndex = coursesManager.configuration.replacedCourseNames.firstIndex(where: { $0.id == selectedNameReplacement }) {
-                let nameReplacement = coursesManager.configuration.replacedCourseNames[nameReplacementIndex]
+               let nameReplacementIndex = configuration.replacedCourseNames.firstIndex(where: { $0.id == selectedNameReplacement }) {
+                let nameReplacement = configuration.replacedCourseNames[nameReplacementIndex]
                 EditNameReplacementView(nameReplacement: nameReplacement) { newMatchString, newReplacement in
-                    coursesManager.configuration.replacedCourseNames[nameReplacementIndex].matchString = newMatchString
-                    coursesManager.configuration.replacedCourseNames[nameReplacementIndex].replacement = newReplacement
+                    configuration.replacedCourseNames[nameReplacementIndex].matchString = newMatchString
+                    configuration.replacedCourseNames[nameReplacementIndex].replacement = newReplacement
 
-                    replacedCourseNames = coursesManager.configuration.replacedCourseNames
+                    replacedCourseNames = configuration.replacedCourseNames
                 }
                 .padding(15)
             }
