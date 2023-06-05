@@ -8,7 +8,7 @@
 import Foundation
 import GlassRoomTypes
 
-enum CoursePost: Hashable, Identifiable {
+enum CoursePost: Hashable, Identifiable, Codable {
     case announcement(CourseAnnouncement)
     case courseWork(CourseWork)
     case courseMaterial(CourseWorkMaterial)

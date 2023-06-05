@@ -103,7 +103,7 @@ struct CourseWorkDetailView: DetailViewPage {
                         .textSelection(.enabled)
                     Spacer()
                 }
-                viewForButtons(courseWork.alternateLink)
+                viewForButtons(link: courseWork.alternateLink, post: .courseWork(courseWork))
             }
             .padding(.top, 2)
             .padding(.bottom, 10)

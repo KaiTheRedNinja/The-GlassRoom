@@ -27,7 +27,7 @@ struct CourseMaterialDetailView: DetailViewPage {
                                 .textSelection(.enabled)
                             Spacer()
                         }
-                        viewForButtons(courseWorkMaterial.alternateLink)
+                        viewForButtons(link: courseWorkMaterial.alternateLink, post: .courseMaterial(courseWorkMaterial))
                     }
                     .padding(.top, 2)
                     .padding(.bottom, 10)

@@ -108,7 +108,7 @@ extension DetailViewPage {
         return result.trimmingCharacters(in: .newlines)
     }
 
-    func viewForButtons(_ link: String) -> some View {
+    func viewForButtons(link: String, post: CoursePost) -> some View {
         HStack {
             Link(destination: URL(string: link)!) {
                 Image(systemName: "safari")
@@ -136,6 +136,8 @@ extension DetailViewPage {
             }
             .padding(.leading, 5)
             .buttonStyle(.plain)
+
+            OpenNotesButton(post: post)
         }
     }
 
@@ -196,6 +198,22 @@ extension DetailViewPage {
             }
             .cornerRadius(8)
         }
+    }
+}
+
+struct OpenNotesButton: View {
+    @Environment(\.openWindow) private var openWindow
+
+    var post: CoursePost
+
+    var body: some View {
+        Button {
+            GlobalNotesDataManager.global.openNote(for: post)
+            openWindow(id: "notesView")
+        } label: {
+            Image(systemName: "note.text")
+        }
+        .buttonStyle(.plain)
     }
 }
 
