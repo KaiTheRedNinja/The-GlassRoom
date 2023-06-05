@@ -64,4 +64,13 @@ enum CoursePost: Hashable, Identifiable, Codable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+
+    struct MinimalRepresentation: Codable, Identifiable, Hashable {
+        var courseId: String
+        var id: String
+    }
+
+    var minimalRepresentation: MinimalRepresentation {
+        .init(courseId: courseId, id: id)
+    }
 }

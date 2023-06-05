@@ -109,35 +109,39 @@ extension DetailViewPage {
     }
 
     func viewForButtons(link: String, post: CoursePost) -> some View {
-        HStack {
-            Link(destination: URL(string: link)!) {
-                Image(systemName: "safari")
-                    .foregroundColor(.secondary)
-            }
+        VStack(alignment: .leading) {
+            HStack {
+                Link(destination: URL(string: link)!) {
+                    Image(systemName: "safari")
+                        .foregroundColor(.secondary)
+                }
 
-            ShareLink(item: link) {
-                Image(systemName: "square.and.arrow.up")
-            }
-            .buttonStyle(.plain)
-            .padding(.leading, 5)
+                ShareLink(item: link) {
+                    Image(systemName: "square.and.arrow.up")
+                }
+                .buttonStyle(.plain)
+                .padding(.leading, 5)
 
-            Button {
-                copiedLink.wrappedValue = true
-                let pasteboard = NSPasteboard.general
-                pasteboard.declareTypes([.string], owner: nil)
-                pasteboard.setString("\(link)", forType: .string)
-            } label: {
-                HStack {
-                    Image(systemName: "link")
-                    if copiedLink.wrappedValue {
-                        Text("Copied!")
+                Button {
+                    copiedLink.wrappedValue = true
+                    let pasteboard = NSPasteboard.general
+                    pasteboard.declareTypes([.string], owner: nil)
+                    pasteboard.setString("\(link)", forType: .string)
+                } label: {
+                    HStack {
+                        Image(systemName: "link")
+                        if copiedLink.wrappedValue {
+                            Text("Copied!")
+                        }
                     }
                 }
-            }
-            .padding(.leading, 5)
-            .buttonStyle(.plain)
+                .padding(.leading, 5)
+                .buttonStyle(.plain)
 
-            OpenNotesButton(post: post)
+                OpenNotesButton(post: post)
+            }
+
+            PostNoteView(post: post)
         }
     }
 
@@ -202,18 +206,61 @@ extension DetailViewPage {
 }
 
 struct OpenNotesButton: View {
-    @Environment(\.openWindow) private var openWindow
-
     var post: CoursePost
+
+    @ObservedObject var manager = GlobalNotesDataManager.loadedFromFileSystem()
 
     var body: some View {
         Button {
-            GlobalNotesDataManager.global.openNote(for: post)
-            openWindow(id: "notesView")
+            // create the note if it exists, delete it if not.
+            if manager.notes.keys.contains(post.minimalRepresentation) {
+                manager.updateNote(post.minimalRepresentation, with: nil)
+            } else {
+                manager.updateNote(post.minimalRepresentation, with: "Empty Note")
+            }
         } label: {
-            Image(systemName: "note.text")
+            ZStack(alignment: .bottomTrailing) {
+                Image(systemName: manager.notes.keys.contains(post.minimalRepresentation) ? "note.text" : "note.text.badge.plus")
+                if manager.notes.keys.contains(post.minimalRepresentation) {
+                    Image(systemName: "trash.circle.fill")
+                        .resizable()
+                        .background {
+                            Circle()
+                                .fill(.thickMaterial)
+                        }
+                        .scaledToFit()
+                        .frame(width: 10, height: 10)
+                        .offset(y: 2)
+                }
+            }
         }
         .buttonStyle(.plain)
+    }
+}
+
+struct PostNoteView: View {
+    @ObservedObject var notesManager: GlobalNotesDataManager = .loadedFromFileSystem()
+
+    var post: CoursePost
+
+    @State var textContents: String = ""
+
+    var body: some View {
+        if let noteContents = notesManager.notes[post.minimalRepresentation] {
+            VStack {
+                Divider()
+                    .padding(.vertical, 10)
+                TextEditor(text: $textContents)
+                    .padding(-5)
+                    .onChange(of: textContents) { _ in
+                        notesManager.updateNote(post.minimalRepresentation, with: textContents)
+                    }
+                    .scrollIndicators(.never)
+            }
+            .onAppear {
+                textContents = noteContents
+            }
+        }
     }
 }
 
