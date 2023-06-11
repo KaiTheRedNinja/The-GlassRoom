@@ -30,12 +30,12 @@ A macOS Native Google Classroom Client
 
 ## Speed comparisons
 
-| Category | Google Classroom Web | GlassRoom |
-|----------|----------------------|-----------|
-| Launching website/app | 4.68 | 0.99s |
-| Loading courses | 3.50s | 0.00s (instant upon launch) |
-| Loading posts | 2.80s | 0.14s |
-| Loading post submission | 0.90s | 0.13s |
+|          Category         | Google Classroom Web |    GlassRoom (cache)   | GlassRoom (loading) |
+|---------------------------|----------------------|------------------------|---------------------|
+|   Launching website/app   |         4.68s        |           N/A          |        0.99s        |
+|      Loading courses      |         3.50s        |          0.00s         |        1.48s        |
+|       Loading posts       |         2.80s        |          0.14s         |        1.18s        |
+| Loading post's submission |         0.90s        |          0.13s         |        0.31s        |
 
 ## Images
 TODO
