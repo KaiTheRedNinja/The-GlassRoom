@@ -32,9 +32,10 @@ A macOS Native Google Classroom Client
 
 | Category | Google Classroom Web | GlassRoom |
 |----------|----------------------|-----------|
-| Loading courses | 3.5s | 0.0s (instant upon launch) |
-| Loading posts | 2.8s | UNTESTED |
-| Loading post submission | 0.9s | UNTESTED |
+| Launching website/app | 4.68 | 0.99s |
+| Loading courses | 3.50s | 0.00s (instant upon launch) |
+| Loading posts | 2.80s | 0.14s |
+| Loading post submission | 0.90s | 0.13s |
 
 ## Images
 TODO
