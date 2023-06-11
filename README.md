@@ -1,19 +1,51 @@
 # The GlassRoom
 A macOS Native Google Classroom Client
 
-## Pages
- - [x] Cache
- - [x] Classroom stuff view (3 way split, similar to mail app)
- - [x] Aggregate view
- - [x] Command Palette/go-to
- - [x] Course Grouping
- - [x] Course Archiving
- - [x] Custom course colors/names
- - [ ] Post search
- - [ ] Post creation
- - [ ] Post tagging
+## Features
+ - [x] Basic google classroom parity
+   - [x] Loading courses
+   - [x] Loading posts
+   - [x] Viewing submissions
+   - [x] Viewing class members
+ - [ ] Advanced google classroom parity
+   - [x] Post creation
+   - [x] View student submissions
+   - [ ] Submit in-app (Not possible rn due to API restrictions)
+   - [ ] Grading
+ - User Speed Improvements/Conveniences
+   - [x] Practically instant loading (via post caching)
+   - [x] Offline mode (same reason)
+   - [x] Quick open/search (so you can open courses without having to hunt for them with your mouse. Just search by name.)
+   - [x] Sorting by post type (eg. only announcements, assignements, or materials)
+   - [x] Viewing multiple courses' posts at once (bit buggy rn tho :P)
+   - [ ] Post tagging
+ - Customisability
+   - [x] Client-side grouping courses into folders
+   - [x] Client-side archiving of courses
+   - [x] Custom course colors/icons
+   - [x] Renaming your classes using regex (eg. removing redundant "2023"s)
+   - [x] Date groups for posts (eg. "Last month", "This year" in that image)
+ - Accessibility
+   - [x] Bionic reading (bolds the first few characters of a word, helps adhd people focus when reading)
+
+## Speed comparisons
+
+| Category | Google Classroom Web | GlassRoom |
+|----------|----------------------|-----------|
+| Loading courses | 3.5s | 0.0s (instant upon launch) |
+| Loading posts | 2.8s | UNTESTED |
+| Loading post submission | 0.9s | UNTESTED |
+
+## Images
+TODO
+- Standard view
+- Search
+- Submissions
+- Settings
 
 ## Building
+#### NOTE: This MAY be outdated
+
 Prerequisite: You have a google developer project with an API key capable of utilising Google Classroom and Drive APIs
 1. Add your own `The-GlassRoom-Info.plist` file, in this format:
 ```
@@ -35,5 +67,5 @@ Prerequisite: You have a google developer project with an API key capable of uti
 </dict>
 </plist>
 ```
-2. In `Secrets (Sensitive).swift`, add your API key
+2. Create `Secrets (Sensitive).swift`, extend the `Secrets` enum and override `static func getGoogleClientID() -> String` to return your API key
 3. Change the bundle identifier and team in the xcodeproj to your own
