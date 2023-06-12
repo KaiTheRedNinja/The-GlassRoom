@@ -38,6 +38,37 @@ A macOS Native Google Classroom Client
 | Loading post's submission |         0.90s        |          0.13s         |          0.31s         |
 
 ## Images
+
+Announcements and posts
+
+<img width="1792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/389e9b26-59bb-4498-89d8-b9454c8bf6f7">
+<img width="1792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/475d411b-9073-4d95-bb9a-06eea3654539">
+
+Aggregate view
+
+<img width="1792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/93ff9d7d-2588-49df-a5b3-43d2cd2486a9">
+
+Search
+
+<img width="1792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/ea38c545-1384-45c8-96ac-5f2f397cb064">
+<img width="1792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/bbbf1bfd-7706-48b9-8d40-82eec9c37a66">
+![](https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/c9a1c8a7-7fa6-4b8a-8025-19b60f6e20df.gif)
+
+Settings and Customisation
+
+<img width="792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/1447e1c5-00cc-438e-a7d7-917309d2f3d2">
+<img width="792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/402f5819-2bd4-40a3-9144-1dc957c9b1ed">
+
+Fancy UI option
+
+<img width="1792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/0f946152-27ca-4e7a-a446-267a6d7738b5">
+
+Accessibility - Bionic reading
+
+<img width="1792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/f7e6f272-6c7b-4d57-ab04-919e3e620397">
+
+
+
 TODO
 - Standard view
 - Search
