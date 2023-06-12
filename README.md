@@ -69,13 +69,6 @@ Accessibility - Bionic reading
 <img width="1792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/f7e6f272-6c7b-4d57-ab04-919e3e620397">
 
 
-
-TODO
-- Standard view
-- Search
-- Submissions
-- Settings
-
 ## Building
 #### NOTE: This MAY be outdated
 
