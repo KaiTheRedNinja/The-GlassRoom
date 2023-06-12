@@ -52,6 +52,7 @@ Search
 
 <img width="1792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/ea38c545-1384-45c8-96ac-5f2f397cb064">
 <img width="1792" alt="image" src="https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/bbbf1bfd-7706-48b9-8d40-82eec9c37a66">
+
 ![](https://github.com/KaiTheRedNinja/The-GlassRoom/assets/93832702/c9a1c8a7-7fa6-4b8a-8025-19b60f6e20df.gif)
 
 Settings and Customisation
