@@ -20,6 +20,20 @@
 		933F39142A4438B4006E13AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F39132A4438B4006E13AC /* ContentView.swift */; };
 		933F39162A4438B5006E13AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933F39152A4438B5006E13AC /* Assets.xcassets */; };
 		933F39192A4438B5006E13AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933F39182A4438B5006E13AC /* Preview Assets.xcassets */; };
+		933F39542A443DFB006E13AC /* GeneralCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229732A10DD0200B44C85 /* GeneralCourse.swift */; };
+		933F39552A443DFB006E13AC /* Date+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229772A10E9CE00B44C85 /* Date+Format.swift */; };
+		933F39562A443DFB006E13AC /* CourseWorkSubmissionDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858072A1249CD008B84A7 /* CourseWorkSubmissionDataManager.swift */; };
+		933F39572A443DFB006E13AC /* GlobalCoursesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D782A0F9BEB0063AB67 /* GlobalCoursesDataManager.swift */; };
+		933F39582A443DFB006E13AC /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D652A0E7B430063AB67 /* Secrets (Sensitive).swift */; };
+		933F39592A443DFB006E13AC /* GlobalCoursesDataManager+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348580F2A133982008B84A7 /* GlobalCoursesDataManager+Configuration.swift */; };
+		933F395A2A443DFB006E13AC /* CoursePostsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */; };
+		933F395B2A443DFB006E13AC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D7A2A0F9E6D0063AB67 /* FileManager.swift */; };
+		933F395C2A443DFB006E13AC /* UserAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D602A0E74500063AB67 /* UserAuthModel.swift */; };
+		933F395D2A443DFB006E13AC /* GlobalUserProfilesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED68F2A1769DA0005854C /* GlobalUserProfilesDataManager.swift */; };
+		933F395E2A443DFB006E13AC /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D622A0E79650063AB67 /* Secrets.swift */; };
+		933F395F2A443DFB006E13AC /* CoursePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2422A10D0FF0040C88E /* CoursePost.swift */; };
+		933F39612A443E18006E13AC /* GlassRoomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 933F39602A443E18006E13AC /* GlassRoomAPI */; };
+		933F39652A443E28006E13AC /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 933F39642A443E28006E13AC /* GoogleSignIn */; };
 		9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934317492A164ADC00B16C6F /* DebugAPICallsView.swift */; };
 		9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343174B2A164AE800B16C6F /* DebugLogsView.swift */; };
 		934858032A11F7AA008B84A7 /* CoursePostsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */; };
@@ -145,6 +159,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				933F39612A443E18006E13AC /* GlassRoomAPI in Frameworks */,
+				933F39652A443E28006E13AC /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +264,7 @@
 		933F391D2A443934006E13AC /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				93757D5E2A0E73F30063AB67 /* Model */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -381,7 +398,6 @@
 			children = (
 				93757D692A0E7ED90063AB67 /* The-GlassRoom-Info.plist */,
 				93757D5F2A0E742E0063AB67 /* Application */,
-				93757D5E2A0E73F30063AB67 /* Model */,
 				6AD9CED72A0CE9E70078E5D3 /* UI */,
 				937EA5BF2A0CD9F9005F11C5 /* Preview Content */,
 				937EA5C22A0CD9F9005F11C5 /* The_GlassRoom.entitlements */,
@@ -449,6 +465,10 @@
 			dependencies = (
 			);
 			name = "The GlassRoom iOS";
+			packageProductDependencies = (
+				933F39602A443E18006E13AC /* GlassRoomAPI */,
+				933F39642A443E28006E13AC /* GoogleSignIn */,
+			);
 			productName = "The GlassRoom iOS";
 			productReference = 933F390F2A4438B4006E13AC /* The GlassRoom iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -542,8 +562,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				933F39542A443DFB006E13AC /* GeneralCourse.swift in Sources */,
+				933F39562A443DFB006E13AC /* CourseWorkSubmissionDataManager.swift in Sources */,
 				933F39142A4438B4006E13AC /* ContentView.swift in Sources */,
+				933F39582A443DFB006E13AC /* Secrets (Sensitive).swift in Sources */,
+				933F395F2A443DFB006E13AC /* CoursePost.swift in Sources */,
+				933F395C2A443DFB006E13AC /* UserAuthModel.swift in Sources */,
+				933F39592A443DFB006E13AC /* GlobalCoursesDataManager+Configuration.swift in Sources */,
+				933F395B2A443DFB006E13AC /* FileManager.swift in Sources */,
+				933F39572A443DFB006E13AC /* GlobalCoursesDataManager.swift in Sources */,
+				933F39552A443DFB006E13AC /* Date+Format.swift in Sources */,
 				933F39122A4438B4006E13AC /* The_GlassRoom_iOSApp.swift in Sources */,
+				933F395A2A443DFB006E13AC /* CoursePostsDataManager.swift in Sources */,
+				933F395E2A443DFB006E13AC /* Secrets.swift in Sources */,
+				933F395D2A443DFB006E13AC /* GlobalUserProfilesDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -922,6 +954,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		933F39602A443E18006E13AC /* GlassRoomAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GlassRoomAPI;
+		};
+		933F39642A443E28006E13AC /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93757D5B2A0E73DA0063AB67 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
 		93757D5C2A0E73DA0063AB67 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 93757D5B2A0E73DA0063AB67 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;

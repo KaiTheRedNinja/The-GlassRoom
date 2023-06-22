@@ -90,7 +90,7 @@ extension GlobalCoursesDataManager {
             srand48(total / 47)
             let b = CGFloat(drand48())
 
-            return .init(nsColor: .init(red: r, green: g, blue: b, alpha: 1))
+            return Color(red: r, green: g, blue: b, opacity: 1)
         }
 
         func iconFor(_ courseId: String) -> String {
@@ -188,7 +188,11 @@ extension Color: Codable {
         var b: CGFloat = 0
         var a: CGFloat = 0
 
+        #if os(iOS)
+        UIColor(self).getRed(&r, green: &g, blue: &b, alpha: &a)
+        #else
         NSColor(self).getRed(&r, green: &g, blue: &b, alpha: &a)
+        #endif
 
         return (r, g, b, a)
     }

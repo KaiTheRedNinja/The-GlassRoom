@@ -93,6 +93,9 @@ class UserAuthModel: ObservableObject {
     }
 
     func signIn() {
+        #if os(iOS)
+        // TODO: Google sign in for iOS
+        #else
         guard let presentingWindow = NSApp.windows.first else {
             Log.error("Could not get presenting view controller")
             return
@@ -106,6 +109,7 @@ class UserAuthModel: ObservableObject {
 
             self.checkStatus()
         })
+        #endif
     }
 
     func signOut() {
@@ -144,6 +148,10 @@ class UserAuthModel: ObservableObject {
             Log.error("Could not get user")
             return
         }
+
+        #if os(iOS)
+        // TODO: Google sign in for iOS
+        #else
         guard let presentingWindow = NSApp.windows.first else {
             Log.error("Could not get presenting view controller")
             return
@@ -160,5 +168,6 @@ class UserAuthModel: ObservableObject {
             let accessToken = newUser.accessToken.tokenString
             self.token = accessToken
         }
+        #endif
     }
 }
