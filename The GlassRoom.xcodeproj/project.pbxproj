@@ -16,6 +16,10 @@
 		93362DCA2A2B20E1006303CA /* SidebarCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93362DC92A2B20E1006303CA /* SidebarCourseView.swift */; };
 		93362DCC2A2B47EF006303CA /* FittingGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93362DCB2A2B47EF006303CA /* FittingGeometryReader.swift */; };
 		933DF79B2A203C10008C92E6 /* CourseSubmissionBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF79A2A203C10008C92E6 /* CourseSubmissionBadge.swift */; };
+		933F39122A4438B4006E13AC /* The_GlassRoom_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F39112A4438B4006E13AC /* The_GlassRoom_iOSApp.swift */; };
+		933F39142A4438B4006E13AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F39132A4438B4006E13AC /* ContentView.swift */; };
+		933F39162A4438B5006E13AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933F39152A4438B5006E13AC /* Assets.xcassets */; };
+		933F39192A4438B5006E13AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933F39182A4438B5006E13AC /* Preview Assets.xcassets */; };
 		9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934317492A164ADC00B16C6F /* DebugAPICallsView.swift */; };
 		9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343174B2A164AE800B16C6F /* DebugLogsView.swift */; };
 		934858032A11F7AA008B84A7 /* CoursePostsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */; };
@@ -58,7 +62,7 @@
 		93AED6902A1769DA0005854C /* GlobalUserProfilesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED68F2A1769DA0005854C /* GlobalUserProfilesDataManager.swift */; };
 		93AED6922A1781A50005854C /* CourseRegisterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6912A1781A50005854C /* CourseRegisterListView.swift */; };
 		93AED6942A179D9F0005854C /* CourseRegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6932A179D9F0005854C /* CourseRegisterItem.swift */; };
-		93CAF7302A2CB4D4005D265E /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 93CAF72F2A2CB4D4005D265E /* SymbolPicker */; };
+		93CAF7302A2CB4D4005D265E /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; platformFilters = (macos, ); productRef = 93CAF72F2A2CB4D4005D265E /* SymbolPicker */; };
 		93CAF7502A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CAF74F2A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift */; };
 		93E0B8B42A136DD400ED917A /* CustomisationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0B8B32A136DD400ED917A /* CustomisationView.swift */; };
 		93F229742A10DD0200B44C85 /* GeneralCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229732A10DD0200B44C85 /* GeneralCourse.swift */; };
@@ -77,6 +81,11 @@
 		93362DC92A2B20E1006303CA /* SidebarCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCourseView.swift; sourceTree = "<group>"; };
 		93362DCB2A2B47EF006303CA /* FittingGeometryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FittingGeometryReader.swift; sourceTree = "<group>"; };
 		933DF79A2A203C10008C92E6 /* CourseSubmissionBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSubmissionBadge.swift; sourceTree = "<group>"; };
+		933F390F2A4438B4006E13AC /* The GlassRoom iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The GlassRoom iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		933F39112A4438B4006E13AC /* The_GlassRoom_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_GlassRoom_iOSApp.swift; sourceTree = "<group>"; };
+		933F39132A4438B4006E13AC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		933F39152A4438B5006E13AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		933F39182A4438B5006E13AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		934317492A164ADC00B16C6F /* DebugAPICallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugAPICallsView.swift; sourceTree = "<group>"; };
 		9343174B2A164AE800B16C6F /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
 		934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostsDataManager.swift; sourceTree = "<group>"; };
@@ -132,6 +141,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		933F390C2A4438B4006E13AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		937EA5B32A0CD9F8005F11C5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -208,6 +224,32 @@
 				932647A92A2D6709007CE470 /* NotesView.swift */,
 			);
 			path = Notes;
+			sourceTree = "<group>";
+		};
+		933F39102A4438B4006E13AC /* The GlassRoom iOS */ = {
+			isa = PBXGroup;
+			children = (
+				933F39112A4438B4006E13AC /* The_GlassRoom_iOSApp.swift */,
+				933F39132A4438B4006E13AC /* ContentView.swift */,
+				933F39152A4438B5006E13AC /* Assets.xcassets */,
+				933F39172A4438B5006E13AC /* Preview Content */,
+			);
+			path = "The GlassRoom iOS";
+			sourceTree = "<group>";
+		};
+		933F39172A4438B5006E13AC /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				933F39182A4438B5006E13AC /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		933F391D2A443934006E13AC /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		934317482A164AC300B16C6F /* Debug */ = {
@@ -317,6 +359,8 @@
 				9359F6E32A1A3305001A8A1F /* PRIVACY.md */,
 				937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */,
 				937EA5B82A0CD9F8005F11C5 /* The GlassRoom */,
+				933F39102A4438B4006E13AC /* The GlassRoom iOS */,
+				933F391D2A443934006E13AC /* Shared */,
 				937EA5B72A0CD9F8005F11C5 /* Products */,
 				93757D6E2A0F29B60063AB67 /* Frameworks */,
 				93ACB23D2A10B4370040C88E /* Recovered References */,
@@ -327,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				937EA5B62A0CD9F8005F11C5 /* The GlassRoom.app */,
+				933F390F2A4438B4006E13AC /* The GlassRoom iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -391,6 +436,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		933F390E2A4438B4006E13AC /* The GlassRoom iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 933F391A2A4438B5006E13AC /* Build configuration list for PBXNativeTarget "The GlassRoom iOS" */;
+			buildPhases = (
+				933F390B2A4438B4006E13AC /* Sources */,
+				933F390C2A4438B4006E13AC /* Frameworks */,
+				933F390D2A4438B4006E13AC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "The GlassRoom iOS";
+			productName = "The GlassRoom iOS";
+			productReference = 933F390F2A4438B4006E13AC /* The GlassRoom iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		937EA5B52A0CD9F8005F11C5 /* The GlassRoom */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 937EA5C52A0CD9F9005F11C5 /* Build configuration list for PBXNativeTarget "The GlassRoom" */;
@@ -420,9 +482,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					933F390E2A4438B4006E13AC = {
+						CreatedOnToolsVersion = 15.0;
+					};
 					937EA5B52A0CD9F8005F11C5 = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -446,11 +511,21 @@
 			projectRoot = "";
 			targets = (
 				937EA5B52A0CD9F8005F11C5 /* The GlassRoom */,
+				933F390E2A4438B4006E13AC /* The GlassRoom iOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		933F390D2A4438B4006E13AC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				933F39192A4438B5006E13AC /* Preview Assets.xcassets in Resources */,
+				933F39162A4438B5006E13AC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		937EA5B42A0CD9F8005F11C5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -463,6 +538,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		933F390B2A4438B4006E13AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				933F39142A4438B4006E13AC /* ContentView.swift in Sources */,
+				933F39122A4438B4006E13AC /* The_GlassRoom_iOSApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		937EA5B22A0CD9F8005F11C5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -526,6 +610,86 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		933F391B2A4438B5006E13AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		933F391C2A4438B5006E13AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		937EA5C32A0CD9F9005F11C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -664,6 +828,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -693,6 +861,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -701,6 +873,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		933F391A2A4438B5006E13AC /* Build configuration list for PBXNativeTarget "The GlassRoom iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				933F391B2A4438B5006E13AC /* Debug */,
+				933F391C2A4438B5006E13AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		937EA5B12A0CD9F8005F11C5 /* Build configuration list for PBXProject "The GlassRoom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
