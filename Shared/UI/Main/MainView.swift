@@ -47,11 +47,17 @@ struct MainView: View {
                 Image(systemName: "magnifyingglass")
             }
             .keyboardShortcut("O", modifiers: [.command, .shift])
-            
-            Button {
-                NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-            } label: {
-                Image(systemName: "gearshape")
+
+            if #available(macOS 14.0, *) {
+                SettingsLink {
+                    Image(systemName: "gearshape")
+                }
+            } else {
+                Button {
+                    NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+                } label: {
+                    Image(systemName: "gearshape")
+                }
             }
         }
         .onAppear {

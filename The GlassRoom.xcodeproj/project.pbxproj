@@ -69,6 +69,7 @@
 		933F39BE2A44493C006E13AC /* ReverseMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F39BC2A444936006E13AC /* ReverseMask.swift */; };
 		933F39C02A444967006E13AC /* TypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F39BF2A444967006E13AC /* TypeExtensions.swift */; };
 		933F39C12A4449A2006E13AC /* TypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F39BF2A444967006E13AC /* TypeExtensions.swift */; };
+		933F39C32A444D46006E13AC /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D672A0E7D280063AB67 /* SignInView.swift */; };
 		9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934317492A164ADC00B16C6F /* DebugAPICallsView.swift */; };
 		9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343174B2A164AE800B16C6F /* DebugLogsView.swift */; };
 		934858032A11F7AA008B84A7 /* CoursePostsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */; };
@@ -136,6 +137,7 @@
 		933F39182A4438B5006E13AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		933F39BC2A444936006E13AC /* ReverseMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseMask.swift; sourceTree = "<group>"; };
 		933F39BF2A444967006E13AC /* TypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeExtensions.swift; sourceTree = "<group>"; };
+		933F39C42A444F0E006E13AC /* The-GlassRoom-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "The-GlassRoom-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		934317492A164ADC00B16C6F /* DebugAPICallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugAPICallsView.swift; sourceTree = "<group>"; };
 		9343174B2A164AE800B16C6F /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
 		934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostsDataManager.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 			children = (
 				6AD406CF2A10B6B100343500 /* SettingsView.swift */,
 				93E0B8B32A136DD400ED917A /* CustomisationView.swift */,
+				93757D672A0E7D280063AB67 /* SignInView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -248,7 +251,6 @@
 			children = (
 				933F39BB2A444774006E13AC /* Components */,
 				6AD9CED82A0CE9FC0078E5D3 /* Main */,
-				93757D672A0E7D280063AB67 /* SignInView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -272,6 +274,7 @@
 		933F39102A4438B4006E13AC /* The GlassRoom iOS */ = {
 			isa = PBXGroup;
 			children = (
+				933F39C42A444F0E006E13AC /* The-GlassRoom-iOS-Info.plist */,
 				933F39112A4438B4006E13AC /* The_GlassRoom_iOSApp.swift */,
 				933F39132A4438B4006E13AC /* ContentView.swift */,
 				933F39152A4438B5006E13AC /* Assets.xcassets */,
@@ -664,6 +667,7 @@
 				933F39982A44447B006E13AC /* SearchView.swift in Sources */,
 				933F39BE2A44493C006E13AC /* ReverseMask.swift in Sources */,
 				933F395E2A443DFB006E13AC /* Secrets.swift in Sources */,
+				933F39C32A444D46006E13AC /* SignInView.swift in Sources */,
 				933F39B22A444611006E13AC /* NotesView.swift in Sources */,
 				933F399D2A4444AF006E13AC /* MultiCoursePostListView.swift in Sources */,
 				933F39972A444339006E13AC /* MainView.swift in Sources */,
@@ -752,6 +756,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "The-GlassRoom-iOS-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -792,6 +797,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "The-GlassRoom-iOS-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

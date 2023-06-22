@@ -14,6 +14,7 @@ struct SignInView: View {
     @State var showMoreScopes: Bool = false
 
     var body: some View {
+        #if os(macOS)
         VStack {
             Spacer()
             if let errorMsg = userModel.errorMessage {
@@ -39,6 +40,29 @@ struct SignInView: View {
             checkState()
         }
         .background(.thinMaterial)
+        #else
+        ZStack {
+            if showSignInWithGoogle {
+                signInView
+                    .frame(width: 400, height: 300)
+            }
+            if showMoreScopes {
+                addScopesView
+                    .frame(width: 400, height: 300)
+            }
+            if let errorMsg = userModel.errorMessage {
+                Text(errorMsg)
+            }
+        }
+        .padding(20)
+        .onChange(of: userModel.isLoggedIn) { _ in
+            checkState()
+        }
+        .onAppear {
+            checkState()
+        }
+        .background(.thinMaterial)
+        #endif
     }
 
     func checkState() {
@@ -49,10 +73,13 @@ struct SignInView: View {
             }
         } else {
             DispatchQueue.main.async {
-                // we can assume that they need more scopes, since
-                // if they didn't this screen would not be showing.
-                showSignInWithGoogle = true
-                showMoreScopes = true
+                if !(userModel.isLoggedIn ?? false) {
+                    showSignInWithGoogle = true
+                } else {
+                    if !userModel.hasNeededScopes() {
+                        showMoreScopes = true
+                    }
+                }
             }
         }
     }

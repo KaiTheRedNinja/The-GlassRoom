@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var userModel: UserAuthModel = .shared
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if let isLoggedIn = userModel.isLoggedIn {
+            if (isLoggedIn && userModel.hasNeededScopes()) || (!isLoggedIn && userModel.email != nil) {
+                MainView()
+            } else {
+                SignInView()
+            }
+        } else {
+            ProgressView()
         }
-        .padding()
     }
 }
 

@@ -93,23 +93,15 @@ class UserAuthModel: ObservableObject {
     }
 
     func signIn() {
-        #if os(iOS)
-        // TODO: Google sign in for iOS
-        #else
-        guard let presentingWindow = NSApp.windows.first else {
-            Log.error("Could not get presenting view controller")
-            return
-        }
+        guard let presentingController = getPresenter() else { return }
 
-        GIDSignIn.sharedInstance.signIn(withPresenting: presentingWindow,
-                                        completion: { _, error in
+        GIDSignIn.sharedInstance.signIn(withPresenting: presentingController) { _, error in
             if let error = error {
                 self.errorMessage = "error: \(error.localizedDescription)"
             }
 
             self.checkStatus()
-        })
-        #endif
+        }
     }
 
     func signOut() {
@@ -144,16 +136,9 @@ class UserAuthModel: ObservableObject {
     }
 
     func requestPermissions() {
-        guard let user = GIDSignIn.sharedInstance.currentUser else {
+        guard let user = GIDSignIn.sharedInstance.currentUser,
+              let presentingController = getPresenter() else {
             Log.error("Could not get user")
-            return
-        }
-
-        #if os(iOS)
-        // TODO: Google sign in for iOS
-        #else
-        guard let presentingWindow = NSApp.windows.first else {
-            Log.error("Could not get presenting view controller")
             return
         }
 
@@ -161,13 +146,37 @@ class UserAuthModel: ObservableObject {
         var requestingScopes: [String] = []
         requestingScopes = neededScopes.filter({ !grantedScopes.contains($0) })
 
-        user.addScopes(requestingScopes, presenting: presentingWindow) { signInResult, error in
+        user.addScopes(requestingScopes, presenting: presentingController) { signInResult, error in
             guard error == nil else { return }
             self.checkPermissions(requestIfMissing: false)
             guard let newUser = signInResult?.user else { return }
             let accessToken = newUser.accessToken.tokenString
             self.token = accessToken
         }
+    }
+
+    #if os(iOS)
+    typealias PresentingController = UIViewController
+    #else
+    typealias PresentingController = NSWindow
+    #endif
+
+    func getPresenter() -> PresentingController? {
+        #if os(iOS)
+        guard let scene = UIApplication.shared.connectedScenes.first,
+              let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
+              let window = windowSceneDelegate.window,
+              let presentingController = window?.rootViewController else {
+            Log.error("Could not get presenting uiviewcontroller")
+            return nil
+        }
+        return presentingController
+        #else
+        guard let presentingController = NSApp.windows.first else {
+            Log.error("Could not get presenting nswindow")
+            return nil
+        }
+        return presentingController
         #endif
     }
 }
