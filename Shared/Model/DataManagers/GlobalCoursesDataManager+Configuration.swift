@@ -188,10 +188,10 @@ extension Color: Codable {
         var b: CGFloat = 0
         var a: CGFloat = 0
 
-        #if os(iOS)
-        UIColor(self).getRed(&r, green: &g, blue: &b, alpha: &a)
-        #else
+        #if os(macOS)
         NSColor(self).getRed(&r, green: &g, blue: &b, alpha: &a)
+        #else
+        UIColor(self).getRed(&r, green: &g, blue: &b, alpha: &a)
         #endif
 
         return (r, g, b, a)

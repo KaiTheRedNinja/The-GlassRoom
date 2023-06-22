@@ -34,6 +34,41 @@
 		933F395F2A443DFB006E13AC /* CoursePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2422A10D0FF0040C88E /* CoursePost.swift */; };
 		933F39612A443E18006E13AC /* GlassRoomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 933F39602A443E18006E13AC /* GlassRoomAPI */; };
 		933F39652A443E28006E13AC /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 933F39642A443E28006E13AC /* GoogleSignIn */; };
+		933F39972A444339006E13AC /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD9CED92A0CEA120078E5D3 /* MainView.swift */; };
+		933F39982A44447B006E13AC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2392A106F550040C88E /* SearchView.swift */; };
+		933F39992A4444AF006E13AC /* CoursePostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD406D32A10D96800343500 /* CoursePostItem.swift */; };
+		933F399A2A4444AF006E13AC /* SingleCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858052A123405008B84A7 /* SingleCoursePostListView.swift */; };
+		933F399B2A4444AF006E13AC /* UniversalCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229752A10E5B800B44C85 /* UniversalCoursePostListView.swift */; };
+		933F399C2A4444AF006E13AC /* CoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93650B122A19A7E100F5D865 /* CoursePostListView.swift */; };
+		933F399D2A4444AF006E13AC /* MultiCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229792A10EA9D00B44C85 /* MultiCoursePostListView.swift */; };
+		933F399E2A4444AF006E13AC /* CourseSubmissionBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF79A2A203C10008C92E6 /* CourseSubmissionBadge.swift */; };
+		933F399F2A4444B2006E13AC /* CourseResourcesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A201B22A1B9E0E00EDECD0 /* CourseResourcesListView.swift */; };
+		933F39A02A4444B5006E13AC /* CourseRegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6932A179D9F0005854C /* CourseRegisterItem.swift */; };
+		933F39A12A4444B5006E13AC /* CenterSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D732A0F9AC50063AB67 /* CenterSplitView.swift */; };
+		933F39A22A4444B5006E13AC /* CenterSplitViewToolbarTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2482A10D8930040C88E /* CenterSplitViewToolbarTop.swift */; };
+		933F39A32A4444B5006E13AC /* CourseRegisterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6912A1781A50005854C /* CourseRegisterListView.swift */; };
+		933F39A42A4444CD006E13AC /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343174B2A164AE800B16C6F /* DebugLogsView.swift */; };
+		933F39A52A4444CD006E13AC /* DebugAPICallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934317492A164ADC00B16C6F /* DebugAPICallsView.swift */; };
+		933F39A62A4444E5006E13AC /* CustomisationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0B8B32A136DD400ED917A /* CustomisationView.swift */; };
+		933F39A72A4444E5006E13AC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD406CF2A10B6B100343500 /* SettingsView.swift */; };
+		933F39A92A444537006E13AC /* GlassRoomTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 933F39A82A444537006E13AC /* GlassRoomTypes */; };
+		933F39AB2A44453F006E13AC /* GlassRoomTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 933F39AA2A44453F006E13AC /* GlassRoomTypes */; };
+		933F39AC2A4445A3006E13AC /* CourseWorkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348580B2A125DAB008B84A7 /* CourseWorkDetailView.swift */; };
+		933F39AD2A4445A3006E13AC /* CourseWorkStudentSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FCB712A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift */; };
+		933F39AE2A4445A3006E13AC /* AnnouncementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858092A125DA1008B84A7 /* AnnouncementDetailView.swift */; };
+		933F39AF2A4445A3006E13AC /* CourseMaterialDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348580D2A125DB5008B84A7 /* CourseMaterialDetailView.swift */; };
+		933F39B02A4445A3006E13AC /* CourseWorkTeacherSubmissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FCB6F2A1C83D2002B4C3B /* CourseWorkTeacherSubmissionsView.swift */; };
+		933F39B12A4445A3006E13AC /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D752A0F9B220063AB67 /* DetailView.swift */; };
+		933F39B22A444611006E13AC /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932647A92A2D6709007CE470 /* NotesView.swift */; };
+		933F39B32A444660006E13AC /* CreateNewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A08172C2A1706120000705F /* CreateNewPostView.swift */; };
+		933F39B52A44475F006E13AC /* LinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA0583A2A0FEB90005A9BDB /* LinkPreview.swift */; };
+		933F39B82A44475F006E13AC /* TriStateToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93761F382A2B81DF00E2008E /* TriStateToggle.swift */; };
+		933F39B92A44475F006E13AC /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2462A10D5C00040C88E /* SegmentedControl.swift */; };
+		933F39BA2A44475F006E13AC /* FittingGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93362DCB2A2B47EF006303CA /* FittingGeometryReader.swift */; };
+		933F39BD2A444936006E13AC /* ReverseMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F39BC2A444936006E13AC /* ReverseMask.swift */; };
+		933F39BE2A44493C006E13AC /* ReverseMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F39BC2A444936006E13AC /* ReverseMask.swift */; };
+		933F39C02A444967006E13AC /* TypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F39BF2A444967006E13AC /* TypeExtensions.swift */; };
+		933F39C12A4449A2006E13AC /* TypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F39BF2A444967006E13AC /* TypeExtensions.swift */; };
 		9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934317492A164ADC00B16C6F /* DebugAPICallsView.swift */; };
 		9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343174B2A164AE800B16C6F /* DebugLogsView.swift */; };
 		934858032A11F7AA008B84A7 /* CoursePostsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */; };
@@ -68,7 +103,6 @@
 		939FCB702A1C83D2002B4C3B /* CourseWorkTeacherSubmissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FCB6F2A1C83D2002B4C3B /* CourseWorkTeacherSubmissionsView.swift */; };
 		939FCB722A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FCB712A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift */; };
 		93A201B32A1B9E0E00EDECD0 /* CourseResourcesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A201B22A1B9E0E00EDECD0 /* CourseResourcesListView.swift */; };
-		93A201B52A1C2C4E00EDECD0 /* CompactLinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A201B42A1C2C4E00EDECD0 /* CompactLinkPreview.swift */; };
 		93ACB23A2A106F550040C88E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2392A106F550040C88E /* SearchView.swift */; };
 		93ACB2432A10D0FF0040C88E /* CoursePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2422A10D0FF0040C88E /* CoursePost.swift */; };
 		93ACB2472A10D5C00040C88E /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2462A10D5C00040C88E /* SegmentedControl.swift */; };
@@ -76,7 +110,7 @@
 		93AED6902A1769DA0005854C /* GlobalUserProfilesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED68F2A1769DA0005854C /* GlobalUserProfilesDataManager.swift */; };
 		93AED6922A1781A50005854C /* CourseRegisterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6912A1781A50005854C /* CourseRegisterListView.swift */; };
 		93AED6942A179D9F0005854C /* CourseRegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6932A179D9F0005854C /* CourseRegisterItem.swift */; };
-		93CAF7302A2CB4D4005D265E /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; platformFilters = (macos, ); productRef = 93CAF72F2A2CB4D4005D265E /* SymbolPicker */; };
+		93CAF7302A2CB4D4005D265E /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 93CAF72F2A2CB4D4005D265E /* SymbolPicker */; };
 		93CAF7502A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CAF74F2A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift */; };
 		93E0B8B42A136DD400ED917A /* CustomisationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0B8B32A136DD400ED917A /* CustomisationView.swift */; };
 		93F229742A10DD0200B44C85 /* GeneralCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229732A10DD0200B44C85 /* GeneralCourse.swift */; };
@@ -100,6 +134,8 @@
 		933F39132A4438B4006E13AC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		933F39152A4438B5006E13AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		933F39182A4438B5006E13AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		933F39BC2A444936006E13AC /* ReverseMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseMask.swift; sourceTree = "<group>"; };
+		933F39BF2A444967006E13AC /* TypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeExtensions.swift; sourceTree = "<group>"; };
 		934317492A164ADC00B16C6F /* DebugAPICallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugAPICallsView.swift; sourceTree = "<group>"; };
 		9343174B2A164AE800B16C6F /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
 		934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostsDataManager.swift; sourceTree = "<group>"; };
@@ -137,7 +173,6 @@
 		939FCB6F2A1C83D2002B4C3B /* CourseWorkTeacherSubmissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWorkTeacherSubmissionsView.swift; sourceTree = "<group>"; };
 		939FCB712A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWorkStudentSubmissionView.swift; sourceTree = "<group>"; };
 		93A201B22A1B9E0E00EDECD0 /* CourseResourcesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseResourcesListView.swift; sourceTree = "<group>"; };
-		93A201B42A1C2C4E00EDECD0 /* CompactLinkPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactLinkPreview.swift; sourceTree = "<group>"; };
 		93ACB2392A106F550040C88E /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		93ACB2422A10D0FF0040C88E /* CoursePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePost.swift; sourceTree = "<group>"; };
 		93ACB2462A10D5C00040C88E /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
@@ -159,6 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				933F39A92A444537006E13AC /* GlassRoomTypes in Frameworks */,
 				933F39612A443E18006E13AC /* GlassRoomAPI in Frameworks */,
 				933F39652A443E28006E13AC /* GoogleSignIn in Frameworks */,
 			);
@@ -170,6 +206,7 @@
 			files = (
 				93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */,
 				93757D702A0F29B60063AB67 /* GlassRoomAPI in Frameworks */,
+				933F39AB2A44453F006E13AC /* GlassRoomTypes in Frameworks */,
 				93CAF7302A2CB4D4005D265E /* SymbolPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,12 +226,10 @@
 			isa = PBXGroup;
 			children = (
 				6AA0583A2A0FEB90005A9BDB /* LinkPreview.swift */,
-				93A201B42A1C2C4E00EDECD0 /* CompactLinkPreview.swift */,
 				93ACB2462A10D5C00040C88E /* SegmentedControl.swift */,
-				9359F6E12A1A20FD001A8A1F /* SplitView.swift */,
 				93362DCB2A2B47EF006303CA /* FittingGeometryReader.swift */,
 				93761F382A2B81DF00E2008E /* TriStateToggle.swift */,
-				93CAF74F2A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift */,
+				933F39BC2A444936006E13AC /* ReverseMask.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -211,11 +246,8 @@
 		6AD9CED72A0CE9E70078E5D3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				6AA058392A0FEB80005A9BDB /* Components */,
+				933F39BB2A444774006E13AC /* Components */,
 				6AD9CED82A0CE9FC0078E5D3 /* Main */,
-				932647A82A2D66FB007CE470 /* Notes */,
-				934317482A164AC300B16C6F /* Debug */,
-				6AD406CE2A10B69200343500 /* Settings */,
 				93757D672A0E7D280063AB67 /* SignInView.swift */,
 			);
 			path = UI;
@@ -224,12 +256,7 @@
 		6AD9CED82A0CE9FC0078E5D3 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				6AD9CED92A0CEA120078E5D3 /* MainView.swift */,
 				93757D7C2A0FBAD20063AB67 /* Sidebar */,
-				9373B01F2A10646500C8923B /* Center */,
-				93ACB2382A106F450040C88E /* Detail */,
-				6A08172B2A1705740000705F /* New Post */,
-				93ACB2372A106F3D0040C88E /* Search */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -264,9 +291,44 @@
 		933F391D2A443934006E13AC /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				933F39BF2A444967006E13AC /* TypeExtensions.swift */,
+				933F39952A444321006E13AC /* UI */,
 				93757D5E2A0E73F30063AB67 /* Model */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		933F39952A444321006E13AC /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				6AA058392A0FEB80005A9BDB /* Components */,
+				933F39962A44432C006E13AC /* Main */,
+				932647A82A2D66FB007CE470 /* Notes */,
+				934317482A164AC300B16C6F /* Debug */,
+				6AD406CE2A10B69200343500 /* Settings */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		933F39962A44432C006E13AC /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				6AD9CED92A0CEA120078E5D3 /* MainView.swift */,
+				9373B01F2A10646500C8923B /* Center */,
+				93ACB2382A106F450040C88E /* Detail */,
+				6A08172B2A1705740000705F /* New Post */,
+				93ACB2372A106F3D0040C88E /* Search */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		933F39BB2A444774006E13AC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9359F6E12A1A20FD001A8A1F /* SplitView.swift */,
+				93CAF74F2A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		934317482A164AC300B16C6F /* Debug */ = {
@@ -468,6 +530,7 @@
 			packageProductDependencies = (
 				933F39602A443E18006E13AC /* GlassRoomAPI */,
 				933F39642A443E28006E13AC /* GoogleSignIn */,
+				933F39A82A444537006E13AC /* GlassRoomTypes */,
 			);
 			productName = "The GlassRoom iOS";
 			productReference = 933F390F2A4438B4006E13AC /* The GlassRoom iOS.app */;
@@ -490,6 +553,7 @@
 				93757D5C2A0E73DA0063AB67 /* GoogleSignIn */,
 				93757D6F2A0F29B60063AB67 /* GlassRoomAPI */,
 				93CAF72F2A2CB4D4005D265E /* SymbolPicker */,
+				933F39AA2A44453F006E13AC /* GlassRoomTypes */,
 			);
 			productName = "The GlassRoom";
 			productReference = 937EA5B62A0CD9F8005F11C5 /* The GlassRoom.app */;
@@ -562,20 +626,51 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				933F39BA2A44475F006E13AC /* FittingGeometryReader.swift in Sources */,
 				933F39542A443DFB006E13AC /* GeneralCourse.swift in Sources */,
+				933F399B2A4444AF006E13AC /* UniversalCoursePostListView.swift in Sources */,
+				933F39A52A4444CD006E13AC /* DebugAPICallsView.swift in Sources */,
+				933F39992A4444AF006E13AC /* CoursePostItem.swift in Sources */,
 				933F39562A443DFB006E13AC /* CourseWorkSubmissionDataManager.swift in Sources */,
+				933F399A2A4444AF006E13AC /* SingleCoursePostListView.swift in Sources */,
+				933F39AD2A4445A3006E13AC /* CourseWorkStudentSubmissionView.swift in Sources */,
 				933F39142A4438B4006E13AC /* ContentView.swift in Sources */,
+				933F39AE2A4445A3006E13AC /* AnnouncementDetailView.swift in Sources */,
+				933F39A32A4444B5006E13AC /* CourseRegisterListView.swift in Sources */,
+				933F39B52A44475F006E13AC /* LinkPreview.swift in Sources */,
+				933F39A22A4444B5006E13AC /* CenterSplitViewToolbarTop.swift in Sources */,
+				933F39B02A4445A3006E13AC /* CourseWorkTeacherSubmissionsView.swift in Sources */,
 				933F39582A443DFB006E13AC /* Secrets (Sensitive).swift in Sources */,
+				933F39A42A4444CD006E13AC /* DebugLogsView.swift in Sources */,
 				933F395F2A443DFB006E13AC /* CoursePost.swift in Sources */,
 				933F395C2A443DFB006E13AC /* UserAuthModel.swift in Sources */,
 				933F39592A443DFB006E13AC /* GlobalCoursesDataManager+Configuration.swift in Sources */,
+				933F39A12A4444B5006E13AC /* CenterSplitView.swift in Sources */,
+				933F39B82A44475F006E13AC /* TriStateToggle.swift in Sources */,
 				933F395B2A443DFB006E13AC /* FileManager.swift in Sources */,
 				933F39572A443DFB006E13AC /* GlobalCoursesDataManager.swift in Sources */,
+				933F39B32A444660006E13AC /* CreateNewPostView.swift in Sources */,
 				933F39552A443DFB006E13AC /* Date+Format.swift in Sources */,
+				933F399C2A4444AF006E13AC /* CoursePostListView.swift in Sources */,
+				933F399E2A4444AF006E13AC /* CourseSubmissionBadge.swift in Sources */,
+				933F39B92A44475F006E13AC /* SegmentedControl.swift in Sources */,
 				933F39122A4438B4006E13AC /* The_GlassRoom_iOSApp.swift in Sources */,
+				933F39A02A4444B5006E13AC /* CourseRegisterItem.swift in Sources */,
+				933F39B12A4445A3006E13AC /* DetailView.swift in Sources */,
+				933F39AF2A4445A3006E13AC /* CourseMaterialDetailView.swift in Sources */,
+				933F399F2A4444B2006E13AC /* CourseResourcesListView.swift in Sources */,
+				933F39AC2A4445A3006E13AC /* CourseWorkDetailView.swift in Sources */,
 				933F395A2A443DFB006E13AC /* CoursePostsDataManager.swift in Sources */,
+				933F39982A44447B006E13AC /* SearchView.swift in Sources */,
+				933F39BE2A44493C006E13AC /* ReverseMask.swift in Sources */,
 				933F395E2A443DFB006E13AC /* Secrets.swift in Sources */,
+				933F39B22A444611006E13AC /* NotesView.swift in Sources */,
+				933F399D2A4444AF006E13AC /* MultiCoursePostListView.swift in Sources */,
+				933F39972A444339006E13AC /* MainView.swift in Sources */,
 				933F395D2A443DFB006E13AC /* GlobalUserProfilesDataManager.swift in Sources */,
+				933F39A72A4444E5006E13AC /* SettingsView.swift in Sources */,
+				933F39A62A4444E5006E13AC /* CustomisationView.swift in Sources */,
+				933F39C12A4449A2006E13AC /* TypeExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,9 +713,9 @@
 				93F229762A10E5B800B44C85 /* UniversalCoursePostListView.swift in Sources */,
 				9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */,
 				93757D662A0E7B430063AB67 /* Secrets (Sensitive).swift in Sources */,
+				933F39C02A444967006E13AC /* TypeExtensions.swift in Sources */,
 				93650B132A19A7E100F5D865 /* CoursePostListView.swift in Sources */,
 				93CAF7502A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift in Sources */,
-				93A201B52A1C2C4E00EDECD0 /* CompactLinkPreview.swift in Sources */,
 				934858082A1249CD008B84A7 /* CourseWorkSubmissionDataManager.swift in Sources */,
 				9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */,
 				938300EE2A0FBB4C006581B8 /* SidebarOutlineView.swift in Sources */,
@@ -635,6 +730,7 @@
 				93757D742A0F9AC50063AB67 /* CenterSplitView.swift in Sources */,
 				93A201B32A1B9E0E00EDECD0 /* CourseResourcesListView.swift in Sources */,
 				93ACB2472A10D5C00040C88E /* SegmentedControl.swift in Sources */,
+				933F39BD2A444936006E13AC /* ReverseMask.swift in Sources */,
 				937EA5BA2A0CD9F8005F11C5 /* The_GlassRoomApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -962,6 +1058,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93757D5B2A0E73DA0063AB67 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
+		};
+		933F39A82A444537006E13AC /* GlassRoomTypes */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GlassRoomTypes;
+		};
+		933F39AA2A44453F006E13AC /* GlassRoomTypes */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GlassRoomTypes;
 		};
 		93757D5C2A0E73DA0063AB67 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;

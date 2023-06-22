@@ -124,9 +124,14 @@ extension DetailViewPage {
 
                 Button {
                     copiedLink.wrappedValue = true
+                    #if os(macOS)
                     let pasteboard = NSPasteboard.general
                     pasteboard.declareTypes([.string], owner: nil)
                     pasteboard.setString("\(link)", forType: .string)
+                    #else
+                    let pasteboard = UIPasteboard.general
+                    pasteboard.string = link
+                    #endif
                 } label: {
                     HStack {
                         Image(systemName: "link")

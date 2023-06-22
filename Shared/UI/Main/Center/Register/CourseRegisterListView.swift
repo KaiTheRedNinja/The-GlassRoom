@@ -145,6 +145,7 @@ struct CourseRegisterListView: View {
               let student = profileManager.userProfilesMap[randomStudent.userId]
         else { return }
 
+        #if os(macOS)
         let alert = NSAlert.init()
         alert.messageText = student.name.fullName
         if let photoUrl = student.photoUrl {
@@ -155,6 +156,10 @@ struct CourseRegisterListView: View {
             }
         }
         alert.runModal()
+        #else
+        // TODO: Implement for iOS
+        print("Random student not yet supported on iOS")
+        #endif
     }
 
     enum ExportSortStyle {
@@ -197,7 +202,7 @@ struct CourseRegisterListView: View {
             .joined(separator: "\n")
 
         // write it to a file
-
+        #if os(macOS)
         guard let nsWindow = NSApplication.shared.keyWindow else {
             Log.error("No keywindow found")
             return
@@ -219,5 +224,8 @@ struct CourseRegisterListView: View {
                 Log.error(error.localizedDescription)
             }
         }
+        #else
+        // TODO: Figure out how to save files on iOS
+        #endif
     }
 }

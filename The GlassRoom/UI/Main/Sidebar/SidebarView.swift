@@ -73,16 +73,6 @@ struct SidebarView: View {
     }
 }
 
-extension Course: Identifiable, Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-}
-
-extension String: Identifiable {
-    public var id: String { self }
-}
-
 struct SidebarView_Previews: PreviewProvider {
     static var previews: some View {
         SidebarView(selection: .constant(nil))

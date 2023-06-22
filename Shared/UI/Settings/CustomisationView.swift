@@ -47,6 +47,7 @@ struct CustomisationView: View {
                     }
                 }
                 .background {
+                    #if os(macOS)
                     SymbolPickerView(
                         showSymbolPicker: $showIconPopup,
                         selectedSymbol: .init(get: {
@@ -69,6 +70,7 @@ struct CustomisationView: View {
                         }),
                         title: "Choose Icon and Color"
                     )
+                    #endif
                 }
 
                 // TODO: Reload this when replaced course names changes

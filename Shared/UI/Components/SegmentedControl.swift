@@ -54,7 +54,11 @@ struct SegmentedControl: View {
 }
 
 struct SegmentedControlItem: View {
+    #if os(macOS)
     private let color: Color = Color(nsColor: .selectedControlColor)
+    #else
+    private let color: Color = Color(uiColor: .secondarySystemFill)
+    #endif
     let label: String
     let image: String
     let active: Bool
@@ -64,14 +68,24 @@ struct SegmentedControlItem: View {
     @Environment(\.colorScheme)
     private var colorScheme
 
+    #if os(macOS)
     @Environment(\.controlActiveState)
     private var activeState
+    #endif
 
     @State
     var isHovering: Bool = false
 
     @State
     var isPressing: Bool = false
+
+    func isActive() -> Bool {
+        #if os(macOS)
+        return activeState != .inactive
+        #else
+        return true
+        #endif
+    }
 
     var body: some View {
         VStack {
@@ -114,9 +128,9 @@ struct SegmentedControlItem: View {
 
     private var textOpacity: Double {
         if prominent {
-            return activeState != .inactive ? 1 : active ? 1 : 0.3
+            return isActive() ? 1 : active ? 1 : 0.3
         } else {
-            return activeState != .inactive ? 1 : active ? 0.5 : 0.3
+            return isActive() ? 1 : active ? 0.5 : 0.3
         }
     }
 
@@ -124,16 +138,16 @@ struct SegmentedControlItem: View {
     private var background: some View {
         if prominent {
             if active {
-                Color.accentColor.opacity(activeState != .inactive ? 1 : 0.5)
+                Color.accentColor.opacity(isActive() ? 1 : 0.5)
             } else {
-                Color(nsColor: colorScheme == .dark ? .white : .black)
+                Color(colorScheme == .dark ? .white : .black)
                     .opacity(isPressing ? 0.10 : isHovering ? 0.05 : 0)
             }
         } else {
             if active {
-                color.opacity(isPressing ? 1 : activeState != .inactive ? 0.75 : 0.5)
+                color.opacity(isPressing ? 1 : isActive() ? 0.75 : 0.5)
             } else {
-                Color(nsColor: colorScheme == .dark ? .white : .black)
+                Color(colorScheme == .dark ? .white : .black)
                     .opacity(isPressing ? 0.10 : isHovering ? 0.05 : 0)
             }
         }

@@ -21,6 +21,7 @@ struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        #if os(macOS)
         TabView(selection: $settingsTabSelection) {
             account
                 .frame(width: 680, height: 200)
@@ -51,6 +52,36 @@ struct SettingsView: View {
                 }
                 .tag(3)
         }
+        #else
+        NavigationView {
+            List {
+                NavigationLink {
+                    account
+                } label: {
+                    Label("Account", systemImage: settingsTabSelection == 0 ? "person.fill" : "person")
+                }
+
+                NavigationLink {
+                    general
+                } label: {
+                    Label("General", systemImage: settingsTabSelection == 1 ? "gearshape.fill" : "gearshape")
+                }
+
+                NavigationLink {
+                    CustomisationView()
+                } label: {
+                    Label("Customisation", systemImage: settingsTabSelection == 2 ? "paintpalette.fill" : "paintpalette")
+                }
+
+
+                NavigationLink {
+                    shortcuts
+                } label: {
+                    Label("Shortucts", systemImage: settingsTabSelection == 3 ? "keyboard.fill" : "keyboard")
+                }
+            }
+        }
+        #endif
     }
     
     var account: some View {

@@ -20,6 +20,7 @@ struct MainView: View {
     @Environment(\.openWindow) var openWindow
 
     var body: some View {
+        #if os(macOS)
         splitView
         .sheet(isPresented: $showSearch) {
             SearchView(selectedCourse: $selectedCourse,
@@ -56,10 +57,44 @@ struct MainView: View {
         .onAppear {
             loadCachedStreams()
         }
+        #else
+        TabView {
+            splitView
+                .sheet(isPresented: $showSearch) {
+                    SearchView(selectedCourse: $selectedCourse,
+                               selectedPost: $selectedPost)
+                }
+                .toolbar {
+                    Button {
+                        showSearch.toggle()
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                    }
+                    .keyboardShortcut("O", modifiers: [.command, .shift])
+                }
+            if debugMode {
+                DebugLogsView()
+                    .tabItem {
+                        Label("Logs", image: "exclamationmark.triangle.fill")
+                    }
+
+                DebugAPICallsView()
+                    .tabItem {
+                        Label("API Calls", image: "arrow.left.arrow.right")
+                    }
+            }
+
+            SettingsView()
+                .tabItem {
+                    Label("Settings", image: "gearshape")
+                }
+        }
+        #endif
     }
 
     @ViewBuilder
     var splitView: some View {
+        #if os(macOS)
         if useFancyUI {
             NavigationSplitView {
                 SidebarView(selection: $selectedCourse)
@@ -81,15 +116,22 @@ struct MainView: View {
                 }
             }
         } else {
-            NavigationSplitView {
-                SidebarView(selection: $selectedCourse)
-            } content: {
-                CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-                    .frame(minWidth: 200)
-            } detail: {
-                DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-                    .frame(minWidth: 200)
-            }
+            traditionalView
+        }
+        #else
+        traditionalView
+        #endif
+    }
+
+    var traditionalView: some View {
+        NavigationSplitView {
+            SidebarView(selection: $selectedCourse)
+        } content: {
+            CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
+                .frame(minWidth: 200)
+        } detail: {
+            DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
+                .frame(minWidth: 200)
         }
     }
 
@@ -109,6 +151,16 @@ struct MainView: View {
         Log.info("Loaded managers: \(CoursePostsDataManager.loadedManagers.keys)")
     }
 }
+
+#if os(iOS)
+struct SidebarView: View { // TODO: Fix this
+    @Binding var selection: GeneralCourse?
+
+    var body: some View {
+        Text("Not implemented yet")
+    }
+}
+#endif
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {

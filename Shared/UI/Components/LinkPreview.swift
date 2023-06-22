@@ -5,12 +5,13 @@
 //  Created by Tristan on 14/05/2023.
 //
 
-import AppKit
 import SwiftUI
 import LinkPresentation
 import GlassRoomAPI
 import GlassRoomTypes
 
+#if os(macOS)
+import AppKit
 struct LinkPreview: NSViewRepresentable {
     typealias NSViewType = LPLinkView
     
@@ -95,6 +96,21 @@ struct LinkPreview: NSViewRepresentable {
         }
     }
 }
+#else
+struct LinkPreview: View {
+    var url: URL
+    var isAttachment: Bool
+
+    init(url: URL, isAttachment: Bool) {
+        self.url = url
+        self.isAttachment = isAttachment
+    }
+
+    var body: some View {
+        Text(url.description)
+    }
+}
+#endif
 
 // NOTE: This causes size issues
 class MetaCache {
