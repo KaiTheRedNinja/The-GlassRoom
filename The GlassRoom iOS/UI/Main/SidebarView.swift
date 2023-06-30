@@ -28,16 +28,19 @@ struct SidebarView: View { // TODO: Fix this
                         .tag(GeneralCourse.course(course.id))
                 }
             }
-            .listStyle(.grouped)
+            .navigationTitle(UIScreen.main.traitCollection.userInterfaceIdiom == .pad ? "Glassroom" : "")
+            .listStyle(.insetGrouped)
             .onAppear {
                 coursesManager.loadList()
             }
         }
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Text("Glassroom")
-                    .font(.title3)
-                    .fontWeight(.bold)
+            if UIScreen.main.traitCollection.userInterfaceIdiom == .phone {
+                ToolbarItem(placement: .topBarLeading) {
+                    Text("Glassroom")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                }
             }
             
             ToolbarItem(placement: .topBarTrailing) {

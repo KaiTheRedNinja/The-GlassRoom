@@ -51,25 +51,32 @@ struct CenterSplitView: View {
                 .padding(.bottom, -8)
             }
         }
+        #else
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Picker("", selection: $currentPage) {
+                    Image(systemName: "list.bullet")
+                        .tag(CourseDisplayOption.allPosts)
+                    Image(systemName: "megaphone")
+                        .tag(CourseDisplayOption.announcements)
+                    Image(systemName: "square.and.pencil")
+                        .tag(CourseDisplayOption.courseWork)
+                    Image(systemName: "doc")
+                        .tag(CourseDisplayOption.courseMaterial)
+                    Image(systemName: "link")
+                        .tag(CourseDisplayOption.resources)
+                    Image(systemName: "person.2")
+                        .tag(CourseDisplayOption.userRegister)
+                }
+                .pickerStyle(.segmented)
+            }
+        }
         #endif
         .onChange(of: selectedCourse) { _ in
             reloadAnnouncements()
         }
         .onAppear {
             reloadAnnouncements()
-        }
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                HStack {
-                    Spacer()
-                    CenterSplitViewToolbarTop(
-                        selectedCourse: $selectedCourse,
-                        currentPage: $currentPage,
-                        displayedCourseManager: displayedCoursesManager
-                    )
-                    Spacer()
-                }
-            }
         }
     }
 

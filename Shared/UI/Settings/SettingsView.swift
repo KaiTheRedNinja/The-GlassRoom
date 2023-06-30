@@ -94,6 +94,15 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss.callAsFunction()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
+            }
         }
         #endif
     }
@@ -110,8 +119,9 @@ struct SettingsView: View {
                     #if os(iOS)
                     if UIScreen.main.traitCollection.userInterfaceIdiom == .phone {
                         AsyncImage(url: URL(string: getProfilePicURL()))
-                            .frame(width: UIScreen.main.bounds.width / 4, height: UIScreen.main.bounds.width / 4)
                             .mask(Circle())
+                            .scaleEffect(0.75)
+                            .frame(width: UIScreen.main.bounds.width / 6, height: UIScreen.main.bounds.width / 6)
                     } else {
                         AsyncImage(url: URL(string: getProfilePicURL()))
                             .mask(Circle())
