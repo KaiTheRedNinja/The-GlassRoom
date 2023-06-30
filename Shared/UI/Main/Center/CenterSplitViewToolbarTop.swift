@@ -58,7 +58,9 @@ struct CenterSplitViewToolbarTop: View {
         .padding(.horizontal, 5)
         .frame(height: 25)
         .frame(maxWidth: .infinity)
+        #if os(macOS)
         .background(.thinMaterial)
+        #endif
     }
 
     var filterView: some View {

@@ -26,6 +26,7 @@ struct CenterSplitView: View {
         ZStack {
             content
         }
+        #if os(macOS)
         .safeAreaInset(edge: .top) {
             if useFancyUI {
                 CenterSplitViewToolbarTop(selectedCourse: $selectedCourse,
@@ -50,11 +51,25 @@ struct CenterSplitView: View {
                 .padding(.bottom, -8)
             }
         }
+        #endif
         .onChange(of: selectedCourse) { _ in
             reloadAnnouncements()
         }
         .onAppear {
             reloadAnnouncements()
+        }
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                HStack {
+                    Spacer()
+                    CenterSplitViewToolbarTop(
+                        selectedCourse: $selectedCourse,
+                        currentPage: $currentPage,
+                        displayedCourseManager: displayedCoursesManager
+                    )
+                    Spacer()
+                }
+            }
         }
     }
 
