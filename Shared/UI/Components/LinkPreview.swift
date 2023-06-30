@@ -97,17 +97,90 @@ struct LinkPreview: NSViewRepresentable {
     }
 }
 #else
-struct LinkPreview: View {
+import SwiftUI
+import LinkPresentation
+
+struct LinkPreview: UIViewRepresentable {
+    typealias UIViewType = LPLinkView
     var url: URL
     var isAttachment: Bool
-
+    
     init(url: URL, isAttachment: Bool) {
         self.url = url
         self.isAttachment = isAttachment
     }
-
-    var body: some View {
-        Text(url.description)
+    
+    func makeUIView(context: UIViewRepresentableContext<LinkPreview>) -> LinkPreview.UIViewType {
+        let linkView = LPLinkView(url: url)
+        
+        // if it's a document, detect the ID
+        if url.absoluteString.contains("/docs.google.com/") || url.absoluteString.contains("/drive.google.com/") {
+            // detect the file ID
+            let fileIds = url.absoluteString.findMatches(pattern: "/d/[a-zA-Z0-9-_]+/")
+            if let fileIdRaw = fileIds.first {
+                let fileId = String(fileIdRaw.dropFirst(3).dropLast(1))
+                
+                GlassRoomAPI.GDDriveDetails.get(
+                    params: .init(fileId: fileId),
+                    query: .init(fields: ["name"]),
+                    data: .init()
+                ) { result in
+                    switch result {
+                    case .success(let success):
+                        let metadata = LPLinkMetadata()
+                        metadata.originalURL = url
+                        metadata.url = metadata.originalURL
+                        metadata.title = success.name
+                        linkView.metadata = metadata
+                    case .failure(let failure):
+                        Log.error("Failure: \(failure.localizedDescription)")
+                    }
+                }
+            }
+        }
+        
+        return linkView
+    }
+    
+    func driveIdFor(urlString: String) -> String? {
+        guard urlString.contains("/docs.google.com/") || urlString.contains("/drive.google.com/")
+        else { return nil }
+        // detect the file ID
+        let fileIds = url.absoluteString.findMatches(pattern: "/d/[a-zA-Z0-9-_]+/")
+        if let fileIdRaw = fileIds.first {
+            let fileId = String(fileIdRaw.dropFirst(3).dropLast(1))
+            return fileId
+        }
+        return nil
+    }
+    
+    func updateUIView(_ uiView: LinkPreview.UIViewType, context: UIViewRepresentableContext<LinkPreview>) {
+        if let cachedData = MetaCache.shared.retrieve(urlString: url.absoluteString) {
+            uiView.metadata = cachedData
+        } else {
+            let provider = LPMetadataProvider()
+            
+            provider.startFetchingMetadata(for: url) { metadata, error in
+                guard let metadata = metadata, error == nil else {
+                    return
+                }
+                
+                // if the title is already loaded, use that instead
+                if let existingTitle = uiView.metadata.title {
+                    metadata.title = existingTitle
+                }
+                
+                if isAttachment {
+                    metadata.imageProvider = nil
+                }
+                
+                MetaCache.shared.cache(metadata: metadata)
+                
+                DispatchQueue.main.async {
+                    uiView.metadata = metadata
+                }
+            }
+        }
     }
 }
 #endif

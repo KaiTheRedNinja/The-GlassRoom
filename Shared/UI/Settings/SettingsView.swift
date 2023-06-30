@@ -13,12 +13,12 @@ struct SettingsView: View {
     @ObservedObject var userModel: UserAuthModel = .shared
 
     @AppStorage("debugMode") var debugMode: Bool = false
-    @AppStorage("useSenderPfpAsIcon") var useSenderPfpAsIcon: Bool = true
+    @AppStorage("useSenderPfpAsIcon") var useSenderPfpAsIcon: Bool = false
     @AppStorage("enableBionicReading") var enableBionicReading: Bool = false
-    @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = true
+    @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = false
     @AppStorage("useFancyUI") var useFancyUI: Bool = false
     
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismisse
     
     var body: some View {
         #if os(macOS)
