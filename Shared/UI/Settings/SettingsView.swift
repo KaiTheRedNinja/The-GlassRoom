@@ -92,6 +92,19 @@ struct SettingsView: View {
                         }
                     }
                 }
+                
+                Section {
+                    Button(role: .destructive) {
+                        dismiss.callAsFunction()
+                        userModel.signOut()
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("Sign Out")
+                            Spacer()
+                        }
+                    }
+                }
             }
             .navigationTitle("Settings")
             .toolbar {
