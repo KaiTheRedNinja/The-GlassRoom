@@ -37,7 +37,7 @@ struct UniversalCoursePostListView: View {
                         .minimumScaleFactor(0.1)
                         .lineLimit(1)
                 }
-//                .frame(maxHeight: .infinity)
+                .frame(maxHeight: .infinity)
             }
         }
         .animation(.default, value: postData)
