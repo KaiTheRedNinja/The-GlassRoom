@@ -19,7 +19,7 @@ struct CenterSplitView: View {
 
     @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
 
-    @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = true
+    @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = false
     @AppStorage("useFancyUI") var useFancyUI: Bool = false
     
     var body: some View {

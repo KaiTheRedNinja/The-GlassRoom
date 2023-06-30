@@ -38,7 +38,12 @@ struct SidebarCourseView: View {
                                 .scaledToFit()
                                 .padding(3)
                         }
+                        #if os(macOS)
                         .frame(width: 16, height: 16)
+                        #else
+                        .frame(width: 24, height: 24)
+                        .padding(.trailing, 5)
+                        #endif
                         .offset(x: 3)
                         .foregroundColor(.accentColor)
                         .disabled(true)
@@ -59,7 +64,9 @@ struct SidebarCourseView: View {
                         }
                     }
                 }
+                #if os(macOS)
                 .opacity(isUnloaded ? 0.4 : 1)
+                #endif
                 .onAppear {
                     coursePostsDataManagerWatcher = CoursePostsDataManager.loadedManagersPublisher.sink { value in
                         testForLoad(value: value, id: string)
