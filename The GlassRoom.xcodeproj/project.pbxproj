@@ -118,6 +118,8 @@
 		93F229762A10E5B800B44C85 /* UniversalCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229752A10E5B800B44C85 /* UniversalCoursePostListView.swift */; };
 		93F229782A10E9CE00B44C85 /* Date+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229772A10E9CE00B44C85 /* Date+Format.swift */; };
 		93F2297A2A10EA9D00B44C85 /* MultiCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229792A10EA9D00B44C85 /* MultiCoursePostListView.swift */; };
+		F31A7B1C2A4E753000B50450 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A7B1B2A4E753000B50450 /* SidebarView.swift */; };
+		F31A7B1E2A4E784300B50450 /* SidebarCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93362DC92A2B20E1006303CA /* SidebarCourseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -189,6 +191,7 @@
 		93F229752A10E5B800B44C85 /* UniversalCoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalCoursePostListView.swift; sourceTree = "<group>"; };
 		93F229772A10E9CE00B44C85 /* Date+Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Format.swift"; sourceTree = "<group>"; };
 		93F229792A10EA9D00B44C85 /* MultiCoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCoursePostListView.swift; sourceTree = "<group>"; };
+		F31A7B1B2A4E753000B50450 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +277,7 @@
 		933F39102A4438B4006E13AC /* The GlassRoom iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F31A7B1A2A4E752000B50450 /* UI */,
 				933F39C42A444F0E006E13AC /* The-GlassRoom-iOS-Info.plist */,
 				933F39112A4438B4006E13AC /* The_GlassRoom_iOSApp.swift */,
 				933F39132A4438B4006E13AC /* ContentView.swift */,
@@ -317,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				6AD9CED92A0CEA120078E5D3 /* MainView.swift */,
+				F31A7B1D2A4E783A00B50450 /* Sidebar */,
 				9373B01F2A10646500C8923B /* Center */,
 				93ACB2382A106F450040C88E /* Detail */,
 				6A08172B2A1705740000705F /* New Post */,
@@ -425,7 +430,6 @@
 			isa = PBXGroup;
 			children = (
 				93757D712A0F9A240063AB67 /* SidebarView.swift */,
-				93362DC92A2B20E1006303CA /* SidebarCourseView.swift */,
 				93757D7D2A0FBAE70063AB67 /* SidebarOutlineViewController.swift */,
 				938300ED2A0FBB4C006581B8 /* SidebarOutlineView.swift */,
 				938300EF2A0FC009006581B8 /* SidebarOutlineMenu.swift */,
@@ -512,6 +516,30 @@
 			children = (
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		F31A7B1A2A4E752000B50450 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				F31A7B1F2A4E7AE500B50450 /* Main */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		F31A7B1D2A4E783A00B50450 /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				93362DC92A2B20E1006303CA /* SidebarCourseView.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		F31A7B1F2A4E7AE500B50450 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				F31A7B1B2A4E753000B50450 /* SidebarView.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -653,6 +681,7 @@
 				933F395B2A443DFB006E13AC /* FileManager.swift in Sources */,
 				933F39572A443DFB006E13AC /* GlobalCoursesDataManager.swift in Sources */,
 				933F39B32A444660006E13AC /* CreateNewPostView.swift in Sources */,
+				F31A7B1E2A4E784300B50450 /* SidebarCourseView.swift in Sources */,
 				933F39552A443DFB006E13AC /* Date+Format.swift in Sources */,
 				933F399C2A4444AF006E13AC /* CoursePostListView.swift in Sources */,
 				933F399E2A4444AF006E13AC /* CourseSubmissionBadge.swift in Sources */,
@@ -661,6 +690,7 @@
 				933F39A02A4444B5006E13AC /* CourseRegisterItem.swift in Sources */,
 				933F39B12A4445A3006E13AC /* DetailView.swift in Sources */,
 				933F39AF2A4445A3006E13AC /* CourseMaterialDetailView.swift in Sources */,
+				F31A7B1C2A4E753000B50450 /* SidebarView.swift in Sources */,
 				933F399F2A4444B2006E13AC /* CourseResourcesListView.swift in Sources */,
 				933F39AC2A4445A3006E13AC /* CourseWorkDetailView.swift in Sources */,
 				933F395A2A443DFB006E13AC /* CoursePostsDataManager.swift in Sources */,
@@ -751,12 +781,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "The-GlassRoom-iOS-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Glassroom;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -769,7 +800,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -779,7 +810,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -792,12 +823,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "The-GlassRoom-iOS-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Glassroom;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -810,7 +842,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -819,7 +851,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -948,18 +980,19 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "The-GlassRoom-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Glassroom;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = macosx;
@@ -982,18 +1015,19 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = Z88Z98GRZQ;
+				DEVELOPMENT_TEAM = DBBLGF84W3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "The-GlassRoom-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Glassroom;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = macosx;
 				SUPPORTS_MACCATALYST = NO;

@@ -64,37 +64,20 @@ struct MainView: View {
             loadCachedStreams()
         }
         #else
-        TabView {
-            splitView
-                .sheet(isPresented: $showSearch) {
-                    SearchView(selectedCourse: $selectedCourse,
-                               selectedPost: $selectedPost)
+        splitView
+            .toolbar {
+                Button {
+                    showSearch.toggle()
+                } label: {
+                    Image(systemName: "magnifyingglass")
                 }
-                .toolbar {
-                    Button {
-                        showSearch.toggle()
-                    } label: {
-                        Image(systemName: "magnifyingglass")
-                    }
-                    .keyboardShortcut("O", modifiers: [.command, .shift])
-                }
-            if debugMode {
-                DebugLogsView()
-                    .tabItem {
-                        Label("Logs", image: "exclamationmark.triangle.fill")
-                    }
-
-                DebugAPICallsView()
-                    .tabItem {
-                        Label("API Calls", image: "arrow.left.arrow.right")
-                    }
+                .keyboardShortcut("O", modifiers: [.command, .shift])
+            }
+            .sheet(isPresented: $showSearch) {
+                SearchView(selectedCourse: $selectedCourse,
+                           selectedPost: $selectedPost)
             }
 
-            SettingsView()
-                .tabItem {
-                    Label("Settings", image: "gearshape")
-                }
-        }
         #endif
     }
 
@@ -157,16 +140,6 @@ struct MainView: View {
         Log.info("Loaded managers: \(CoursePostsDataManager.loadedManagers.keys)")
     }
 }
-
-#if os(iOS)
-struct SidebarView: View { // TODO: Fix this
-    @Binding var selection: GeneralCourse?
-
-    var body: some View {
-        Text("Not implemented yet")
-    }
-}
-#endif
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
