@@ -188,7 +188,7 @@ extension CoursePostsDataManager {
         }
     }
 
-    // MARK: Course Works
+    // MARK: Courseworks
     func readCourseWorksCache() -> [CourseWork] {
         // if the file exists in CourseCache
         if FileSystem.exists(file: .courseWorks(courseId)),
@@ -236,7 +236,7 @@ extension CoursePostsDataManager {
         }
     }
 
-    // MARK: Course materials
+    // MARK: Coursework materials
     func readCourseMaterialsCache() -> [CourseWorkMaterial] {
         // if the file exists in CourseCache
         if FileSystem.exists(file: .courseMaterials(courseId)),

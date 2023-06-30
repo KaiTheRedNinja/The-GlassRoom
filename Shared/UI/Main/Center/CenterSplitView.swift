@@ -180,8 +180,8 @@ struct CenterSplitView: View {
     enum CourseDisplayOption: String, CaseIterable {
         case allPosts = "All Posts"
         case announcements = "Announcements"
-        case courseWork = "Course Works"
-        case courseMaterial = "Course Material"
+        case courseWork = "Courseworks"
+        case courseMaterial = "Coursework Materials"
         case resources = "Resources"
         case userRegister = "Register"
 

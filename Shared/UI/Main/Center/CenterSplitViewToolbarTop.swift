@@ -36,9 +36,9 @@ struct CenterSplitViewToolbarTop: View {
                     return "list.bullet"
                 } else if label == "Announcements" {
                     return "megaphone"
-                } else if label == "Course Works" {
+                } else if label == "Courseworks" {
                     return "square.and.pencil"
-                } else if label == "Course Material" {
+                } else if label == "Coursework Materials" {
                     return "doc"
                 } else if label == "Resources" {
                     return "link"
