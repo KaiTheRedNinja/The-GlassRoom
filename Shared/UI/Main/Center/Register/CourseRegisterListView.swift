@@ -95,7 +95,6 @@ struct CourseRegisterListView: View {
                             loadList(true)
                         }
                     }
-                    .offset(y: -1)
                 }
             }
             

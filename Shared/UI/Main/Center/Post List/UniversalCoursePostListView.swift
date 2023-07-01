@@ -108,7 +108,6 @@ struct UniversalCoursePostListView: View {
                             loadList(true)
                         }
                     }
-                    .offset(y: -1)
                 }
             }
             

@@ -46,17 +46,19 @@ struct SidebarView: View { // TODO: Fix this
                 }
             }
 
-            ToolbarItem(placement: .primaryAction) {
+            ToolbarItem(placement: .topBarTrailing) {
                 if coursesManager.loading {
                     ProgressView()
                         .progressViewStyle(.circular)
-                        .scaleEffect(.init(0.45))
                 } else {
                     Button {
                         coursesManager.loadList(bypassCache: true)
                     } label: {
                         Image(systemName: "arrow.clockwise")
+                            .foregroundStyle(.blue)
                     }
+                    .keyboardShortcut("r", modifiers: [.command, .shift])
+                    .buttonStyle(.plain)
                     .contextMenu {
                         Button("Load Only Cache") {
                             coursesManager.loadList(bypassCache: false)
@@ -66,36 +68,36 @@ struct SidebarView: View { // TODO: Fix this
                             coursesManager.loadList(bypassCache: true)
                         }
                     }
-                    .offset(y: -1)
                 }
             }
-
-            ToolbarItem(placement: .navigation) {
-                HStack {
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showingSettingsView.toggle()
+                } label: {
+                    Image(systemName: "gearshape.fill")
+                        .foregroundStyle(.blue)
+                }
+                #if os(iOS)
+                .keyboardShortcut(",", modifiers: .command)
+                #endif
+                .buttonStyle(.plain)
+                .contextMenu {
                     if debugMode {
                         Button {
                             showingDebugView.toggle()
                         } label: {
-                            Image(systemName: "exclamationmark.triangle.fill")
+                            Label("Debug View", systemImage: "exclamationmark.triangle.fill")
                         }
                         
                         Button {
                             showingAPICallsView.toggle()
                         } label: {
-                            Image(systemName: "arrow.left.arrow.right")
+                            Label("API Calls View", systemImage: "arrow.left.arrow.right")
                         }
                     }
-                    
-                    Button {
-                        showingSettingsView.toggle()
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                    }
-                    #if os(iOS)
-                    .keyboardShortcut(",", modifiers: [.command])
-                    #endif
                 }
-
+                .padding(.leading, 5)
             }
         }
         .sheet(isPresented: $showingDebugView) {

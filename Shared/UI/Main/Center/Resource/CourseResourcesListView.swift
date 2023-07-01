@@ -94,7 +94,6 @@ struct CourseResourcesListView: View {
                             loadList(true)
                         }
                     }
-                    .offset(y: -1)
                 }
             }
             

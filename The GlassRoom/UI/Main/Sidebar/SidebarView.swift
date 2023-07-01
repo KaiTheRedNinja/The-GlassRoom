@@ -38,8 +38,6 @@ struct SidebarView: View {
                 if coursesManager.loading {
                     ProgressView()
                         .progressViewStyle(.circular)
-                        .scaleEffect(.init(0.45))
-                        .offset(x: -10)
                 } else {
                     Button {
                         coursesManager.loadList(bypassCache: true)
