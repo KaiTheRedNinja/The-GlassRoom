@@ -21,17 +21,20 @@ struct SidebarView: View { // TODO: Fix this
     @AppStorage("debugMode") var debugMode: Bool = false
     
     var body: some View {
-        VStack {
-            List(selection: $selection) {
-                ForEach(coursesManager.courses) { course in
-                    SidebarCourseView(course: .course(course.id))
-                        .tag(GeneralCourse.course(course.id))
+        SidebarListView(
+            selection: $selection
+        )
+        .overlay {
+            if coursesManager.courses.isEmpty {
+                VStack {
+                    Text("No Courses")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal)
+                        .minimumScaleFactor(0.1)
+                        .lineLimit(1)
                 }
-            }
-            .navigationTitle(UIScreen.main.traitCollection.userInterfaceIdiom == .pad ? "Glassroom" : "")
-            .listStyle(.insetGrouped)
-            .onAppear {
-                coursesManager.loadList()
             }
         }
         .toolbar {
@@ -42,8 +45,32 @@ struct SidebarView: View { // TODO: Fix this
                         .fontWeight(.bold)
                 }
             }
-            
-            ToolbarItem(placement: .topBarTrailing) {
+
+            ToolbarItem(placement: .primaryAction) {
+                if coursesManager.loading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .scaleEffect(.init(0.45))
+                } else {
+                    Button {
+                        coursesManager.loadList(bypassCache: true)
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    .contextMenu {
+                        Button("Load Only Cache") {
+                            coursesManager.loadList(bypassCache: false)
+                        }
+                        Button("Reset Cache And Load") {
+                            coursesManager.clearCache()
+                            coursesManager.loadList(bypassCache: true)
+                        }
+                    }
+                    .offset(y: -1)
+                }
+            }
+
+            ToolbarItem(placement: .navigation) {
                 HStack {
                     if debugMode {
                         Button {
