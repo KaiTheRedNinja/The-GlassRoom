@@ -103,6 +103,7 @@
 		937EA5C12A0CD9F9005F11C5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937EA5C02A0CD9F9005F11C5 /* Preview Assets.xcassets */; };
 		938300EE2A0FBB4C006581B8 /* SidebarOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938300ED2A0FBB4C006581B8 /* SidebarOutlineView.swift */; };
 		938300F02A0FC009006581B8 /* SidebarOutlineMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938300EF2A0FC009006581B8 /* SidebarOutlineMenu.swift */; };
+		938883232A5036F600EAD9F1 /* SidebarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938883222A5036F600EAD9F1 /* SidebarListView.swift */; };
 		939FCB702A1C83D2002B4C3B /* CourseWorkTeacherSubmissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FCB6F2A1C83D2002B4C3B /* CourseWorkTeacherSubmissionsView.swift */; };
 		939FCB722A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FCB712A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift */; };
 		93A201B32A1B9E0E00EDECD0 /* CourseResourcesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A201B22A1B9E0E00EDECD0 /* CourseResourcesListView.swift */; };
@@ -140,7 +141,7 @@
 		933F39182A4438B5006E13AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		933F39BC2A444936006E13AC /* ReverseMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseMask.swift; sourceTree = "<group>"; };
 		933F39BF2A444967006E13AC /* TypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeExtensions.swift; sourceTree = "<group>"; };
-		933F39C42A444F0E006E13AC /* The-GlassRoom-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "The-GlassRoom-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
+		933F39C42A444F0E006E13AC /* The-GlassRoom-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		934317492A164ADC00B16C6F /* DebugAPICallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugAPICallsView.swift; sourceTree = "<group>"; };
 		9343174B2A164AE800B16C6F /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
 		934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostsDataManager.swift; sourceTree = "<group>"; };
@@ -175,6 +176,7 @@
 		937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GlassRoomAPI; sourceTree = "<group>"; };
 		938300ED2A0FBB4C006581B8 /* SidebarOutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarOutlineView.swift; sourceTree = "<group>"; };
 		938300EF2A0FC009006581B8 /* SidebarOutlineMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarOutlineMenu.swift; sourceTree = "<group>"; };
+		938883222A5036F600EAD9F1 /* SidebarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListView.swift; sourceTree = "<group>"; };
 		939FCB6F2A1C83D2002B4C3B /* CourseWorkTeacherSubmissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWorkTeacherSubmissionsView.swift; sourceTree = "<group>"; };
 		939FCB712A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWorkStudentSubmissionView.swift; sourceTree = "<group>"; };
 		93A201B22A1B9E0E00EDECD0 /* CourseResourcesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseResourcesListView.swift; sourceTree = "<group>"; };
@@ -279,11 +281,9 @@
 		933F39102A4438B4006E13AC /* The GlassRoom iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F31A7B1A2A4E752000B50450 /* UI */,
 				933F39C42A444F0E006E13AC /* The-GlassRoom-iOS-Info.plist */,
-				933F39112A4438B4006E13AC /* The_GlassRoom_iOSApp.swift */,
-				933F39132A4438B4006E13AC /* ContentView.swift */,
-				933F39152A4438B5006E13AC /* Assets.xcassets */,
+				938883212A5033F100EAD9F1 /* Application */,
+				F31A7B1A2A4E752000B50450 /* UI */,
 				933F39172A4438B5006E13AC /* Preview Content */,
 			);
 			path = "The GlassRoom iOS";
@@ -484,6 +484,16 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		938883212A5033F100EAD9F1 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				933F39112A4438B4006E13AC /* The_GlassRoom_iOSApp.swift */,
+				933F39132A4438B4006E13AC /* ContentView.swift */,
+				933F39152A4438B5006E13AC /* Assets.xcassets */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		93A201B12A1B9DF800EDECD0 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +550,7 @@
 			isa = PBXGroup;
 			children = (
 				F31A7B1B2A4E753000B50450 /* SidebarView.swift */,
+				938883222A5036F600EAD9F1 /* SidebarListView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -692,6 +703,7 @@
 				933F39122A4438B4006E13AC /* The_GlassRoom_iOSApp.swift in Sources */,
 				933F39A02A4444B5006E13AC /* CourseRegisterItem.swift in Sources */,
 				933F39B12A4445A3006E13AC /* DetailView.swift in Sources */,
+				938883232A5036F600EAD9F1 /* SidebarListView.swift in Sources */,
 				933F39AF2A4445A3006E13AC /* CourseMaterialDetailView.swift in Sources */,
 				F31A7B1C2A4E753000B50450 /* SidebarView.swift in Sources */,
 				933F399F2A4444B2006E13AC /* CourseResourcesListView.swift in Sources */,
