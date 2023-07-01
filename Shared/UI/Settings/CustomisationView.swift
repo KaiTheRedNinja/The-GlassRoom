@@ -143,12 +143,26 @@ struct CustomisationView: View {
     
     var regexTable: some View {
         // TODO: Reload this when replaced course names changes
-        Table(replacedCourseNames, selection: $selectedNameReplacement) {
-            TableColumn("Match Regex") { nameReplacement in
-                Text(nameReplacement.matchString)
-            }
-            TableColumn("Replacement") { nameReplacement in
-                Text(nameReplacement.replacement)
+        VStack {
+            if UIScreen.main.traitCollection.userInterfaceIdiom != .phone {
+                Table(replacedCourseNames, selection: $selectedNameReplacement) {
+                    TableColumn("Match Regex") { nameReplacement in
+                        Text(nameReplacement.matchString)
+                    }
+                    TableColumn("Replacement") { nameReplacement in
+                        Text(nameReplacement.replacement)
+                    }
+                }
+            } else {
+                Table(replacedCourseNames, selection: $selectedNameReplacement) {
+                    TableColumn("Match Regex and Replacement") { nameReplacement in
+                        HStack {
+                            Text(nameReplacement.matchString)
+                            Spacer()
+                            Text(nameReplacement.replacement)
+                        }
+                    }
+                }
             }
         }
         #if os(iOS)
