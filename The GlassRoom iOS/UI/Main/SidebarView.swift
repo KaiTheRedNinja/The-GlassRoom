@@ -91,6 +91,9 @@ struct SidebarView: View { // TODO: Fix this
                     } label: {
                         Image(systemName: "gearshape.fill")
                     }
+                    #if os(iOS)
+                    .keyboardShortcut(",", modifiers: [.command])
+                    #endif
                 }
 
             }

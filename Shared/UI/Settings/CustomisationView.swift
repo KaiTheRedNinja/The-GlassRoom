@@ -29,16 +29,17 @@ struct CustomisationView: View {
             }
             #else
             Form {
-                DisclosureGroup("Colours") {
+                NavigationLink("Colours and symbols") {
                     coloursList
                 }
                 
-                DisclosureGroup("Regex") {
+                NavigationLink("Regex renaming") {
                     regexTable
                 }
             }
             #endif
             
+            #if os(macOS)
             HStack {
                 Spacer()
                 Button("Save") {
@@ -47,6 +48,7 @@ struct CustomisationView: View {
                 }
             }
             .padding(.horizontal)
+            #endif
         }
         #if os(macOS)
         .padding(15)
@@ -61,7 +63,12 @@ struct CustomisationView: View {
 
                     replacedCourseNames = configuration.replacedCourseNames
                 }
+                #if os(macOS)
                 .padding(15)
+                #endif
+                #if os(iOS)
+                .presentationDetents([.medium])
+                #endif
             }
         }
     }
@@ -91,6 +98,10 @@ struct CustomisationView: View {
                 }
             }
         }
+        #if os(iOS)
+        .navigationTitle("Colours and symbols")
+        .navigationBarTitleDisplayMode(.inline)
+        #endif
         .sheet(isPresented: $showIconPopup) {
             SymbolPicker(symbol: .init(get: {
                 if let selectedIconReplacement {
@@ -132,14 +143,33 @@ struct CustomisationView: View {
     
     var regexTable: some View {
         // TODO: Reload this when replaced course names changes
-        Table(replacedCourseNames, selection: $selectedNameReplacement) {
-            TableColumn("Match Regex") { nameReplacement in
-                Text(nameReplacement.matchString)
-            }
-            TableColumn("Replacement") { nameReplacement in
-                Text(nameReplacement.replacement)
+        VStack {
+            if UIScreen.main.traitCollection.userInterfaceIdiom != .phone {
+                Table(replacedCourseNames, selection: $selectedNameReplacement) {
+                    TableColumn("Match Regex") { nameReplacement in
+                        Text(nameReplacement.matchString)
+                    }
+                    TableColumn("Replacement") { nameReplacement in
+                        Text(nameReplacement.replacement)
+                    }
+                }
+            } else {
+                Table(replacedCourseNames, selection: $selectedNameReplacement) {
+                    TableColumn("Match Regex and Replacement") { nameReplacement in
+                        HStack {
+                            Text(nameReplacement.matchString)
+                            Spacer()
+                            Text(nameReplacement.replacement)
+                        }
+                    }
+                }
             }
         }
+        #if os(iOS)
+        .navigationTitle("Regex renaming")
+        .navigationBarTitleDisplayMode(.inline)
+        #endif
+        #if os(macOS)
         .safeAreaInset(edge: .bottom) {
             HStack {
                 Button {
@@ -178,11 +208,65 @@ struct CustomisationView: View {
             .buttonStyle(.plain)
             .padding(.vertical, 3)
         }
+        #else
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    guard selectedNameReplacement != nil else { return }
+                    showEditPopup.toggle()
+                } label: {
+                    Text("Edit")
+                }
+                .disabled(selectedNameReplacement == nil)
+            }
+            
+            ToolbarItem(placement: .bottomBar) {
+                Text(" ")
+            }
+            
+            ToolbarItem(placement: .bottomBar) {
+                HStack {
+                    Button {
+                        guard let selectedNameReplacement else { return }
+                        configuration.replacedCourseNames.removeAll {
+                            $0.id == selectedNameReplacement
+                        }
+                        replacedCourseNames = configuration.replacedCourseNames
+                    } label: {
+                        Image(systemName: "minus")
+                    }
+                    .disabled(selectedNameReplacement == nil)
+                    
+                    Button {
+                        let newItem: NameReplacement
+                        if let existingItem = configuration.replacedCourseNames
+                            .first(where: { $0.matchString == "Match String" }) {
+                            newItem = existingItem
+                        } else {
+                            newItem = .init(
+                                matchString: "Match String",
+                                replacement: "Replacement"
+                            )
+                        }
+                        configuration.replacedCourseNames.append(newItem)
+                        selectedNameReplacement = newItem.id
+                        showEditPopup.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+        }
+        #endif
         .onAppear {
             replacedCourseNames = configuration.replacedCourseNames
         }
         .onChange(of: configuration.replacedCourseNames) { _ in
             replacedCourseNames = configuration.replacedCourseNames
+        }
+        .onDisappear {
+            configuration.saveToFileSystem()
+            configuration.objectWillChange.send()
         }
     }
 
@@ -202,13 +286,28 @@ struct CustomisationView: View {
         }
 
         var body: some View {
-            Form {
-                TextField("Match Regex", text: $matchString)
-                TextField("Match Text", text: $replacement)
-                Button("Save") {
-                    submitChange(matchString, replacement)
-                    presentationMode.wrappedValue.dismiss()
+            NavigationStack {
+                Form {
+                    TextField("Match Regex", text: $matchString)
+                    TextField("Match Text", text: $replacement)
+                    Button("Save") {
+                        submitChange(matchString, replacement)
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }
+                #if os(iOS)
+                .navigationTitle("Edit")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                    }
+                }
+                #endif
             }
         }
     }
