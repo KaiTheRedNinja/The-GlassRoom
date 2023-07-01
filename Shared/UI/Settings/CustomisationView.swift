@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SymbolPicker
 
 struct CustomisationView: View {
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
@@ -90,31 +91,42 @@ struct CustomisationView: View {
                 }
             }
         }
-        .background {
-            #if os(macOS)
-            SymbolPickerView(
-                showSymbolPicker: $showIconPopup,
-                selectedSymbol: .init(get: {
-                    if let selectedIconReplacement {
-                        return configuration.iconFor(selectedIconReplacement)
-                    } else {
-                        return "person.2.fill"
+        .sheet(isPresented: $showIconPopup) {
+            SymbolPicker(symbol: .init(get: {
+                if let selectedIconReplacement {
+                    return configuration.iconFor(selectedIconReplacement)
+                } else {
+                    return "person.2.fill"
+                }
+            }, set: { newValue in
+                configuration.customIcons[selectedIconReplacement!] = newValue
+            }))
+            .safeAreaInset(edge: .bottom) {
+                Rectangle().fill(.thinMaterial)
+                    .overlay {
+                        HStack {
+                            Spacer()
+                            ColorPicker("Color", selection: .init(get: {
+                                if let selectedIconReplacement {
+                                    return configuration.colorFor(selectedIconReplacement)
+                                } else {
+                                    return .accentColor
+                                }
+                            }, set: { newValue in
+                                configuration.customColors[selectedIconReplacement!] = newValue
+                            }))
+                        }
+                        .padding(.horizontal, 10)
                     }
-                }, set: { newValue in
-                    configuration.customIcons[selectedIconReplacement!] = newValue
-                }),
-                selectedColor: .init(get: {
-                    if let selectedIconReplacement {
-                        return configuration.colorFor(selectedIconReplacement)
-                    } else {
-                        return .accentColor
+                    #if os(macOS)
+                    .frame(height: 30)
+                    #else
+                    .frame(height: 50)
+                    #endif
+                    .overlay(alignment: .top) {
+                        Divider()
                     }
-                }, set: { newValue in
-                    configuration.customColors[selectedIconReplacement!] = newValue
-                }),
-                title: "Choose Icon and Color"
-            )
-            #endif
+            }
         }
     }
     

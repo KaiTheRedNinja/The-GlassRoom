@@ -72,6 +72,7 @@
 		933F39C32A444D46006E13AC /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D672A0E7D280063AB67 /* SignInView.swift */; };
 		9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934317492A164ADC00B16C6F /* DebugAPICallsView.swift */; };
 		9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343174B2A164AE800B16C6F /* DebugLogsView.swift */; };
+		9346D7922A5022A6009FB2F2 /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 9346D7912A5022A6009FB2F2 /* SymbolPicker */; };
 		934858032A11F7AA008B84A7 /* CoursePostsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */; };
 		934858062A123405008B84A7 /* SingleCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858052A123405008B84A7 /* SingleCoursePostListView.swift */; };
 		934858082A1249CD008B84A7 /* CourseWorkSubmissionDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858072A1249CD008B84A7 /* CourseWorkSubmissionDataManager.swift */; };
@@ -95,6 +96,7 @@
 		93757D7B2A0F9E6D0063AB67 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D7A2A0F9E6D0063AB67 /* FileManager.swift */; };
 		93757D7E2A0FBAE70063AB67 /* SidebarOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D7D2A0FBAE70063AB67 /* SidebarOutlineViewController.swift */; };
 		93761F392A2B81DF00E2008E /* TriStateToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93761F382A2B81DF00E2008E /* TriStateToggle.swift */; };
+		937C7D6C2A4FC7F400E38A6B /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 937C7D6B2A4FC7F400E38A6B /* SymbolPicker */; };
 		937EA5BA2A0CD9F8005F11C5 /* The_GlassRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EA5B92A0CD9F8005F11C5 /* The_GlassRoomApp.swift */; };
 		937EA5BC2A0CD9F8005F11C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EA5BB2A0CD9F8005F11C5 /* ContentView.swift */; };
 		937EA5BE2A0CD9F9005F11C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937EA5BD2A0CD9F9005F11C5 /* Assets.xcassets */; };
@@ -111,7 +113,6 @@
 		93AED6902A1769DA0005854C /* GlobalUserProfilesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED68F2A1769DA0005854C /* GlobalUserProfilesDataManager.swift */; };
 		93AED6922A1781A50005854C /* CourseRegisterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6912A1781A50005854C /* CourseRegisterListView.swift */; };
 		93AED6942A179D9F0005854C /* CourseRegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6932A179D9F0005854C /* CourseRegisterItem.swift */; };
-		93CAF7302A2CB4D4005D265E /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 93CAF72F2A2CB4D4005D265E /* SymbolPicker */; };
 		93CAF7502A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CAF74F2A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift */; };
 		93E0B8B42A136DD400ED917A /* CustomisationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0B8B32A136DD400ED917A /* CustomisationView.swift */; };
 		93F229742A10DD0200B44C85 /* GeneralCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229732A10DD0200B44C85 /* GeneralCourse.swift */; };
@@ -199,6 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9346D7922A5022A6009FB2F2 /* SymbolPicker in Frameworks */,
 				933F39A92A444537006E13AC /* GlassRoomTypes in Frameworks */,
 				933F39612A443E18006E13AC /* GlassRoomAPI in Frameworks */,
 				933F39652A443E28006E13AC /* GoogleSignIn in Frameworks */,
@@ -209,10 +211,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				937C7D6C2A4FC7F400E38A6B /* SymbolPicker in Frameworks */,
 				93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */,
 				93757D702A0F29B60063AB67 /* GlassRoomAPI in Frameworks */,
 				933F39AB2A44453F006E13AC /* GlassRoomTypes in Frameworks */,
-				93CAF7302A2CB4D4005D265E /* SymbolPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +564,7 @@
 				933F39602A443E18006E13AC /* GlassRoomAPI */,
 				933F39642A443E28006E13AC /* GoogleSignIn */,
 				933F39A82A444537006E13AC /* GlassRoomTypes */,
+				9346D7912A5022A6009FB2F2 /* SymbolPicker */,
 			);
 			productName = "The GlassRoom iOS";
 			productReference = 933F390F2A4438B4006E13AC /* The GlassRoom iOS.app */;
@@ -583,8 +586,8 @@
 			packageProductDependencies = (
 				93757D5C2A0E73DA0063AB67 /* GoogleSignIn */,
 				93757D6F2A0F29B60063AB67 /* GlassRoomAPI */,
-				93CAF72F2A2CB4D4005D265E /* SymbolPicker */,
 				933F39AA2A44453F006E13AC /* GlassRoomTypes */,
+				937C7D6B2A4FC7F400E38A6B /* SymbolPicker */,
 			);
 			productName = "The GlassRoom";
 			productReference = 937EA5B62A0CD9F8005F11C5 /* The GlassRoom.app */;
@@ -619,7 +622,7 @@
 			mainGroup = 937EA5AD2A0CD9F8005F11C5;
 			packageReferences = (
 				93757D5B2A0E73DA0063AB67 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				93CAF72E2A2CB4D4005D265E /* XCRemoteSwiftPackageReference "SymbolPicker" */,
+				937C7D6A2A4FC7F400E38A6B /* XCRemoteSwiftPackageReference "SymbolPicker" */,
 			);
 			productRefGroup = 937EA5B72A0CD9F8005F11C5 /* Products */;
 			projectDirPath = "";
@@ -987,7 +990,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = DBBLGF84W3;
+				DEVELOPMENT_TEAM = Z88Z98GRZQ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1000,7 +1003,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = macosx;
@@ -1024,7 +1027,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"The GlassRoom/Preview Content\"";
-				DEVELOPMENT_TEAM = DBBLGF84W3;
+				DEVELOPMENT_TEAM = Z88Z98GRZQ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1037,7 +1040,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cheesetan.The-GlassRoom-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kaithebuilder.The-GlassRoom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = macosx;
 				SUPPORTS_MACCATALYST = NO;
@@ -1089,12 +1092,12 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		93CAF72E2A2CB4D4005D265E /* XCRemoteSwiftPackageReference "SymbolPicker" */ = {
+		937C7D6A2A4FC7F400E38A6B /* XCRemoteSwiftPackageReference "SymbolPicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/francisfeng/SymbolPicker";
+			repositoryURL = "https://github.com/xnth97/SymbolPicker.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.6.3;
+				minimumVersion = 1.4.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1117,6 +1120,11 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = GlassRoomTypes;
 		};
+		9346D7912A5022A6009FB2F2 /* SymbolPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 937C7D6A2A4FC7F400E38A6B /* XCRemoteSwiftPackageReference "SymbolPicker" */;
+			productName = SymbolPicker;
+		};
 		93757D5C2A0E73DA0063AB67 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 93757D5B2A0E73DA0063AB67 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
@@ -1126,9 +1134,9 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = GlassRoomAPI;
 		};
-		93CAF72F2A2CB4D4005D265E /* SymbolPicker */ = {
+		937C7D6B2A4FC7F400E38A6B /* SymbolPicker */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 93CAF72E2A2CB4D4005D265E /* XCRemoteSwiftPackageReference "SymbolPicker" */;
+			package = 937C7D6A2A4FC7F400E38A6B /* XCRemoteSwiftPackageReference "SymbolPicker" */;
 			productName = SymbolPicker;
 		};
 /* End XCSwiftPackageProductDependency section */
