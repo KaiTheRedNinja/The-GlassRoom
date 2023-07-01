@@ -55,9 +55,13 @@ class UserAuthModel: ObservableObject {
 
     func checkStatus() {
         guard let user = GIDSignIn.sharedInstance.currentUser else {
-            self.isLoggedIn = false
             self.givenName = nil
+            self.familyName = nil
+            self.fullName = nil
+            self.email = nil
             self.profilePicUrl = nil
+            self.isLoggedIn = false
+            self.token = nil
             return
         }
         

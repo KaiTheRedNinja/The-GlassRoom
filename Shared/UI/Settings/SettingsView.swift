@@ -18,7 +18,7 @@ struct SettingsView: View {
     @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = false
     @AppStorage("useFancyUI") var useFancyUI: Bool = false
     
-    @Environment(\.dismiss) var dismisse
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         #if os(macOS)
