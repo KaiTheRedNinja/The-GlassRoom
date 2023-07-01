@@ -16,6 +16,8 @@ struct SingleCoursePostListView: View {
 
     @ObservedObject var postsManager: CoursePostsDataManager
     @ObservedObject var profilesManager: GlobalUserProfilesDataManager = .global
+    @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
+    @ObservedObject var configuration: GlobalCoursesDataManager.CoursesConfiguration = GlobalCoursesDataManager.global.configuration
 
     init(selectedPost: Binding<CoursePost?>,
          displayOption: Binding<CenterSplitView.CourseDisplayOption>,
@@ -38,6 +40,18 @@ struct SingleCoursePostListView: View {
                 loadList: { postsManager.loadList(bypassCache: $0) },
                 refreshList: { postsManager.refreshList() }
             )
+            #if os(iOS)
+            .toolbar {
+                ToolbarItem(placement: .status) {
+                    if let course = coursesManager.courseIdMap[postsManager.courseId] {
+                        Text(configuration.nameFor(course.name))
+                            .padding(.horizontal)
+                            .font(.subheadline)
+                            .fontWeight(.bold)
+                    }
+                }
+            }
+            #endif
             .onAppear {
                 postsManager.loadList()
             }
@@ -52,6 +66,18 @@ struct SingleCoursePostListView: View {
                 loadList: { profilesManager.loadList(for: postsManager.courseId, bypassCache: $0) },
                 refreshList: { profilesManager.refreshList(for: postsManager.courseId) }
             )
+            #if os(iOS)
+            .toolbar {
+                ToolbarItem(placement: .status) {
+                    if let course = coursesManager.courseIdMap[postsManager.courseId] {
+                        Text(configuration.nameFor(course.name))
+                            .padding(.horizontal)
+                            .font(.subheadline)
+                            .fontWeight(.bold)
+                    }
+                }
+            }
+            #endif
             .onAppear {
                 profilesManager.loadList(for: postsManager.courseId)
             }
@@ -65,6 +91,18 @@ struct SingleCoursePostListView: View {
                 refreshList: { postsManager.refreshList() },
                 onPlusPress: { plusPressed.toggle() }
             )
+            #if os(iOS)
+            .toolbar {
+                ToolbarItem(placement: .status) {
+                    if let course = coursesManager.courseIdMap[postsManager.courseId] {
+                        Text(configuration.nameFor(course.name))
+                            .padding(.horizontal)
+                            .font(.subheadline)
+                            .fontWeight(.bold)
+                    }
+                }
+            }
+            #endif
             .sheet(isPresented: $plusPressed) {
                 CreateNewPostView(onCreatePost: { post in
                     switch post {

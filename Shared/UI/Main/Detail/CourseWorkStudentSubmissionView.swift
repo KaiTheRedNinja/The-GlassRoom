@@ -133,7 +133,16 @@ struct CourseWorkStudentSubmissionView<AttachmentView: View>: View {
                 openURL(url)
             } label: {
                 buttonText(submission.state)
+                #if os(macOS)
+                    .foregroundStyle(.primary)
+                #else
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                #endif
             }
+            #if os(iOS)
+            .buttonStyle(.borderedProminent)
+            #endif
         }
     }
 
@@ -226,27 +235,21 @@ struct CourseWorkStudentSubmissionView<AttachmentView: View>: View {
             case .turned_in:
                 //                Text("Unsubmit")
                 Text("Unsubmit in browser")
-                    .foregroundColor(.primary)
             case .reclaimed_by_student:
                 //                Text("Submit")
                 Text("Submit in browser")
-                    .foregroundColor(.primary)
             case .returned:
                 //                Text("Resubmit")
                 Text("Resubmit in browser")
-                    .foregroundColor(.primary)
             case .submission_state_unspecified:
                 //                Text("Submit")
                 Text("Submit in browser")
-                    .foregroundColor(.primary)
             case .new:
                 //                Text("Submit")
                 Text("Submit in browser")
-                    .foregroundColor(.primary)
             case .created:
                 //                Text("Submit")
                 Text("Submit in browser")
-                    .foregroundColor(.primary)
             }
         }
     }

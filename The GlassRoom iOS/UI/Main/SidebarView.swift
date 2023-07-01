@@ -28,23 +28,24 @@ struct SidebarView: View { // TODO: Fix this
                         .tag(GeneralCourse.course(course.id))
                 }
             }
+            .navigationTitle(UIScreen.main.traitCollection.userInterfaceIdiom == .pad ? "Glassroom" : "")
+            .listStyle(.insetGrouped)
             .onAppear {
                 coursesManager.loadList()
             }
         }
-        .listStyle(.sidebar)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showingSettingsView.toggle()
-                } label: {
-                    Image(systemName: "gearshape")
+            if UIScreen.main.traitCollection.userInterfaceIdiom == .phone {
+                ToolbarItem(placement: .topBarLeading) {
+                    Text("Glassroom")
+                        .font(.title3)
+                        .fontWeight(.bold)
                 }
             }
             
-            ToolbarItem(placement: .topBarLeading) {
-                if debugMode {
-                    HStack {
+            ToolbarItem(placement: .topBarTrailing) {
+                HStack {
+                    if debugMode {
                         Button {
                             showingDebugView.toggle()
                         } label: {
@@ -57,7 +58,14 @@ struct SidebarView: View { // TODO: Fix this
                             Image(systemName: "arrow.left.arrow.right")
                         }
                     }
+                    
+                    Button {
+                        showingSettingsView.toggle()
+                    } label: {
+                        Image(systemName: "gearshape.fill")
+                    }
                 }
+
             }
         }
         .sheet(isPresented: $showingDebugView) {

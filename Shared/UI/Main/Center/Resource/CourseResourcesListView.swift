@@ -36,6 +36,7 @@ struct CourseResourcesListView: View {
                 .frame(maxHeight: .infinity)
             }
         }
+        #if os(macOS)
         .safeAreaInset(edge: .bottom) {
             HStack(alignment: .center) {
                 if isLoading {
@@ -73,6 +74,35 @@ struct CourseResourcesListView: View {
             }
             .padding(.top, -7)
         }
+        #else
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                } else {
+                    Button {
+                        loadList(false)
+                        loadList(true)
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    .keyboardShortcut("r", modifiers: .command)
+                    .buttonStyle(.plain)
+                    .contextMenu {
+                        Button("Use Cache") {
+                            loadList(true)
+                        }
+                    }
+                    .offset(y: -1)
+                }
+            }
+            
+            ToolbarItem(placement: .bottomBar) {
+                Text(" ")
+            }
+        }
+        #endif
     }
 
     var postsContent: some View {

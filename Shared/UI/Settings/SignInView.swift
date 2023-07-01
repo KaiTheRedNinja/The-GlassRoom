@@ -44,14 +44,12 @@ struct SignInView: View {
         ZStack {
             if showSignInWithGoogle {
                 signInView
-                    .frame(width: 400, height: 300)
+                    .padding(.horizontal, 5)
+                    .frame(width: 400)
             }
             if showMoreScopes {
                 addScopesView
-                    .frame(width: 400, height: 300)
-            }
-            if let errorMsg = userModel.errorMessage {
-                Text(errorMsg)
+                    .frame(width: 400, height: 520)
             }
         }
         .padding(20)
@@ -61,7 +59,6 @@ struct SignInView: View {
         .onAppear {
             checkState()
         }
-        .background(.thinMaterial)
         #endif
     }
 
@@ -87,37 +84,71 @@ struct SignInView: View {
     var signInView: some View {
         VStack {
             Spacer()
-            Image(systemName: "app") // TODO: Replace with app icon
+            #if os(iOS)
+            Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
                 .resizable()
                 .scaledToFit()
-                .frame(width: 70, height: 70)
+                .frame(width: 100, height: 100)
+                .mask(Image(systemName: "app.fill").resizable().scaledToFit().frame(width: 100, height: 100))
+                .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.50), radius: 5, x: 0, y: 0)
+            #else
+            Image(nsImage: NSImage(named: "AppIcon") ?? NSImage())
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+            #endif
+            
+            #if os(macOS)
             Spacer()
-            Text("Welcome to The GlassRoom")
-                .font(.system(.largeTitle, design: .rounded))
+            #endif
+            
+            Text("Welcome to The Glassroom")
+                .font(.system(.largeTitle, weight: .bold))
+                .multilineTextAlignment(.center)
+            
+            #if os(macOS)
             Spacer()
+            #endif
+            
             if userModel.errorMessage?.contains("connection appears to be offline") ?? false {
                 Text("""
-You seem to be offline. The GlassRoom
+You seem to be offline. The Glassroom
 requires an internet connection to work.
 """)
                 .multilineTextAlignment(.center)
                 Spacer()
             }
+            
             Button {
                 userModel.signIn()
             } label: {
                 Text("Sign in with Google")
             }
             .keyboardShortcut(.defaultAction)
+            #if os(iOS)
+            .buttonStyle(.borderedProminent)
+            .padding(.vertical)
+            #endif
+            
             Spacer()
+            
+            #if os(iOS)
+            if let errorMsg = userModel.errorMessage {
+                Text(errorMsg)
+                    .multilineTextAlignment(.center)
+                    .font(.system(.caption, weight: .bold))
+                    .foregroundStyle(.secondary)
+                    .padding(.bottom)
+            }
+            #endif
         }
     }
 
     var addScopesView: some View {
         VStack {
-            Text("The GlassRoom requires the following permissions:")
+            Text("The Glassroom requires the following permissions:")
                 .multilineTextAlignment(.center)
-                .font(.system(.title, design: .rounded))
+                .font(.system(.title, weight: .bold))
 
             ScrollView(.vertical, showsIndicators: true) {
                 ForEach(userModel.neededScopes, id: \.self) { scope in
@@ -139,11 +170,21 @@ requires an internet connection to work.
         }
         .safeAreaInset(edge: .bottom) {
             HStack {
+                #if os(macOS)
                 Spacer()
+                #endif
+                
                 Button("Sign Out") {
                     userModel.signOut()
                 }
                 .keyboardShortcut(.cancelAction)
+                #if os(iOS)
+                .buttonStyle(.bordered)
+                #endif
+                
+                #if os(iOS)
+                Spacer()
+                #endif
 
                 Button("Request Permissions") {
                     userModel.checkPermissions()

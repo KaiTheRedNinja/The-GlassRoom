@@ -35,7 +35,7 @@ struct CoursePostItem: View {
                             .foregroundColor(.accentColor)
                             .frame(width: 20, height: 20)
                     }
-                case .courseWork(let courseWork):
+                case .courseWork(_):
                     Image(systemName: "square.and.pencil")
                         .resizable()
                         .scaledToFit()

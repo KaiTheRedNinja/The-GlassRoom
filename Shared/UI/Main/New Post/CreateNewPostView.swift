@@ -35,53 +35,87 @@ struct CreateNewPostView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack {
-            inputViewForPostType()
-        }
-        .frame(width: 450, height: 400)
-        .safeAreaInset(edge: .bottom) {
-            VStack(spacing: 0) {
-                Divider()
-                HStack {
-                    viewForCancelButton()
-                    Spacer()
-                    viewForCreatePostButton()
-                }
-                .padding(.horizontal)
-                .padding(.vertical, 10)
-
+        NavigationStack {
+            VStack {
+                inputViewForPostType()
             }
-            .frame(maxWidth: .infinity)
-            .background(.ultraThickMaterial)
-        }
-        .safeAreaInset(edge: .top) {
-            VStack(spacing: 0) {
-                SegmentedControl(.init(get: {
-                    switch postTypeSelection {
-                    case .announcement: return 0
-                    case .coursework: return 1
-                    case .courseworkMaterial: return 2
+            #if os(macOS)
+            .frame(width: 450, height: 400)
+            .safeAreaInset(edge: .bottom) {
+                VStack(spacing: 0) {
+                    Divider()
+                    HStack {
+                        viewForCancelButton()
+                        Spacer()
+                        viewForCreatePostButton()
                     }
-                }, set: { newValue in
-                    postTypeSelection = .allCases[newValue]
-                }), options: NewPostType.allCases.map({ $0.rawValue })) { label in
-                    if label == "Announcement" {
-                        return "megaphone"
-                    } else if label == "Coursework" {
-                        return "square.and.pencil"
-                    } else if label == "Coursework Material" {
-                        return "doc"
-                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
                     
-                    return "questionmark.circle"
                 }
-                .padding(.vertical, 10)
-                
-                Divider()
+                .frame(maxWidth: .infinity)
+                .background(.ultraThickMaterial)
             }
-            .frame(maxWidth: .infinity)
-            .animation(.spring(), value: postTypeSelection)
-            .background(.ultraThickMaterial)
+            .safeAreaInset(edge: .top) {
+                VStack(spacing: 0) {
+                    SegmentedControl(.init(get: {
+                        switch postTypeSelection {
+                        case .announcement: return 0
+                        case .coursework: return 1
+                        case .courseworkMaterial: return 2
+                        }
+                    }, set: { newValue in
+                        postTypeSelection = .allCases[newValue]
+                    }), options: NewPostType.allCases.map({ $0.rawValue })) { label in
+                        if label == "Announcement" {
+                            return "megaphone"
+                        } else if label == "Coursework" {
+                            return "square.and.pencil"
+                        } else if label == "Coursework Material" {
+                            return "doc"
+                        }
+                        
+                        return "questionmark.circle"
+                    }
+                    .padding(.vertical, 10)
+                    
+                    Divider()
+                }
+                .frame(maxWidth: .infinity)
+                .animation(.spring(), value: postTypeSelection)
+                .background(.ultraThickMaterial)
+            }
+            #else
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Picker("", selection: $postTypeSelection) {
+                        Text("Announcement")
+                            .tag(NewPostType.announcement)
+                        Text("Coursework")
+                            .tag(NewPostType.coursework)
+                        Text("Material")
+                            .tag(NewPostType.courseworkMaterial)
+                    }
+                    .pickerStyle(.segmented)
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss.callAsFunction()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                    .keyboardShortcut(.escape)
+                }
+                
+                ToolbarItem(placement: .status) {
+                    viewForCreatePostButton()
+                        .padding(.bottom)
+                }
+            }
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
         }
     }
     
@@ -108,13 +142,12 @@ struct CreateNewPostView: View {
             }
         }
         .formStyle(.grouped)
-
     }
     
     func inputViewForCourseWorks() -> some View {
         VStack {
             Form {
-                Section {
+                Section("Coursework") {
                     TextField("Title", text: $titleText)
                     Picker("Coursework Type", selection: $courseWorkType) {
                         ForEach(CourseWorkType.allCases, id: \.self) { type in
@@ -200,8 +233,10 @@ struct CreateNewPostView: View {
     
     func inputViewForCourseWorkMaterials() -> some View {
         Form {
-            TextField("Title", text: $titleText)
-            TextField("Description (Optional)", text: $descriptionText)
+            Section("Coursework Material") {
+                TextField("Title", text: $titleText)
+                TextField("Description (Optional)", text: $descriptionText)
+            }
         }
         .formStyle(.grouped)
 

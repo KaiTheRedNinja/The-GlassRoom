@@ -19,7 +19,7 @@ struct DetailView: View {
 
     @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
 
-    @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = true
+    @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = false
     
     var body: some View {
         if let selectedPost {

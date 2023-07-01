@@ -19,7 +19,7 @@ struct CenterSplitView: View {
 
     @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
 
-    @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = true
+    @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = false
     @AppStorage("useFancyUI") var useFancyUI: Bool = false
     
     var body: some View {
@@ -51,25 +51,32 @@ struct CenterSplitView: View {
                 .padding(.bottom, -8)
             }
         }
+        #else
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Picker("", selection: $currentPage) {
+                    Image(systemName: "list.bullet")
+                        .tag(CourseDisplayOption.allPosts)
+                    Image(systemName: "megaphone")
+                        .tag(CourseDisplayOption.announcements)
+                    Image(systemName: "square.and.pencil")
+                        .tag(CourseDisplayOption.courseWork)
+                    Image(systemName: "doc")
+                        .tag(CourseDisplayOption.courseMaterial)
+                    Image(systemName: "link")
+                        .tag(CourseDisplayOption.resources)
+                    Image(systemName: "person.2")
+                        .tag(CourseDisplayOption.userRegister)
+                }
+                .pickerStyle(.segmented)
+            }
+        }
         #endif
         .onChange(of: selectedCourse) { _ in
             reloadAnnouncements()
         }
         .onAppear {
             reloadAnnouncements()
-        }
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                HStack {
-                    Spacer()
-                    CenterSplitViewToolbarTop(
-                        selectedCourse: $selectedCourse,
-                        currentPage: $currentPage,
-                        displayedCourseManager: displayedCoursesManager
-                    )
-                    Spacer()
-                }
-            }
         }
     }
 
@@ -173,8 +180,8 @@ struct CenterSplitView: View {
     enum CourseDisplayOption: String, CaseIterable {
         case allPosts = "All Posts"
         case announcements = "Announcements"
-        case courseWork = "Course Works"
-        case courseMaterial = "Course Material"
+        case courseWork = "Courseworks"
+        case courseMaterial = "Coursework Materials"
         case resources = "Resources"
         case userRegister = "Register"
 
