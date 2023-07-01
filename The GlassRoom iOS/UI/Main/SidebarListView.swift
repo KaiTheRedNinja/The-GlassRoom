@@ -21,6 +21,7 @@ struct SidebarListView: View {
             } header: {
                 sidebarCourseView(course: .allTeaching)
             }
+            
             Section {
                 groupsForCourseType(type: .enrolled)
                 viewForCourseType(type: .enrolled)

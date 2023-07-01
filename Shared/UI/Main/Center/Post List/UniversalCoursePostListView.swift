@@ -9,6 +9,8 @@ import SwiftUI
 import GlassRoomAPI
 
 struct UniversalCoursePostListView: View {
+    
+    @State var searchText = String()
     @Binding var selectedPost: CoursePost?
 
     var showPostCourseOrigin: Bool = false
@@ -122,6 +124,7 @@ struct UniversalCoursePostListView: View {
                 }
             }
         }
+        .searchable(text: $searchText)
         #endif
     }
 

@@ -118,9 +118,11 @@ struct MainView: View {
         } content: {
             CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
                 .frame(minWidth: 400)
+                .navigationBarTitleDisplayMode(.inline)
         } detail: {
             DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
                 .frame(minWidth: 400)
+                .navigationBarTitleDisplayMode(.inline)
         }
     }
 
