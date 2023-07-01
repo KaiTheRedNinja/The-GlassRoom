@@ -37,6 +37,31 @@ struct SidebarListView: View {
 
     func sidebarCourseView(course: GeneralCourse) -> some View {
         SidebarCourseView(course: course)
+            .contextMenu {
+                switch course {
+                case .course(_):
+                    Section("Group") {
+                        Button("New group") {
+                            // create new group
+                        }
+                        Menu("Add to group") {
+                            ForEach(configuration.courseGroups) { group in
+                                Button(group.groupName) {
+                                    // add to that group
+                                }
+                            }
+                        }
+                    }
+                    // if its in a group
+                    // Button("Remove from group") {}
+                    Button("Archive Course") {}
+                    // Button("Unarchive") {}
+                case .group(_):
+                    Button("Archive Group") {}
+                default:
+                    EmptyView()
+                }
+            }
             .tag(course)
     }
 
