@@ -42,14 +42,14 @@ struct SignInView: View {
         .background(.thinMaterial)
         #else
         ZStack {
+            if showMoreScopes {
+                addScopesView
+                    .frame(width: 400, height: 520)
+            }
             if showSignInWithGoogle {
                 signInView
                     .padding(.horizontal, 5)
                     .frame(width: 400)
-            }
-            if showMoreScopes {
-                addScopesView
-                    .frame(width: 400, height: 520)
             }
         }
         .padding(20)
@@ -72,9 +72,12 @@ struct SignInView: View {
             DispatchQueue.main.async {
                 if !(userModel.isLoggedIn ?? false) {
                     showSignInWithGoogle = true
+                    showMoreScopes = false
                 } else {
                     if !userModel.hasNeededScopes() {
                         showMoreScopes = true
+                    } else {
+                        showMoreScopes = false
                     }
                 }
             }
