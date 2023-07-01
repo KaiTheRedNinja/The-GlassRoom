@@ -87,7 +87,7 @@ struct CustomisationView: View {
                                 .scaledToFit()
                                 .padding(3)
                         }
-                        .frame(width: 20, height: 18)
+                        .frame(width: 24, height: 24)
                         .foregroundColor(.accentColor)
                         .disabled(true)
                 }
@@ -103,40 +103,66 @@ struct CustomisationView: View {
         .navigationBarTitleDisplayMode(.inline)
         #endif
         .sheet(isPresented: $showIconPopup) {
-            SymbolPicker(symbol: .init(get: {
-                if let selectedIconReplacement {
-                    return configuration.iconFor(selectedIconReplacement)
-                } else {
-                    return "person.2.fill"
-                }
-            }, set: { newValue in
-                configuration.customIcons[selectedIconReplacement!] = newValue
-            }))
-            .safeAreaInset(edge: .bottom) {
-                Rectangle().fill(.thinMaterial)
-                    .overlay {
-                        HStack {
-                            Spacer()
-                            ColorPicker("Color", selection: .init(get: {
-                                if let selectedIconReplacement {
-                                    return configuration.colorFor(selectedIconReplacement)
-                                } else {
-                                    return .accentColor
-                                }
-                            }, set: { newValue in
-                                configuration.customColors[selectedIconReplacement!] = newValue
-                            }))
+            NavigationStack {
+                SymbolPicker(symbol: .init(get: {
+                    if let selectedIconReplacement {
+                        return configuration.iconFor(selectedIconReplacement)
+                    } else {
+                        return "person.2.fill"
+                    }
+                }, set: { newValue in
+                    configuration.customIcons[selectedIconReplacement!] = newValue
+                }))
+                #if os(macOS)
+                .safeAreaInset(edge: .bottom) {
+                    Rectangle().fill(.thinMaterial)
+                        .overlay {
+                            HStack {
+                                Spacer()
+                                ColorPicker("Color", selection: .init(get: {
+                                    if let selectedIconReplacement {
+                                        return configuration.colorFor(selectedIconReplacement)
+                                    } else {
+                                        return .accentColor
+                                    }
+                                }, set: { newValue in
+                                    configuration.customColors[selectedIconReplacement!] = newValue
+                                }))
+                            }
+                            .padding(.horizontal, 10)
                         }
-                        .padding(.horizontal, 10)
+                        .frame(height: 30)
+                        .overlay(alignment: .top) {
+                            Divider()
+                        }
+                }
+                #else
+                .toolbar {
+                    ToolbarItem(placement: .bottomBar) {
+                        Rectangle().fill(.thinMaterial)
+                            .ignoresSafeArea()
+                            .overlay {
+                                HStack {
+                                    Spacer()
+                                    ColorPicker("Color", selection: .init(get: {
+                                        if let selectedIconReplacement {
+                                            return configuration.colorFor(selectedIconReplacement)
+                                        } else {
+                                            return .accentColor
+                                        }
+                                    }, set: { newValue in
+                                        configuration.customColors[selectedIconReplacement!] = newValue
+                                    }))
+                                }
+                                .padding(.horizontal, 10)
+                            }
+                            .frame(height: 50)
+                            .overlay(alignment: .top) {
+                                Divider()
+                            }
                     }
-                    #if os(macOS)
-                    .frame(height: 30)
-                    #else
-                    .frame(height: 50)
-                    #endif
-                    .overlay(alignment: .top) {
-                        Divider()
-                    }
+                }
+                #endif
             }
         }
     }
@@ -144,6 +170,7 @@ struct CustomisationView: View {
     var regexTable: some View {
         // TODO: Reload this when replaced course names changes
         VStack {
+            #if os(iOS)
             if UIScreen.main.traitCollection.userInterfaceIdiom != .phone {
                 Table(replacedCourseNames, selection: $selectedNameReplacement) {
                     TableColumn("Match Regex") { nameReplacement in
@@ -164,6 +191,16 @@ struct CustomisationView: View {
                     }
                 }
             }
+            #else
+            Table(replacedCourseNames, selection: $selectedNameReplacement) {
+                TableColumn("Match Regex") { nameReplacement in
+                    Text(nameReplacement.matchString)
+                }
+                TableColumn("Replacement") { nameReplacement in
+                    Text(nameReplacement.replacement)
+                }
+            }
+            #endif
         }
         #if os(iOS)
         .navigationTitle("Regex renaming")

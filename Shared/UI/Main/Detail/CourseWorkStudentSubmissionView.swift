@@ -234,22 +234,46 @@ struct CourseWorkStudentSubmissionView<AttachmentView: View>: View {
             switch state {
             case .turned_in:
                 //                Text("Unsubmit")
+                #if os(macOS)
                 Text("Unsubmit in browser")
+                #else
+                Text("Unsubmit via Classroom")
+                #endif
             case .reclaimed_by_student:
                 //                Text("Submit")
+                #if os(macOS)
                 Text("Submit in browser")
+                #else
+                Text("Submit via Classroom")
+                #endif
             case .returned:
                 //                Text("Resubmit")
+                #if os(macOS)
                 Text("Resubmit in browser")
+                #else
+                Text("Resubmit via Classroom")
+                #endif
             case .submission_state_unspecified:
                 //                Text("Submit")
+                #if os(macOS)
                 Text("Submit in browser")
+                #else
+                Text("Submit via Classroom")
+                #endif
             case .new:
                 //                Text("Submit")
+                #if os(macOS)
                 Text("Submit in browser")
+                #else
+                Text("Submit via Classroom")
+                #endif
             case .created:
                 //                Text("Submit")
+                #if os(macOS)
                 Text("Submit in browser")
+                #else
+                Text("Submit via Classroom")
+                #endif
             }
         }
     }
