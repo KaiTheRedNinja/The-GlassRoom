@@ -24,20 +24,21 @@ struct CustomisationView: View {
             #if os(macOS)
             HStack {
                 coloursList
-                regexTable
+                regexTablemacOS
             }
             #else
             Form {
-                DisclosureGroup("Colours") {
+                NavigationLink("Course symbols and colours") {
                     coloursList
                 }
                 
-                DisclosureGroup("Regex") {
+                NavigationLink("Course renaming") {
                     regexTable
                 }
             }
             #endif
             
+            #if os(macOS)
             HStack {
                 Spacer()
                 Button("Save") {
@@ -46,6 +47,7 @@ struct CustomisationView: View {
                 }
             }
             .padding(.horizontal)
+            #endif
         }
         #if os(macOS)
         .padding(15)
@@ -61,6 +63,9 @@ struct CustomisationView: View {
                     replacedCourseNames = configuration.replacedCourseNames
                 }
                 .padding(15)
+                #if os(iOS)
+                .presentationDetents([.medium])
+                #endif
             }
         }
     }
@@ -90,6 +95,10 @@ struct CustomisationView: View {
                 }
             }
         }
+        #if os(iOS)
+        .navigationTitle("Renaming")
+        .navigationBarTitleDisplayMode(.inline)
+        #endif
         .background {
             #if os(macOS)
             SymbolPickerView(
@@ -128,6 +137,7 @@ struct CustomisationView: View {
                 Text(nameReplacement.replacement)
             }
         }
+        #if os(macOS)
         .safeAreaInset(edge: .bottom) {
             HStack {
                 Button {
@@ -139,6 +149,7 @@ struct CustomisationView: View {
                 } label: {
                     Image(systemName: "minus")
                 }
+                
                 Button {
                     let newItem: NameReplacement
                     if let existingItem = configuration.replacedCourseNames
@@ -166,11 +177,66 @@ struct CustomisationView: View {
             .buttonStyle(.plain)
             .padding(.vertical, 3)
         }
+        #else
+        .navigationTitle("Renaming")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showEditPopup.toggle()
+                } label: {
+                    Text("Edit")
+                }
+                .disabled(selectedNameReplacement == nil)
+            }
+            
+            ToolbarItem(placement: .bottomBar) {
+                Text(" ")
+            }
+            
+            ToolbarItem(placement: .bottomBar) {
+                HStack {
+                    Button {
+                        guard let selectedNameReplacement else { return }
+                        configuration.replacedCourseNames.removeAll {
+                            $0.id == selectedNameReplacement
+                        }
+                        replacedCourseNames = configuration.replacedCourseNames
+                    } label: {
+                        Image(systemName: "minus")
+                    }
+                    .disabled(selectedNameReplacement == nil)
+                    
+                    Button {
+                        let newItem: NameReplacement
+                        if let existingItem = configuration.replacedCourseNames
+                            .first(where: { $0.matchString == "Match String" }) {
+                            newItem = existingItem
+                        } else {
+                            newItem = .init(
+                                matchString: "Match String",
+                                replacement: "Replacement"
+                            )
+                        }
+                        configuration.replacedCourseNames.append(newItem)
+                        selectedNameReplacement = newItem.id
+                        showEditPopup.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+        }
+        #endif
         .onAppear {
             replacedCourseNames = configuration.replacedCourseNames
         }
         .onChange(of: configuration.replacedCourseNames) { _ in
             replacedCourseNames = configuration.replacedCourseNames
+        }
+        .onDisappear {
+            configuration.saveToFileSystem()
+            configuration.objectWillChange.send()
         }
     }
 
@@ -190,13 +256,28 @@ struct CustomisationView: View {
         }
 
         var body: some View {
-            Form {
-                TextField("Match Regex", text: $matchString)
-                TextField("Match Text", text: $replacement)
-                Button("Save") {
-                    submitChange(matchString, replacement)
-                    presentationMode.wrappedValue.dismiss()
+            NavigationStack {
+                Form {
+                    TextField("Match Regex", text: $matchString)
+                    TextField("Match Text", text: $replacement)
+                    Button("Save") {
+                        submitChange(matchString, replacement)
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }
+                #if os(iOS)
+                .navigationTitle("Edit")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                    }
+                }
+                #endif
             }
         }
     }
