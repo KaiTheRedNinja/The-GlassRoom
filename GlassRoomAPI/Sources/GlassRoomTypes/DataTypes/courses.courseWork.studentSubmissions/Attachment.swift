@@ -8,7 +8,7 @@
 import Foundation
 
 public struct Attachment: Codable, Identifiable {
-    public var id = UUID()
+    public let id = UUID()
     public var driveFile: DriveFile?
     public var youtubeVideo: YouTubeVideo?
     public var link: LinkItem?
