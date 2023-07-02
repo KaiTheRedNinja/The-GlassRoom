@@ -10,7 +10,7 @@ import GlassRoomAPI
 
 struct UniversalCoursePostListView: View {
     
-    @State var searchText = String()
+    @State var searchQuery: String = ""
     @Binding var selectedPost: CoursePost?
 
     var showPostCourseOrigin: Bool = false
@@ -28,7 +28,11 @@ struct UniversalCoursePostListView: View {
     var body: some View {
         ZStack {
             if !postData.isEmpty {
-                postsContent
+                if searchQuery.isEmpty {
+                    postsContent
+                } else {
+                    searchPostsContent
+                }
             } else {
                 VStack {
                     Text("No Posts")
@@ -124,7 +128,7 @@ struct UniversalCoursePostListView: View {
                 }
             }
         }
-        .searchable(text: $searchText)
+        .searchable(text: $searchQuery)
         #endif
     }
 
@@ -139,6 +143,39 @@ struct UniversalCoursePostListView: View {
                     refreshList()
                 }
             }
+        }
+    }
+    
+    var searchPostsContent: some View {
+        List(selection: $selectedPost) {
+            CoursePostListView(postData: queryPosts(query: searchQuery), showPostCourseOrigin: showPostCourseOrigin)
+
+            if hasNextPage {
+                Button("Load next page") {
+                    refreshList()
+                }
+            }
+        }
+    }
+    
+    func queryPosts(query: String) -> [CoursePost] {
+        return postData.filter { post in
+            switch post {
+            case .announcement(let announcement):
+                if announcement.text.lowercased().contains(searchQuery.lowercased()) {
+                    return true
+                }
+            case .courseWork(let courseWork):
+                if courseWork.title.lowercased().contains(searchQuery.lowercased()) {
+                    return true
+                }
+            case .courseMaterial(let courseMaterial):
+                if courseMaterial.title.lowercased().contains(searchQuery.lowercased()) {
+                    return true
+                }
+            }
+            
+            return false
         }
     }
 }
