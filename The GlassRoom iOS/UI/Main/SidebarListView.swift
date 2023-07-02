@@ -108,19 +108,25 @@ struct SidebarListView: View {
                             }
                         }
                         if isInGroup {
-                            Button("Remove from Group") { // remove from grp
+                            Button(role: .destructive) { // remove from grp
                                 configuration.archive?.courses.removeAll(where: { $0.id == id })
                                 for index in 0..<configuration.courseGroups.count {
                                     configuration.courseGroups[index].courses.removeAll(where: { $0.id == id })
                                 }
+                            } label: {
+                                Text("Remove from Group")
                             }
                         }
                     }
                     
-                    Section("Archive") {
-                        let isArchived = configuration.archive?.courses.contains(id) ?? false
-                        Button("\(isArchived ? "Unarchive" : "Archive") Course") {
-                            configuration.archive(item: course)
+                    if configuration.archive?.courses.count ?? 0 > 0 {
+                        Section("Archive") {
+                            let isArchived = configuration.archive?.courses.contains(id) ?? false
+                            Button(role: isArchived ? .none : .destructive) {
+                                configuration.archive(item: course)
+                            } label: {
+                                Text("\(isArchived ? "Unarchive" : "Archive") Course")
+                            }
                         }
                     }
                 case .group(let id):
