@@ -13,36 +13,58 @@ struct SidebarListView: View {
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
     @ObservedObject var configuration = GlobalCoursesDataManager.CoursesConfiguration.loadedFromFileSystem()
 
+    @State var searchQuery: String = ""
+
     var body: some View {
         List(selection: $selection) {
-            Section {
-                groupsForCourseType(type: .teaching)
-                viewForCourseType(type: .teaching)
-            } header: {
-                sidebarCourseView(course: .allTeaching)
-            }
-            
-            Section {
-                groupsForCourseType(type: .enrolled)
-                viewForCourseType(type: .enrolled)
-            } header: {
-                sidebarCourseView(course: .allEnrolled)
-            }
-
-            if let archive = configuration.archive {
-                Section {
-                    ForEach(archive.courses) { courseId in
-                        sidebarCourseView(course: .course(courseId))
-                    }
-                } header: {
-                    sidebarCourseView(course: .group(CourseGroup.archiveId))
+            if searchQuery.isEmpty {
+                defaultListContent
+            } else {
+                ForEach(coursesForQuery(query: searchQuery)) { course in
+                    sidebarCourseView(course: .course(course.id))
                 }
             }
         }
         .navigationTitle(UIScreen.main.traitCollection.userInterfaceIdiom == .pad ? "Glassroom" : "")
         .listStyle(.insetGrouped)
+        .searchable(text: $searchQuery)
         .onAppear {
             coursesManager.loadList()
+        }
+    }
+
+    @ViewBuilder
+    var defaultListContent: some View {
+        Section {
+            groupsForCourseType(type: .teaching)
+            viewForCourseType(type: .teaching)
+        } header: {
+            sidebarCourseView(course: .allTeaching)
+        }
+
+        Section {
+            groupsForCourseType(type: .enrolled)
+            viewForCourseType(type: .enrolled)
+        } header: {
+            sidebarCourseView(course: .allEnrolled)
+        }
+
+        if let archive = configuration.archive {
+            Section {
+                ForEach(archive.courses) { courseId in
+                    sidebarCourseView(course: .course(courseId))
+                }
+            } header: {
+                sidebarCourseView(course: .group(CourseGroup.archiveId))
+            }
+        }
+    }
+
+    func coursesForQuery(query: String) -> [Course] {
+        let lowerQuery = query.lowercased()
+        return coursesManager.courses.filter { course in
+            configuration.nameFor(course.name).lowercased().contains(lowerQuery) &&
+            !(configuration.archive?.courses.contains(course.id) ?? false)
         }
     }
 
