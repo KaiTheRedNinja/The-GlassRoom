@@ -89,37 +89,7 @@ final class SidebarOutlineMenu: NSMenu {
     func archive() {
         guard let item = item as? GeneralCourse else { return }
         let config = GlobalCoursesDataManager.global.configuration
-        let isArchived = config.archive?.courses.contains(item.id) ?? false
-
-        if isArchived {
-            config.archive?.courses.removeAll(where: { $0.id == item.id })
-        } else {
-            var archivingCourses: [String] = []
-
-            switch item {
-            case .group(let string):
-                // archive all courses in the group
-                guard let groupIndex = config.courseGroups.firstIndex(where: { $0.id == string })
-                else { return }
-                archivingCourses = config.courseGroups.remove(at: groupIndex).courses
-            case .course(let string):
-                // archive that course
-                print("Archiving course \(string)")
-                archivingCourses = [string]
-            default: return
-            }
-            if config.archive == nil {
-                config.archive = .init(
-                    id: CourseGroup.archiveId,
-                    groupName: CourseGroup.archiveId,
-                    groupType: .enrolled,
-                    courses: archivingCourses)
-            } else {
-                config.archive?.courses.append(contentsOf: archivingCourses)
-                config.objectWillChange.send()
-            }
-            config.saveToFileSystem()
-        }
+        config.archive(item: item)
     }
 
     @objc

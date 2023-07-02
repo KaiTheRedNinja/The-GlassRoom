@@ -28,6 +28,16 @@ struct SidebarListView: View {
             } header: {
                 sidebarCourseView(course: .allEnrolled)
             }
+
+            if let archive = configuration.archive {
+                Section {
+                    ForEach(archive.courses) { courseId in
+                        sidebarCourseView(course: .course(courseId))
+                    }
+                } header: {
+                    sidebarCourseView(course: .group(CourseGroup.archiveId))
+                }
+            }
         }
         .navigationTitle(UIScreen.main.traitCollection.userInterfaceIdiom == .pad ? "Glassroom" : "")
         .listStyle(.insetGrouped)
@@ -40,25 +50,79 @@ struct SidebarListView: View {
         SidebarCourseView(course: course)
             .contextMenu {
                 switch course {
-                case .course(_):
+                case .course(let id):
                     Section("Group") {
-                        Button("New group") {
+                        let isInGroup = configuration.courseGroups.contains(where: { $0.courses.contains(id) })
+                        Button("\(isInGroup ? "Move to" : "Create") new group") {
                             // create new group
+                            guard let course = coursesManager.courses.first(where: { $0.id == id }) else { return }
+
+                            // remove the items from where they came from
+                            configuration.archive?.courses.removeAll(where: { $0.id == id })
+                            for index in 0..<configuration.courseGroups.count {
+                                configuration.courseGroups[index].courses.removeAll(where: { $0.id == id })
+                            }
+
+                            // create new group
+                            configuration.courseGroups.append(
+                                .init(groupName: "Untitled Group",
+                                      groupType: course.courseType,
+                                      courses: [id])
+                            )
                         }
-                        Menu("Add to group") {
+                        Menu("\(isInGroup ? "Move" : "Add") to group") {
                             ForEach(configuration.courseGroups) { group in
-                                Button(group.groupName) {
-                                    // add to that group
+                                Button(group.groupName) { // add to that group
+                                    // remove the items from where they came from
+                                    configuration.archive?.courses.removeAll(where: { $0.id == id })
+                                    for index in 0..<configuration.courseGroups.count {
+                                        configuration.courseGroups[index].courses.removeAll(where: { $0.id == id })
+                                    }
+
+                                    guard let destIndex = configuration.courseGroups.firstIndex(of: group) else { return }
+                                    configuration.courseGroups[destIndex].courses.append(id)
+                                }
+                            }
+                        }
+                        if isInGroup {
+                            Button("Remove from group") { // remove from grp
+                                configuration.archive?.courses.removeAll(where: { $0.id == id })
+                                for index in 0..<configuration.courseGroups.count {
+                                    configuration.courseGroups[index].courses.removeAll(where: { $0.id == id })
                                 }
                             }
                         }
                     }
-                    // if its in a group
-                    // Button("Remove from group") {}
-                    Button("Archive Course") {}
-                    // Button("Unarchive") {}
-                case .group(_):
-                    Button("Archive Group") {}
+                    Section("Archive") {
+                        let isArchived = configuration.archive?.courses.contains(id) ?? false
+                        Button("\(isArchived ? "Unarchive" : "Archive") Course") {
+                            configuration.archive(item: course)
+                        }
+                    }
+                case .group(let id):
+                    if id != CourseGroup.archiveId {
+                        Button("Delete Group") {
+                            configuration.courseGroups.removeAll(where: { $0.id == id })
+                        }
+                        Menu("Combine with group") {
+                            ForEach(configuration.courseGroups) { group in
+                                Button(group.groupName) {
+                                    // add contents of group to that group
+                                    guard let sourceIndex = configuration.courseGroups.firstIndex(where: { $0.id == id }),
+                                          let destIndex = configuration.courseGroups.firstIndex(of: group)
+                                    else { return }
+                                    configuration.courseGroups[destIndex].courses.append(
+                                        contentsOf: configuration.courseGroups[sourceIndex].courses
+                                    )
+                                    configuration.courseGroups.removeAll(where: { $0.id == id })
+                                }
+                            }
+                        }
+                        Button("Archive Courses in Group") {
+                            // add contents of group to that group
+                            configuration.archive(item: course)
+                        }
+                    }
                 default:
                     EmptyView()
                 }
@@ -67,8 +131,12 @@ struct SidebarListView: View {
     }
 
     func viewForCourseType(type: Course.CourseType) -> some View {
-        ForEach(coursesManager.courses.filter({ $0.courseType == type })) { course in
-            sidebarCourseView(course: .course(course.id))
+        ForEach(coursesManager.courses) { course in
+            if course.courseType == type, // correct type
+               !(configuration.archive?.courses.contains(course.id) ?? false), // not archived
+               !configuration.courseGroups.contains(where: { $0.courses.contains(course.id) }) { // not grouped
+                sidebarCourseView(course: .course(course.id))
+            }
         }
     }
 
