@@ -119,14 +119,12 @@ struct SidebarListView: View {
                         }
                     }
                     
-                    if configuration.archive?.courses.count ?? 0 > 0 {
-                        Section("Archive") {
-                            let isArchived = configuration.archive?.courses.contains(id) ?? false
-                            Button(role: isArchived ? .none : .destructive) {
-                                configuration.archive(item: course)
-                            } label: {
-                                Text("\(isArchived ? "Unarchive" : "Archive") Course")
-                            }
+                    Section("Archive") {
+                        let isArchived = configuration.archive?.courses.contains(id) ?? false
+                        Button(role: isArchived ? .none : .destructive) {
+                            configuration.archive(item: course)
+                        } label: {
+                            Text("\(isArchived ? "Unarchive" : "Archive") Course")
                         }
                     }
                 case .group(let id):
