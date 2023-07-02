@@ -42,12 +42,14 @@ struct SingleCoursePostListView: View {
             )
             #if os(iOS)
             .toolbar {
-                ToolbarItem(placement: .status) {
-                    if let course = coursesManager.courseIdMap[postsManager.courseId] {
-                        Text(configuration.nameFor(course.name))
-                            .padding(.horizontal)
-                            .font(.subheadline)
-                            .fontWeight(.bold)
+                if UIScreen.main.traitCollection.userInterfaceIdiom == .phone {
+                    ToolbarItem(placement: .status) {
+                        if let course = coursesManager.courseIdMap[postsManager.courseId] {
+                            Text(configuration.nameFor(course.name))
+                                .padding(.horizontal)
+                                .font(.subheadline)
+                                .fontWeight(.bold)
+                        }
                     }
                 }
             }
@@ -68,12 +70,14 @@ struct SingleCoursePostListView: View {
             )
             #if os(iOS)
             .toolbar {
-                ToolbarItem(placement: .status) {
-                    if let course = coursesManager.courseIdMap[postsManager.courseId] {
-                        Text(configuration.nameFor(course.name))
-                            .padding(.horizontal)
-                            .font(.subheadline)
-                            .fontWeight(.bold)
+                if UIScreen.main.traitCollection.userInterfaceIdiom == .phone {
+                    ToolbarItem(placement: .status) {
+                        if let course = coursesManager.courseIdMap[postsManager.courseId] {
+                            Text(configuration.nameFor(course.name))
+                                .padding(.horizontal)
+                                .font(.subheadline)
+                                .fontWeight(.bold)
+                        }
                     }
                 }
             }
@@ -93,12 +97,14 @@ struct SingleCoursePostListView: View {
             )
             #if os(iOS)
             .toolbar {
-                ToolbarItem(placement: .status) {
-                    if let course = coursesManager.courseIdMap[postsManager.courseId] {
-                        Text(configuration.nameFor(course.name))
-                            .padding(.horizontal)
-                            .font(.subheadline)
-                            .fontWeight(.bold)
+                if UIScreen.main.traitCollection.userInterfaceIdiom == .phone {
+                    ToolbarItem(placement: .status) {
+                        if let course = coursesManager.courseIdMap[postsManager.courseId] {
+                            Text(configuration.nameFor(course.name))
+                                .padding(.horizontal)
+                                .font(.subheadline)
+                                .fontWeight(.bold)
+                        }
                     }
                 }
             }
