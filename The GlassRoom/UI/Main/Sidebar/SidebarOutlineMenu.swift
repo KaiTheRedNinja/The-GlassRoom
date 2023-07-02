@@ -53,8 +53,8 @@ final class SidebarOutlineMenu: NSMenu {
         case .group(_):
             items = [
                 menuItem("Rename Group", action: #selector(renameGroup)),
-                menuItem("Remove Group", action: #selector(deleteGroup)),
-                menuItem("\(isArchived ? "Unarchive" : "Archive") Group", action: #selector(archive))
+                menuItem("\(isArchived ? "Unarchive" : "Archive") Group", action: #selector(archive)),
+                menuItem("Remove Group", action: #selector(deleteGroup))
             ]
         default:
             items = [

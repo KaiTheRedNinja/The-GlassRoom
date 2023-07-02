@@ -52,8 +52,9 @@ struct SidebarListView: View {
                 switch course {
                 case .course(let id):
                     Section("Group") {
+                        let isArchived = configuration.archive?.courses.contains(id) ?? false
                         let isInGroup = configuration.courseGroups.contains(where: { $0.courses.contains(id) })
-                        Button("\(isInGroup ? "Move to" : "Create") new group") {
+                        Button("\(isArchived ? "Unarchive and " : "")\(isInGroup ? "Move to" : "Create") new Group") {
                             // create new group
                             guard let course = coursesManager.courses.first(where: { $0.id == id }) else { return }
 
@@ -70,7 +71,7 @@ struct SidebarListView: View {
                                       courses: [id])
                             )
                         }
-                        Menu("\(isInGroup ? "Move" : "Add") to group") {
+                        Menu("\(isArchived ? "Unarchive and " : "")\(isInGroup ? "Move" : "Add") to Group") {
                             ForEach(configuration.courseGroups) { group in
                                 Button(group.groupName) { // add to that group
                                     // remove the items from where they came from
@@ -85,7 +86,7 @@ struct SidebarListView: View {
                             }
                         }
                         if isInGroup {
-                            Button("Remove from group") { // remove from grp
+                            Button("Remove from Group") { // remove from grp
                                 configuration.archive?.courses.removeAll(where: { $0.id == id })
                                 for index in 0..<configuration.courseGroups.count {
                                     configuration.courseGroups[index].courses.removeAll(where: { $0.id == id })
@@ -93,6 +94,7 @@ struct SidebarListView: View {
                             }
                         }
                     }
+                    
                     Section("Archive") {
                         let isArchived = configuration.archive?.courses.contains(id) ?? false
                         Button("\(isArchived ? "Unarchive" : "Archive") Course") {
@@ -101,10 +103,12 @@ struct SidebarListView: View {
                     }
                 case .group(let id):
                     if id != CourseGroup.archiveId {
-                        Button("Delete Group") {
-                            configuration.courseGroups.removeAll(where: { $0.id == id })
+                        Button("Archive Courses in Group") {
+                            // add contents of group to that group
+                            configuration.archive(item: course)
                         }
-                        Menu("Combine with group") {
+                        
+                        Menu("Combine with Group") {
                             ForEach(configuration.courseGroups) { group in
                                 Button(group.groupName) {
                                     // add contents of group to that group
@@ -118,9 +122,13 @@ struct SidebarListView: View {
                                 }
                             }
                         }
-                        Button("Archive Courses in Group") {
-                            // add contents of group to that group
-                            configuration.archive(item: course)
+                        
+                        Divider()
+                        
+                        Button(role: .destructive) {
+                            configuration.courseGroups.removeAll(where: { $0.id == id })
+                        } label: {
+                            Text("Delete Group")
                         }
                     }
                 default:

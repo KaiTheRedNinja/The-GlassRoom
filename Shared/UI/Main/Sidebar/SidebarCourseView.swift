@@ -100,7 +100,11 @@ struct SidebarCourseView: View {
                     Image(systemName: "folder.fill")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 14, height: 14)
+                    #if os(macOS)
+                        .frame(width: 16, height: 16)
+                    #else
+                        .frame(width: 24, height: 24)
+                    #endif
                         .offset(x: 3)
                         .foregroundColor(.accentColor)
                         .disabled(true)
@@ -108,6 +112,9 @@ struct SidebarCourseView: View {
                         HStack {
                             Text(group.groupName)
                                 .lineLimit(1)
+                            #if os(iOS)
+                                .offset(x: 5)
+                            #endif
                             Spacer()
                         }
                     }
