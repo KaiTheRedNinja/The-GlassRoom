@@ -38,6 +38,8 @@ struct SidebarView: View {
                 if coursesManager.loading {
                     ProgressView()
                         .progressViewStyle(.circular)
+                        .scaleEffect(.init(0.45))
+                        .offset(x: -10)
                 } else {
                     Button {
                         coursesManager.loadList(bypassCache: true)
@@ -45,6 +47,7 @@ struct SidebarView: View {
                         Image(systemName: "arrow.clockwise")
                     }
                     .buttonStyle(.plain)
+                    .keyboardShortcut("r", modifiers: [.command, .shift])
                     .contextMenu {
                         Button("Load Only Cache") {
                             coursesManager.loadList(bypassCache: false)
