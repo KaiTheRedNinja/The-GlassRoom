@@ -9,6 +9,9 @@ import SwiftUI
 import GlassRoomTypes
 
 struct SingleCoursePostListView: View {
+    
+    @State var isInSearch: Bool
+    
     @Binding var selectedPost: CoursePost?
     @Binding var displayOption: CenterSplitView.CourseDisplayOption
     @State var updateFlag: Int
@@ -21,12 +24,14 @@ struct SingleCoursePostListView: View {
 
     init(selectedPost: Binding<CoursePost?>,
          displayOption: Binding<CenterSplitView.CourseDisplayOption>,
-         posts: CoursePostsDataManager
+         posts: CoursePostsDataManager,
+         isInSearch: Bool
     ) {
         self._selectedPost = selectedPost
         self._displayOption = displayOption
         self.updateFlag = 0
         self.postsManager = posts
+        self.isInSearch = isInSearch
     }
 
     var body: some View {
@@ -87,6 +92,7 @@ struct SingleCoursePostListView: View {
             }
         default:
             UniversalCoursePostListView(
+                isInSearch: isInSearch,
                 selectedPost: $selectedPost,
                 postData: postData,
                 isLoading: postsManager.loading,

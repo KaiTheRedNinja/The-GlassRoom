@@ -10,6 +10,8 @@ import GlassRoomAPI
 
 struct UniversalCoursePostListView: View {
     
+    @State var isInSearch: Bool
+    
     @State var searchQuery: String = ""
     @Binding var selectedPost: CoursePost?
 
@@ -74,13 +76,15 @@ struct UniversalCoursePostListView: View {
                 
                 Spacer()
                 
-                if let onPlusPress {
-                    Button {
-                        onPlusPress()
-                    } label: {
-                        Image(systemName: "plus")
+                if !isInSearch {
+                    if let onPlusPress {
+                        Button {
+                            onPlusPress()
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
             }
             .padding(.horizontal, 5)
@@ -116,19 +120,24 @@ struct UniversalCoursePostListView: View {
                     }
                 }
             }
-            
+                
             ToolbarItem(placement: .bottomBar) {
-                if let onPlusPress {
-                    Button {
-                        onPlusPress()
-                    } label: {
-                        Image(systemName: "plus")
+                if isInSearch {
+                    Text(" ")
+                } else {
+                    if let onPlusPress {
+                        Button {
+                            onPlusPress()
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
             }
         }
         .searchable(text: $searchQuery)
+        .toolbar(isInSearch ? .hidden : .visible, for: .navigationBar)
         #endif
     }
 

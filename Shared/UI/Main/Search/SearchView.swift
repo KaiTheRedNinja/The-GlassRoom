@@ -49,9 +49,20 @@ struct SearchView: View {
                 searchResults
                 postsPreview
             }
+            #if os(iOS)
+            .animation(.spring(duration: 0.4), value: showPostsPreview)
+            #endif
         }
+        #if os(macOS)
         .frame(width: showPostsPreview ? 680 : 500,
                height: showPostsPreview ? 500 : 400)
+        #else
+        .frame(width: 680, height: 500)
+        #endif
+        #if os(iOS)
+        .background(Color(.systemBackground))
+        .mask(RoundedRectangle(cornerRadius: 16))
+        #endif
         .onAppear {
             textfieldFocused = true
         }
@@ -64,6 +75,7 @@ struct SearchView: View {
                 .scaledToFit()
                 .frame(width: 20, height: 20)
                 .foregroundColor(.gray)
+                #if os(macOS)
                 .background {
                     ZStack {
                         Button("U") { // up
@@ -85,6 +97,7 @@ struct SearchView: View {
                     }
                     .opacity(0)
                 }
+                #endif
 
             TextField("Search Classes or Posts", text: $searchTerm)
                 .focused($textfieldFocused)
@@ -94,11 +107,28 @@ struct SearchView: View {
                 .onSubmit {
                     open()
                 }
+            
+            #if os(iOS)
+            Button {
+                showPostsPreview.toggle()
+            } label: {
+                Image(systemName: "sidebar.right")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(.gray)
+            }
+            .keyboardShortcut(KeyEquivalent.rightArrow, modifiers: [.command, .control])
+            #endif
         }
         .offset(y: 4)
         .frame(height: 30)
         .padding(.horizontal, 15)
         .padding(.top, 5)
+        #if os(iOS)
+        .padding(.vertical, 5)
+        .background(Color(.systemBackground))
+        #endif
     }
 
     var searchResults: some View {
@@ -117,9 +147,15 @@ struct SearchView: View {
                                 }
                             if selection == .course(course.id) && !showPostsPreview {
                                 Spacer()
+                                #if os(macOS)
                                 Text("Press → for preview")
                                     .font(.caption)
                                     .foregroundColor(.gray)
+                                #else
+                                Text(LocalizedStringKey("Press ⌘⌃→ or \(Image(systemName: "sidebar.right")) for preview"))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                #endif
                             }
                         }
                         .tag(Selection.course(course.id))
@@ -179,16 +215,22 @@ struct SearchView: View {
             Divider()
             switch selection {
             case .course(_):
-                SingleCoursePostListView(
-                    selectedPost: .init(get: { nil }, set: { newPost in
-                        // TODO: Open the post
-                        guard let newPost else { return }
-                        open(post: newPost)
-                    }),
-                    displayOption: .constant(.allPosts),
-                    posts: .getManager(for: selection.value)
-                )
-                .id(selection)
+                NavigationStack {
+                    SingleCoursePostListView(
+                        selectedPost: .init(get: { nil }, set: { newPost in
+                            // TODO: Open the post
+                            guard let newPost else { return }
+                            open(post: newPost)
+                        }),
+                        displayOption: .constant(.allPosts),
+                        posts: .getManager(for: selection.value),
+                        isInSearch: true
+                    )
+                    .id(selection)
+                #if os(iOS)
+                    .listStyle(.plain)
+                #endif
+                }
             case .postsParent(let courseId):
                 List(selection: Binding<CoursePost?>(get: { nil }, set: { newPost in
                     // TODO: Open the post
@@ -197,6 +239,9 @@ struct SearchView: View {
                 })) {
                     CoursePostListView(postData: resultPosts.first(where: { $0.0.id == courseId })?.1 ?? [])
                 }
+                #if os(iOS)
+                .listStyle(.plain)
+                #endif
             }
         }
     }
@@ -211,7 +256,7 @@ struct SearchView: View {
 
         let filteredCourses = courses.filter { course in
             let fixedName = courseManager.configuration.nameFor(course.name).lowercased()
-            let nameContains = fixedName.contains(searchTerm) || course.name.lowercased().contains(searchTerm)
+            let nameContains = fixedName.contains(searchTerm.lowercased()) || course.name.lowercased().contains(searchTerm.lowercased())
             //            let descriptionContains = (course.description?.lowercased().contains(searchTerm) ?? false)
             return nameContains && !archived.contains(course.id)
         }

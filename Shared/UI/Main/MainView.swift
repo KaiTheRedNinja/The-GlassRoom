@@ -67,19 +67,6 @@ struct MainView: View {
         }
         #else
         splitView
-            .toolbar {
-                Button {
-                    showSearch.toggle()
-                } label: {
-                    Image(systemName: "magnifyingglass")
-                }
-                .keyboardShortcut("O", modifiers: [.command, .shift])
-            }
-            .sheet(isPresented: $showSearch) {
-                SearchView(selectedCourse: $selectedCourse,
-                           selectedPost: $selectedPost)
-            }
-
         #endif
     }
 
@@ -115,24 +102,53 @@ struct MainView: View {
     }
 
     var traditionalView: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
-            SidebarView(selection: $selectedCourse)
-        } content: {
-            CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-            #if os(macOS)
-                .frame(minWidth: 400)
-            #endif
-            #if os(iOS)
-                .navigationBarTitleDisplayMode(.inline)
-            #endif
-        } detail: {
-            DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-            #if os(macOS)
-                .frame(minWidth: 400)
-            #endif
-            #if os(iOS)
-                .navigationBarTitleDisplayMode(.inline)
-            #endif
+        GeometryReader { geometry in
+            NavigationSplitView(columnVisibility: $columnVisibility) {
+                SidebarView(selection: $selectedCourse)
+#if os(iOS)
+                    .toolbar {
+                        if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {
+                            if geometry.size.width >= 680 {
+                                ToolbarItem(placement: .topBarTrailing) {
+                                    Button {
+                                        showSearch.toggle()
+                                    } label: {
+                                        Image(systemName: "magnifyingglass")
+                                    }
+                                    .keyboardShortcut("O", modifiers: [.command, .shift])
+                                }
+                            }
+                        }
+                    }
+                    .sheet(isPresented: $showSearch) {
+                        ZStack {
+                            Color(.systemBackground).opacity(0.000001)
+                                .onTapGesture {
+                                    showSearch.toggle()
+                                }
+                            SearchView(selectedCourse: $selectedCourse,
+                                       selectedPost: $selectedPost)
+                        }
+                        .presentationBackground(.clear)
+                    }
+#endif
+            } content: {
+                CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
+#if os(macOS)
+                    .frame(minWidth: 400)
+#endif
+#if os(iOS)
+                    .navigationBarTitleDisplayMode(.inline)
+#endif
+            } detail: {
+                DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
+#if os(macOS)
+                    .frame(minWidth: 400)
+#endif
+#if os(iOS)
+                    .navigationBarTitleDisplayMode(.inline)
+#endif
+            }
         }
     }
 

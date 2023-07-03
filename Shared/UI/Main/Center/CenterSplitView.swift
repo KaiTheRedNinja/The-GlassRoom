@@ -115,7 +115,8 @@ struct CenterSplitView: View {
                 if let coursePostsManager {
                     SingleCoursePostListView(selectedPost: $selectedPost,
                                              displayOption: $currentPage,
-                                             posts: coursePostsManager)
+                                             posts: coursePostsManager,
+                                             isInSearch: false)
                     .scrollContentBackground(.hidden)
                 } else {
                     Text("Course post manager not found")

@@ -38,7 +38,8 @@ struct MultiCoursePostListView: View {
             // TODO: User register list for multiple courses
             Text("User Register List")
         default:
-            UniversalCoursePostListView(selectedPost: $selectedPost,
+            UniversalCoursePostListView(isInSearch: false,
+                                        selectedPost: $selectedPost,
                                showPostCourseOrigin: true,
                                postData: postData,
                                isLoading: isLoading,

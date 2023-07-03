@@ -20,14 +20,8 @@ struct SidebarListView: View {
             if searchQuery.isEmpty {
                 defaultListContent
             } else {
-                GeometryReader { proxy in
-                    if proxy.size.width < UIScreen.main.bounds.width / 2 {
-                        Text("too small")
-                    } else {
-                        ForEach(coursesForQuery(query: searchQuery)) { course in
-                            sidebarCourseView(course: .course(course.id))
-                        }
-                    }
+                ForEach(coursesForQuery(query: searchQuery)) { course in
+                    sidebarCourseView(course: .course(course.id))
                 }
             }
         }
