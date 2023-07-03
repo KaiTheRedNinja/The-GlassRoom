@@ -126,22 +126,26 @@ struct CourseResourcesListView: View {
                                         ZStack {
                                             if let driveFile = material.driveFile?.driveFile {
                                                 LinkPreview(url: URL(string: driveFile.alternateLink)!, isAttachment: false)
+                                                    .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                             }
                                             
                                             if let youtubeVideo = material.youtubeVideo {
                                                 LinkPreview(url: URL(string: youtubeVideo.alternateLink)!, isAttachment: false)
+                                                    .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                             }
                                             
                                             if let link = material.form?.formUrl {
                                                 LinkPreview(url: URL(string: link)!, isAttachment: false)
+                                                    .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                             }
                                             
                                             if let materialLink = material.link {
                                                 LinkPreview(url: URL(string: materialLink.url)!, isAttachment: false)
+                                                    .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                             }
                                         }
                                         .frame(maxWidth: .infinity)
-                                        .padding(.all, 5)
+                                        .padding(.all, geometry.size.width < 400 ? 0 : 5)
                                     }
                                 }
                             default:

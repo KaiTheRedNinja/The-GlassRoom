@@ -12,6 +12,8 @@ struct MainView: View {
     @State var selectedCourse: GeneralCourse?
     @State var selectedPost: CoursePost?
     @State var showSearch: Bool = false
+    
+    @State var columnVisibility = NavigationSplitViewVisibility.all
 
     @ObservedObject var userModel: UserAuthModel = .shared
     @AppStorage("debugMode") var debugMode: Bool = false
@@ -113,17 +115,21 @@ struct MainView: View {
     }
 
     var traditionalView: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             SidebarView(selection: $selectedCourse)
         } content: {
             CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
+            #if os(macOS)
                 .frame(minWidth: 400)
+            #endif
             #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
             #endif
         } detail: {
             DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
+            #if os(macOS)
                 .frame(minWidth: 400)
+            #endif
             #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
             #endif

@@ -55,7 +55,7 @@ struct SidebarView: View { // TODO: Fix this
                         coursesManager.loadList(bypassCache: true)
                     } label: {
                         Image(systemName: "arrow.clockwise")
-                            .foregroundStyle(.blue)
+                            .foregroundStyle(Color(red: 59/255, green: 130/255, blue: 247/255))
                     }
                     .keyboardShortcut("r", modifiers: [.command, .shift])
                     .buttonStyle(.plain)
@@ -76,7 +76,7 @@ struct SidebarView: View { // TODO: Fix this
                     showingSettingsView.toggle()
                 } label: {
                     Image(systemName: "gearshape.fill")
-                        .foregroundStyle(.blue)
+                        .foregroundStyle(Color(red: 59/255, green: 130/255, blue: 247/255))
                 }
                 #if os(iOS)
                 .keyboardShortcut(",", modifiers: .command)
