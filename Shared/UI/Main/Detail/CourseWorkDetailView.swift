@@ -11,84 +11,115 @@ import GlassRoomTypes
 struct CourseWorkDetailView: DetailViewPage {
     var textContent: Binding<String>
     var copiedLink: Binding<Bool>
-
+    
     var courseWork: CourseWork
-
+    
     @ObservedObject var submissionManager: CourseWorkSubmissionDataManager
     @State var showSubmissionsView: Bool = false
-
+    
     @State var studentSubmissionSize: CGSize?
     @State var studentSubmissionOffset: CGFloat = 0
-
+    
     init(textContent: Binding<String>, copiedLink: Binding<Bool>, courseWork: CourseWork) {
         self.textContent = textContent
         self.copiedLink = copiedLink
         self.courseWork = courseWork
-
+        
         self.submissionManager = .getManager(for: courseWork.courseId, courseWorkId: courseWork.id)
     }
-
+    
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView {
-                FittingGeometryReader(spaceName: "detailScrollView") { proxy in
-                    content(size: geometry.size)
-                        .onAppear {
-                            guard let value = proxy?.frame(in: .named("detailScrollView")),
-                                  let studentSubmissionSize
-                            else { return }
-                            studentSubmissionOffset = calculateStudentSubmissionOffset(
-                                submissionSize: studentSubmissionSize,
-                                pageSize: geometry.size,
-                                scrollFrame: value
-                            )
-                        }
-                        .onChange(of: proxy?.frame(in: .named("detailScrollView"))) { value in
-                            if let value, let studentSubmissionSize {
+        NavigationStack {
+            GeometryReader { geometry in
+                ScrollView {
+                    FittingGeometryReader(spaceName: "detailScrollView") { proxy in
+                        content(size: geometry.size)
+                            .onAppear {
+                                guard let value = proxy?.frame(in: .named("detailScrollView")),
+                                      let studentSubmissionSize
+                                else { return }
                                 studentSubmissionOffset = calculateStudentSubmissionOffset(
                                     submissionSize: studentSubmissionSize,
                                     pageSize: geometry.size,
                                     scrollFrame: value
                                 )
                             }
-                        }
+                            .onChange(of: proxy?.frame(in: .named("detailScrollView"))) { value in
+                                if let value, let studentSubmissionSize {
+                                    studentSubmissionOffset = calculateStudentSubmissionOffset(
+                                        submissionSize: studentSubmissionSize,
+                                        pageSize: geometry.size,
+                                        scrollFrame: value
+                                    )
+                                }
+                            }
+                    }
                 }
             }
-        }
-        .coordinateSpace(name: "detailScrollView")
-        .onAppear {
-            DispatchQueue.main.async {
-                submissionManager.loadList(bypassCache: true)
+            .coordinateSpace(name: "detailScrollView")
+            .onAppear {
+                DispatchQueue.main.async {
+                    submissionManager.loadList(bypassCache: true)
+                    copiedLink.wrappedValue = false
+                    if let description = courseWork.description {
+                        textContent.wrappedValue = makeLinksHyperLink(description)
+                    }
+                }
+            }
+            .onChange(of: courseWork) { _ in
                 copiedLink.wrappedValue = false
                 if let description = courseWork.description {
                     textContent.wrappedValue = makeLinksHyperLink(description)
                 }
             }
-        }
-        .onChange(of: courseWork) { _ in
-            copiedLink.wrappedValue = false
-            if let description = courseWork.description {
-                textContent.wrappedValue = makeLinksHyperLink(description)
+            .safeAreaInset(edge: .bottom) {
+                FittingGeometryReader { proxy in
+                    viewForStudentSubmission
+                        .background(.thickMaterial)
+                        .onAppear {
+                            studentSubmissionSize = proxy?.size
+                        }
+                        .onChange(of: proxy?.size) { newVal in
+                            studentSubmissionSize = newVal
+                        }
+                        .offset(y: studentSubmissionOffset)
+                        .animation(.default, value: studentSubmissionOffset)
+                }
             }
-        }
-        .safeAreaInset(edge: .bottom) {
-            FittingGeometryReader { proxy in
-                viewForStudentSubmission
-                    .background(.thickMaterial)
-                    .onAppear {
-                        studentSubmissionSize = proxy?.size
-                    }
-                    .onChange(of: proxy?.size) { newVal in
-                        studentSubmissionSize = newVal
-                    }
-                    .offset(y: studentSubmissionOffset)
-                    .animation(.default, value: studentSubmissionOffset)
+            .sheet(isPresented: $showSubmissionsView) {
+                CourseWorkTeacherSubmissionsView(submissions: submissionManager.submissions,
+                                                 courseWork: courseWork,
+                                                 viewForAttachment: viewForAttachment)
             }
-        }
-        .sheet(isPresented: $showSubmissionsView) {
-            CourseWorkTeacherSubmissionsView(submissions: submissionManager.submissions,
-                                             courseWork: courseWork,
-                                             viewForAttachment: viewForAttachment)
+            #if os(iOS)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Link(destination: URL(string: courseWork.alternateLink)!) {
+                            Label("Open Post", systemImage: "safari")
+                        }
+                        
+                        ShareLink(item: courseWork.alternateLink) {
+                            Label("Share Post", systemImage: "square.and.arrow.up")
+                        }
+                        
+                        Button {
+                            copiedLink.wrappedValue = true
+                            let pasteboard = UIPasteboard.general
+                            pasteboard.string = courseWork.alternateLink
+                        } label: {
+                            Label("Copy Post link", systemImage: "link")
+                        }
+                        
+                        Divider()
+                        
+                        OpenNotesButton(post: .courseWork(courseWork))
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+            #endif
         }
     }
 
@@ -104,7 +135,7 @@ struct CourseWorkDetailView: DetailViewPage {
                     Spacer()
                 }
                 
-                viewForButtons(link: courseWork.alternateLink, post: .courseWork(courseWork))
+                viewForButtons(link: courseWork.alternateLink, post: .courseWork(courseWork), dividerAbove: true)
                 #if os(iOS)
                     .padding(.top, 5)
                 #endif

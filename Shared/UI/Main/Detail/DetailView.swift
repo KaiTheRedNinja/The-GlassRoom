@@ -108,8 +108,9 @@ extension DetailViewPage {
         return result.trimmingCharacters(in: .newlines)
     }
 
-    func viewForButtons(link: String, post: CoursePost) -> some View {
+    func viewForButtons(link: String, post: CoursePost, dividerAbove: Bool) -> some View {
         VStack(alignment: .leading) {
+            #if os(macOS)
             HStack {
                 Link(destination: URL(string: link)!) {
                     Image(systemName: "safari")
@@ -145,8 +146,9 @@ extension DetailViewPage {
 
                 OpenNotesButton(post: post)
             }
+            #endif
 
-            PostNoteView(post: post)
+            PostNoteView(post: post, dividerAbove: dividerAbove)
         }
     }
 
@@ -216,7 +218,7 @@ struct OpenNotesButton: View {
     @ObservedObject var manager = GlobalNotesDataManager.loadedFromFileSystem()
 
     var body: some View {
-        Button {
+        Button(role: manager.notes.keys.contains(post.minimalRepresentation) ? .destructive : .none) {
             // create the note if it exists, delete it if not.
             if manager.notes.keys.contains(post.minimalRepresentation) {
                 manager.updateNote(post.minimalRepresentation, with: nil)
@@ -224,6 +226,7 @@ struct OpenNotesButton: View {
                 manager.updateNote(post.minimalRepresentation, with: "Empty Note")
             }
         } label: {
+            #if os(macOS)
             ZStack(alignment: .bottomTrailing) {
                 Image(systemName: manager.notes.keys.contains(post.minimalRepresentation) ? "note.text" : "note.text.badge.plus")
                 if manager.notes.keys.contains(post.minimalRepresentation) {
@@ -238,6 +241,9 @@ struct OpenNotesButton: View {
                         .offset(y: 2)
                 }
             }
+            #else
+            Label("\(manager.notes.keys.contains(post.minimalRepresentation) ? "Remove" : "Add") Note", systemImage: manager.notes.keys.contains(post.minimalRepresentation) ? "trash" : "note.text.badge.plus")
+            #endif
         }
         .buttonStyle(.plain)
     }
@@ -248,19 +254,35 @@ struct PostNoteView: View {
 
     var post: CoursePost
 
+    @State var dividerAbove: Bool
     @State var textContents: String = ""
 
     var body: some View {
         if let noteContents = notesManager.notes[post.minimalRepresentation] {
             VStack {
+                #if os(macOS)
                 Divider()
                     .padding(.vertical, 10)
+                #else
+                if dividerAbove {
+                    Divider()
+                        .padding(.vertical, 10)
+                }
+                #endif
                 TextEditor(text: $textContents)
+                #if os(macOS)
                     .padding(-5)
+                #endif
                     .onChange(of: textContents) { _ in
                         notesManager.updateNote(post.minimalRepresentation, with: textContents)
                     }
                     .scrollIndicators(.never)
+                #if os(iOS)
+                if !dividerAbove {
+                    Divider()
+                        .padding(.vertical, 5)
+                }
+                #endif
             }
             .onAppear {
                 textContents = noteContents

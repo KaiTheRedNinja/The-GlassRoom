@@ -105,7 +105,7 @@ struct MainView: View {
         GeometryReader { geometry in
             NavigationSplitView(columnVisibility: $columnVisibility) {
                 SidebarView(selection: $selectedCourse)
-#if os(iOS)
+                    #if os(iOS)
                     .toolbar {
                         if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {
                             if geometry.size.width >= 680 {
@@ -131,23 +131,23 @@ struct MainView: View {
                         }
                         .presentationBackground(.clear)
                     }
-#endif
+                    #endif
             } content: {
                 CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-#if os(macOS)
+                #if os(macOS)
                     .frame(minWidth: 400)
-#endif
-#if os(iOS)
+                #endif
+                #if os(iOS)
                     .navigationBarTitleDisplayMode(.inline)
-#endif
+                #endif
             } detail: {
                 DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-#if os(macOS)
+                #if os(macOS)
                     .frame(minWidth: 400)
-#endif
-#if os(iOS)
+                #endif
+                #if os(iOS)
                     .navigationBarTitleDisplayMode(.inline)
-#endif
+                #endif
             }
         }
     }
