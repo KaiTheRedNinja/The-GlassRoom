@@ -44,12 +44,10 @@ struct SignInView: View {
         ZStack {
             if showMoreScopes {
                 addScopesView
-                    .frame(width: 400, height: 520)
             }
             if showSignInWithGoogle {
                 signInView
                     .padding(.horizontal, 5)
-                    .frame(width: 400)
             }
         }
         .padding(20)
