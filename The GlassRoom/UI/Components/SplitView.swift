@@ -27,7 +27,7 @@ struct SplitView<LView: View, RView: View>: NSViewControllerRepresentable {
 }
 
 class SplitViewController: NSSplitViewController {
-    private let splitViewResorationIdentifier = "com.kaithebuilder.The-GlassRoom.restorationId:mainSplitViewController"
+    private let splitViewResorationIdentifier = "org.sstinc.glassroom.restorationId:mainSplitViewController"
     var vcLeft: NSViewController!
     var vcRight: NSViewController!
 
