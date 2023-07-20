@@ -94,5 +94,6 @@ iOSInjectionProject/
 .DS_Store
 .idea
 .vscode
-The GlassRoom/Model/Secrets (Sensitive).swift
+Shared/Model/Secrets (Sensitive).swift
 The-GlassRoom-Info.plist
+The-GlassRoom-iOS-Info.plist
