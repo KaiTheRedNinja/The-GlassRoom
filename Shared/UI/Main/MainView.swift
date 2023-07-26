@@ -21,6 +21,10 @@ struct MainView: View {
 
     @Environment(\.openWindow) var openWindow
 
+    #if os(macOS)
+    @EnvironmentObject var window: WindowAccessor
+    #endif
+
     var body: some View {
         #if os(macOS)
         splitView
@@ -40,6 +44,24 @@ struct MainView: View {
                     openWindow(id: "debugAPICallsView")
                 } label: {
                     Image(systemName: "arrow.left.arrow.right")
+                }
+            }
+
+            GroupBox {
+                HStack {
+                    Button {
+                        guard let window = window.window else { return }
+                        window.toggleTabBar(self)
+                    } label: {
+                        Image(systemName: "rectangle.topthird.inset.filled")
+                    }
+                    
+                    Button {
+                        guard let window = window.window else { return }
+                        window.toggleTabOverview(self)
+                    } label: {
+                        Image(systemName: "square.grid.2x2")
+                    }
                 }
             }
 
@@ -65,9 +87,45 @@ struct MainView: View {
         .onAppear {
             loadCachedStreams()
         }
+        .navigationTitle(title)
         #else
         splitView
         #endif
+    }
+
+    var title: String {
+        var value = ""
+        if let selectedPost {
+            switch selectedPost {
+            case .announcement(_): value += "Announcement"
+            case .courseWork(let courseWork): value += courseWork.title
+            case .courseMaterial(let courseWorkMaterial): value += courseWorkMaterial.title
+            }
+        }
+
+        if !value.isEmpty { value += ": " }
+
+        if let selectedCourse {
+            switch selectedCourse {
+            case .course(let string):
+                let configuration = GlobalCoursesDataManager.global.configuration
+                value += configuration.nameFor(GlobalCoursesDataManager.global.courseIdMap[string]?.name ?? "")
+            case .allTeaching:
+                value += "Teaching"
+            case .allEnrolled:
+                value += "Enrolled"
+            case .group(let string):
+                let configuration = GlobalCoursesDataManager.global.configuration
+                value += configuration.groupIdMap[string]?.groupName ?? ""
+            }
+        }
+
+        value = value.trunc(length: 30)
+
+        if value.isEmpty {
+            return "Glassroom"
+        }
+        return value
     }
 
     @ViewBuilder
@@ -172,5 +230,11 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+    }
+}
+
+extension String {
+    func trunc(length: Int, trailing: String = "…") -> String {
+        return (self.count > length) ? self.prefix(length) + trailing : self
     }
 }
