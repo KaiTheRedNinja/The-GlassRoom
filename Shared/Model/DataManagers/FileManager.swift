@@ -85,6 +85,11 @@ enum FileSystem {
         return FileManager.default.fileExists(atPath: path.relativePath)
     }
 
+    /// Returns the URL of the path
+    static func path(file: FileName) -> URL {
+        getDocumentsDirectory().appendingPathComponent(file.fileName)
+    }
+
     /// Gets the documents directory
     static func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)

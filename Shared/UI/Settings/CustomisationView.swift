@@ -46,6 +46,13 @@ struct CustomisationView: View {
                     configuration.saveToFileSystem()
                     configuration.objectWillChange.send()
                 }
+                Button("Export") {
+                    let path = FileSystem.path(file: .courseConfigurations)
+                    NSWorkspace.shared.selectFile(
+                        nil,
+                        inFileViewerRootedAtPath: path.deletingLastPathComponent().relativePath
+                    )
+                }
             }
             .padding(.horizontal)
             #endif
