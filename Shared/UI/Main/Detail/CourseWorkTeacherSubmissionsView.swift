@@ -111,7 +111,7 @@ struct CourseWorkTeacherSubmissionsView<AttachmentView: View>: View {
             CourseRegisterItem(userProfile: user)
                 .tag(submission)
         } else {
-            Text("Users not loaded")
+            Text("User not loaded: \(submission.userId)")
         }
     }
 }

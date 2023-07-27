@@ -53,6 +53,9 @@ struct CustomisationView: View {
                         inFileViewerRootedAtPath: path.deletingLastPathComponent().relativePath
                     )
                 }
+                Button("Share Link") {
+                    print(configuration.exportURL())
+                }
             }
             .padding(.horizontal)
             #endif

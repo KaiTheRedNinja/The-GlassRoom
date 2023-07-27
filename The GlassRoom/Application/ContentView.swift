@@ -19,6 +19,11 @@ struct ContentView: View {
                     .background {
                         WindowAccessorView(window: $windowAccessor.window)
                     }
+                    .onOpenURL { url in
+                        print("url: \(url)")
+                        let config = GlobalCoursesDataManager.global.configuration
+                        print(config.loadFromUrl(url: url))
+                    }
             } else {
                 SignInView()
             }
