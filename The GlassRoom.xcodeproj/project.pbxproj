@@ -13,6 +13,8 @@
 		6AD406D42A10D96800343500 /* CoursePostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD406D32A10D96800343500 /* CoursePostItem.swift */; };
 		6AD9CEDA2A0CEA120078E5D3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD9CED92A0CEA120078E5D3 /* MainView.swift */; };
 		932647AA2A2D6709007CE470 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932647A92A2D6709007CE470 /* NotesView.swift */; };
+		933200EF2A723FC4004E63E4 /* CoursesConfiguration+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933200EE2A723FC4004E63E4 /* CoursesConfiguration+Export.swift */; };
+		933200F02A723FC4004E63E4 /* CoursesConfiguration+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933200EE2A723FC4004E63E4 /* CoursesConfiguration+Export.swift */; };
 		93362DCA2A2B20E1006303CA /* SidebarCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93362DC92A2B20E1006303CA /* SidebarCourseView.swift */; };
 		93362DCC2A2B47EF006303CA /* FittingGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93362DCB2A2B47EF006303CA /* FittingGeometryReader.swift */; };
 		933DF79B2A203C10008C92E6 /* CourseSubmissionBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF79A2A203C10008C92E6 /* CourseSubmissionBadge.swift */; };
@@ -131,6 +133,7 @@
 		6AD406D32A10D96800343500 /* CoursePostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostItem.swift; sourceTree = "<group>"; };
 		6AD9CED92A0CEA120078E5D3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		932647A92A2D6709007CE470 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		933200EE2A723FC4004E63E4 /* CoursesConfiguration+Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoursesConfiguration+Export.swift"; sourceTree = "<group>"; };
 		93362DC92A2B20E1006303CA /* SidebarCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCourseView.swift; sourceTree = "<group>"; };
 		93362DCB2A2B47EF006303CA /* FittingGeometryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FittingGeometryReader.swift; sourceTree = "<group>"; };
 		933DF79A2A203C10008C92E6 /* CourseSubmissionBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSubmissionBadge.swift; sourceTree = "<group>"; };
@@ -420,6 +423,7 @@
 			children = (
 				93757D782A0F9BEB0063AB67 /* GlobalCoursesDataManager.swift */,
 				9348580F2A133982008B84A7 /* GlobalCoursesDataManager+Configuration.swift */,
+				933200EE2A723FC4004E63E4 /* CoursesConfiguration+Export.swift */,
 				93AED68F2A1769DA0005854C /* GlobalUserProfilesDataManager.swift */,
 				934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */,
 				934858072A1249CD008B84A7 /* CourseWorkSubmissionDataManager.swift */,
@@ -708,6 +712,7 @@
 				F31A7B1C2A4E753000B50450 /* SidebarView.swift in Sources */,
 				933F399F2A4444B2006E13AC /* CourseResourcesListView.swift in Sources */,
 				933F39AC2A4445A3006E13AC /* CourseWorkDetailView.swift in Sources */,
+				933200F02A723FC4004E63E4 /* CoursesConfiguration+Export.swift in Sources */,
 				933F395A2A443DFB006E13AC /* CoursePostsDataManager.swift in Sources */,
 				933F39982A44447B006E13AC /* SearchView.swift in Sources */,
 				933F39BE2A44493C006E13AC /* ReverseMask.swift in Sources */,
@@ -734,6 +739,7 @@
 				93362DCC2A2B47EF006303CA /* FittingGeometryReader.swift in Sources */,
 				932647AA2A2D6709007CE470 /* NotesView.swift in Sources */,
 				93ACB23A2A106F550040C88E /* SearchView.swift in Sources */,
+				933200EF2A723FC4004E63E4 /* CoursesConfiguration+Export.swift in Sources */,
 				93AED6922A1781A50005854C /* CourseRegisterListView.swift in Sources */,
 				934858102A133982008B84A7 /* GlobalCoursesDataManager+Configuration.swift in Sources */,
 				93761F392A2B81DF00E2008E /* TriStateToggle.swift in Sources */,

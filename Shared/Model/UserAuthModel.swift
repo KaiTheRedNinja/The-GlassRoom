@@ -35,8 +35,10 @@ class UserAuthModel: ObservableObject {
         "https://www.googleapis.com/auth/classroom.courseworkmaterials",
         "https://www.googleapis.com/auth/classroom.rosters.readonly",
         "https://www.googleapis.com/auth/classroom.topics",
-//        "https://www.googleapis.com/auth/classroom.profile.emails",
-//        "https://www.googleapis.com/auth/classroom.profile.photos",
+
+        // SENSITIVE SCOPES
+        "https://www.googleapis.com/auth/classroom.profile.emails",
+        "https://www.googleapis.com/auth/classroom.profile.photos",
         "https://www.googleapis.com/auth/drive.readonly"
     ]
 
