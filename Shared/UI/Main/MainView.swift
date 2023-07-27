@@ -55,6 +55,7 @@ struct MainView: View {
                     } label: {
                         EmptyView()
                     }
+                    .opacity(0.005)
                     .keyboardShortcut(.rightArrow, modifiers: [.command, .shift])
                     
                     Button {
@@ -63,6 +64,7 @@ struct MainView: View {
                     } label: {
                         EmptyView()
                     }
+                    .opacity(0.005)
                     .keyboardShortcut(.leftArrow, modifiers: [.command, .shift])
                     
                     HStack {
