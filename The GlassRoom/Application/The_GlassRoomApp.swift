@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct The_GlassRoomApp: App {
+    
+    @ObservedObject var windowAccessor = WindowAccessor()
+    @EnvironmentObject var window: WindowAccessor
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

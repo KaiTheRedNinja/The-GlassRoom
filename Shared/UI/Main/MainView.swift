@@ -48,19 +48,40 @@ struct MainView: View {
             }
 
             GroupBox {
-                HStack {
+                ZStack {
                     Button {
                         guard let window = window.window else { return }
-                        window.toggleTabBar(self)
+                        window.selectNextTab(self)
                     } label: {
-                        Image(systemName: "rectangle.topthird.inset.filled")
+                        EmptyView()
                     }
+                    .opacity(0.005)
+                    .keyboardShortcut(.rightArrow, modifiers: [.command, .shift])
                     
                     Button {
                         guard let window = window.window else { return }
-                        window.toggleTabOverview(self)
+                        window.selectPreviousTab(self)
                     } label: {
-                        Image(systemName: "square.grid.2x2")
+                        EmptyView()
+                    }
+                    .opacity(0.005)
+                    .keyboardShortcut(.leftArrow, modifiers: [.command, .shift])
+                    
+                    HStack {
+                        Button {
+                            guard let window = window.window else { return }
+                            window.toggleTabBar(self)
+                        } label: {
+                            Image(systemName: "rectangle.topthird.inset.filled")
+                        }
+                        .keyboardShortcut("B", modifiers: [.command, .shift])
+                        
+                        Button {
+                            guard let window = window.window else { return }
+                            window.toggleTabOverview(self)
+                        } label: {
+                            Image(systemName: "square.grid.2x2")
+                        }
                     }
                 }
             }
