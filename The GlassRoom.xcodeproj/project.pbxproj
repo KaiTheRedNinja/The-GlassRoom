@@ -74,6 +74,8 @@
 		933F39C32A444D46006E13AC /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D672A0E7D280063AB67 /* SignInView.swift */; };
 		9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934317492A164ADC00B16C6F /* DebugAPICallsView.swift */; };
 		9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343174B2A164AE800B16C6F /* DebugLogsView.swift */; };
+		93453BB82A78F645007848C3 /* ConfigurationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93453BB72A78F645007848C3 /* ConfigurationPreviewView.swift */; };
+		93453BB92A78F645007848C3 /* ConfigurationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93453BB72A78F645007848C3 /* ConfigurationPreviewView.swift */; };
 		9346D7922A5022A6009FB2F2 /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 9346D7912A5022A6009FB2F2 /* SymbolPicker */; };
 		934858032A11F7AA008B84A7 /* CoursePostsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */; };
 		934858062A123405008B84A7 /* SingleCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858052A123405008B84A7 /* SingleCoursePostListView.swift */; };
@@ -147,6 +149,7 @@
 		933F39C42A444F0E006E13AC /* The-GlassRoom-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		934317492A164ADC00B16C6F /* DebugAPICallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugAPICallsView.swift; sourceTree = "<group>"; };
 		9343174B2A164AE800B16C6F /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
+		93453BB72A78F645007848C3 /* ConfigurationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPreviewView.swift; sourceTree = "<group>"; };
 		934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePostsDataManager.swift; sourceTree = "<group>"; };
 		934858052A123405008B84A7 /* SingleCoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleCoursePostListView.swift; sourceTree = "<group>"; };
 		934858072A1249CD008B84A7 /* CourseWorkSubmissionDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWorkSubmissionDataManager.swift; sourceTree = "<group>"; };
@@ -252,6 +255,7 @@
 				6AD406CF2A10B6B100343500 /* SettingsView.swift */,
 				93E0B8B32A136DD400ED917A /* CustomisationView.swift */,
 				93757D672A0E7D280063AB67 /* SignInView.swift */,
+				93453BB72A78F645007848C3 /* ConfigurationPreviewView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -679,6 +683,7 @@
 				933F39542A443DFB006E13AC /* GeneralCourse.swift in Sources */,
 				933F399B2A4444AF006E13AC /* UniversalCoursePostListView.swift in Sources */,
 				933F39A52A4444CD006E13AC /* DebugAPICallsView.swift in Sources */,
+				93453BB92A78F645007848C3 /* ConfigurationPreviewView.swift in Sources */,
 				933F39992A4444AF006E13AC /* CoursePostItem.swift in Sources */,
 				933F39562A443DFB006E13AC /* CourseWorkSubmissionDataManager.swift in Sources */,
 				933F399A2A4444AF006E13AC /* SingleCoursePostListView.swift in Sources */,
@@ -778,6 +783,7 @@
 				937EA5BC2A0CD9F8005F11C5 /* ContentView.swift in Sources */,
 				933DF79B2A203C10008C92E6 /* CourseSubmissionBadge.swift in Sources */,
 				6AD406D42A10D96800343500 /* CoursePostItem.swift in Sources */,
+				93453BB82A78F645007848C3 /* ConfigurationPreviewView.swift in Sources */,
 				93757D7E2A0FBAE70063AB67 /* SidebarOutlineViewController.swift in Sources */,
 				93ACB2432A10D0FF0040C88E /* CoursePost.swift in Sources */,
 				93F2297A2A10EA9D00B44C85 /* MultiCoursePostListView.swift in Sources */,

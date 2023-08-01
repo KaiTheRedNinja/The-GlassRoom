@@ -11,6 +11,8 @@ struct ContentView: View {
     @ObservedObject var userModel: UserAuthModel = .shared
     @StateObject var windowAccessor = WindowAccessor()
 
+    @State var newConfig: GlobalCoursesDataManager.CoursesConfiguration?
+
     var body: some View {
         if let isLoggedIn = userModel.isLoggedIn {
             if (isLoggedIn && userModel.hasNeededScopes()) || (!isLoggedIn && userModel.email != nil) {
@@ -22,7 +24,10 @@ struct ContentView: View {
                     .onOpenURL { url in
                         print("url: \(url)")
                         let config = GlobalCoursesDataManager.global.configuration
-                        print(config.loadFromUrl(url: url))
+                        self.newConfig = config.loadFromUrl(url: url)
+                    }
+                    .sheet(item: $newConfig) { _ in
+                        ConfigurationPreviewView(configuration: $newConfig)
                     }
             } else {
                 SignInView()

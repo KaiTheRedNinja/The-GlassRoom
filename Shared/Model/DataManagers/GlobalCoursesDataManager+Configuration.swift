@@ -10,7 +10,9 @@ import GlassRoomAPI
 import GlassRoomTypes
 
 extension GlobalCoursesDataManager {
-    class CoursesConfiguration: ObservableObject, Codable {
+    class CoursesConfiguration: ObservableObject, Codable, Identifiable {
+        var id = UUID()
+
         @Published var replacedCourseNames: [NameReplacement]
         @Published var courseGroups: [CourseGroup] {
             didSet {
@@ -148,8 +150,18 @@ extension GlobalCoursesDataManager {
         }
 
         // MARK: Codable
-        enum Keys: CodingKey {
+        enum Keys: CodingKey, CaseIterable {
             case replacedCourseNames, courseGroups, archive, customColors, customIcons
+
+            var description: String {
+                switch self {
+                case .replacedCourseNames: "Course Name Replacement"
+                case .courseGroups: "Course Groups"
+                case .archive: "Archives"
+                case .customColors: "Course Colors"
+                case .customIcons: "Course Icons"
+                }
+            }
         }
 
         public func encode(to encoder: Encoder) throws {

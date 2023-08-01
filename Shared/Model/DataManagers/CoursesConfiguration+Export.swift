@@ -50,10 +50,76 @@ extension GlobalCoursesDataManager.CoursesConfiguration {
             return nil
         }
 
+        // clean the decodeSelf to remove classes that the user doesn't have, and change the IDs of the course groups
+        let courseManager = GlobalCoursesDataManager.global
+        for index in 0..<decodeSelf.courseGroups.count {
+            var group = decodeSelf.courseGroups[index]
+            group.courses = group.courses.filter({ courseManager.courseIdMap.keys.contains($0) })
+            group.id = UUID().uuidString
+            decodeSelf.courseGroups[index] = group
+        }
+
+        if var archive = decodeSelf.archive {
+            archive.courses = archive.courses.filter({ courseManager.courseIdMap.keys.contains($0) })
+            archive.id = UUID().uuidString
+            decodeSelf.archive = archive
+        }
+
+        decodeSelf.customColors = decodeSelf.customColors.filter({ courseManager.courseIdMap.keys.contains($0.key) })
+        decodeSelf.customIcons = decodeSelf.customIcons.filter({ courseManager.configuration.customIcons.keys.contains($0.key) })
+
         return decodeSelf
     }
 
-    public func loadIntoSelf(config: GlobalCoursesDataManager.CoursesConfiguration) {
+    enum LoadStyle: CaseIterable {
+        case replace
+        case append
+
+        var description: String {
+            switch self {
+            case .replace: "Replace"
+            case .append: "Append"
+            }
+        }
+    }
+
+    public func loadIntoSelf(
+        config: GlobalCoursesDataManager.CoursesConfiguration,
+        fields: [GlobalCoursesDataManager.CoursesConfiguration.Keys: LoadStyle]
+    ) {
         // copy the config's data into self
+        for (field, style) in fields {
+            switch field {
+            case .replacedCourseNames:
+                switch style {
+                case .replace: self.replacedCourseNames = config.replacedCourseNames
+                case .append: self.replacedCourseNames += config.replacedCourseNames
+                }
+            case .courseGroups:
+                switch style {
+                case .replace: self.courseGroups = config.courseGroups
+                case .append: self.courseGroups += config.courseGroups
+                }
+            case .archive:
+                switch style {
+                case .replace: self.archive = config.archive
+                case .append:
+                    self.archive?.courses += config.archive?.courses ?? []
+                    if self.archive == nil {
+                        self.archive = config.archive
+                    }
+                }
+            case .customColors:
+                switch style {
+                case .replace: self.customColors = config.customColors
+                case .append: config.customColors.forEach({ self.customColors[$0.key] = $0.value })
+                }
+            case .customIcons:
+                switch style {
+                case .replace: self.customIcons = config.customIcons
+                case .append: config.customIcons.forEach({ self.customIcons[$0.key] = $0.value })
+                }
+            }
+        }
     }
 }
