@@ -26,7 +26,6 @@
 		933F39552A443DFB006E13AC /* Date+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229772A10E9CE00B44C85 /* Date+Format.swift */; };
 		933F39562A443DFB006E13AC /* CourseWorkSubmissionDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858072A1249CD008B84A7 /* CourseWorkSubmissionDataManager.swift */; };
 		933F39572A443DFB006E13AC /* GlobalCoursesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D782A0F9BEB0063AB67 /* GlobalCoursesDataManager.swift */; };
-		933F39582A443DFB006E13AC /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D652A0E7B430063AB67 /* Secrets (Sensitive).swift */; };
 		933F39592A443DFB006E13AC /* GlobalCoursesDataManager+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348580F2A133982008B84A7 /* GlobalCoursesDataManager+Configuration.swift */; };
 		933F395A2A443DFB006E13AC /* CoursePostsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858022A11F7AA008B84A7 /* CoursePostsDataManager.swift */; };
 		933F395B2A443DFB006E13AC /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D7A2A0F9E6D0063AB67 /* FileManager.swift */; };
@@ -90,7 +89,6 @@
 		93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 93757D5C2A0E73DA0063AB67 /* GoogleSignIn */; };
 		93757D612A0E74500063AB67 /* UserAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D602A0E74500063AB67 /* UserAuthModel.swift */; };
 		93757D632A0E79650063AB67 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D622A0E79650063AB67 /* Secrets.swift */; };
-		93757D662A0E7B430063AB67 /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D652A0E7B430063AB67 /* Secrets (Sensitive).swift */; };
 		93757D682A0E7D280063AB67 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D672A0E7D280063AB67 /* SignInView.swift */; };
 		93757D702A0F29B60063AB67 /* GlassRoomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 93757D6F2A0F29B60063AB67 /* GlassRoomAPI */; };
 		93757D722A0F9A240063AB67 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D712A0F9A240063AB67 /* SidebarView.swift */; };
@@ -126,6 +124,12 @@
 		93F2297A2A10EA9D00B44C85 /* MultiCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229792A10EA9D00B44C85 /* MultiCoursePostListView.swift */; };
 		F31A7B1C2A4E753000B50450 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A7B1B2A4E753000B50450 /* SidebarView.swift */; };
 		F31A7B1E2A4E784300B50450 /* SidebarCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93362DC92A2B20E1006303CA /* SidebarCourseView.swift */; };
+		F3B28C6B2A89DBA5002DB954 /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B28C6A2A89DBA5002DB954 /* Secrets (Sensitive).swift */; };
+		F3B28C6C2A89DBA5002DB954 /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B28C6A2A89DBA5002DB954 /* Secrets (Sensitive).swift */; };
+		F3B28C6E2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */; };
+		F3B28C6F2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */; };
+		F3B28C712A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */; };
+		F3B28C722A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,7 +150,6 @@
 		933F39182A4438B5006E13AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		933F39BC2A444936006E13AC /* ReverseMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseMask.swift; sourceTree = "<group>"; };
 		933F39BF2A444967006E13AC /* TypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeExtensions.swift; sourceTree = "<group>"; };
-		933F39C42A444F0E006E13AC /* The-GlassRoom-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		934317492A164ADC00B16C6F /* DebugAPICallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugAPICallsView.swift; sourceTree = "<group>"; };
 		9343174B2A164AE800B16C6F /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
 		93453BB72A78F645007848C3 /* ConfigurationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPreviewView.swift; sourceTree = "<group>"; };
@@ -163,9 +166,7 @@
 		9373FBEF2A16E9B3007AB503 /* RenameCourseGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameCourseGroupView.swift; sourceTree = "<group>"; };
 		93757D602A0E74500063AB67 /* UserAuthModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthModel.swift; sourceTree = "<group>"; };
 		93757D622A0E79650063AB67 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
-		93757D652A0E7B430063AB67 /* Secrets (Sensitive).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Secrets (Sensitive).swift"; sourceTree = "<group>"; };
 		93757D672A0E7D280063AB67 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		93757D692A0E7ED90063AB67 /* The-GlassRoom-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "The-GlassRoom-Info.plist"; sourceTree = SOURCE_ROOT; };
 		93757D712A0F9A240063AB67 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		93757D732A0F9AC50063AB67 /* CenterSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterSplitView.swift; sourceTree = "<group>"; };
 		93757D752A0F9B220063AB67 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -201,6 +202,9 @@
 		93F229772A10E9CE00B44C85 /* Date+Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Format.swift"; sourceTree = "<group>"; };
 		93F229792A10EA9D00B44C85 /* MultiCoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCoursePostListView.swift; sourceTree = "<group>"; };
 		F31A7B1B2A4E753000B50450 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		F3B28C6A2A89DBA5002DB954 /* Secrets (Sensitive).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Secrets (Sensitive).swift"; sourceTree = "<group>"; };
+		F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-Info.plist"; sourceTree = "<group>"; };
+		F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-iOS-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,7 +292,7 @@
 		933F39102A4438B4006E13AC /* The GlassRoom iOS */ = {
 			isa = PBXGroup;
 			children = (
-				933F39C42A444F0E006E13AC /* The-GlassRoom-iOS-Info.plist */,
+				F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */,
 				938883212A5033F100EAD9F1 /* Application */,
 				F31A7B1A2A4E752000B50450 /* UI */,
 				933F39172A4438B5006E13AC /* Preview Content */,
@@ -397,7 +401,7 @@
 				93757D772A0F9B9D0063AB67 /* DataManagers */,
 				93757D602A0E74500063AB67 /* UserAuthModel.swift */,
 				93757D622A0E79650063AB67 /* Secrets.swift */,
-				93757D652A0E7B430063AB67 /* Secrets (Sensitive).swift */,
+				F3B28C6A2A89DBA5002DB954 /* Secrets (Sensitive).swift */,
 				93ACB2422A10D0FF0040C88E /* CoursePost.swift */,
 				93F229732A10DD0200B44C85 /* GeneralCourse.swift */,
 				93F229772A10E9CE00B44C85 /* Date+Format.swift */,
@@ -453,6 +457,7 @@
 			children = (
 				93AED68E2A1744110005854C /* README.md */,
 				9359F6E32A1A3305001A8A1F /* PRIVACY.md */,
+				F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */,
 				937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */,
 				937EA5B82A0CD9F8005F11C5 /* The GlassRoom */,
 				933F39102A4438B4006E13AC /* The GlassRoom iOS */,
@@ -475,7 +480,6 @@
 		937EA5B82A0CD9F8005F11C5 /* The GlassRoom */ = {
 			isa = PBXGroup;
 			children = (
-				93757D692A0E7ED90063AB67 /* The-GlassRoom-Info.plist */,
 				93757D5F2A0E742E0063AB67 /* Application */,
 				6AD9CED72A0CE9E70078E5D3 /* UI */,
 				937EA5BF2A0CD9F9005F11C5 /* Preview Content */,
@@ -658,7 +662,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3B28C722A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */,
 				933F39192A4438B5006E13AC /* Preview Assets.xcassets in Resources */,
+				F3B28C6F2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */,
 				933F39162A4438B5006E13AC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -667,7 +673,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3B28C712A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */,
 				937EA5C12A0CD9F9005F11C5 /* Preview Assets.xcassets in Resources */,
+				F3B28C6E2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */,
 				937EA5BE2A0CD9F9005F11C5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -694,7 +702,6 @@
 				933F39B52A44475F006E13AC /* LinkPreview.swift in Sources */,
 				933F39A22A4444B5006E13AC /* CenterSplitViewToolbarTop.swift in Sources */,
 				933F39B02A4445A3006E13AC /* CourseWorkTeacherSubmissionsView.swift in Sources */,
-				933F39582A443DFB006E13AC /* Secrets (Sensitive).swift in Sources */,
 				933F39A42A4444CD006E13AC /* DebugLogsView.swift in Sources */,
 				933F395F2A443DFB006E13AC /* CoursePost.swift in Sources */,
 				933F395C2A443DFB006E13AC /* UserAuthModel.swift in Sources */,
@@ -724,6 +731,7 @@
 				933F395E2A443DFB006E13AC /* Secrets.swift in Sources */,
 				933F39C32A444D46006E13AC /* SignInView.swift in Sources */,
 				933F39B22A444611006E13AC /* NotesView.swift in Sources */,
+				F3B28C6C2A89DBA5002DB954 /* Secrets (Sensitive).swift in Sources */,
 				933F399D2A4444AF006E13AC /* MultiCoursePostListView.swift in Sources */,
 				933F39972A444339006E13AC /* MainView.swift in Sources */,
 				933F395D2A443DFB006E13AC /* GlobalUserProfilesDataManager.swift in Sources */,
@@ -761,6 +769,7 @@
 				93757D7B2A0F9E6D0063AB67 /* FileManager.swift in Sources */,
 				938300F02A0FC009006581B8 /* SidebarOutlineMenu.swift in Sources */,
 				9373FBF02A16E9B3007AB503 /* RenameCourseGroupView.swift in Sources */,
+				F3B28C6B2A89DBA5002DB954 /* Secrets (Sensitive).swift in Sources */,
 				93757D762A0F9B220063AB67 /* DetailView.swift in Sources */,
 				939FCB722A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift in Sources */,
 				93757D632A0E79650063AB67 /* Secrets.swift in Sources */,
@@ -772,7 +781,6 @@
 				9348580C2A125DAB008B84A7 /* CourseWorkDetailView.swift in Sources */,
 				93F229762A10E5B800B44C85 /* UniversalCoursePostListView.swift in Sources */,
 				9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */,
-				93757D662A0E7B430063AB67 /* Secrets (Sensitive).swift in Sources */,
 				933F39C02A444967006E13AC /* TypeExtensions.swift in Sources */,
 				93650B132A19A7E100F5D865 /* CoursePostListView.swift in Sources */,
 				93CAF7502A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift in Sources */,
