@@ -17,6 +17,7 @@ struct SettingsView: View {
     @AppStorage("enableBionicReading") var enableBionicReading: Bool = false
     @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = false
     @AppStorage("useFancyUI") var useFancyUI: Bool = false
+    @AppStorage("lowerUnloadedOpacity") var lowerUnloadedOpacity: Bool = true
     
     @Environment(\.dismiss) var dismiss
     
@@ -253,6 +254,7 @@ struct SettingsView: View {
             Toggle("Enable bionic reading", isOn: $enableBionicReading)
             Toggle("Tint posts background to course color", isOn: $tintToCourseColor)
             Toggle("Use fancy UI", isOn: $useFancyUI)
+            Toggle("Reduce course name opacity for unloaded courses", isOn: $lowerUnloadedOpacity)
             #else
             Section {
                 Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
