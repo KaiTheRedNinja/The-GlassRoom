@@ -132,9 +132,7 @@
 		F3B28C722A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */; };
 		F3CFC6E12A95968B00E66D34 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = F3CFC6E02A95968B00E66D34 /* KeyboardShortcuts */; };
 		F3CFC6E32A95972200E66D34 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E22A95972200E66D34 /* Shortcuts.swift */; };
-		F3CFC6E42A95972200E66D34 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E22A95972200E66D34 /* Shortcuts.swift */; };
 		F3CFC6E62A959B2700E66D34 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E52A959B2700E66D34 /* Utilities.swift */; };
-		F3CFC6E72A959B2700E66D34 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E52A959B2700E66D34 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -300,7 +298,6 @@
 		933F39102A4438B4006E13AC /* The GlassRoom iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */,
 				938883212A5033F100EAD9F1 /* Application */,
 				F31A7B1A2A4E752000B50450 /* UI */,
 				933F39172A4438B5006E13AC /* Preview Content */,
@@ -413,8 +410,6 @@
 				93ACB2422A10D0FF0040C88E /* CoursePost.swift */,
 				93F229732A10DD0200B44C85 /* GeneralCourse.swift */,
 				93F229772A10E9CE00B44C85 /* Date+Format.swift */,
-				F3CFC6E22A95972200E66D34 /* Shortcuts.swift */,
-				F3CFC6E52A959B2700E66D34 /* Utilities.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -468,6 +463,7 @@
 				93AED68E2A1744110005854C /* README.md */,
 				9359F6E32A1A3305001A8A1F /* PRIVACY.md */,
 				F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */,
+				F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */,
 				937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */,
 				937EA5B82A0CD9F8005F11C5 /* The GlassRoom */,
 				933F39102A4438B4006E13AC /* The GlassRoom iOS */,
@@ -492,6 +488,7 @@
 			children = (
 				93757D5F2A0E742E0063AB67 /* Application */,
 				6AD9CED72A0CE9E70078E5D3 /* UI */,
+				F372DFDB2A95ACEB004E264D /* Shortcuts Customisation */,
 				937EA5BF2A0CD9F9005F11C5 /* Preview Content */,
 				937EA5C22A0CD9F9005F11C5 /* The_GlassRoom.entitlements */,
 			);
@@ -575,6 +572,15 @@
 				938883222A5036F600EAD9F1 /* SidebarListView.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		F372DFDB2A95ACEB004E264D /* Shortcuts Customisation */ = {
+			isa = PBXGroup;
+			children = (
+				F3CFC6E22A95972200E66D34 /* Shortcuts.swift */,
+				F3CFC6E52A959B2700E66D34 /* Utilities.swift */,
+			);
+			path = "Shortcuts Customisation";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -714,7 +720,6 @@
 				933F39B52A44475F006E13AC /* LinkPreview.swift in Sources */,
 				933F39A22A4444B5006E13AC /* CenterSplitViewToolbarTop.swift in Sources */,
 				933F39B02A4445A3006E13AC /* CourseWorkTeacherSubmissionsView.swift in Sources */,
-				F3CFC6E72A959B2700E66D34 /* Utilities.swift in Sources */,
 				933F39A42A4444CD006E13AC /* DebugLogsView.swift in Sources */,
 				933F395F2A443DFB006E13AC /* CoursePost.swift in Sources */,
 				933F395C2A443DFB006E13AC /* UserAuthModel.swift in Sources */,
@@ -729,7 +734,6 @@
 				933F399C2A4444AF006E13AC /* CoursePostListView.swift in Sources */,
 				933F399E2A4444AF006E13AC /* CourseSubmissionBadge.swift in Sources */,
 				933F39B92A44475F006E13AC /* SegmentedControl.swift in Sources */,
-				F3CFC6E42A95972200E66D34 /* Shortcuts.swift in Sources */,
 				933F39122A4438B4006E13AC /* The_GlassRoom_iOSApp.swift in Sources */,
 				933F39A02A4444B5006E13AC /* CourseRegisterItem.swift in Sources */,
 				933F39B12A4445A3006E13AC /* DetailView.swift in Sources */,

@@ -7,7 +7,9 @@
 
 import SwiftUI
 import GlassRoomTypes
+#if os(macOS)
 import KeyboardShortcuts
+#endif
 
 struct SidebarView: View {
     @Binding var selection: GeneralCourse?

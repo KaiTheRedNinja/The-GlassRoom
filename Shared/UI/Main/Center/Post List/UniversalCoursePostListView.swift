@@ -7,7 +7,9 @@
 
 import SwiftUI
 import GlassRoomAPI
+#if os(macOS)
 import KeyboardShortcuts
+#endif
 
 struct UniversalCoursePostListView: View {
     

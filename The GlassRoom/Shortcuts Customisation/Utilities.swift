@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 final class CallbackMenuItem: NSMenuItem {
     private static var validateCallback: ((NSMenuItem) -> Bool)?
 

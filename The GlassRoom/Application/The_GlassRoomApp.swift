@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
+#if os(macOS)
 import KeyboardShortcuts
+#endif
 
 @main
 struct The_GlassRoomApp: App {

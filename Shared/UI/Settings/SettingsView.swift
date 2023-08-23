@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
+#if os(macOS)
 import KeyboardShortcuts
+#endif
 
 struct SettingsView: View {
     
@@ -82,16 +84,6 @@ struct SettingsView: View {
                             .navigationBarTitleDisplayMode(.inline)
                     } label: {
                         Label("Customisation", systemImage: "paintpalette.fill")
-                    }
-                    
-                    if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {
-                        NavigationLink {
-                            shortcuts
-                                .navigationTitle("Shortcuts")
-                                .navigationBarTitleDisplayMode(.inline)
-                        } label: {
-                            Label("Shortcuts", systemImage: "keyboard.fill")
-                        }
                     }
                 }
                 
@@ -278,6 +270,7 @@ struct SettingsView: View {
         }
     }
     
+    #if os(macOS)
     var shortcuts: some View {
         List {
             GroupBox {
@@ -294,6 +287,7 @@ struct SettingsView: View {
         }
         .scrollContentBackground(.hidden)
     }
+    #endif
     
     func getFullName() -> String {
         guard let fullName = userModel.fullName else {
