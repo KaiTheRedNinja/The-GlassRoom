@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import KeyboardShortcuts
 
 struct SidebarView: View {
     @Binding var selection: GeneralCourse?
@@ -47,7 +48,9 @@ struct SidebarView: View {
                         Image(systemName: "arrow.clockwise")
                     }
                     .buttonStyle(.plain)
-                    .keyboardShortcut("r", modifiers: [.command, .shift])
+                    .onKeyboardShortcut(.reloadSidebar, type: .keyUp) {
+                        coursesManager.loadList(bypassCache: true)
+                    }
                     .contextMenu {
                         Button("Load Only Cache") {
                             coursesManager.loadList(bypassCache: false)

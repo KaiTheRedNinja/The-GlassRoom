@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import KeyboardShortcuts
 
 struct CourseRegisterListView: View {
     var teachers: [GlobalUserProfilesDataManager.TeacherReference]
@@ -52,7 +53,10 @@ struct CourseRegisterListView: View {
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
-                    .keyboardShortcut("r", modifiers: .command)
+                    .onKeyboardShortcut(.reloadCoursePosts, type: .keyDown) {
+                        loadList(false)
+                        loadList(true)
+                    }
                     .buttonStyle(.plain)
                     .contextMenu {
                         Button("Use Cache") {

@@ -130,6 +130,11 @@
 		F3B28C6F2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */; };
 		F3B28C712A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */; };
 		F3B28C722A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */; };
+		F3CFC6E12A95968B00E66D34 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = F3CFC6E02A95968B00E66D34 /* KeyboardShortcuts */; };
+		F3CFC6E32A95972200E66D34 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E22A95972200E66D34 /* Shortcuts.swift */; };
+		F3CFC6E42A95972200E66D34 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E22A95972200E66D34 /* Shortcuts.swift */; };
+		F3CFC6E62A959B2700E66D34 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E52A959B2700E66D34 /* Utilities.swift */; };
+		F3CFC6E72A959B2700E66D34 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E52A959B2700E66D34 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -174,7 +179,7 @@
 		93757D7A2A0F9E6D0063AB67 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		93757D7D2A0FBAE70063AB67 /* SidebarOutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarOutlineViewController.swift; sourceTree = "<group>"; };
 		93761F382A2B81DF00E2008E /* TriStateToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriStateToggle.swift; sourceTree = "<group>"; };
-		937EA5B62A0CD9F8005F11C5 /* The GlassRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The GlassRoom.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		937EA5B62A0CD9F8005F11C5 /* Glassroom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Glassroom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		937EA5B92A0CD9F8005F11C5 /* The_GlassRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_GlassRoomApp.swift; sourceTree = "<group>"; };
 		937EA5BB2A0CD9F8005F11C5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		937EA5BD2A0CD9F9005F11C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -205,6 +210,8 @@
 		F3B28C6A2A89DBA5002DB954 /* Secrets (Sensitive).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Secrets (Sensitive).swift"; sourceTree = "<group>"; };
 		F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-Info.plist"; sourceTree = "<group>"; };
 		F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-iOS-Info.plist"; sourceTree = "<group>"; };
+		F3CFC6E22A95972200E66D34 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
+		F3CFC6E52A959B2700E66D34 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +232,7 @@
 			files = (
 				937C7D6C2A4FC7F400E38A6B /* SymbolPicker in Frameworks */,
 				93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */,
+				F3CFC6E12A95968B00E66D34 /* KeyboardShortcuts in Frameworks */,
 				93757D702A0F29B60063AB67 /* GlassRoomAPI in Frameworks */,
 				933F39AB2A44453F006E13AC /* GlassRoomTypes in Frameworks */,
 			);
@@ -405,6 +413,8 @@
 				93ACB2422A10D0FF0040C88E /* CoursePost.swift */,
 				93F229732A10DD0200B44C85 /* GeneralCourse.swift */,
 				93F229772A10E9CE00B44C85 /* Date+Format.swift */,
+				F3CFC6E22A95972200E66D34 /* Shortcuts.swift */,
+				F3CFC6E52A959B2700E66D34 /* Utilities.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -471,7 +481,7 @@
 		937EA5B72A0CD9F8005F11C5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				937EA5B62A0CD9F8005F11C5 /* The GlassRoom.app */,
+				937EA5B62A0CD9F8005F11C5 /* Glassroom.app */,
 				933F390F2A4438B4006E13AC /* The GlassRoom iOS.app */,
 			);
 			name = Products;
@@ -593,9 +603,9 @@
 			productReference = 933F390F2A4438B4006E13AC /* The GlassRoom iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		937EA5B52A0CD9F8005F11C5 /* The GlassRoom */ = {
+		937EA5B52A0CD9F8005F11C5 /* Glassroom */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 937EA5C52A0CD9F9005F11C5 /* Build configuration list for PBXNativeTarget "The GlassRoom" */;
+			buildConfigurationList = 937EA5C52A0CD9F9005F11C5 /* Build configuration list for PBXNativeTarget "Glassroom" */;
 			buildPhases = (
 				937EA5B22A0CD9F8005F11C5 /* Sources */,
 				937EA5B32A0CD9F8005F11C5 /* Frameworks */,
@@ -605,15 +615,16 @@
 			);
 			dependencies = (
 			);
-			name = "The GlassRoom";
+			name = Glassroom;
 			packageProductDependencies = (
 				93757D5C2A0E73DA0063AB67 /* GoogleSignIn */,
 				93757D6F2A0F29B60063AB67 /* GlassRoomAPI */,
 				933F39AA2A44453F006E13AC /* GlassRoomTypes */,
 				937C7D6B2A4FC7F400E38A6B /* SymbolPicker */,
+				F3CFC6E02A95968B00E66D34 /* KeyboardShortcuts */,
 			);
 			productName = "The GlassRoom";
-			productReference = 937EA5B62A0CD9F8005F11C5 /* The GlassRoom.app */;
+			productReference = 937EA5B62A0CD9F8005F11C5 /* Glassroom.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -646,12 +657,13 @@
 			packageReferences = (
 				93757D5B2A0E73DA0063AB67 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				937C7D6A2A4FC7F400E38A6B /* XCRemoteSwiftPackageReference "SymbolPicker" */,
+				F3CFC6DF2A95968B00E66D34 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 			);
 			productRefGroup = 937EA5B72A0CD9F8005F11C5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				937EA5B52A0CD9F8005F11C5 /* The GlassRoom */,
+				937EA5B52A0CD9F8005F11C5 /* Glassroom */,
 				933F390E2A4438B4006E13AC /* The GlassRoom iOS */,
 			);
 		};
@@ -702,6 +714,7 @@
 				933F39B52A44475F006E13AC /* LinkPreview.swift in Sources */,
 				933F39A22A4444B5006E13AC /* CenterSplitViewToolbarTop.swift in Sources */,
 				933F39B02A4445A3006E13AC /* CourseWorkTeacherSubmissionsView.swift in Sources */,
+				F3CFC6E72A959B2700E66D34 /* Utilities.swift in Sources */,
 				933F39A42A4444CD006E13AC /* DebugLogsView.swift in Sources */,
 				933F395F2A443DFB006E13AC /* CoursePost.swift in Sources */,
 				933F395C2A443DFB006E13AC /* UserAuthModel.swift in Sources */,
@@ -716,6 +729,7 @@
 				933F399C2A4444AF006E13AC /* CoursePostListView.swift in Sources */,
 				933F399E2A4444AF006E13AC /* CourseSubmissionBadge.swift in Sources */,
 				933F39B92A44475F006E13AC /* SegmentedControl.swift in Sources */,
+				F3CFC6E42A95972200E66D34 /* Shortcuts.swift in Sources */,
 				933F39122A4438B4006E13AC /* The_GlassRoom_iOSApp.swift in Sources */,
 				933F39A02A4444B5006E13AC /* CourseRegisterItem.swift in Sources */,
 				933F39B12A4445A3006E13AC /* DetailView.swift in Sources */,
@@ -777,6 +791,7 @@
 				93AED6942A179D9F0005854C /* CourseRegisterItem.swift in Sources */,
 				93F229742A10DD0200B44C85 /* GeneralCourse.swift in Sources */,
 				93757D792A0F9BEB0063AB67 /* GlobalCoursesDataManager.swift in Sources */,
+				F3CFC6E32A95972200E66D34 /* Shortcuts.swift in Sources */,
 				93AED6902A1769DA0005854C /* GlobalUserProfilesDataManager.swift in Sources */,
 				9348580C2A125DAB008B84A7 /* CourseWorkDetailView.swift in Sources */,
 				93F229762A10E5B800B44C85 /* UniversalCoursePostListView.swift in Sources */,
@@ -786,6 +801,7 @@
 				93CAF7502A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift in Sources */,
 				934858082A1249CD008B84A7 /* CourseWorkSubmissionDataManager.swift in Sources */,
 				9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */,
+				F3CFC6E62A959B2700E66D34 /* Utilities.swift in Sources */,
 				938300EE2A0FBB4C006581B8 /* SidebarOutlineView.swift in Sources */,
 				9359F6E22A1A20FD001A8A1F /* SplitView.swift in Sources */,
 				937EA5BC2A0CD9F8005F11C5 /* ContentView.swift in Sources */,
@@ -1104,7 +1120,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		937EA5C52A0CD9F9005F11C5 /* Build configuration list for PBXNativeTarget "The GlassRoom" */ = {
+		937EA5C52A0CD9F9005F11C5 /* Build configuration list for PBXNativeTarget "Glassroom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				937EA5C62A0CD9F9005F11C5 /* Debug */,
@@ -1130,6 +1146,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.4.2;
+			};
+		};
+		F3CFC6DF2A95968B00E66D34 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.14.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1170,6 +1194,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 937C7D6A2A4FC7F400E38A6B /* XCRemoteSwiftPackageReference "SymbolPicker" */;
 			productName = SymbolPicker;
+		};
+		F3CFC6E02A95968B00E66D34 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3CFC6DF2A95968B00E66D34 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import KeyboardShortcuts
 
 struct SettingsView: View {
     
@@ -55,7 +56,7 @@ struct SettingsView: View {
             shortcuts
                 .frame(width: 680, height: 300)
                 .tabItem {
-                    Label("Shortucts", systemImage: settingsTabSelection == 3 ? "keyboard.fill" : "keyboard")
+                    Label("Shortcuts", systemImage: settingsTabSelection == 3 ? "keyboard.fill" : "keyboard")
                 }
                 .tag(3)
         }
@@ -278,9 +279,20 @@ struct SettingsView: View {
     }
     
     var shortcuts: some View {
-        VStack {
-            Text("Shortcuts")
+        List {
+            GroupBox {
+                VStack {
+                    KeyboardShortcuts.Recorder("Reload Posts", name: .reloadCoursePosts)
+                    KeyboardShortcuts.Recorder("Reload Sidebar", name: .reloadSidebar)
+                    //              KeyboardShortcuts.Recorder("Switch to Next Tab", name: .nextTab)
+                    //              KeyboardShortcuts.Recorder("Switch to Previous Tab", name: .previousTab)
+                    KeyboardShortcuts.Recorder("Show/Hide Tab Bar", name: .toggleTabBar)
+                    KeyboardShortcuts.Recorder("Toggle Universal Search", name: .openUniversalSearch)
+                }
+                .padding(5)
+            }
         }
+        .scrollContentBackground(.hidden)
     }
     
     func getFullName() -> String {
