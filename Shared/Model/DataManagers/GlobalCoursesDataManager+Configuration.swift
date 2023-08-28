@@ -116,7 +116,7 @@ extension GlobalCoursesDataManager {
 
         // MARK: Archive, groups
         func archive(item: GeneralCourse) {
-            let isArchived = archive?.courses.contains(item.id) ?? false
+            var isArchived = archive?.courses.contains(item.id) ?? false
 
             if isArchived {
                 archive?.courses.removeAll(where: { $0.id == item.id })
@@ -148,6 +148,22 @@ extension GlobalCoursesDataManager {
                 saveToFileSystem()
             }
         }
+        func archivePRO(item: String) {
+            var archivingCourses: [String] = []
+            print("Archiving course \(item)")
+            archivingCourses = [item]
+            if archive == nil {
+                archive = .init(
+                    id: item,
+                    groupName: "Archive",
+                    groupType: .enrolled,
+                    courses: archivingCourses)
+                } else {
+                    archive?.courses.append(contentsOf: archivingCourses)
+                    objectWillChange.send()
+                }
+                saveToFileSystem()
+            }
 
         // MARK: Codable
         enum Keys: CodingKey, CaseIterable {
