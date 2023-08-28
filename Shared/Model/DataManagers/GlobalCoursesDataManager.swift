@@ -20,6 +20,7 @@ class GlobalCoursesDataManager: ObservableObject {
     }
     @Published private(set) var loading: Bool = false
     @Published private(set) var configuration: CoursesConfiguration = .loadedFromFileSystem()
+    @Published private(set) var preArchivedCourses = []
 
     @Published var courseIdMap: [String: Course] = [:]
 
@@ -68,16 +69,28 @@ class GlobalCoursesDataManager: ObservableObject {
             switch response {
             case .success(let success):
                 DispatchQueue.main.async {
+                    
                     self.courses.mergeWith(other: success.courses,
                                            isSame: { $0.id == $1.id },
                                            isBefore: { $0.creationDate > $1.creationDate })
-                }
-                if let token = success.nextPageToken, requestNextPageIfExists {
-                    self.refreshList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
-                } else {
-                    DispatchQueue.main.async {
-                        self.loading = false
-                        self.writeCache()
+                    let arrayOfCourseStates = success.courses.map { $0.courseState }
+                    print("array:")
+                    print(arrayOfCourseStates)
+                    
+                    for course in success.courses {
+                        if [course.courseState] == [.archived] {
+                            self.configuration.archivePRO(item: course.id)
+                        }
+                    }
+                    
+                    print(arrayOfCourseStates)
+                    if let token = success.nextPageToken, requestNextPageIfExists {
+                        self.refreshList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
+                    } else {
+                        DispatchQueue.main.async {
+                            self.loading = false
+                            self.writeCache()
+                        }
                     }
                 }
             case .failure(_):
