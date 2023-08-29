@@ -129,7 +129,7 @@ struct CourseWorkStudentSubmissionView<AttachmentView: View>: View {
     func viewForSubmitButton(_ submission: StudentSubmission) -> some View {
         VStack {
             Button {
-                guard let url = URL(string: submission.alternateLink) else { return }
+                guard let url = URL(string: "\(submission.alternateLink)?ti=1") else { return }
                 openURL(url)
             } label: {
                 buttonText(submission.state)
