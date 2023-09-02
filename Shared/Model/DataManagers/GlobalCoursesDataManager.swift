@@ -68,31 +68,35 @@ class GlobalCoursesDataManager: ObservableObject {
         ) { response in
             switch response {
             case .success(let success):
-                DispatchQueue.main.async {
-                    
-                    self.courses.mergeWith(other: success.courses,
-                                           isSame: { $0.id == $1.id },
-                                           isBefore: { $0.creationDate > $1.creationDate })
-                    let arrayOfCourseStates = success.courses.map { $0.courseState }
-                    print("array:")
-                    print(arrayOfCourseStates)
-                    
-                    for course in success.courses {
-                        if [course.courseState] == [.archived] {
-                            self.configuration.archivePRO(item: course.id)
-                        }
-                    }
-                    
-                    print(arrayOfCourseStates)
-                    if let token = success.nextPageToken, requestNextPageIfExists {
-                        self.refreshList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
-                    } else {
-                        DispatchQueue.main.async {
-                            self.loading = false
-                            self.writeCache()
-                        }
-                    }
-                }
+                            DispatchQueue.main.async {
+                                
+                                for course in success.courses {
+                                    if [course.courseState] == [.archived] {
+                                        self.configuration.archivePRO(item: course.id)
+                                    }
+                                }
+
+                                self.courses.mergeWith(other: success.courses,
+                                                       isSame: { $0.id == $1.id },
+                                                       isBefore: { $0.creationDate > $1.creationDate })
+                            }
+                            if let token = success.nextPageToken, requestNextPageIfExists {
+                                self.refreshList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
+                            } else {
+                                DispatchQueue.main.async {
+                                    self.loading = false
+                                    self.writeCache()
+                                    
+                                }
+                                if let token = success.nextPageToken, requestNextPageIfExists {
+                                    self.refreshList(nextPageToken: token, requestNextPageIfExists: requestNextPageIfExists)
+                                } else {
+                                    DispatchQueue.main.async {
+                                        self.loading = false
+                                        self.writeCache()
+                                    }
+                                }
+                            }
             case .failure(_):
                 DispatchQueue.main.async {
                     self.loading = false
@@ -100,7 +104,6 @@ class GlobalCoursesDataManager: ObservableObject {
             }
         }
     }
-
     private func readCache() -> [Course] {
         // if the file exists in CourseCache
         if FileSystem.exists(file: .courses),
