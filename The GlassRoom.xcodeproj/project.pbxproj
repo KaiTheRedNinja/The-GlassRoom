@@ -128,8 +128,6 @@
 		F3B28C6C2A89DBA5002DB954 /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B28C6A2A89DBA5002DB954 /* Secrets (Sensitive).swift */; };
 		F3B28C6E2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */; };
 		F3B28C6F2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */; };
-		F3B28C712A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */; };
-		F3B28C722A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -204,7 +202,6 @@
 		F31A7B1B2A4E753000B50450 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		F3B28C6A2A89DBA5002DB954 /* Secrets (Sensitive).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Secrets (Sensitive).swift"; sourceTree = "<group>"; };
 		F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-Info.plist"; sourceTree = "<group>"; };
-		F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-iOS-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,7 +289,6 @@
 		933F39102A4438B4006E13AC /* The GlassRoom iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */,
 				938883212A5033F100EAD9F1 /* Application */,
 				F31A7B1A2A4E752000B50450 /* UI */,
 				933F39172A4438B5006E13AC /* Preview Content */,
@@ -662,7 +658,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3B28C722A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */,
 				933F39192A4438B5006E13AC /* Preview Assets.xcassets in Resources */,
 				F3B28C6F2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */,
 				933F39162A4438B5006E13AC /* Assets.xcassets in Resources */,
@@ -673,7 +668,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3B28C712A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */,
 				937EA5C12A0CD9F9005F11C5 /* Preview Assets.xcassets in Resources */,
 				F3B28C6E2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */,
 				937EA5BE2A0CD9F9005F11C5 /* Assets.xcassets in Resources */,
@@ -821,7 +815,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "The-GlassRoom-iOS-Info.plist";
+				INFOPLIST_FILE = "The-GlassRoom-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Glassroom;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -842,7 +836,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -864,7 +858,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "The-GlassRoom-iOS-Info.plist";
+				INFOPLIST_FILE = "The-GlassRoom-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Glassroom;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -885,7 +879,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -73,7 +73,7 @@ Accessibility - Bionic reading
 #### NOTE: This MAY be outdated
 
 Prerequisite: You have a google developer project with an API key capable of utilising Google Classroom and Drive APIs
-1. Add your own `The-GlassRoom-Info.plist` and `The-GlassRoom-iOS-Info.plist` file at the top level of the repo, in this format:
+1. Add your own `The-GlassRoom-Info.plist` file at the top level of the repo, in this format:
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
