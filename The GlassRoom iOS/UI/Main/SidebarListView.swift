@@ -7,12 +7,13 @@
 
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomAPI
 
 struct SidebarListView: View {
     @Binding var selection: GeneralCourse?
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
     @ObservedObject var configuration = GlobalCoursesDataManager.CoursesConfiguration.loadedFromFileSystem()
-
+    
     @State var searchQuery: String = ""
 
     var body: some View {
@@ -54,6 +55,7 @@ struct SidebarListView: View {
                 ForEach(archive.courses) { courseId in
                     sidebarCourseView(course: .course(courseId))
                 }
+//                GlassRoomAPI.GRCourses.list(query: .init(courseStates: [.archived]))
             } header: {
                 sidebarCourseView(course: .group(CourseGroup.archiveId))
             }
@@ -175,7 +177,7 @@ struct SidebarListView: View {
     }
 
     func groupsForCourseType(type: Course.CourseType) -> some View {
-        ForEach(configuration.courseGroups.filter({ $0.groupType == type })) { group in
+        ForEach(configuration.courseGroups.filter({ $0.groupType == type})) { group in
             DisclosureGroup {
                 ForEach(group.courses) { courseId in
                     sidebarCourseView(course: .course(courseId))

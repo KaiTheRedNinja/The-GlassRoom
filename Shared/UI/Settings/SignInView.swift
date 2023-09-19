@@ -103,7 +103,7 @@ struct SignInView: View {
             Spacer()
             #endif
             
-            Text("Welcome to The Glassroom")
+            Text("Welcome to Glassroom")
                 .font(.system(.largeTitle, weight: .bold))
                 .multilineTextAlignment(.center)
             
@@ -113,7 +113,7 @@ struct SignInView: View {
             
             if userModel.errorMessage?.contains("connection appears to be offline") ?? false {
                 Text("""
-You seem to be offline. The Glassroom
+You seem to be offline. Glassroom
 requires an internet connection to work.
 """)
                 .multilineTextAlignment(.center)
@@ -147,7 +147,7 @@ requires an internet connection to work.
 
     var addScopesView: some View {
         VStack {
-            Text("The Glassroom requires the following permissions:")
+            Text("Glassroom requires the following permissions:")
                 .multilineTextAlignment(.center)
                 .font(.system(.title, weight: .bold))
 

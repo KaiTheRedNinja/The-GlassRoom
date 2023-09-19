@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+#if os(macOS)
+import KeyboardShortcuts
+#endif
 
 struct SettingsView: View {
     
@@ -55,7 +58,7 @@ struct SettingsView: View {
             shortcuts
                 .frame(width: 680, height: 300)
                 .tabItem {
-                    Label("Shortucts", systemImage: settingsTabSelection == 3 ? "keyboard.fill" : "keyboard")
+                    Label("Shortcuts", systemImage: settingsTabSelection == 3 ? "keyboard.fill" : "keyboard")
                 }
                 .tag(3)
         }
@@ -81,16 +84,6 @@ struct SettingsView: View {
                             .navigationBarTitleDisplayMode(.inline)
                     } label: {
                         Label("Customisation", systemImage: "paintpalette.fill")
-                    }
-                    
-                    if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {
-                        NavigationLink {
-                            shortcuts
-                                .navigationTitle("Shortcuts")
-                                .navigationBarTitleDisplayMode(.inline)
-                        } label: {
-                            Label("Shortcuts", systemImage: "keyboard.fill")
-                        }
                     }
                 }
                 
@@ -277,11 +270,24 @@ struct SettingsView: View {
         }
     }
     
+    #if os(macOS)
     var shortcuts: some View {
-        VStack {
-            Text("Shortcuts")
+        List {
+            GroupBox {
+                VStack {
+                    KeyboardShortcuts.Recorder("Reload Posts", name: .reloadCoursePosts)
+                    KeyboardShortcuts.Recorder("Reload Sidebar", name: .reloadSidebar)
+                    //              KeyboardShortcuts.Recorder("Switch to Next Tab", name: .nextTab)
+                    //              KeyboardShortcuts.Recorder("Switch to Previous Tab", name: .previousTab)
+                    KeyboardShortcuts.Recorder("Show/Hide Tab Bar", name: .toggleTabBar)
+                    KeyboardShortcuts.Recorder("Toggle Universal Search", name: .openUniversalSearch)
+                }
+                .padding(5)
+            }
         }
+        .scrollContentBackground(.hidden)
     }
+    #endif
     
     func getFullName() -> String {
         guard let fullName = userModel.fullName else {

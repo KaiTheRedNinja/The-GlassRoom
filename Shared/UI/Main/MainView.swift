@@ -7,6 +7,9 @@
 
 import SwiftUI
 import GlassRoomTypes
+#if os(macOS)
+import KeyboardShortcuts
+#endif
 
 struct MainView: View {
     @State var selectedCourse: GeneralCourse?
@@ -18,7 +21,7 @@ struct MainView: View {
     @ObservedObject var userModel: UserAuthModel = .shared
     @AppStorage("debugMode") var debugMode: Bool = false
     @AppStorage("useFancyUI") var useFancyUI: Bool = false
-
+    
     @Environment(\.openWindow) var openWindow
 
     #if os(macOS)
@@ -49,24 +52,6 @@ struct MainView: View {
 
             GroupBox {
                 ZStack {
-                    Button {
-                        guard let window = window.window else { return }
-                        window.selectNextTab(self)
-                    } label: {
-                        EmptyView()
-                    }
-                    .opacity(0.005)
-                    .keyboardShortcut(.rightArrow, modifiers: [.command, .shift])
-                    
-                    Button {
-                        guard let window = window.window else { return }
-                        window.selectPreviousTab(self)
-                    } label: {
-                        EmptyView()
-                    }
-                    .opacity(0.005)
-                    .keyboardShortcut(.leftArrow, modifiers: [.command, .shift])
-                    
                     HStack {
                         Button {
                             guard let window = window.window else { return }
@@ -74,7 +59,10 @@ struct MainView: View {
                         } label: {
                             Image(systemName: "rectangle.topthird.inset.filled")
                         }
-                        .keyboardShortcut("B", modifiers: [.command, .shift])
+                        .onKeyboardShortcut(.toggleTabBar, type: .keyDown) {
+                            guard let window = window.window else { return }
+                            window.toggleTabBar(self)
+                        }
                         
                         Button {
                             guard let window = window.window else { return }
@@ -83,6 +71,16 @@ struct MainView: View {
                             Image(systemName: "square.grid.2x2")
                         }
                     }
+//                    .onKeyboardShortcut(.nextTab, type: .keyDown) {
+//                        guard let window = window.window else { return }
+//                        window.selectNextTab(self)
+//                        print("ive been called (next)")
+//                    }
+//                    .onKeyboardShortcut(.previousTab, type: .keyDown) {
+//                        guard let window = window.window else { return }
+//                        window.selectPreviousTab(nil)
+//                        print("ive been called (prev)")
+//                    }
                 }
             }
 
@@ -91,7 +89,9 @@ struct MainView: View {
             } label: {
                 Image(systemName: "magnifyingglass")
             }
-            .keyboardShortcut("O", modifiers: [.command, .shift])
+            .onKeyboardShortcut(.openUniversalSearch, type: .keyDown) {
+                showSearch.toggle()
+            }
 
             if #available(macOS 14.0, *) {
                 SettingsLink {

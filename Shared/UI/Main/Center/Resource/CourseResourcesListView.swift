@@ -7,6 +7,9 @@
 
 import SwiftUI
 import GlassRoomTypes
+#if os(macOS)
+import KeyboardShortcuts
+#endif
 
 struct CourseResourcesListView: View {
     var courseMaterials: [CourseWorkMaterial]
@@ -51,7 +54,10 @@ struct CourseResourcesListView: View {
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
-                    .keyboardShortcut("r", modifiers: .command)
+                    .onKeyboardShortcut(.reloadCoursePosts, type: .keyDown) {
+                        loadList(false)
+                        loadList(true)
+                    }
                     .buttonStyle(.plain)
                     .contextMenu {
                         Button("Use Cache") {
