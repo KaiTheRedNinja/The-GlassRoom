@@ -128,8 +128,6 @@
 		F3B28C6C2A89DBA5002DB954 /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B28C6A2A89DBA5002DB954 /* Secrets (Sensitive).swift */; };
 		F3B28C6E2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */; };
 		F3B28C6F2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */; };
-		F3B28C712A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */; };
-		F3B28C722A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */; };
 		F3CFC6E12A95968B00E66D34 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = F3CFC6E02A95968B00E66D34 /* KeyboardShortcuts */; };
 		F3CFC6E32A95972200E66D34 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E22A95972200E66D34 /* Shortcuts.swift */; };
 		F3CFC6E62A959B2700E66D34 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E52A959B2700E66D34 /* Utilities.swift */; };
@@ -207,7 +205,6 @@
 		F31A7B1B2A4E753000B50450 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		F3B28C6A2A89DBA5002DB954 /* Secrets (Sensitive).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Secrets (Sensitive).swift"; sourceTree = "<group>"; };
 		F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-Info.plist"; sourceTree = "<group>"; };
-		F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-iOS-Info.plist"; sourceTree = "<group>"; };
 		F3CFC6E22A95972200E66D34 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		F3CFC6E52A959B2700E66D34 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -463,7 +460,6 @@
 				93AED68E2A1744110005854C /* README.md */,
 				9359F6E32A1A3305001A8A1F /* PRIVACY.md */,
 				F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */,
-				F3B28C702A89DBEA002DB954 /* The-GlassRoom-iOS-Info.plist */,
 				937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */,
 				937EA5B82A0CD9F8005F11C5 /* The GlassRoom */,
 				933F39102A4438B4006E13AC /* The GlassRoom iOS */,
