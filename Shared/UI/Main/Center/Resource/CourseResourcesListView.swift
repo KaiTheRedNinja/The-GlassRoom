@@ -131,7 +131,7 @@ struct CourseResourcesListView: View {
                                     ForEach(material.materials ?? []) { material in
                                         ZStack {
                                             if let driveFile = material.driveFile?.driveFile {
-                                                LinkView(driveFile: driveFile)
+                                                LinkView(url: URL(string: driveFile.alternateLink)!)
                                                     .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                             }
                                             
@@ -150,7 +150,6 @@ struct CourseResourcesListView: View {
                                                     .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                             }
                                         }
-                                        .frame(maxWidth: .infinity)
                                         .padding(.all, geometry.size.width < 400 ? 0 : 5)
                                     }
                                 }
