@@ -13,10 +13,18 @@ import GlassRoomTypes
 final class DriveLinkDataProvider: LinkViewDataProvider {
     @Published var url: URL?
     @Published var title: String?
+    #if os(iOS)
+    @Published var preview: UIImage?
+    #else
     @Published var preview: NSImage?
-
+    #endif
+    
+    #if os(iOS)
+    var icon: UIImage? { nil } // never gonna exist
+    #else
     var icon: NSImage? { nil } // never gonna exist
-
+    #endif
+    
     var driveFile: DriveFile
 
     init(driveFile: DriveFile) {
