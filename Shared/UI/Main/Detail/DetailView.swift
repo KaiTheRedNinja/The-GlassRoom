@@ -161,19 +161,19 @@ extension DetailViewPage {
             ForEach(materials, id: \.id) { material in
                 ZStack {
                     if let driveFile = material.driveFile?.driveFile {
-                        DriveLinkPreview(driveFile: driveFile)
+                        LinkView(driveFile: driveFile)
                     }
-                    
+
                     if let youtubeVideo = material.youtubeVideo {
-                        LinkPreview(url: URL(string: youtubeVideo.alternateLink)!, isAttachment: false)
+                        LinkView(url: URL(string: youtubeVideo.alternateLink)!)
                     }
-                    
+
                     if let link = material.form?.formUrl {
-                        LinkPreview(url: URL(string: link)!, isAttachment: false)
+                        LinkView(url: URL(string: link)!)
                     }
-                    
+
                     if let materialLink = material.link {
-                        LinkPreview(url: URL(string: materialLink.url)!, isAttachment: false)
+                        LinkView(url: URL(string: materialLink.url)!)
                     }
                 }
             }
@@ -189,19 +189,19 @@ extension DetailViewPage {
                     ForEach(materialAttachments, id: \.id) { attachment in
                         HStack {
                             if let driveFile = attachment.driveFile {
-                                DriveLinkPreview(driveFile: driveFile)
+                                LinkView(driveFile: driveFile)
                             }
-                            
+
                             if let youtubeVideo = attachment.youtubeVideo {
-                                LinkPreview(url: URL(string: youtubeVideo.alternateLink)!, isAttachment: true)
+                                LinkView(url: URL(string: youtubeVideo.alternateLink)!)
                             }
-                            
+
                             if let link = attachment.form?.formUrl {
-                                LinkPreview(url: URL(string: link)!, isAttachment: true)
+                                LinkView(url: URL(string: link)!)
                             }
-                            
+
                             if let materialLink = attachment.link {
-                                LinkPreview(url: URL(string: materialLink.url)!, isAttachment: true)
+                                LinkView(url: URL(string: materialLink.url)!)
                             }
                         }
                     }

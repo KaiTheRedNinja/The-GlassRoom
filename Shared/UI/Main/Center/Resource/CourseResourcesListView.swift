@@ -131,22 +131,22 @@ struct CourseResourcesListView: View {
                                     ForEach(material.materials ?? []) { material in
                                         ZStack {
                                             if let driveFile = material.driveFile?.driveFile {
-                                                DriveLinkPreview(driveFile: driveFile)
+                                                LinkView(driveFile: driveFile)
                                                     .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                             }
                                             
                                             if let youtubeVideo = material.youtubeVideo {
-                                                LinkPreview(url: URL(string: youtubeVideo.alternateLink)!, isAttachment: false)
+                                                LinkView(url: URL(string: youtubeVideo.alternateLink)!)
                                                     .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                             }
                                             
                                             if let link = material.form?.formUrl {
-                                                LinkPreview(url: URL(string: link)!, isAttachment: false)
+                                                LinkView(url: URL(string: link)!)
                                                     .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                             }
                                             
                                             if let materialLink = material.link {
-                                                LinkPreview(url: URL(string: materialLink.url)!, isAttachment: false)
+                                                LinkView(url: URL(string: materialLink.url)!)
                                                     .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                             }
                                         }
