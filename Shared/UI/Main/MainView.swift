@@ -158,14 +158,14 @@ struct MainView: View {
             } detail: {
                 SplitView {
                     CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
-                        .frame(minWidth: 400)
+//                        .frame(minWidth: 400)
                 } rView: {
                     ZStack {
                         Rectangle()
                             .fill(.ultraThinMaterial)
                         DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
                     }
-                    .frame(minWidth: 400)
+//                    .frame(minWidth: 400)
                     .cornerRadius(15)
                     .shadow(color: .primary.opacity(0.2), radius: 4)
                     .padding([.vertical, .trailing], 10)

@@ -131,7 +131,7 @@ struct CourseResourcesListView: View {
                                     ForEach(material.materials ?? []) { material in
                                         ZStack {
                                             if let driveFile = material.driveFile?.driveFile {
-                                                LinkPreview(url: URL(string: driveFile.alternateLink)!, isAttachment: false)
+                                                DriveLinkPreview(driveFile: driveFile)
                                                     .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                             }
                                             

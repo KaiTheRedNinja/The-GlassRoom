@@ -26,47 +26,8 @@ struct LinkPreview: NSViewRepresentable {
     func makeNSView(context: NSViewRepresentableContext<LinkPreview>) -> LinkPreview.NSViewType {
         let linkView = LPLinkView(url: url)
 
-        // if its a docs, detect the id
-        if url.absoluteString.contains("/docs.google.com/") || url.absoluteString.contains("/drive.google.com/") {
-            // detect the file id
-            let fileIds = url.absoluteString.findMatches(pattern: "/d/[a-zA-Z0-9-_]+/")
-            if let fileIdRaw = fileIds.first {
-                let fileId = String(fileIdRaw.dropFirst(3).dropLast(1))
-
-                GlassRoomAPI.GDDriveDetails.get(
-                    params: .init(fileId: fileId),
-                    query: .init(fields: ["name"]),
-                    data: .init()
-                ) { result in
-                    switch result {
-                    case .success(let success):
-                        let metadata = LPLinkMetadata()
-                        metadata.originalURL = url
-                        metadata.url = metadata.originalURL
-                        metadata.title = success.name
-                        linkView.metadata = metadata
-                    case .failure(let failure):
-                        Log.error("Failure: \(failure.localizedDescription)")
-                    }
-                }
-            }
-        }
-
         return linkView
     }
-
-    func driveIdFor(urlString: String) -> String? {
-        guard urlString.contains("/docs.google.com/") || urlString.contains("/drive.google.com/")
-        else { return nil }
-        // detect the file id
-        let fileIds = url.absoluteString.findMatches(pattern: "/d/[a-zA-Z0-9-_]+/")
-        if let fileIdRaw = fileIds.first {
-            let fileId = String(fileIdRaw.dropFirst(3).dropLast(1))
-            return fileId
-        }
-        return nil
-    }
-    
     func updateNSView(_ nsView: LinkPreview.NSViewType, context: NSViewRepresentableContext<LinkPreview>) {
         if let cachedData = MetaCache.shared.retrieve(urlString: url.absoluteString) {
             nsView.metadata = cachedData
@@ -113,45 +74,7 @@ struct LinkPreview: UIViewRepresentable {
     func makeUIView(context: UIViewRepresentableContext<LinkPreview>) -> LinkPreview.UIViewType {
         let linkView = LPLinkView(url: url)
         
-        // if it's a document, detect the ID
-        if url.absoluteString.contains("/docs.google.com/") || url.absoluteString.contains("/drive.google.com/") {
-            // detect the file ID
-            let fileIds = url.absoluteString.findMatches(pattern: "/d/[a-zA-Z0-9-_]+/")
-            if let fileIdRaw = fileIds.first {
-                let fileId = String(fileIdRaw.dropFirst(3).dropLast(1))
-                
-                GlassRoomAPI.GDDriveDetails.get(
-                    params: .init(fileId: fileId),
-                    query: .init(fields: ["name"]),
-                    data: .init()
-                ) { result in
-                    switch result {
-                    case .success(let success):
-                        let metadata = LPLinkMetadata()
-                        metadata.originalURL = url
-                        metadata.url = metadata.originalURL
-                        metadata.title = success.name
-                        linkView.metadata = metadata
-                    case .failure(let failure):
-                        Log.error("Failure: \(failure.localizedDescription)")
-                    }
-                }
-            }
-        }
-        
         return linkView
-    }
-    
-    func driveIdFor(urlString: String) -> String? {
-        guard urlString.contains("/docs.google.com/") || urlString.contains("/drive.google.com/")
-        else { return nil }
-        // detect the file ID
-        let fileIds = url.absoluteString.findMatches(pattern: "/d/[a-zA-Z0-9-_]+/")
-        if let fileIdRaw = fileIds.first {
-            let fileId = String(fileIdRaw.dropFirst(3).dropLast(1))
-            return fileId
-        }
-        return nil
     }
     
     func updateUIView(_ uiView: LinkPreview.UIViewType, context: UIViewRepresentableContext<LinkPreview>) {

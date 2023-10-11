@@ -106,6 +106,8 @@
 		938300EE2A0FBB4C006581B8 /* SidebarOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938300ED2A0FBB4C006581B8 /* SidebarOutlineView.swift */; };
 		938300F02A0FC009006581B8 /* SidebarOutlineMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938300EF2A0FC009006581B8 /* SidebarOutlineMenu.swift */; };
 		938883232A5036F600EAD9F1 /* SidebarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938883222A5036F600EAD9F1 /* SidebarListView.swift */; };
+		939B24B92AD676D500472750 /* DriveLinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B24B82AD676D500472750 /* DriveLinkPreview.swift */; };
+		939B24BA2AD676D500472750 /* DriveLinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B24B82AD676D500472750 /* DriveLinkPreview.swift */; };
 		939FCB702A1C83D2002B4C3B /* CourseWorkTeacherSubmissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FCB6F2A1C83D2002B4C3B /* CourseWorkTeacherSubmissionsView.swift */; };
 		939FCB722A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FCB712A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift */; };
 		93A201B32A1B9E0E00EDECD0 /* CourseResourcesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A201B22A1B9E0E00EDECD0 /* CourseResourcesListView.swift */; };
@@ -185,6 +187,7 @@
 		938300ED2A0FBB4C006581B8 /* SidebarOutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarOutlineView.swift; sourceTree = "<group>"; };
 		938300EF2A0FC009006581B8 /* SidebarOutlineMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarOutlineMenu.swift; sourceTree = "<group>"; };
 		938883222A5036F600EAD9F1 /* SidebarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListView.swift; sourceTree = "<group>"; };
+		939B24B82AD676D500472750 /* DriveLinkPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveLinkPreview.swift; sourceTree = "<group>"; };
 		939FCB6F2A1C83D2002B4C3B /* CourseWorkTeacherSubmissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWorkTeacherSubmissionsView.swift; sourceTree = "<group>"; };
 		939FCB712A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWorkStudentSubmissionView.swift; sourceTree = "<group>"; };
 		93A201B22A1B9E0E00EDECD0 /* CourseResourcesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseResourcesListView.swift; sourceTree = "<group>"; };
@@ -248,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				6AA0583A2A0FEB90005A9BDB /* LinkPreview.swift */,
+				939B24B82AD676D500472750 /* DriveLinkPreview.swift */,
 				93ACB2462A10D5C00040C88E /* SegmentedControl.swift */,
 				93362DCB2A2B47EF006303CA /* FittingGeometryReader.swift */,
 				93761F382A2B81DF00E2008E /* TriStateToggle.swift */,
@@ -722,6 +726,7 @@
 				933F39B82A44475F006E13AC /* TriStateToggle.swift in Sources */,
 				933F395B2A443DFB006E13AC /* FileManager.swift in Sources */,
 				933F39572A443DFB006E13AC /* GlobalCoursesDataManager.swift in Sources */,
+				939B24BA2AD676D500472750 /* DriveLinkPreview.swift in Sources */,
 				933F39B32A444660006E13AC /* CreateNewPostView.swift in Sources */,
 				F31A7B1E2A4E784300B50450 /* SidebarCourseView.swift in Sources */,
 				933F39552A443DFB006E13AC /* Date+Format.swift in Sources */,
@@ -768,6 +773,7 @@
 				93AED6922A1781A50005854C /* CourseRegisterListView.swift in Sources */,
 				934858102A133982008B84A7 /* GlobalCoursesDataManager+Configuration.swift in Sources */,
 				93761F392A2B81DF00E2008E /* TriStateToggle.swift in Sources */,
+				939B24B92AD676D500472750 /* DriveLinkPreview.swift in Sources */,
 				93757D612A0E74500063AB67 /* UserAuthModel.swift in Sources */,
 				93757D722A0F9A240063AB67 /* SidebarView.swift in Sources */,
 				9348580A2A125DA1008B84A7 /* AnnouncementDetailView.swift in Sources */,
