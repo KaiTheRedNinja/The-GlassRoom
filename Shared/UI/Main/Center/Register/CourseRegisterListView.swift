@@ -22,6 +22,10 @@ struct CourseRegisterListView: View {
     var loadList: (_ bypassCache: Bool) -> Void
     /// Refresh, using the next page token if needed
     var refreshList: () -> Void
+    
+    @State var showingAlert = false
+    @State var randomName = ""
+    @State var randomImage = UIImage()
 
     var body: some View {
         ZStack {
@@ -117,60 +121,75 @@ struct CourseRegisterListView: View {
     @State var attendances: [String: TriToggleState] = [:]
 
     var postsContent: some View {
-        List {
-            Section("Teachers: \(teachers.count)") {
-                let teachersMapped = teachers.compactMap({ profileManager.userProfilesMap[$0.userId] })
-                ForEach(teachersMapped.sorted(by: { $0.name.fullName < $1.name.fullName }), id: \.id) { teacher in
-                    CourseRegisterItem(userProfile: teacher)
-                }
-            }
-
-            Section {
-                let studentsMapped = students.compactMap({ profileManager.userProfilesMap[$0.userId] })
-                ForEach(studentsMapped.sorted(by: { $0.name.fullName < $1.name.fullName }), id: \.id) { student in
-                    HStack {
-                        if attendanceMode {
-                            TriStateToggle(toggleState: .init(get: {
-                                attendances[student.id] ?? .middle
-                            }, set: { newValue in
-                                attendances[student.id] = newValue
-                            }))
-                        }
-                        CourseRegisterItem(userProfile: student)
+        ZStack {
+            List {
+                Section("Teachers: \(teachers.count)") {
+                    let teachersMapped = teachers.compactMap({ profileManager.userProfilesMap[$0.userId] })
+                    ForEach(teachersMapped.sorted(by: { $0.name.fullName < $1.name.fullName }), id: \.id) { teacher in
+                        CourseRegisterItem(userProfile: teacher)
                     }
                 }
-                if attendanceMode {
-                    Menu("Export Attendance Sheet") {
-                        Button("Sorted by Attendance") {
-                            exportStudents(sortStyle: .attendanceSorted)
-                        }
-                        Button("Sorted by Student Name") {
-                            exportStudents(sortStyle: .studentSorted)
-                        }
-                    }
-                    .buttonStyle(.borderless)
-                }
-            } header: {
-                HStack {
-                    Text("Students: \(students.count)")
-                    Spacer()
-                    if students.count > 1 {
-                        Button {
-                            Task {
-                                await randomStudent()
+                
+                Section {
+                    let studentsMapped = students.compactMap({ profileManager.userProfilesMap[$0.userId] })
+                    ForEach(studentsMapped.sorted(by: { $0.name.fullName < $1.name.fullName }), id: \.id) { student in
+                        HStack {
+                            if attendanceMode {
+                                TriStateToggle(toggleState: .init(get: {
+                                    attendances[student.id] ?? .middle
+                                }, set: { newValue in
+                                    attendances[student.id] = newValue
+                                }))
                             }
-                        } label: {
-                            Image(systemName: "dice")
-                        }
-
-                        Button {
-                            attendanceMode.toggle()
-                        } label: {
-                            Image(systemName: "checklist")
+                            CourseRegisterItem(userProfile: student)
                         }
                     }
+                    if attendanceMode {
+                        Menu("Export Attendance Sheet") {
+                            Button("Sorted by Attendance") {
+                                exportStudents(sortStyle: .attendanceSorted)
+                            }
+                            Button("Sorted by Student Name") {
+                                exportStudents(sortStyle: .studentSorted)
+                            }
+                        }
+                        .buttonStyle(.borderless)
+                    }
+                } header: {
+                    HStack {
+                        Text("Students: \(students.count)")
+                        Spacer()
+                        if students.count > 1 {
+                            Button {
+                                Task {
+                                    await randomStudent()
+                                }
+                            } label: {
+                                Image(systemName: "dice")
+                            }
+                            
+                            Button {
+                                attendanceMode.toggle()
+                            } label: {
+                                Image(systemName: "checklist")
+                            }
+                        }
+                    }
+                } footer: {
+                    Text("Glassroom is only able to display every student in the Register if you are a teacher in the class due to Google's API restrictions.")
+                        .padding(.vertical, 5)
                 }
             }
+            #if os(iOS)
+            .alert("\(randomName)", isPresented: $showingAlert) {
+                Button("Pick again") {
+                    Task {
+                        await randomStudent()
+                    }
+                }
+                Button("OK", role: .cancel) { }
+            }
+            #endif
         }
     }
 
@@ -193,7 +212,15 @@ struct CourseRegisterListView: View {
         alert.runModal()
         #else
         // TODO: Implement for iOS
-        print("Random student not yet supported on iOS")
+        randomName = student.name.fullName
+        if let photoUrl = student.photoUrl {
+            let urlRequest = URLRequest(url: URL(string: "https:" + photoUrl)!)
+            let response = try? await URLSession.shared.data(for: urlRequest)
+            if let data = response?.0 {
+                randomImage = UIImage(data: data) ?? UIImage()
+            }
+        }
+        showingAlert = true
         #endif
     }
 

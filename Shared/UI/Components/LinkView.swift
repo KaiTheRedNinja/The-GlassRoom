@@ -209,19 +209,16 @@ struct LinkView<Provider: LinkViewDataProvider>: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(.ultraThickMaterial)
                 .background {
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 15)
                         .fill(Color.white)
                 }
                 .shadow(color: Color.black.opacity(0.2), radius: 12)
         }
+#if os(macOS)
         .contextMenu {
             if let url = provider.url {
                 Button("Open Link") {
-#if os(macOS)
                     NSWorkspace.shared.open(url)
-#else
-                    UIApplication.shared.open(url)
-#endif
                 }
             }
         } preview: {
@@ -229,6 +226,7 @@ struct LinkView<Provider: LinkViewDataProvider>: View {
                 Image(image: image)
             }
         }
+#endif
         .onAppear {
             provider.loadData()
         }
