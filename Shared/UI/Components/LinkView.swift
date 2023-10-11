@@ -209,7 +209,7 @@ struct LinkView<Provider: LinkViewDataProvider>: View {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color.white)
                 }
-                .shadow(radius: 3)
+                .shadow(color: Color.black.opacity(0.25), radius: 10)
         }
         .contextMenu {
             if let url = provider.url {
