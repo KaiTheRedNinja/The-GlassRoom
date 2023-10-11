@@ -28,7 +28,6 @@ struct CourseMaterialDetailView: DetailViewPage {
                                     .textSelection(.enabled)
                                 Spacer()
                             }
-                            
                             viewForButtons(link: courseWorkMaterial.alternateLink, post: .courseMaterial(courseWorkMaterial), dividerAbove: true)
 #if os(iOS)
                                 .padding(.top, 5)

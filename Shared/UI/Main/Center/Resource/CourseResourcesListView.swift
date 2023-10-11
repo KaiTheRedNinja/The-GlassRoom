@@ -118,40 +118,46 @@ struct CourseResourcesListView: View {
                         VStack(alignment: .leading) {
                             switch post {
                             case .courseMaterial(let material):
-                                Text(material.title)
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                    .lineLimit(2)
-                                    .padding([.top, .horizontal], 5)
-                                
-                                let gridCount = Int(floor((geometry.size.width - 70) / 350)) < 1 ? 1 : Int(floor((geometry.size.width - 70) / 350))
-                                LazyVGrid(columns: .init(repeating: GridItem(.flexible(), spacing: 15),
-                                                         count: gridCount), // set to (materials.count > 1) ? gridCount : 1 if you want link to stretch detailview's width
-                                          spacing: 20) {
-                                    ForEach(material.materials ?? []) { material in
-                                        ZStack {
-                                            if let driveFile = material.driveFile?.driveFile {
-                                                LinkView(url: URL(string: driveFile.alternateLink)!)
-                                                    .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
+                                    Text(material.title)
+                                        .font(.title3)
+                                        .fontWeight(.bold)
+                                        .lineLimit(2)
+                                        .padding([.top, .horizontal], 5)
+                                    
+                                if let materials = material.materials, materials.count > 0 {
+                                    let gridCount = Int(floor((geometry.size.width - 70) / 350)) < 1 ? 1 : Int(floor((geometry.size.width - 70) / 350))
+                                    LazyVGrid(columns: .init(repeating: GridItem(.flexible(), spacing: 15),
+                                                             count: gridCount), // set to (materials.count > 1) ? gridCount : 1 if you want link to stretch detailview's width
+                                              spacing: 20) {
+                                        ForEach(materials) { material in
+                                            ZStack {
+                                                if let driveFile = material.driveFile?.driveFile {
+                                                    LinkView(url: URL(string: driveFile.alternateLink)!)
+                                                        .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
+                                                }
+                                                
+                                                if let youtubeVideo = material.youtubeVideo {
+                                                    LinkView(url: URL(string: youtubeVideo.alternateLink)!)
+                                                        .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
+                                                }
+                                                
+                                                if let link = material.form?.formUrl {
+                                                    LinkView(url: URL(string: link)!)
+                                                        .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
+                                                }
+                                                
+                                                if let materialLink = material.link {
+                                                    LinkView(url: URL(string: materialLink.url)!)
+                                                        .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
+                                                }
                                             }
-                                            
-                                            if let youtubeVideo = material.youtubeVideo {
-                                                LinkView(url: URL(string: youtubeVideo.alternateLink)!)
-                                                    .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
-                                            }
-                                            
-                                            if let link = material.form?.formUrl {
-                                                LinkView(url: URL(string: link)!)
-                                                    .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
-                                            }
-                                            
-                                            if let materialLink = material.link {
-                                                LinkView(url: URL(string: materialLink.url)!)
-                                                    .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
-                                            }
+                                            .padding(.all, geometry.size.width < 400 ? 0 : 5)
                                         }
-                                        .padding(.all, geometry.size.width < 400 ? 0 : 5)
                                     }
+                                } else {
+                                    Text("This post has no materials attached.")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.all, geometry.size.width < 400 ? 0 : 5)
                                 }
                             default:
                                 Text("Non material found")
