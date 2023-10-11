@@ -75,6 +75,12 @@ struct CourseMaterialDetailView: DetailViewPage {
             }
             #if os(iOS)
             .toolbar {
+                if UIDevice().userInterfaceIdiom == .phone {
+                    ToolbarItem(placement: .principal) {
+                        Text("Material")
+                            .fontWeight(.bold)
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Link(destination: URL(string: courseWorkMaterial.alternateLink)!) {
