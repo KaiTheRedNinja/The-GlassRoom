@@ -9,6 +9,8 @@ import Foundation
 import GlassRoomTypes
 
 enum FileSystem {
+    static var currentUserEmail: String?
+
     enum FileName {
         case courses
         case courseConfigurations
@@ -21,7 +23,7 @@ enum FileSystem {
         case userProfiles
 
         var fileName: String {
-            guard let currentUserEmail = UserAuthModel.shared.email else {
+            guard let currentUserEmail = FileSystem.currentUserEmail else {
                 fatalError("Could not save cache")
             }
             switch self {
