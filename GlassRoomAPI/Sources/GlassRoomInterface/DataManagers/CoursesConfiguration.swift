@@ -110,7 +110,7 @@ public class CoursesConfiguration: ObservableObject, Codable, Identifiable {
 
     // MARK: Archive, groups
     public func archive(item: GeneralCourse) {
-        var isArchived = archive?.courses.contains(item.id) ?? false
+        let isArchived = archive?.courses.contains(item.id) ?? false
 
         if isArchived {
             archive?.courses.removeAll(where: { $0.id == item.id })
@@ -141,23 +141,6 @@ public class CoursesConfiguration: ObservableObject, Codable, Identifiable {
             }
             saveToFileSystem()
         }
-    }
-    
-    public func archivePRO(item: String) {
-        var archivingCourses: [String] = []
-        print("Archiving course \(item)")
-        archivingCourses = [item]
-        if archive == nil {
-            archive = .init(
-                id: item,
-                groupName: "Archive",
-                groupType: .enrolled,
-                courses: archivingCourses)
-        } else {
-            archive?.courses.append(contentsOf: archivingCourses)
-            objectWillChange.send()
-        }
-        saveToFileSystem()
     }
 
     // MARK: Codable

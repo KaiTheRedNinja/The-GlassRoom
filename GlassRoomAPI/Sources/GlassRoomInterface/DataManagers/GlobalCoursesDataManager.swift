@@ -71,7 +71,7 @@ public class GlobalCoursesDataManager: ObservableObject {
                                 
                                 for course in success.courses {
                                     if [course.courseState] == [.archived] {
-                                        CoursesConfiguration.global.archivePRO(item: course.id)
+                                        CoursesConfiguration.global.archive(item: .course(course.id))
                                     }
                                 }
 
