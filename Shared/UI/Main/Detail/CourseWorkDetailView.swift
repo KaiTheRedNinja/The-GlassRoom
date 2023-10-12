@@ -112,8 +112,6 @@ struct CourseWorkDetailView: DetailViewPage {
                         }
                         
                         Divider()
-                        
-                        OpenNotesButton(post: .courseWork(courseWork))
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }

@@ -80,8 +80,6 @@ struct AnnouncementDetailView: DetailViewPage {
                         }
                         
                         Divider()
-                        
-                        OpenNotesButton(post: .announcement(announcement))
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
