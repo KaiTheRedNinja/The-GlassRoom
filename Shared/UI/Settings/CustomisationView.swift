@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SymbolPicker
+import GlassRoomInterface
 
 struct CustomisationView: View {
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global

@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "GlassRoomAPI",
     platforms: [
-        .macOS(.v11),
+        .macOS(.v13),
         .iOS(.v16)
     ],
     products: [

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GlassRoomInterface
 
 fileprivate typealias ConfigKeys = CoursesConfiguration.Keys
 fileprivate typealias ConfigLoadStyle = CoursesConfiguration.LoadStyle

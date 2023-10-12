@@ -13,7 +13,3 @@ extension Course: Identifiable, Hashable {
         hasher.combine(id)
     }
 }
-
-extension String: Identifiable {
-    public var id: String { self }
-}

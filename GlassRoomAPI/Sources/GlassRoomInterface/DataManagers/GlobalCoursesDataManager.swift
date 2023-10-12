@@ -9,8 +9,8 @@ import Foundation
 import GlassRoomAPI
 import GlassRoomTypes
 
-class GlobalCoursesDataManager: ObservableObject {
-    @Published private(set) var courses: [Course] {
+public class GlobalCoursesDataManager: ObservableObject {
+    @Published public private(set) var courses: [Course] {
         didSet {
             courseIdMap = [:]
             for course in courses {
@@ -18,17 +18,17 @@ class GlobalCoursesDataManager: ObservableObject {
             }
         }
     }
-    @Published private(set) var loading: Bool = false
-    @Published private(set) var preArchivedCourses = []
+    @Published public private(set) var loading: Bool = false
+    @Published public private(set) var preArchivedCourses = []
 
-    @Published var courseIdMap: [String: Course] = [:]
+    @Published public var courseIdMap: [String: Course] = [:]
 
-    static var global: GlobalCoursesDataManager = .init()
+    public static var global: GlobalCoursesDataManager = .init()
     private init() {
         courses = []
     }
 
-    func loadList(bypassCache: Bool = false) {
+    public func loadList(bypassCache: Bool = false) {
         loading = true
         if bypassCache {
             refreshList()
@@ -44,7 +44,7 @@ class GlobalCoursesDataManager: ObservableObject {
         }
     }
 
-    func clearCache() {
+    public func clearCache() {
         FileSystem.write([Course](), to: .courses)
     }
 

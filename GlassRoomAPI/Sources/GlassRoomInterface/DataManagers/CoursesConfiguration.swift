@@ -8,13 +8,12 @@
 import SwiftUI
 import GlassRoomAPI
 import GlassRoomTypes
-import GlassRoomInterface
 
-class CoursesConfiguration: ObservableObject, Codable, Identifiable {
-    var id = UUID()
+public class CoursesConfiguration: ObservableObject, Codable, Identifiable {
+    public var id = UUID()
 
-    @Published var replacedCourseNames: [NameReplacement]
-    @Published var courseGroups: [CourseGroup] {
+    @Published public var replacedCourseNames: [NameReplacement]
+    @Published public var courseGroups: [CourseGroup] {
         didSet {
             groupIdMap = [:]
             for group in courseGroups {
@@ -22,11 +21,11 @@ class CoursesConfiguration: ObservableObject, Codable, Identifiable {
             }
         }
     }
-    @Published var archive: CourseGroup?
-    @Published var customColors: [String: Color]
-    @Published var customIcons: [String: String]
+    @Published public var archive: CourseGroup?
+    @Published public var customColors: [String: Color]
+    @Published public var customIcons: [String: String]
 
-    @Published var groupIdMap: [String: CourseGroup] = [:]
+    @Published public var groupIdMap: [String: CourseGroup] = [:]
 
     private init(
         replacedCourseNames: [NameReplacement] = [],
@@ -47,7 +46,7 @@ class CoursesConfiguration: ObservableObject, Codable, Identifiable {
         }
     }
 
-    static var global: CoursesConfiguration = .loadedFromFileSystem()
+    public static var global: CoursesConfiguration = .loadedFromFileSystem()
     private static func loadedFromFileSystem() -> CoursesConfiguration {
         // if the file exists in CourseCache
         if FileSystem.exists(file: .courseConfigurations),
@@ -61,14 +60,14 @@ class CoursesConfiguration: ObservableObject, Codable, Identifiable {
         return newInstance
     }
 
-    func saveToFileSystem() {
+    public func saveToFileSystem() {
         FileSystem.write(self, to: .courseConfigurations) { error in
             Log.error("Error writing: \(error.localizedDescription)")
         }
     }
 
     /// Generates a seemingly random color for a string
-    func colorFor(_ courseId: String) -> Color {
+    public func colorFor(_ courseId: String) -> Color {
         if let customColor = customColors[courseId] {
             return customColor
         }
@@ -90,7 +89,7 @@ class CoursesConfiguration: ObservableObject, Codable, Identifiable {
         return Color(red: r, green: g, blue: b, opacity: 1)
     }
 
-    func iconFor(_ courseId: String) -> String {
+    public func iconFor(_ courseId: String) -> String {
         if let customIcon = customIcons[courseId] {
             return customIcon
         }
@@ -99,7 +98,7 @@ class CoursesConfiguration: ObservableObject, Codable, Identifiable {
         return "person.2.fill"
     }
 
-    func nameFor(_ courseName: String) -> String {
+    public func nameFor(_ courseName: String) -> String {
         // change all the replacement strings
         var mutableCourseName = courseName
         for replacedCourseName in replacedCourseNames {
@@ -110,7 +109,7 @@ class CoursesConfiguration: ObservableObject, Codable, Identifiable {
     }
 
     // MARK: Archive, groups
-    func archive(item: GeneralCourse) {
+    public func archive(item: GeneralCourse) {
         var isArchived = archive?.courses.contains(item.id) ?? false
 
         if isArchived {
@@ -143,7 +142,8 @@ class CoursesConfiguration: ObservableObject, Codable, Identifiable {
             saveToFileSystem()
         }
     }
-    func archivePRO(item: String) {
+    
+    public func archivePRO(item: String) {
         var archivingCourses: [String] = []
         print("Archiving course \(item)")
         archivingCourses = [item]
@@ -161,10 +161,10 @@ class CoursesConfiguration: ObservableObject, Codable, Identifiable {
     }
 
     // MARK: Codable
-    enum Keys: CodingKey, CaseIterable {
+    public enum Keys: CodingKey, CaseIterable {
         case replacedCourseNames, courseGroups, archive, customColors, customIcons
 
-        var description: String {
+        public var description: String {
             switch self {
             case .replacedCourseNames: "Course Name Replacement"
             case .courseGroups: "Course Groups"
@@ -255,19 +255,18 @@ extension Color: Codable {
     }
 }
 
-struct NameReplacement: Codable, Identifiable, Equatable {
-    var id = UUID()
-    var matchString: String
-    var replacement: String
+extension String: Identifiable {
+    public var id: String { self }
 }
 
-struct CourseGroup: Codable, Identifiable, Equatable {
-    var id = UUID().uuidString
-    var groupName: String
-    var groupType: Course.CourseType
-    var courses: [String]
+public struct NameReplacement: Codable, Identifiable, Equatable {
+    public var id = UUID()
+    public var matchString: String
+    public var replacement: String
 
-    var isArchive: Bool { id == CourseGroup.archiveId }
-
-    static let archiveId = "Archive"
+    public init(id: UUID = UUID(), matchString: String, replacement: String) {
+        self.id = id
+        self.matchString = matchString
+        self.replacement = replacement
+    }
 }

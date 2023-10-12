@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GlassRoomInterface
 
 struct ContentView: View {
     @ObservedObject var userModel: UserAuthModel = .shared

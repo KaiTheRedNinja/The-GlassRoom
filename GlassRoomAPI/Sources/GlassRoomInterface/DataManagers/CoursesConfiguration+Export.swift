@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-extension CoursesConfiguration {
-    public func exportURL() -> URL {
+public extension CoursesConfiguration {
+    func exportURL() -> URL {
         var encoded: Data!
         do {
             encoded = try JSONEncoder().encode(self)
@@ -31,7 +31,7 @@ extension CoursesConfiguration {
         return URL(string: "grconfig://\(base64)")!
     }
 
-    public func loadFromUrl(url: URL) -> CoursesConfiguration? {
+    func loadFromUrl(url: URL) -> CoursesConfiguration? {
         let string = url.absoluteString.replacingOccurrences(of: "grconfig://", with: "")
 
         guard let stringData = string.data(using: .utf8),
@@ -75,7 +75,7 @@ extension CoursesConfiguration {
         case replace
         case append
 
-        var description: String {
+        public var description: String {
             switch self {
             case .replace: "Replace"
             case .append: "Append"
@@ -83,7 +83,7 @@ extension CoursesConfiguration {
         }
     }
 
-    public func loadIntoSelf(
+    func loadIntoSelf(
         config: CoursesConfiguration,
         fields: [CoursesConfiguration.Keys: LoadStyle]
     ) {
