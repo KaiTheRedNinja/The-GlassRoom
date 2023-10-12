@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 
 /// A `NSViewController` that handles the **ProjectNavigatorView** in the **NavigatorSideabr**.
 ///

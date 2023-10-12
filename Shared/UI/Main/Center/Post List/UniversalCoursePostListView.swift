@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomAPI
+import GlassRoomInterface
 #if os(macOS)
 import KeyboardShortcuts
 #endif

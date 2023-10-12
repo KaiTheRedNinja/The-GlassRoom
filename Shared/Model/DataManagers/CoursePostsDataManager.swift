@@ -8,6 +8,7 @@
 import Foundation
 import GlassRoomAPI
 import GlassRoomTypes
+import GlassRoomInterface
 import Combine
 
 class CoursePostsDataManager: ObservableObject {

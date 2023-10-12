@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GlassRoomInterface
 
 /// this is not intended to be used outside a `List`
 struct CoursePostListView: View {

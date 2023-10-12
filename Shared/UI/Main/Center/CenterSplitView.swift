@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import GlassRoomAPI
+import GlassRoomInterface
 
 struct CenterSplitView: View {
     @Binding var selectedCourse: GeneralCourse?

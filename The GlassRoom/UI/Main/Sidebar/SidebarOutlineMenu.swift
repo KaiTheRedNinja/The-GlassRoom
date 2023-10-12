@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomAPI
+import GlassRoomInterface
 
 /// A subclass of `NSMenu` implementing the contextual menu for the project navigator
 final class SidebarOutlineMenu: NSMenu {

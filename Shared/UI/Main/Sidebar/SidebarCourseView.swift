@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import GlassRoomInterface
 
 struct SidebarCourseView: View {
     var course: GeneralCourse

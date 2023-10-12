@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 
 let loadQueue = DispatchQueue(label: "loadQueue")
 struct SearchView: View {

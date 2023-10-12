@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 
 class GlobalNotesDataManager: ObservableObject, Codable {
     @Published private(set) var notes: [CoursePost.MinimalRepresentation: String]

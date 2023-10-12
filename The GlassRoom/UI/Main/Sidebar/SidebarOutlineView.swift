@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 
 /// Wraps an ``SidebarOutlineViewController`` inside a `NSViewControllerRepresentable`
 struct SidebarOutlineView: NSViewControllerRepresentable {

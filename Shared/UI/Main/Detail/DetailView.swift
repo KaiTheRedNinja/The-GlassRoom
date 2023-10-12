@@ -5,9 +5,9 @@
 //  Created by Kai Quan Tay on 13/5/23.
 //
 
-
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 import LinkPresentation
 
 struct DetailView: View {
