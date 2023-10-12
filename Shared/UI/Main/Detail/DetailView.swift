@@ -17,7 +17,7 @@ struct DetailView: View {
     @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
 
-    @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
+    @ObservedObject var configuration: CoursesConfiguration = .global
 
     @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = false
     

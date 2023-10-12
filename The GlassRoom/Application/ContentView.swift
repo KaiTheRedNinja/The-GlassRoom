@@ -11,7 +11,7 @@ struct ContentView: View {
     @ObservedObject var userModel: UserAuthModel = .shared
     @StateObject var windowAccessor = WindowAccessor()
 
-    @State var newConfig: GlobalCoursesDataManager.CoursesConfiguration?
+    @State var newConfig: CoursesConfiguration?
 
     var body: some View {
         if let isLoggedIn = userModel.isLoggedIn {
@@ -23,7 +23,7 @@ struct ContentView: View {
                     }
                     .onOpenURL { url in
                         print("url: \(url)")
-                        let config = GlobalCoursesDataManager.global.configuration
+                        let config = CoursesConfiguration.global
                         self.newConfig = config.loadFromUrl(url: url)
                     }
                     .sheet(item: $newConfig) { _ in

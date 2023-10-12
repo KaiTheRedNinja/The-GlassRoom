@@ -22,6 +22,7 @@ struct SearchView: View {
     @FocusState var textfieldFocused: Bool
 
     @ObservedObject var courseManager: GlobalCoursesDataManager = .global
+    @ObservedObject var configuration: CoursesConfiguration = .global
     @Environment(\.presentationMode) var presentationMode
 
     @State var resultCourses: [Course] = []
@@ -138,7 +139,7 @@ struct SearchView: View {
                 Section("Courses") {
                     ForEach(resultCourses, id: \.id) { course in
                         HStack {
-                            Text(courseManager.configuration.nameFor(course.name))
+                            Text(configuration.nameFor(course.name))
                                 .onTapGesture {
                                     if selection == .course(course.id) {
                                         open()
@@ -168,7 +169,7 @@ struct SearchView: View {
                 Section("Posts") {
                     ForEach(resultPosts, id: \.0.id) { (course, posts) in
                         HStack {
-                            Text(courseManager.configuration.nameFor(course.name))
+                            Text(configuration.nameFor(course.name))
                                 .onTapGesture {
                                     if selection == .postsParent(course.id) {
                                         open()
@@ -249,14 +250,14 @@ struct SearchView: View {
 
     func matchingCourses() -> [Course] {
         let courses = courseManager.courses
-        let archived = courseManager.configuration.archive?.courses ?? []
+        let archived = configuration.archive?.courses ?? []
 
         guard !searchTerm.isEmpty else {
             return courses.filter({ !archived.contains($0.id) })
         }
 
         let filteredCourses = courses.filter { course in
-            let fixedName = courseManager.configuration.nameFor(course.name).lowercased()
+            let fixedName = configuration.nameFor(course.name).lowercased()
             let nameContains = fixedName.contains(searchTerm.lowercased()) || course.name.lowercased().contains(searchTerm.lowercased())
             //            let descriptionContains = (course.description?.lowercased().contains(searchTerm) ?? false)
             return nameContains && !archived.contains(course.id)

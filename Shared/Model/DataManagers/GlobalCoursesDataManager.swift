@@ -19,7 +19,6 @@ class GlobalCoursesDataManager: ObservableObject {
         }
     }
     @Published private(set) var loading: Bool = false
-    @Published private(set) var configuration: CoursesConfiguration = .loadedFromFileSystem()
     @Published private(set) var preArchivedCourses = []
 
     @Published var courseIdMap: [String: Course] = [:]
@@ -72,7 +71,7 @@ class GlobalCoursesDataManager: ObservableObject {
                                 
                                 for course in success.courses {
                                     if [course.courseState] == [.archived] {
-                                        self.configuration.archivePRO(item: course.id)
+                                        CoursesConfiguration.global.archivePRO(item: course.id)
                                     }
                                 }
 
