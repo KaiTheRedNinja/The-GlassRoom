@@ -157,7 +157,7 @@ extension DetailViewPage {
             ForEach(materials, id: \.id) { material in
                 ZStack {
                     if let driveFile = material.driveFile?.driveFile {
-                        LinkView(driveFile: driveFile)
+                        LinkView(url: URL(string: driveFile.alternateLink)!)
                     }
 
                     if let youtubeVideo = material.youtubeVideo {
@@ -185,7 +185,7 @@ extension DetailViewPage {
                     ForEach(materialAttachments, id: \.id) { attachment in
                         HStack {
                             if let driveFile = attachment.driveFile {
-                                LinkView(driveFile: driveFile)
+                                LinkView(url: URL(string: driveFile.alternateLink)!)
                             }
 
                             if let youtubeVideo = attachment.youtubeVideo {

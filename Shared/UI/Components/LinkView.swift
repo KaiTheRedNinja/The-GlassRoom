@@ -171,7 +171,7 @@ struct LinkView<Provider: LinkViewDataProvider>: View {
                 Image(image: preview)
                     .resizable()
                     .scaledToFill()
-                    .frame(maxWidth: 250, maxHeight: 200)
+                    .frame(maxWidth: .infinity)
                     .padding(.bottom, 16)
             }
             HStack {
@@ -183,8 +183,9 @@ struct LinkView<Provider: LinkViewDataProvider>: View {
                     Text(provider.url?.baseDomain ?? "Empty URL")
                         .opacity(0.8)
                 }
+                Spacer()
             }
-            .safeAreaInset(edge: .trailing) {
+            .safeAreaInset(edge: .trailing) { 
                 if let icon = provider.icon, provider.preview == nil {
                     Image(image: icon)
                         .resizable()
@@ -197,6 +198,8 @@ struct LinkView<Provider: LinkViewDataProvider>: View {
             .padding(.horizontal, 10)
         }
         .frame(minHeight: 35)
+        .frame(maxWidth: .infinity)
+        .frame(maxHeight: .infinity)
         .animation(.default, value: provider)
         .font(.subheadline)
         .mask {
@@ -206,19 +209,16 @@ struct LinkView<Provider: LinkViewDataProvider>: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(.ultraThickMaterial)
                 .background {
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 15)
                         .fill(Color.white)
                 }
-                .shadow(radius: 3)
+                .shadow(color: Color.black.opacity(0.2), radius: 12)
         }
+#if os(macOS)
         .contextMenu {
             if let url = provider.url {
                 Button("Open Link") {
-#if os(macOS)
                     NSWorkspace.shared.open(url)
-#else
-                    UIApplication.shared.open(url)
-#endif
                 }
             }
         } preview: {
@@ -226,6 +226,7 @@ struct LinkView<Provider: LinkViewDataProvider>: View {
                 Image(image: image)
             }
         }
+#endif
         .onAppear {
             provider.loadData()
         }

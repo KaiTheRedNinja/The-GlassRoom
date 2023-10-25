@@ -48,7 +48,6 @@ struct SingleCoursePostListView: View {
             )
             #if os(iOS)
             .toolbar {
-                if UIScreen.main.traitCollection.userInterfaceIdiom == .phone {
                     ToolbarItem(placement: .status) {
                         if let course = coursesManager.courseIdMap[postsManager.courseId] {
                             Text(configuration.nameFor(course.name))
@@ -57,7 +56,6 @@ struct SingleCoursePostListView: View {
                                 .fontWeight(.bold)
                         }
                     }
-                }
             }
             #endif
             .onAppear {
@@ -76,7 +74,6 @@ struct SingleCoursePostListView: View {
             )
             #if os(iOS)
             .toolbar {
-                if UIScreen.main.traitCollection.userInterfaceIdiom == .phone {
                     ToolbarItem(placement: .status) {
                         if let course = coursesManager.courseIdMap[postsManager.courseId] {
                             Text(configuration.nameFor(course.name))
@@ -85,7 +82,6 @@ struct SingleCoursePostListView: View {
                                 .fontWeight(.bold)
                         }
                     }
-                }
             }
             #endif
             .onAppear {
@@ -104,7 +100,6 @@ struct SingleCoursePostListView: View {
             )
             #if os(iOS)
             .toolbar {
-                if UIScreen.main.traitCollection.userInterfaceIdiom == .phone {
                     ToolbarItem(placement: .status) {
                         if let course = coursesManager.courseIdMap[postsManager.courseId] {
                             Text(configuration.nameFor(course.name))
@@ -113,7 +108,6 @@ struct SingleCoursePostListView: View {
                                 .fontWeight(.bold)
                         }
                     }
-                }
             }
             #endif
             .sheet(isPresented: $plusPressed) {

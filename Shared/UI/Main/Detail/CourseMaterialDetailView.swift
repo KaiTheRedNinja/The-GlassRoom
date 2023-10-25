@@ -28,7 +28,6 @@ struct CourseMaterialDetailView: DetailViewPage {
                                     .textSelection(.enabled)
                                 Spacer()
                             }
-                            
                             viewForButtons(link: courseWorkMaterial.alternateLink, post: .courseMaterial(courseWorkMaterial), dividerAbove: true)
 #if os(iOS)
                                 .padding(.top, 5)
@@ -76,6 +75,12 @@ struct CourseMaterialDetailView: DetailViewPage {
             }
             #if os(iOS)
             .toolbar {
+                if UIDevice().userInterfaceIdiom == .phone {
+                    ToolbarItem(placement: .principal) {
+                        Text("Material")
+                            .fontWeight(.bold)
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Link(destination: URL(string: courseWorkMaterial.alternateLink)!) {

@@ -94,6 +94,12 @@ struct CourseWorkDetailView: DetailViewPage {
             }
             #if os(iOS)
             .toolbar {
+                if UIDevice().userInterfaceIdiom == .phone {
+                    ToolbarItem(placement: .principal) {
+                        Text("Coursework")
+                            .fontWeight(.bold)
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Link(destination: URL(string: courseWork.alternateLink)!) {
