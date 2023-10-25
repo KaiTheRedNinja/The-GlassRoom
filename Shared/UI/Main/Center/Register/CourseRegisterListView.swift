@@ -26,7 +26,11 @@ struct CourseRegisterListView: View {
     
     @State var showingAlert = false
     @State var randomName = ""
+    #if os(iOS)
     @State var randomImage = UIImage()
+    #else
+    @State var randomImage = NSImage()
+    #endif
 
     var body: some View {
         ZStack {
