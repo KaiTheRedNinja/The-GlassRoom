@@ -242,7 +242,9 @@ struct SettingsView: View {
     var general: some View {
         Form {
             #if os(macOS)
+            #if DEBUG
             Toggle("Debug Mode", isOn: $debugMode)
+            #endif
             Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
             Toggle("Enable bionic reading", isOn: $enableBionicReading)
             Toggle("Tint posts background to course color", isOn: $tintToCourseColor)
@@ -261,11 +263,13 @@ struct SettingsView: View {
                 Text("Accessbility")
             }
             
+            #if DEBUG
             Section {
                 Toggle("Debug Mode", isOn: $debugMode)
             } header: {
                 Text("Developer")
             }
+            #endif
             #endif
         }
     }

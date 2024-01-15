@@ -84,14 +84,15 @@ struct UniversalCoursePostListView: View {
                 Spacer()
                 
                 if !isInSearch {
-                    if let onPlusPress {
-                        Button {
-                            onPlusPress()
-                        } label: {
-                            Image(systemName: "plus")
-                        }
-                        .buttonStyle(.plain)
-                    }
+//                    if let onPlusPress {
+//                        Button {
+//                            onPlusPress()
+//                        } label: {
+//                            Image(systemName: "plus")
+//                        }
+//                        .buttonStyle(.plain)
+//                    }
+                    Text(" ")
                 }
             }
             .padding(.horizontal, 5)
@@ -129,18 +130,19 @@ struct UniversalCoursePostListView: View {
             }
                 
             ToolbarItem(placement: .bottomBar) {
-                if isInSearch {
-                    Text(" ")
-                } else {
-                    if let onPlusPress {
-                        Button {
-                            onPlusPress()
-                        } label: {
-                            Image(systemName: "plus")
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
+//                if isInSearch {
+//                    Text(" ")
+//                } else {
+//                    if let onPlusPress {
+//                        Button {
+//                            onPlusPress()
+//                        } label: {
+//                            Image(systemName: "plus")
+//                        }
+//                        .buttonStyle(.plain)
+//                    }
+//                }
+                Text(" ")
             }
         }
         .searchable(text: $searchQuery)

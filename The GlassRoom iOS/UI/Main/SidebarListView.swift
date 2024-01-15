@@ -8,11 +8,12 @@
 import SwiftUI
 import GlassRoomTypes
 import GlassRoomAPI
+import GlassRoomInterface
 
 struct SidebarListView: View {
     @Binding var selection: GeneralCourse?
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
-    @ObservedObject var configuration = GlobalCoursesDataManager.CoursesConfiguration.loadedFromFileSystem()
+    @ObservedObject var configuration: CoursesConfiguration = .global
     
     @State var searchQuery: String = ""
 

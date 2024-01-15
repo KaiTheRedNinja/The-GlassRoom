@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1500"
+   LastUpgradeVersion = "1510"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "937EA5B52A0CD9F8005F11C5"
-               BuildableName = "Glassroom.app"
-               BlueprintName = "Glassroom"
+               BlueprintIdentifier = "933F390E2A4438B4006E13AC"
+               BuildableName = "Glassroom&#x200b;.app"
+               BlueprintName = "Glassroom&#x200b;"
                ReferencedContainer = "container:The GlassRoom.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,9 +43,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "937EA5B52A0CD9F8005F11C5"
-            BuildableName = "Glassroom.app"
-            BlueprintName = "Glassroom"
+            BlueprintIdentifier = "933F390E2A4438B4006E13AC"
+            BuildableName = "Glassroom&#x200b;.app"
+            BlueprintName = "Glassroom&#x200b;"
             ReferencedContainer = "container:The GlassRoom.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -60,9 +60,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "937EA5B52A0CD9F8005F11C5"
-            BuildableName = "Glassroom.app"
-            BlueprintName = "Glassroom"
+            BlueprintIdentifier = "933F390E2A4438B4006E13AC"
+            BuildableName = "Glassroom&#x200b;.app"
+            BlueprintName = "Glassroom&#x200b;"
             ReferencedContainer = "container:The GlassRoom.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
