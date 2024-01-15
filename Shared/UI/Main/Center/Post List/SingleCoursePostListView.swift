@@ -60,32 +60,32 @@ struct SingleCoursePostListView: View {
             .onAppear {
                 postsManager.loadList()
             }
-        case .userRegister:
-            CourseRegisterListView(
-                teachers: profilesManager.teachers[postsManager.courseId] ?? [],
-                students: profilesManager.students[postsManager.courseId] ?? [],
-                isEmpty: (profilesManager.teachers[postsManager.courseId] ?? []).isEmpty &&
-                         (profilesManager.students[postsManager.courseId] ?? []).isEmpty,
-                isLoading: profilesManager.loading,
-                hasNextPage: profilesManager.hasNextPage,
-                loadList: { profilesManager.loadList(for: postsManager.courseId, bypassCache: $0) },
-                refreshList: { profilesManager.refreshList(for: postsManager.courseId) }
-            )
-            #if os(iOS)
-            .toolbar {
-                    ToolbarItem(placement: .status) {
-                        if let course = coursesManager.courseIdMap[postsManager.courseId] {
-                            Text(configuration.nameFor(course.name))
-                                .padding(.horizontal)
-                                .font(.subheadline)
-                                .fontWeight(.bold)
-                        }
-                    }
-            }
-            #endif
-            .onAppear {
-                profilesManager.loadList(for: postsManager.courseId)
-            }
+//        case .userRegister:
+//            CourseRegisterListView(
+//                teachers: profilesManager.teachers[postsManager.courseId] ?? [],
+//                students: profilesManager.students[postsManager.courseId] ?? [],
+//                isEmpty: (profilesManager.teachers[postsManager.courseId] ?? []).isEmpty &&
+//                         (profilesManager.students[postsManager.courseId] ?? []).isEmpty,
+//                isLoading: profilesManager.loading,
+//                hasNextPage: profilesManager.hasNextPage,
+//                loadList: { profilesManager.loadList(for: postsManager.courseId, bypassCache: $0) },
+//                refreshList: { profilesManager.refreshList(for: postsManager.courseId) }
+//            )
+//            #if os(iOS)
+//            .toolbar {
+//                    ToolbarItem(placement: .status) {
+//                        if let course = coursesManager.courseIdMap[postsManager.courseId] {
+//                            Text(configuration.nameFor(course.name))
+//                                .padding(.horizontal)
+//                                .font(.subheadline)
+//                                .fontWeight(.bold)
+//                        }
+//                    }
+//            }
+//            #endif
+//            .onAppear {
+//                profilesManager.loadList(for: postsManager.courseId)
+//            }
         default:
             UniversalCoursePostListView(
                 isInSearch: isInSearch,

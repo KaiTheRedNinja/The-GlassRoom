@@ -33,33 +33,33 @@ struct MultiCoursePostListView: View {
     }
 
     var body: some View {
-        switch displayOption {
-        case .userRegister:
-            // TODO: User register list for multiple courses
-            Text("User Register List")
-        default:
-            UniversalCoursePostListView(isInSearch: false,
-                                        selectedPost: $selectedPost,
-                               showPostCourseOrigin: true,
-                               postData: postData,
-                               isLoading: isLoading,
-                               hasNextPage: hasNextPage,
-                               loadList: loadList,
-                               refreshList: refreshList)
-            .onChange(of: displayedCourseManager.displayedAggregateCourseIds) { _ in
-                postsManager.array = displayedCourseManager.displayedAggregateCourseIds.map { value in
-                    let manager = CoursePostsDataManager.getManager(for: value)
-                    if manager.postData.isEmpty {
-                        manager.loadList()
-                    }
-                    return manager
+        //        switch displayOption {
+        //        case .userRegister:
+        //            // TODO: User register list for multiple courses
+        //            Text("User Register List")
+        //        default:
+        UniversalCoursePostListView(isInSearch: false,
+                                    selectedPost: $selectedPost,
+                                    showPostCourseOrigin: true,
+                                    postData: postData,
+                                    isLoading: isLoading,
+                                    hasNextPage: hasNextPage,
+                                    loadList: loadList,
+                                    refreshList: refreshList)
+        .onChange(of: displayedCourseManager.displayedAggregateCourseIds) { _ in
+            postsManager.array = displayedCourseManager.displayedAggregateCourseIds.map { value in
+                let manager = CoursePostsDataManager.getManager(for: value)
+                if manager.postData.isEmpty {
+                    manager.loadList()
                 }
-                updatePostData()
+                return manager
             }
-            .onChange(of: displayOption) { _ in
-                updatePostData()
-            }
+            updatePostData()
         }
+        .onChange(of: displayOption) { _ in
+            updatePostData()
+        }
+        //        }
     }
 
     func updatePostData() {

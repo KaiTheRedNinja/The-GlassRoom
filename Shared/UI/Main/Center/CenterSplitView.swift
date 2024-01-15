@@ -65,8 +65,8 @@ struct CenterSplitView: View {
                         .tag(CourseDisplayOption.courseMaterial)
                     Image(systemName: "link")
                         .tag(CourseDisplayOption.resources)
-                    Image(systemName: "person.2")
-                        .tag(CourseDisplayOption.userRegister)
+//                    Image(systemName: "person.2")
+//                        .tag(CourseDisplayOption.userRegister)
                 }
                 .pickerStyle(.segmented)
             }
@@ -167,11 +167,11 @@ struct CenterSplitView: View {
 
             // if the class register is currently focused, reload it
             let profileManager = GlobalUserProfilesDataManager.global
-            if currentPage == .userRegister,
-               (profileManager.students[course]?.isEmpty ?? true) &&
-               (profileManager.teachers[course]?.isEmpty ?? true) {
-                profileManager.loadList(for: course)
-            }
+//            if currentPage == .userRegister,
+//               (profileManager.students[course]?.isEmpty ?? true) &&
+//               (profileManager.teachers[course]?.isEmpty ?? true) {
+//                profileManager.loadList(for: course)
+//            }
 
             // TODO: Intelligently refresh
         default: return
@@ -184,10 +184,10 @@ struct CenterSplitView: View {
         case courseWork = "Courseworks"
         case courseMaterial = "Coursework Materials"
         case resources = "Resources"
-        case userRegister = "Register"
+//        case userRegister = "Register"
 
         static var allCases: [CenterSplitView.CourseDisplayOption] = [
-            .allPosts, .announcements, .courseWork, .courseMaterial, .resources, .userRegister
+            .allPosts, .announcements, .courseWork, .courseMaterial, .resources
         ]
     }
 }
