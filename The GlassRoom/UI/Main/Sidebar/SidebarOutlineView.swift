@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 
 /// Wraps an ``SidebarOutlineViewController`` inside a `NSViewControllerRepresentable`
 struct SidebarOutlineView: NSViewControllerRepresentable {
@@ -16,7 +17,7 @@ struct SidebarOutlineView: NSViewControllerRepresentable {
     @Binding var renamedGroup: String?
     var courses: [Course]
 
-    @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
+    @ObservedObject var configuration = CoursesConfiguration.global
 
     func makeNSViewController(context: Context) -> SidebarOutlineViewController {
         let controller = SidebarOutlineViewController()

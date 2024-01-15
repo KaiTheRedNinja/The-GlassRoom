@@ -9,15 +9,15 @@ import Foundation
 import GlassRoomAPI
 import GlassRoomTypes
 
-class CourseWorkSubmissionDataManager: ObservableObject {
-    @Published private(set) var submissions: [StudentSubmission] = []
-    @Published private(set) var loading: Bool = false
-    @Published private(set) var nextPageToken: String?
+public class CourseWorkSubmissionDataManager: ObservableObject {
+    @Published public private(set) var submissions: [StudentSubmission] = []
+    @Published public private(set) var loading: Bool = false
+    @Published public private(set) var nextPageToken: String?
 
-    let courseId: String
-    let courseWorkId: String
+    public let courseId: String
+    public let courseWorkId: String
 
-    init(courseId: String, courseWorkId: String) {
+    public init(courseId: String, courseWorkId: String) {
         self.courseId = courseId
         self.courseWorkId = courseWorkId
 
@@ -29,7 +29,7 @@ class CourseWorkSubmissionDataManager: ObservableObject {
         }
     }
 
-    func loadList(bypassCache: Bool = false) {
+    public func loadList(bypassCache: Bool = false) {
         loading = true
         let cachedSubmissions = readCache()
         if !cachedSubmissions.isEmpty {
@@ -48,11 +48,11 @@ class CourseWorkSubmissionDataManager: ObservableObject {
         }
     }
 
-    func clearCache() {
+    public func clearCache() {
         FileSystem.write([StudentSubmission](), to: .submissions(courseId, courseWorkId))
     }
 
-    func readCache() -> [StudentSubmission] {
+    public func readCache() -> [StudentSubmission] {
         // if the file exists in CourseCache
         if FileSystem.exists(file: .submissions(courseId, courseWorkId)),
            let cacheItems = FileSystem.read([StudentSubmission].self, from: .submissions(courseId, courseWorkId)) {
@@ -61,13 +61,13 @@ class CourseWorkSubmissionDataManager: ObservableObject {
         return []
     }
 
-    func writeCache() {
+    public func writeCache() {
         FileSystem.write(submissions, to: .submissions(courseId, courseWorkId)) { error in
             Log.error("Error writing: \(error.localizedDescription)")
         }
     }
 
-    func refreshList(nextPageToken: String? = nil, requestNextPageIfExists: Bool = false) {
+    public func refreshList(nextPageToken: String? = nil, requestNextPageIfExists: Bool = false) {
         self.loading = true
         GlassRoomAPI.GRCourses.GRCourseWork.GRStudentSubmissions.list(
             params: .init(courseId: courseId, courseWorkId: courseWorkId),
@@ -105,9 +105,9 @@ class CourseWorkSubmissionDataManager: ObservableObject {
     }
 
     // MARK: Static functions
-    static private(set) var loadedManagers: [String: [String: CourseWorkSubmissionDataManager]] = [:]
+    public static private(set) var loadedManagers: [String: [String: CourseWorkSubmissionDataManager]] = [:]
 
-    static func getManager(for courseId: String, courseWorkId: String) -> CourseWorkSubmissionDataManager {
+    public static func getManager(for courseId: String, courseWorkId: String) -> CourseWorkSubmissionDataManager {
         if let courseManagers = loadedManagers[courseId],
            let manager = courseManagers[courseWorkId] {
             return manager

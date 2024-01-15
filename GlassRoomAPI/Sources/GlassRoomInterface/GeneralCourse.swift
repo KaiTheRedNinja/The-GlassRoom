@@ -8,13 +8,13 @@
 import Foundation
 import GlassRoomAPI
 
-enum GeneralCourse: Hashable, Identifiable {
+public enum GeneralCourse: Hashable, Identifiable {
     case course(String)
     case allTeaching
     case allEnrolled
     case group(String)
 
-    var id: String {
+    public var id: String {
         switch self {
         case .course(let id):
             return id
@@ -27,11 +27,11 @@ enum GeneralCourse: Hashable, Identifiable {
         }
     }
 
-    static func == (lhs: GeneralCourse, rhs: GeneralCourse) -> Bool {
+    public static func == (lhs: GeneralCourse, rhs: GeneralCourse) -> Bool {
         lhs.id == rhs.id
     }
 
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 }

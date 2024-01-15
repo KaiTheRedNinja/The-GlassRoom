@@ -33,10 +33,6 @@ struct The_GlassRoomApp: App {
                 .navigationTitle("API Calls")
         }
 
-        WindowGroup(id: "notesView") {
-            NotesView()
-        }
-
         Settings {
             SettingsView()
                 .focusable(false)

@@ -8,12 +8,12 @@
 import Foundation
 import GlassRoomTypes
 
-enum CoursePost: Hashable, Identifiable, Codable {
+public enum CoursePost: Hashable, Identifiable, Codable {
     case announcement(CourseAnnouncement)
     case courseWork(CourseWork)
     case courseMaterial(CourseWorkMaterial)
 
-    var id: String {
+    public var id: String {
         switch self {
         case .announcement(let courseAnnouncement):
             return courseAnnouncement.id
@@ -24,7 +24,7 @@ enum CoursePost: Hashable, Identifiable, Codable {
         }
     }
 
-    var creationDate: Date {
+    public var creationDate: Date {
         switch self {
         case .announcement(let courseAnnouncement):
             return courseAnnouncement.creationDate
@@ -35,7 +35,7 @@ enum CoursePost: Hashable, Identifiable, Codable {
         }
     }
 
-    var updateDate: Date {
+    public var updateDate: Date {
         switch self {
         case .announcement(let courseAnnouncement):
             return courseAnnouncement.updateDate
@@ -46,7 +46,7 @@ enum CoursePost: Hashable, Identifiable, Codable {
         }
     }
 
-    var courseId: String {
+    public var courseId: String {
         switch self {
         case .announcement(let courseAnnouncement):
             return courseAnnouncement.courseId
@@ -57,20 +57,20 @@ enum CoursePost: Hashable, Identifiable, Codable {
         }
     }
 
-    static func == (lhs: CoursePost, rhs: CoursePost) -> Bool {
+    public static func == (lhs: CoursePost, rhs: CoursePost) -> Bool {
         lhs.id == rhs.id
     }
 
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 
-    struct MinimalRepresentation: Codable, Identifiable, Hashable {
-        var courseId: String
-        var id: String
+    public struct MinimalRepresentation: Codable, Identifiable, Hashable {
+        public var courseId: String
+        public var id: String
     }
 
-    var minimalRepresentation: MinimalRepresentation {
+    public var minimalRepresentation: MinimalRepresentation {
         .init(courseId: courseId, id: id)
     }
 }

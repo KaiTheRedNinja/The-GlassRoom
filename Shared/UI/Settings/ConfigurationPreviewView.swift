@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import GlassRoomInterface
 
-fileprivate typealias ConfigKeys = GlobalCoursesDataManager.CoursesConfiguration.Keys
-fileprivate typealias ConfigLoadStyle = GlobalCoursesDataManager.CoursesConfiguration.LoadStyle
+fileprivate typealias ConfigKeys = CoursesConfiguration.Keys
+fileprivate typealias ConfigLoadStyle = CoursesConfiguration.LoadStyle
 
 struct ConfigurationPreviewView: View {
-    @Binding var configuration: GlobalCoursesDataManager.CoursesConfiguration?
+    @Binding var configuration: CoursesConfiguration?
 
-    init(configuration: Binding<GlobalCoursesDataManager.CoursesConfiguration?>) {
+    init(configuration: Binding<CoursesConfiguration?>) {
         self._configuration = configuration
         self.fields = [:]
     }
@@ -55,7 +56,7 @@ struct ConfigurationPreviewView: View {
             Section {
                 Button("Load") {
                     guard let configuration else { return }
-                    GlobalCoursesDataManager.global.configuration.loadIntoSelf(config: configuration, fields: fields)
+                    CoursesConfiguration.global.loadIntoSelf(config: configuration, fields: fields)
                 }
                 Button("Cancel") {
                     configuration = nil

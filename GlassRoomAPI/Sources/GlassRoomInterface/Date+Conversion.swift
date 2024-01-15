@@ -1,13 +1,13 @@
 //
-//  Date+Format.swift
-//  The GlassRoom
+//  Date+Conversion.swift
 //
-//  Created by Kai Quan Tay on 14/5/23.
+//
+//  Created by Kai Quan Tay on 12/10/23.
 //
 
 import Foundation
 
-func convertDate(_ dateString: String, _ dateStyle: Date.FormatStyle.DateStyle? = nil, _ timeStyle: Date.FormatStyle.TimeStyle? = nil) -> String {
+public func convertDate(_ dateString: String, _ dateStyle: Date.FormatStyle.DateStyle? = nil, _ timeStyle: Date.FormatStyle.TimeStyle? = nil) -> String {
     var returnDateString = ""
 
     if let date = dateString.iso8601withFractionalSeconds {
@@ -25,24 +25,24 @@ func convertDate(_ dateString: String, _ dateStyle: Date.FormatStyle.DateStyle? 
     return returnDateString
 }
 
-extension ISO8601DateFormatter {
+public extension ISO8601DateFormatter {
     convenience init(_ formatOptions: Options) {
         self.init()
         self.formatOptions = formatOptions
     }
 }
 
-extension Formatter {
+public extension Formatter {
     static let iso8601withFractionalSeconds = ISO8601DateFormatter([.withInternetDateTime, .withFractionalSeconds])
     static let iso8601withoutFractionalSeconds = ISO8601DateFormatter([.withInternetDateTime])
 }
 
-extension Date {
+public extension Date {
     var iso8601withFractionalSeconds: String { return Formatter.iso8601withFractionalSeconds.string(from: self) }
     var iso8601withoutFractionalSeconds: String { return Formatter.iso8601withoutFractionalSeconds.string(from: self) }
 }
 
-extension String {
+public extension String {
     var iso8601withFractionalSeconds: Date? { return Formatter.iso8601withFractionalSeconds.date(from: self) }
     var iso8601withoutFractionalSeconds: Date? { return Formatter.iso8601withoutFractionalSeconds.date(from: self) }
 }

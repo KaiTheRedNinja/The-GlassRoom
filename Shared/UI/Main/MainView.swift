@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 #if os(macOS)
 import KeyboardShortcuts
 #endif
@@ -129,14 +130,14 @@ struct MainView: View {
         if let selectedCourse {
             switch selectedCourse {
             case .course(let string):
-                let configuration = GlobalCoursesDataManager.global.configuration
+                let configuration = CoursesConfiguration.global
                 value += configuration.nameFor(GlobalCoursesDataManager.global.courseIdMap[string]?.name ?? "")
             case .allTeaching:
                 value += "Teaching"
             case .allEnrolled:
                 value += "Enrolled"
             case .group(let string):
-                let configuration = GlobalCoursesDataManager.global.configuration
+                let configuration = CoursesConfiguration.global
                 value += configuration.groupIdMap[string]?.groupName ?? ""
             }
         }
@@ -233,7 +234,7 @@ struct MainView: View {
 
     func loadCachedStreams() {
         let coursesManager = GlobalCoursesDataManager.global
-        let archived = coursesManager.configuration.archive?.courses ?? []
+        let archived = CoursesConfiguration.global.archive?.courses ?? []
         if coursesManager.courses.isEmpty {
             coursesManager.loadList()
         }

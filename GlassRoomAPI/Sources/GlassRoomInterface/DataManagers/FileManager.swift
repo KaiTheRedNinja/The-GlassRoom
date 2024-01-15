@@ -8,11 +8,12 @@
 import Foundation
 import GlassRoomTypes
 
-enum FileSystem {
-    enum FileName {
+public enum FileSystem {
+    public static var currentUserEmail: String?
+
+    public enum FileName {
         case courses
         case courseConfigurations
-        case notes
         case announcements(String)
         case courseWorks(String)
         case courseMaterials(String)
@@ -21,14 +22,13 @@ enum FileSystem {
         case teacherReferences(String)
         case userProfiles
 
-        var fileName: String {
-            guard let currentUserEmail = UserAuthModel.shared.email else {
+        public var fileName: String {
+            guard let currentUserEmail = FileSystem.currentUserEmail else {
                 fatalError("Could not save cache")
             }
             switch self {
             case .courses: return "\(currentUserEmail)/courseCache.json"
             case .courseConfigurations: return "\(currentUserEmail)/courseConfigurations.json"
-            case .notes: return "\(currentUserEmail)/notes.json"
             case .announcements(let courseId): return "\(currentUserEmail)/courses/\(courseId)/announcements.json"
             case .courseWorks(let courseId): return "\(currentUserEmail)/courses/\(courseId)/courseWorks/courseWorks.json"
             case .courseMaterials(let courseId): return "\(currentUserEmail)/courses/\(courseId)/courseMaterials.json"
@@ -41,7 +41,7 @@ enum FileSystem {
     }
 
     /// Reads a type from a file
-    static func read<T: Decodable>(_ type: T.Type, from file: FileName) -> T? {
+    public static func read<T: Decodable>(_ type: T.Type, from file: FileName) -> T? {
         let filename = getDocumentsDirectory().appendingPathComponent(file.fileName)
         if let data = try? Data(contentsOf: filename) {
             if let values = try? JSONDecoder().decode(T.self, from: data) {
@@ -53,7 +53,7 @@ enum FileSystem {
     }
 
     /// Writes a type to a file
-    static func write<T: Encodable>(_ value: T, to file: FileName, error onError: @escaping (Error) -> Void = { _ in }) {
+    public static func write<T: Encodable>(_ value: T, to file: FileName, error onError: @escaping (Error) -> Void = { _ in }) {
         var encoded: Data
 
         do {
@@ -80,18 +80,18 @@ enum FileSystem {
     }
 
     /// Checks if a file exists at a path
-    static func exists(file: FileName) -> Bool {
+    public static func exists(file: FileName) -> Bool {
         let path = getDocumentsDirectory().appendingPathComponent(file.fileName)
         return FileManager.default.fileExists(atPath: path.relativePath)
     }
 
     /// Returns the URL of the path
-    static func path(file: FileName) -> URL {
+    public static func path(file: FileName) -> URL {
         getDocumentsDirectory().appendingPathComponent(file.fileName)
     }
 
     /// Gets the documents directory
-    static func getDocumentsDirectory() -> URL {
+    public static func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 //        Log.info("Documents directory at \(paths[0])")
         return paths[0]

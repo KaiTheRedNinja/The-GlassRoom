@@ -8,17 +8,18 @@
 import Foundation
 import GlassRoomAPI
 import GlassRoomTypes
+import GlassRoomInterface
 import Combine
 
-class CoursePostsDataManager: ObservableObject {
-    @Published private(set) var courseAnnouncements: [CourseAnnouncement] = []
-    @Published private(set) var courseCourseWorks: [CourseWork] = []
-    @Published private(set) var courseCourseMaterials: [CourseWorkMaterial] = []
+public class CoursePostsDataManager: ObservableObject {
+    @Published public private(set) var courseAnnouncements: [CourseAnnouncement] = []
+    @Published public private(set) var courseCourseWorks: [CourseWork] = []
+    @Published public private(set) var courseCourseMaterials: [CourseWorkMaterial] = []
 
     // used to determine if it should refresh or not
-    @Published private(set) var lastRefreshDate: Date?
+    @Published public private(set) var lastRefreshDate: Date?
 
-    var postData: [CoursePost] {
+    public var postData: [CoursePost] {
         self.courseAnnouncements.map({ .announcement($0) })
             .mergedWith(other: courseCourseWorks.map({ .courseWork($0) })) { lhs, rhs in
                 lhs.id == rhs.id
@@ -32,34 +33,34 @@ class CoursePostsDataManager: ObservableObject {
             }
     }
 
-    var postDataIsEmpty: Bool {
+    public var postDataIsEmpty: Bool {
         courseAnnouncements.isEmpty && courseCourseWorks.isEmpty && courseCourseMaterials.isEmpty
     }
 
-    let courseId: String
+    public let courseId: String
 
-    var loading: Bool {
+    public var loading: Bool {
         announcementsLoading || courseWorksLoading || courseMaterialsLoading
     }
-    var hasNextPage: Bool {
+    public var hasNextPage: Bool {
         announcementsNextPageToken != nil || courseWorksNextPageToken != nil || courseMaterialsNextPageToken != nil
     }
 
-    @Published private(set) var announcementsLoading: Bool = false
-    @Published private(set) var courseWorksLoading: Bool = false
-    @Published private(set) var courseMaterialsLoading: Bool = false
+    @Published public private(set) var announcementsLoading: Bool = false
+    @Published public private(set) var courseWorksLoading: Bool = false
+    @Published public private(set) var courseMaterialsLoading: Bool = false
 
-    @Published private(set) var announcementsNextPageToken: String?
-    @Published private(set) var courseWorksNextPageToken: String?
-    @Published private(set) var courseMaterialsNextPageToken: String?
+    @Published public private(set) var announcementsNextPageToken: String?
+    @Published public private(set) var courseWorksNextPageToken: String?
+    @Published public private(set) var courseMaterialsNextPageToken: String?
 
-    init(courseId: String) {
+    public init(courseId: String) {
         self.courseId = courseId
 
         CoursePostsDataManager.loadedManagers[courseId] = self
     }
 
-    func loadList(bypassCache: Bool = false, onlyCache: Bool = false) {
+    public func loadList(bypassCache: Bool = false, onlyCache: Bool = false) {
         announcementsLoading = true
         courseWorksLoading = true
         courseMaterialsLoading = true
@@ -104,7 +105,7 @@ class CoursePostsDataManager: ObservableObject {
         }
     }
 
-    func refreshList(requestNextPageIfExists: Bool = false) {
+    public func refreshList(requestNextPageIfExists: Bool = false) {
         announcementsLoading = true
         courseWorksLoading = true
         courseMaterialsLoading = true
@@ -114,17 +115,17 @@ class CoursePostsDataManager: ObservableObject {
         refreshCourseMaterialsList(requestNextPageIfExists: requestNextPageIfExists)
     }
 
-    func clearCache(courseId: String) {
+    public func clearCache(courseId: String) {
         FileSystem.write([CourseAnnouncement](), to: .announcements(courseId))
         FileSystem.write([CourseWork](), to: .courseWorks(courseId))
         FileSystem.write([CourseWorkMaterial](), to: .courseMaterials(courseId))
     }
 
     // MARK: Static functions
-    static private(set) var loadedManagers: [String: CoursePostsDataManager] = [:]
-    static private(set) var loadedManagersPublisher: CurrentValueSubject<[String: CoursePostsDataManager], Never> = .init([:])
+    public static private(set) var loadedManagers: [String: CoursePostsDataManager] = [:]
+    public static private(set) var loadedManagersPublisher: CurrentValueSubject<[String: CoursePostsDataManager], Never> = .init([:])
 
-    static func getManager(for courseId: String) -> CoursePostsDataManager {
+    public static func getManager(for courseId: String) -> CoursePostsDataManager {
         if let manager = loadedManagers[courseId] {
             return manager
         }
@@ -286,7 +287,9 @@ extension CoursePostsDataManager {
             }
         }
     }
-    
+}
+
+public extension CoursePostsDataManager {
     func createNewAnnouncement(courseId: String,
                                id: String,
                                text: String,

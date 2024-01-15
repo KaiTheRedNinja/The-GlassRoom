@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import GlassRoomInterface
 
 struct RenameCourseGroupView: View {
-    @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
+    @ObservedObject var configuration: CoursesConfiguration = .global
     @Environment(\.presentationMode) var presentationMode
 
     var groupString: String

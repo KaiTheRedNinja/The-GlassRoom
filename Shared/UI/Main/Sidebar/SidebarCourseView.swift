@@ -7,12 +7,13 @@
 
 import SwiftUI
 import Combine
+import GlassRoomInterface
 
 struct SidebarCourseView: View {
     var course: GeneralCourse
 
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
-    @ObservedObject var configuration: GlobalCoursesDataManager.CoursesConfiguration = GlobalCoursesDataManager.global.configuration
+    @ObservedObject var configuration: CoursesConfiguration = .global
 
     @State var coursePostsDataManagerWatcher: AnyCancellable?
     @State var postDataManagerWatcher: AnyCancellable?

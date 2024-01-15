@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import GlassRoomAPI
+import GlassRoomInterface
 
 struct CenterSplitView: View {
     @Binding var selectedCourse: GeneralCourse?
@@ -17,7 +17,7 @@ struct CenterSplitView: View {
 
     @StateObject var displayedCoursesManager: DisplayedCourseManager = .init()
 
-    @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
+    @ObservedObject var configuration: CoursesConfiguration = .global
 
     @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = false
     @AppStorage("useFancyUI") var useFancyUI: Bool = false

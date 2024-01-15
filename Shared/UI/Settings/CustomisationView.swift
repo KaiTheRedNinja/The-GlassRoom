@@ -7,10 +7,11 @@
 
 import SwiftUI
 import SymbolPicker
+import GlassRoomInterface
 
 struct CustomisationView: View {
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
-    @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
+    @ObservedObject var configuration: CoursesConfiguration = .global
 
     @State var selectedIconReplacement: String?
     @State var showIconPopup: Bool = false

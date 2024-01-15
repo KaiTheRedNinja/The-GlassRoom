@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 
 struct SingleCoursePostListView: View {
     
@@ -20,7 +21,7 @@ struct SingleCoursePostListView: View {
     @ObservedObject var postsManager: CoursePostsDataManager
     @ObservedObject var profilesManager: GlobalUserProfilesDataManager = .global
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
-    @ObservedObject var configuration: GlobalCoursesDataManager.CoursesConfiguration = GlobalCoursesDataManager.global.configuration
+    @ObservedObject var configuration: CoursesConfiguration = .global
 
     init(selectedPost: Binding<CoursePost?>,
          displayOption: Binding<CenterSplitView.CourseDisplayOption>,

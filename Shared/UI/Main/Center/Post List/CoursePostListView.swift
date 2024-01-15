@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GlassRoomInterface
 
 /// this is not intended to be used outside a `List`
 struct CoursePostListView: View {
@@ -14,6 +15,7 @@ struct CoursePostListView: View {
     var showTimeIndicators: Bool = true
 
     @ObservedObject var courseManager: GlobalCoursesDataManager = .global
+    @ObservedObject var configuration: CoursesConfiguration = .global
 
     var postItemView: (CoursePost) -> AnyView = { AnyView(CoursePostItem(coursePost: $0)) }
 
@@ -33,7 +35,7 @@ struct CoursePostListView: View {
             VStack {
                 if showPostCourseOrigin, let firstOccurence = courseManager.courses.first(where: { $0.id == post.courseId }) {
                     HStack {
-                        Text(courseManager.configuration.nameFor(firstOccurence.name))
+                        Text(configuration.nameFor(firstOccurence.name))
                             .bold()
                             .foregroundColor(.gray)
                             .font(.caption)

@@ -5,9 +5,9 @@
 //  Created by Kai Quan Tay on 13/5/23.
 //
 
-
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 import LinkPresentation
 
 struct DetailView: View {
@@ -17,7 +17,7 @@ struct DetailView: View {
     @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
 
-    @ObservedObject var configuration = GlobalCoursesDataManager.global.configuration
+    @ObservedObject var configuration: CoursesConfiguration = .global
 
     @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = false
     
@@ -143,12 +143,8 @@ extension DetailViewPage {
                 }
                 .padding(.leading, 5)
                 .buttonStyle(.plain)
-
-                OpenNotesButton(post: post)
             }
             #endif
-
-            PostNoteView(post: post, dividerAbove: dividerAbove)
         }
     }
 
@@ -208,85 +204,6 @@ extension DetailViewPage {
                 }
             }
             .cornerRadius(8)
-        }
-    }
-}
-
-struct OpenNotesButton: View {
-    var post: CoursePost
-
-    @ObservedObject var manager = GlobalNotesDataManager.loadedFromFileSystem()
-
-    var body: some View {
-        Button(role: manager.notes.keys.contains(post.minimalRepresentation) ? .destructive : .none) {
-            // create the note if it exists, delete it if not.
-            if manager.notes.keys.contains(post.minimalRepresentation) {
-                manager.updateNote(post.minimalRepresentation, with: nil)
-            } else {
-                manager.updateNote(post.minimalRepresentation, with: "Empty Note")
-            }
-        } label: {
-            #if os(macOS)
-            ZStack(alignment: .bottomTrailing) {
-                Image(systemName: manager.notes.keys.contains(post.minimalRepresentation) ? "note.text" : "note.text.badge.plus")
-                if manager.notes.keys.contains(post.minimalRepresentation) {
-                    Image(systemName: "trash.circle.fill")
-                        .resizable()
-                        .background {
-                            Circle()
-                                .fill(.thickMaterial)
-                        }
-                        .scaledToFit()
-                        .frame(width: 10, height: 10)
-                        .offset(y: 2)
-                }
-            }
-            #else
-            Label("\(manager.notes.keys.contains(post.minimalRepresentation) ? "Remove" : "Add") Note", systemImage: manager.notes.keys.contains(post.minimalRepresentation) ? "trash" : "note.text.badge.plus")
-            #endif
-        }
-        .buttonStyle(.plain)
-    }
-}
-
-struct PostNoteView: View {
-    @ObservedObject var notesManager: GlobalNotesDataManager = .loadedFromFileSystem()
-
-    var post: CoursePost
-
-    @State var dividerAbove: Bool
-    @State var textContents: String = ""
-
-    var body: some View {
-        if let noteContents = notesManager.notes[post.minimalRepresentation] {
-            VStack {
-                #if os(macOS)
-                Divider()
-                    .padding(.vertical, 10)
-                #else
-                if dividerAbove {
-                    Divider()
-                        .padding(.vertical, 10)
-                }
-                #endif
-                TextEditor(text: $textContents)
-                #if os(macOS)
-                    .padding(-5)
-                #endif
-                    .onChange(of: textContents) { _ in
-                        notesManager.updateNote(post.minimalRepresentation, with: textContents)
-                    }
-                    .scrollIndicators(.never)
-                #if os(iOS)
-                if !dividerAbove {
-                    Divider()
-                        .padding(.vertical, 5)
-                }
-                #endif
-            }
-            .onAppear {
-                textContents = noteContents
-            }
         }
     }
 }

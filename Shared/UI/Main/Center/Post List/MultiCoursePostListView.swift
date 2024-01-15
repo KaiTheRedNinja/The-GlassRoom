@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import GlassRoomInterface
 
 struct MultiCoursePostListView: View {
     @Binding var selectedPost: CoursePost?

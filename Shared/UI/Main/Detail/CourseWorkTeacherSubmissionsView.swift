@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 
 struct CourseWorkTeacherSubmissionsView<AttachmentView: View>: View {
     var submissions: [StudentSubmission]

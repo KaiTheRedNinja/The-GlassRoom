@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomAPI
+import GlassRoomInterface
 
 /// A subclass of `NSMenu` implementing the contextual menu for the project navigator
 final class SidebarOutlineMenu: NSMenu {
@@ -47,7 +48,7 @@ final class SidebarOutlineMenu: NSMenu {
     private func setupMenu() {
         guard let item = item as? GeneralCourse else { return }
 
-        let isArchived = GlobalCoursesDataManager.global.configuration.archive?.courses.contains(item.id) ?? false
+        let isArchived = CoursesConfiguration.global.archive?.courses.contains(item.id) ?? false
 
         switch item {
         case .group(_):
@@ -88,7 +89,7 @@ final class SidebarOutlineMenu: NSMenu {
     @objc
     func archive() {
         guard let item = item as? GeneralCourse else { return }
-        let config = GlobalCoursesDataManager.global.configuration
+        let config = CoursesConfiguration.global
         config.archive(item: item)
     }
 

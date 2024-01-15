@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-extension GlobalCoursesDataManager.CoursesConfiguration {
-    public func exportURL() -> URL {
+public extension CoursesConfiguration {
+    func exportURL() -> URL {
         var encoded: Data!
         do {
             encoded = try JSONEncoder().encode(self)
@@ -31,7 +31,7 @@ extension GlobalCoursesDataManager.CoursesConfiguration {
         return URL(string: "grconfig://\(base64)")!
     }
 
-    public func loadFromUrl(url: URL) -> GlobalCoursesDataManager.CoursesConfiguration? {
+    func loadFromUrl(url: URL) -> CoursesConfiguration? {
         let string = url.absoluteString.replacingOccurrences(of: "grconfig://", with: "")
 
         guard let stringData = string.data(using: .utf8),
@@ -43,7 +43,7 @@ extension GlobalCoursesDataManager.CoursesConfiguration {
         }
 
         guard let decodeSelf = try? JSONDecoder().decode(
-            GlobalCoursesDataManager.CoursesConfiguration.self,
+            CoursesConfiguration.self,
             from: uncompressed as Data)
         else {
             print("Could not decode")
@@ -66,7 +66,7 @@ extension GlobalCoursesDataManager.CoursesConfiguration {
         }
 
         decodeSelf.customColors = decodeSelf.customColors.filter({ courseManager.courseIdMap.keys.contains($0.key) })
-        decodeSelf.customIcons = decodeSelf.customIcons.filter({ courseManager.configuration.customIcons.keys.contains($0.key) })
+        decodeSelf.customIcons = decodeSelf.customIcons.filter({ CoursesConfiguration.global.customIcons.keys.contains($0.key) })
 
         return decodeSelf
     }
@@ -75,7 +75,7 @@ extension GlobalCoursesDataManager.CoursesConfiguration {
         case replace
         case append
 
-        var description: String {
+        public var description: String {
             switch self {
             case .replace: "Replace"
             case .append: "Append"
@@ -83,9 +83,9 @@ extension GlobalCoursesDataManager.CoursesConfiguration {
         }
     }
 
-    public func loadIntoSelf(
-        config: GlobalCoursesDataManager.CoursesConfiguration,
-        fields: [GlobalCoursesDataManager.CoursesConfiguration.Keys: LoadStyle]
+    func loadIntoSelf(
+        config: CoursesConfiguration,
+        fields: [CoursesConfiguration.Keys: LoadStyle]
     ) {
         // copy the config's data into self
         for (field, style) in fields {

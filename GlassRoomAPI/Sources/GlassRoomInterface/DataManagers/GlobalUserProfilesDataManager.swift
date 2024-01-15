@@ -9,9 +9,9 @@ import Foundation
 import GlassRoomAPI
 import GlassRoomTypes
 
-class GlobalUserProfilesDataManager: ObservableObject {
+public class GlobalUserProfilesDataManager: ObservableObject {
     /// Maps the users to their courses
-    @Published private(set) var userProfiles: [UserProfile] {
+    @Published public private(set) var userProfiles: [UserProfile] {
         didSet {
             userProfilesMap = [:]
             for profile in userProfiles {
@@ -19,29 +19,29 @@ class GlobalUserProfilesDataManager: ObservableObject {
             }
         }
     }
-    @Published private(set) var students: [String: [StudentReference]] // the students for a course
-    @Published private(set) var teachers: [String: [TeacherReference]] // the teachers for a course
+    @Published public private(set) var students: [String: [StudentReference]] // the students for a course
+    @Published public private(set) var teachers: [String: [TeacherReference]] // the teachers for a course
 
     // used to determine if it should refresh or not
-    @Published private(set) var lastRefreshDate: Date?
+    @Published public private(set) var lastRefreshDate: Date?
 
-    var loading: Bool {
+    public var loading: Bool {
         studentsLoading || teachersLoading
     }
 
-    var hasNextPage: Bool {
+    public var hasNextPage: Bool {
         studentsNextPageToken != nil || teachersNextPageToken != nil
     }
 
-    @Published private(set) var studentsLoading: Bool = false
-    @Published private(set) var teachersLoading: Bool = false
+    @Published public private(set) var studentsLoading: Bool = false
+    @Published public private(set) var teachersLoading: Bool = false
 
-    @Published private(set) var studentsNextPageToken: String?
-    @Published private(set) var teachersNextPageToken: String?
+    @Published public private(set) var studentsNextPageToken: String?
+    @Published public private(set) var teachersNextPageToken: String?
 
-    var userProfilesMap: [String: UserProfile] = [:]
+    public var userProfilesMap: [String: UserProfile] = [:]
 
-    static var global: GlobalUserProfilesDataManager = .init()
+    public static var global: GlobalUserProfilesDataManager = .init()
     private init() {
         userProfiles = []
         students = [:]
@@ -51,7 +51,7 @@ class GlobalUserProfilesDataManager: ObservableObject {
     }
 
     // MARK: Loading
-    func loadList(for courseId: String, bypassCache: Bool = false, onlyCache: Bool = false) {
+    public func loadList(for courseId: String, bypassCache: Bool = false, onlyCache: Bool = false) {
         studentsLoading = true
         teachersLoading = true
 
@@ -85,7 +85,7 @@ class GlobalUserProfilesDataManager: ObservableObject {
         }
     }
 
-    func refreshList(for courseId: String, requestNextPageIfExists: Bool = false) {
+    public func refreshList(for courseId: String, requestNextPageIfExists: Bool = false) {
         studentsLoading = true
         teachersLoading = true
 
@@ -216,13 +216,13 @@ class GlobalUserProfilesDataManager: ObservableObject {
     }
 
     // MARK: Types
-    struct StudentReference: Codable {
+    public struct StudentReference: Codable {
         public var courseId: String
         public var userId: String
         public var studentWorkFolder: DriveFolder?
     }
 
-    struct TeacherReference: Codable {
+    public struct TeacherReference: Codable {
         public var courseId: String
         public var userId: String
     }

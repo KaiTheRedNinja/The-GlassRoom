@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GlassRoomInterface
 import GlassRoomTypes
 
 struct CenterSplitViewToolbarTop: View {

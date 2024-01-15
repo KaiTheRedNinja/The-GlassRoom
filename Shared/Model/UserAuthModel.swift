@@ -8,6 +8,7 @@
 import SwiftUI
 import GoogleSignIn
 import GlassRoomTypes
+import GlassRoomInterface
 
 class UserAuthModel: ObservableObject {
     static let shared: UserAuthModel = .init()
@@ -18,7 +19,11 @@ class UserAuthModel: ObservableObject {
     @Published var givenName: String?
     @Published var familyName: String?
     @Published var fullName: String?
-    @Published var email: String?
+    @Published var email: String? {
+        didSet {
+            FileSystem.currentUserEmail = email
+        }
+    }
     @Published var profilePicUrl: String?
     @Published var errorMessage: String?
     @Published var token: String? {

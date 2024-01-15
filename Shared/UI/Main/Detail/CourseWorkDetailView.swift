@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 
 struct CourseWorkDetailView: DetailViewPage {
     var textContent: Binding<String>
@@ -118,8 +119,6 @@ struct CourseWorkDetailView: DetailViewPage {
                         }
                         
                         Divider()
-                        
-                        OpenNotesButton(post: .courseWork(courseWork))
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
