@@ -40,7 +40,6 @@
 		933F39A62A4444E5006E13AC /* CustomisationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0B8B32A136DD400ED917A /* CustomisationView.swift */; };
 		933F39A72A4444E5006E13AC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD406CF2A10B6B100343500 /* SettingsView.swift */; };
 		933F39A92A444537006E13AC /* GlassRoomTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 933F39A82A444537006E13AC /* GlassRoomTypes */; };
-		933F39AB2A44453F006E13AC /* GlassRoomTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 933F39AA2A44453F006E13AC /* GlassRoomTypes */; };
 		933F39AC2A4445A3006E13AC /* CourseWorkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348580B2A125DAB008B84A7 /* CourseWorkDetailView.swift */; };
 		933F39AD2A4445A3006E13AC /* CourseWorkStudentSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FCB712A1C848E002B4C3B /* CourseWorkStudentSubmissionView.swift */; };
 		933F39AE2A4445A3006E13AC /* AnnouncementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934858092A125DA1008B84A7 /* AnnouncementDetailView.swift */; };
@@ -66,21 +65,17 @@
 		9348580C2A125DAB008B84A7 /* CourseWorkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348580B2A125DAB008B84A7 /* CourseWorkDetailView.swift */; };
 		9348580E2A125DB5008B84A7 /* CourseMaterialDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9348580D2A125DB5008B84A7 /* CourseMaterialDetailView.swift */; };
 		9359F6E22A1A20FD001A8A1F /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9359F6E12A1A20FD001A8A1F /* SplitView.swift */; };
-		935DEF5B2AD8213A005BF04E /* GlassRoomInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 935DEF5A2AD8213A005BF04E /* GlassRoomInterface */; };
 		935DEF5D2AD8213E005BF04E /* GlassRoomInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 935DEF5C2AD8213E005BF04E /* GlassRoomInterface */; };
 		93650B132A19A7E100F5D865 /* CoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93650B122A19A7E100F5D865 /* CoursePostListView.swift */; };
 		9373FBF02A16E9B3007AB503 /* RenameCourseGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373FBEF2A16E9B3007AB503 /* RenameCourseGroupView.swift */; };
-		93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 93757D5C2A0E73DA0063AB67 /* GoogleSignIn */; };
 		93757D612A0E74500063AB67 /* UserAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D602A0E74500063AB67 /* UserAuthModel.swift */; };
 		93757D632A0E79650063AB67 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D622A0E79650063AB67 /* Secrets.swift */; };
 		93757D682A0E7D280063AB67 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D672A0E7D280063AB67 /* SignInView.swift */; };
-		93757D702A0F29B60063AB67 /* GlassRoomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 93757D6F2A0F29B60063AB67 /* GlassRoomAPI */; };
 		93757D722A0F9A240063AB67 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D712A0F9A240063AB67 /* SidebarView.swift */; };
 		93757D742A0F9AC50063AB67 /* CenterSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D732A0F9AC50063AB67 /* CenterSplitView.swift */; };
 		93757D762A0F9B220063AB67 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D752A0F9B220063AB67 /* DetailView.swift */; };
 		93757D7E2A0FBAE70063AB67 /* SidebarOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93757D7D2A0FBAE70063AB67 /* SidebarOutlineViewController.swift */; };
 		93761F392A2B81DF00E2008E /* TriStateToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93761F382A2B81DF00E2008E /* TriStateToggle.swift */; };
-		937C7D6C2A4FC7F400E38A6B /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 937C7D6B2A4FC7F400E38A6B /* SymbolPicker */; };
 		937EA5BA2A0CD9F8005F11C5 /* The_GlassRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EA5B92A0CD9F8005F11C5 /* The_GlassRoomApp.swift */; };
 		937EA5BC2A0CD9F8005F11C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EA5BB2A0CD9F8005F11C5 /* ContentView.swift */; };
 		937EA5BE2A0CD9F9005F11C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937EA5BD2A0CD9F9005F11C5 /* Assets.xcassets */; };
@@ -109,7 +104,6 @@
 		F37C11082B5562DA0000140D /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C11072B5562DA0000140D /* Secrets (Sensitive).swift */; };
 		F37C11092B5562DA0000140D /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C11072B5562DA0000140D /* Secrets (Sensitive).swift */; };
 		F3B28C6E2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */; };
-		F3CFC6E12A95968B00E66D34 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = F3CFC6E02A95968B00E66D34 /* KeyboardShortcuts */; };
 		F3CFC6E32A95972200E66D34 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E22A95972200E66D34 /* Shortcuts.swift */; };
 		F3CFC6E62A959B2700E66D34 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E52A959B2700E66D34 /* Utilities.swift */; };
 		F3D304A42B5634930097F57E /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304A32B5634930097F57E /* RealityKitContent */; };
@@ -120,8 +114,15 @@
 		F3D304B32B5635170097F57E /* GlassRoomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304B22B5635170097F57E /* GlassRoomAPI */; };
 		F3D304B52B5635170097F57E /* GlassRoomInterface in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304B42B5635170097F57E /* GlassRoomInterface */; };
 		F3D304B72B5635170097F57E /* GlassRoomTypes in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304B62B5635170097F57E /* GlassRoomTypes */; };
-		F3D304B92B56351D0097F57E /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304B82B56351D0097F57E /* GoogleSignIn */; };
 		F3D304BB2B56351D0097F57E /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304BA2B56351D0097F57E /* SymbolPicker */; };
+		F3D304BD2B563B800097F57E /* GlassRoomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304BC2B563B800097F57E /* GlassRoomAPI */; };
+		F3D304BF2B563B800097F57E /* GlassRoomInterface in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304BE2B563B800097F57E /* GlassRoomInterface */; };
+		F3D304C12B563B800097F57E /* GlassRoomTypes in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304C02B563B800097F57E /* GlassRoomTypes */; };
+		F3D304C32B563B800097F57E /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304C22B563B800097F57E /* GoogleSignIn */; };
+		F3D304C52B563B800097F57E /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304C42B563B800097F57E /* SymbolPicker */; };
+		F3D304C72B563B800097F57E /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304C62B563B800097F57E /* KeyboardShortcuts */; };
+		F3D304C92B563D8E0097F57E /* The-GlassRoom-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3D304C82B563D830097F57E /* The-GlassRoom-iOS-Info.plist */; };
+		F3D304CA2B563D920097F57E /* The-GlassRoom-visionOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3D304AE2B5634960097F57E /* The-GlassRoom-visionOS-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -194,7 +195,8 @@
 		F3D304A72B5634930097F57E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F3D304A92B5634960097F57E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3D304AC2B5634960097F57E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		F3D304AE2B5634960097F57E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3D304AE2B5634960097F57E /* The-GlassRoom-visionOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-visionOS-Info.plist"; sourceTree = "<group>"; };
+		F3D304C82B563D830097F57E /* The-GlassRoom-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-iOS-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,12 +216,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				937C7D6C2A4FC7F400E38A6B /* SymbolPicker in Frameworks */,
-				93757D5D2A0E73DA0063AB67 /* GoogleSignIn in Frameworks */,
-				935DEF5B2AD8213A005BF04E /* GlassRoomInterface in Frameworks */,
-				F3CFC6E12A95968B00E66D34 /* KeyboardShortcuts in Frameworks */,
-				93757D702A0F29B60063AB67 /* GlassRoomAPI in Frameworks */,
-				933F39AB2A44453F006E13AC /* GlassRoomTypes in Frameworks */,
+				F3D304C12B563B800097F57E /* GlassRoomTypes in Frameworks */,
+				F3D304C32B563B800097F57E /* GoogleSignIn in Frameworks */,
+				F3D304BF2B563B800097F57E /* GlassRoomInterface in Frameworks */,
+				F3D304BD2B563B800097F57E /* GlassRoomAPI in Frameworks */,
+				F3D304C52B563B800097F57E /* SymbolPicker in Frameworks */,
+				F3D304C72B563B800097F57E /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,7 +229,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3D304B92B56351D0097F57E /* GoogleSignIn in Frameworks */,
 				F3D304A42B5634930097F57E /* RealityKitContent in Frameworks */,
 				F3D304BB2B56351D0097F57E /* SymbolPicker in Frameworks */,
 				F3D304B32B5635170097F57E /* GlassRoomAPI in Frameworks */,
@@ -437,6 +438,8 @@
 				93AED68E2A1744110005854C /* README.md */,
 				9359F6E32A1A3305001A8A1F /* PRIVACY.md */,
 				F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */,
+				F3D304C82B563D830097F57E /* The-GlassRoom-iOS-Info.plist */,
+				F3D304AE2B5634960097F57E /* The-GlassRoom-visionOS-Info.plist */,
 				937EA5C92A0CDBE1005F11C5 /* GlassRoomAPI */,
 				937EA5B82A0CD9F8005F11C5 /* The GlassRoom */,
 				933F39102A4438B4006E13AC /* The GlassRoom iOS */,
@@ -565,7 +568,6 @@
 				F3D304A52B5634930097F57E /* Glassroom_visionOSApp.swift */,
 				F3D304A72B5634930097F57E /* ContentView.swift */,
 				F3D304A92B5634960097F57E /* Assets.xcassets */,
-				F3D304AE2B5634960097F57E /* Info.plist */,
 				F3D304AB2B5634960097F57E /* Preview Content */,
 			);
 			path = "Glassroom visionOS";
@@ -628,12 +630,12 @@
 			);
 			name = Glassroom;
 			packageProductDependencies = (
-				93757D5C2A0E73DA0063AB67 /* GoogleSignIn */,
-				93757D6F2A0F29B60063AB67 /* GlassRoomAPI */,
-				933F39AA2A44453F006E13AC /* GlassRoomTypes */,
-				937C7D6B2A4FC7F400E38A6B /* SymbolPicker */,
-				F3CFC6E02A95968B00E66D34 /* KeyboardShortcuts */,
-				935DEF5A2AD8213A005BF04E /* GlassRoomInterface */,
+				F3D304BC2B563B800097F57E /* GlassRoomAPI */,
+				F3D304BE2B563B800097F57E /* GlassRoomInterface */,
+				F3D304C02B563B800097F57E /* GlassRoomTypes */,
+				F3D304C22B563B800097F57E /* GoogleSignIn */,
+				F3D304C42B563B800097F57E /* SymbolPicker */,
+				F3D304C62B563B800097F57E /* KeyboardShortcuts */,
 			);
 			productName = "The GlassRoom";
 			productReference = 937EA5B62A0CD9F8005F11C5 /* Glassroom.app */;
@@ -657,7 +659,6 @@
 				F3D304B22B5635170097F57E /* GlassRoomAPI */,
 				F3D304B42B5635170097F57E /* GlassRoomInterface */,
 				F3D304B62B5635170097F57E /* GlassRoomTypes */,
-				F3D304B82B56351D0097F57E /* GoogleSignIn */,
 				F3D304BA2B56351D0097F57E /* SymbolPicker */,
 			);
 			productName = "Glassroom visionOS";
@@ -715,6 +716,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3D304C92B563D8E0097F57E /* The-GlassRoom-iOS-Info.plist in Resources */,
 				933F39192A4438B5006E13AC /* Preview Assets.xcassets in Resources */,
 				933F39162A4438B5006E13AC /* Assets.xcassets in Resources */,
 			);
@@ -735,6 +737,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3D304AD2B5634960097F57E /* Preview Assets.xcassets in Resources */,
+				F3D304CA2B563D920097F57E /* The-GlassRoom-visionOS-Info.plist in Resources */,
 				F3D304AA2B5634960097F57E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1147,7 +1150,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_FILE = "The-GlassRoom-visionOS-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Glassroom;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1182,7 +1185,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_FILE = "The-GlassRoom-visionOS-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Glassroom;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1285,41 +1288,14 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = GlassRoomTypes;
 		};
-		933F39AA2A44453F006E13AC /* GlassRoomTypes */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GlassRoomTypes;
-		};
 		9346D7912A5022A6009FB2F2 /* SymbolPicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 937C7D6A2A4FC7F400E38A6B /* XCRemoteSwiftPackageReference "SymbolPicker" */;
 			productName = SymbolPicker;
 		};
-		935DEF5A2AD8213A005BF04E /* GlassRoomInterface */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GlassRoomInterface;
-		};
 		935DEF5C2AD8213E005BF04E /* GlassRoomInterface */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GlassRoomInterface;
-		};
-		93757D5C2A0E73DA0063AB67 /* GoogleSignIn */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 93757D5B2A0E73DA0063AB67 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
-			productName = GoogleSignIn;
-		};
-		93757D6F2A0F29B60063AB67 /* GlassRoomAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GlassRoomAPI;
-		};
-		937C7D6B2A4FC7F400E38A6B /* SymbolPicker */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 937C7D6A2A4FC7F400E38A6B /* XCRemoteSwiftPackageReference "SymbolPicker" */;
-			productName = SymbolPicker;
-		};
-		F3CFC6E02A95968B00E66D34 /* KeyboardShortcuts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F3CFC6DF2A95968B00E66D34 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
-			productName = KeyboardShortcuts;
 		};
 		F3D304A32B5634930097F57E /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1337,15 +1313,37 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = GlassRoomTypes;
 		};
-		F3D304B82B56351D0097F57E /* GoogleSignIn */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 93757D5B2A0E73DA0063AB67 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
-			productName = GoogleSignIn;
-		};
 		F3D304BA2B56351D0097F57E /* SymbolPicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 937C7D6A2A4FC7F400E38A6B /* XCRemoteSwiftPackageReference "SymbolPicker" */;
 			productName = SymbolPicker;
+		};
+		F3D304BC2B563B800097F57E /* GlassRoomAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GlassRoomAPI;
+		};
+		F3D304BE2B563B800097F57E /* GlassRoomInterface */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GlassRoomInterface;
+		};
+		F3D304C02B563B800097F57E /* GlassRoomTypes */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GlassRoomTypes;
+		};
+		F3D304C22B563B800097F57E /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93757D5B2A0E73DA0063AB67 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		F3D304C42B563B800097F57E /* SymbolPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 937C7D6A2A4FC7F400E38A6B /* XCRemoteSwiftPackageReference "SymbolPicker" */;
+			productName = SymbolPicker;
+		};
+		F3D304C62B563B800097F57E /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3CFC6DF2A95968B00E66D34 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
