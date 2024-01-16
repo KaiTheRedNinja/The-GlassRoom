@@ -1,4 +1,4 @@
-# The GlassRoom
+# GLassroom
 A macOS Native Google Classroom Client
 
 ## Features
