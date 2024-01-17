@@ -63,14 +63,14 @@ struct CourseWorkDetailView: DetailViewPage {
                     submissionManager.loadList(bypassCache: true)
                     copiedLink.wrappedValue = false
                     if let description = courseWork.description {
-                        textContent.wrappedValue = makeLinksHyperLink(description)
+                        textContent.wrappedValue = description
                     }
                 }
             }
             .onChange(of: courseWork) { _ in
                 copiedLink.wrappedValue = false
                 if let description = courseWork.description {
-                    textContent.wrappedValue = makeLinksHyperLink(description)
+                    textContent.wrappedValue = description
                 }
             }
             .safeAreaInset(edge: .bottom) {
@@ -154,7 +154,7 @@ struct CourseWorkDetailView: DetailViewPage {
 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(.init(textContent.wrappedValue))
+                        Text(LocalizedStringKey(textContent.wrappedValue))
                             .textSelection(.enabled)
                         Spacer()
                     }

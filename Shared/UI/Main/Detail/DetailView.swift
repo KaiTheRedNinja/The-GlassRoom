@@ -61,24 +61,6 @@ protocol DetailViewPage: View {
 }
 
 extension DetailViewPage {
-    func makeLinksHyperLink(_ ogText: String) -> String {
-        // add bionic reading support
-        // highlight the first half or 4 characters of a word, whichever is shorter
-        var input = UserDefaults.standard.bool(forKey: "enableBionicReading") ? addBionicReadingSupport(to: ogText) : ogText
-
-        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        let matches = detector.matches(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count))
-
-        for match in matches {
-            guard let range = Range(match.range, in: input) else { continue }
-            let url = input[range]
-
-            input = input.replacingOccurrences(of: url, with: "[\(url)](\(url))")
-        }
-
-        return input
-    }
-
     func addBionicReadingSupport(to input: String) -> String {
         let lines = input.components(separatedBy: .newlines)
         var result = ""

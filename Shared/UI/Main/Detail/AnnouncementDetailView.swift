@@ -33,7 +33,7 @@ struct AnnouncementDetailView: DetailViewPage {
                         #endif
                         
                         HStack {
-                            Text(.init(textContent.wrappedValue))
+                            Text(LocalizedStringKey(textContent.wrappedValue))
                                 .textSelection(.enabled)
                             Spacer()
                         }
@@ -53,11 +53,11 @@ struct AnnouncementDetailView: DetailViewPage {
             }
             .onAppear {
                 copiedLink.wrappedValue = false
-                textContent.wrappedValue = makeLinksHyperLink(announcement.text)
+                textContent.wrappedValue = announcement.text
             }
             .onChange(of: announcement) { newAnnouncement in
                 copiedLink.wrappedValue = false
-                textContent.wrappedValue = makeLinksHyperLink(newAnnouncement.text)
+                textContent.wrappedValue = newAnnouncement.text
             }
             #if os(iOS)
             .toolbar {

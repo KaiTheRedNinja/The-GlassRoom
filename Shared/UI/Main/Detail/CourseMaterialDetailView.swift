@@ -42,7 +42,7 @@ struct CourseMaterialDetailView: DetailViewPage {
                             
                             VStack(alignment: .leading) {
                                 HStack {
-                                    Text(.init(textContent.wrappedValue))
+                                    Text(LocalizedStringKey(textContent.wrappedValue))
                                         .textSelection(.enabled)
                                     Spacer()
                                 }
@@ -64,13 +64,13 @@ struct CourseMaterialDetailView: DetailViewPage {
             .onAppear {
                 copiedLink.wrappedValue = false
                 if let description = courseWorkMaterial.description {
-                    textContent.wrappedValue = makeLinksHyperLink(description)
+                    textContent.wrappedValue = description
                 }
             }
             .onChange(of: courseWorkMaterial) { _ in
                 copiedLink.wrappedValue = false
                 if let description = courseWorkMaterial.description {
-                    textContent.wrappedValue = makeLinksHyperLink(description)
+                    textContent.wrappedValue = description
                 }
             }
             #if os(iOS)
