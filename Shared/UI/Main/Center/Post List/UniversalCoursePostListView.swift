@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomAPI
+import GlassRoomTypes
 import GlassRoomInterface
 #if os(macOS)
 import KeyboardShortcuts
@@ -19,6 +20,7 @@ struct UniversalCoursePostListView: View {
     @State var searchQuery: String = ""
     @Binding var selectedPost: CoursePost?
 
+    var course: Course?
     var showPostCourseOrigin: Bool = false
 
     var postData: [CoursePost]
@@ -30,6 +32,10 @@ struct UniversalCoursePostListView: View {
     var refreshList: () -> Void
     
     var onPlusPress: (() -> Void)?
+    
+    @ObservedObject var postsManager: CoursePostsDataManager
+    @ObservedObject var profilesManager: GlobalUserProfilesDataManager = .global
+    @ObservedObject var configuration: CoursesConfiguration = .global
 
     var body: some View {
         ZStack {
@@ -108,45 +114,49 @@ struct UniversalCoursePostListView: View {
             }
             .padding(.top, -7)
         }
-        #else
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                if isLoading {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                } else {
-                    Button {
-                        loadList(false)
-                        loadList(true)
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
+#else
+        .safeAreaInset(edge: .bottom) {
+            ZStack {
+                HStack {
+                    Spacer()
+                    if let course = self.course {
+                        Text(configuration.nameFor(course.name))
+                            .multilineTextAlignment(.center)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .lineLimit(1)
+                            .padding(.horizontal, 30)
                     }
-                    .keyboardShortcut("r", modifiers: .command)
-                    .buttonStyle(.plain)
-                    .contextMenu {
-                        Button("Use Cache") {
+                    Spacer()
+                }
+                HStack {
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    } else {
+                        Button {
+                            loadList(false)
                             loadList(true)
+                        } label: {
+                            Image(systemName: "arrow.clockwise")
+                                .font(.title2)
                         }
+                        .keyboardShortcut("r", modifiers: .command)
+                        .buttonStyle(.plain)
+                        .contextMenu {
+                            Button("Use Cache") {
+                                loadList(true)
+                            }
+                        }
+                        .help("Refresh Posts (⌘R)")
                     }
-                    .help("Refresh Posts (⌘R)")
+                    Spacer()
                 }
             }
-                
-            ToolbarItem(placement: .bottomBar) {
-//                if isInSearch {
-//                    Text(" ")
-//                } else {
-//                    if let onPlusPress {
-//                        Button {
-//                            onPlusPress()
-//                        } label: {
-//                            Image(systemName: "plus")
-//                        }
-//                        .buttonStyle(.plain)
-//                    }
-//                }
-                Text(" ")
-            }
+            .padding(.horizontal, 30)
+            .padding(.vertical, 15)
+            .padding(.bottom, -10)
+            .background(.ultraThinMaterial)
         }
         .searchable(text: $searchQuery)
         .toolbar(isInSearch ? .hidden : .visible, for: .navigationBar)

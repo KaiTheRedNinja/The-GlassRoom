@@ -122,10 +122,15 @@ struct CenterSplitView: View {
                     Text("Course post manager not found")
                 }
             default:
-                MultiCoursePostListView(selectedPost: $selectedPost,
-                                        displayOption: $currentPage,
-                                        displayedCourseIds: displayedCoursesManager)
-                .scrollContentBackground(.hidden)
+                if let coursePostsManager {
+                    MultiCoursePostListView(selectedPost: $selectedPost,
+                                            displayOption: $currentPage,
+                                            displayedCourseIds: displayedCoursesManager,
+                                            postsManagerNonObservableArray: coursePostsManager)
+                    .scrollContentBackground(.hidden)
+                } else {
+                    Text("Course post manager not found")
+                }
             }
         } else {
             ZStack {

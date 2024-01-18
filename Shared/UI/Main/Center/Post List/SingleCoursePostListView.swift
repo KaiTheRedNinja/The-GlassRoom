@@ -21,7 +21,6 @@ struct SingleCoursePostListView: View {
     @ObservedObject var postsManager: CoursePostsDataManager
     @ObservedObject var profilesManager: GlobalUserProfilesDataManager = .global
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
-    @ObservedObject var configuration: CoursesConfiguration = .global
 
     init(selectedPost: Binding<CoursePost?>,
          displayOption: Binding<CenterSplitView.CourseDisplayOption>,
@@ -40,24 +39,13 @@ struct SingleCoursePostListView: View {
         case .resources:
             CourseResourcesListView(
                 courseMaterials: postsManager.courseCourseMaterials,
-                isEmpty: postsManager.courseCourseMaterials.isEmpty,
+                course: coursesManager.courseIdMap[postsManager.courseId], isEmpty: postsManager.courseCourseMaterials.isEmpty,
                 isLoading: postsManager.courseWorksLoading,
                 hasNextPage: postsManager.courseWorksNextPageToken != nil,
                 loadList: { postsManager.loadList(bypassCache: $0) },
-                refreshList: { postsManager.refreshList() }
+                refreshList: { postsManager.refreshList() },
+                postsManager: postsManager
             )
-            #if os(iOS)
-            .toolbar {
-                    ToolbarItem(placement: .status) {
-                        if let course = coursesManager.courseIdMap[postsManager.courseId] {
-                            Text(configuration.nameFor(course.name))
-                                .padding(.horizontal)
-                                .font(.subheadline)
-                                .fontWeight(.bold)
-                        }
-                    }
-            }
-            #endif
             .onAppear {
                 postsManager.loadList()
             }
@@ -91,25 +79,15 @@ struct SingleCoursePostListView: View {
             UniversalCoursePostListView(
                 isInSearch: isInSearch,
                 selectedPost: $selectedPost,
+                course: coursesManager.courseIdMap[postsManager.courseId],
                 postData: postData,
                 isLoading: postsManager.loading,
                 hasNextPage: postsManager.hasNextPage,
                 loadList: { postsManager.loadList(bypassCache: $0) },
                 refreshList: { postsManager.refreshList() },
-                onPlusPress: { plusPressed.toggle() }
+                onPlusPress: { plusPressed.toggle() },
+                postsManager: postsManager
             )
-            #if os(iOS)
-            .toolbar {
-                    ToolbarItem(placement: .status) {
-                        if let course = coursesManager.courseIdMap[postsManager.courseId] {
-                            Text(configuration.nameFor(course.name))
-                                .padding(.horizontal)
-                                .font(.subheadline)
-                                .fontWeight(.bold)
-                        }
-                    }
-            }
-            #endif
             .sheet(isPresented: $plusPressed) {
                 CreateNewPostView(onCreatePost: { post in
                     switch post {

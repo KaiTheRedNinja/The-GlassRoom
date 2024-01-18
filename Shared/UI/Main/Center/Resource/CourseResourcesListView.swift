@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GlassRoomTypes
+import GlassRoomInterface
 #if os(macOS)
 import KeyboardShortcuts
 #endif
@@ -14,6 +15,7 @@ import KeyboardShortcuts
 struct CourseResourcesListView: View {
     var courseMaterials: [CourseWorkMaterial]
 
+    var course: Course?
     var isEmpty: Bool
     var isLoading: Bool
     var hasNextPage: Bool
@@ -21,6 +23,10 @@ struct CourseResourcesListView: View {
     var loadList: (_ bypassCache: Bool) -> Void
     /// Refresh, using the next page token if needed
     var refreshList: () -> Void
+    
+    @ObservedObject var postsManager: CoursePostsDataManager
+    @ObservedObject var profilesManager: GlobalUserProfilesDataManager = .global
+    @ObservedObject var configuration: CoursesConfiguration = .global
 
     var body: some View {
         ZStack {
@@ -83,32 +89,48 @@ struct CourseResourcesListView: View {
             .padding(.top, -7)
         }
         #else
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                if isLoading {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                } else {
-                    Button {
-                        loadList(false)
-                        loadList(true)
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
+        .safeAreaInset(edge: .bottom) {
+            ZStack {
+                HStack {
+                    Spacer()
+                    if let course = self.course {
+                        Text(configuration.nameFor(course.name))
+                            .multilineTextAlignment(.center)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .lineLimit(1)
+                            .padding(.horizontal, 30)
                     }
-                    .keyboardShortcut("r", modifiers: .command)
-                    .buttonStyle(.plain)
-                    .contextMenu {
-                        Button("Use Cache") {
+                    Spacer()
+                }
+                HStack {
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    } else {
+                        Button {
+                            loadList(false)
                             loadList(true)
+                        } label: {
+                            Image(systemName: "arrow.clockwise")
+                                .font(.title2)
                         }
+                        .keyboardShortcut("r", modifiers: .command)
+                        .buttonStyle(.plain)
+                        .contextMenu {
+                            Button("Use Cache") {
+                                loadList(true)
+                            }
+                        }
+                        .help("Refresh Posts (⌘R)")
                     }
-                    .help("Refresh Posts (⌘R)")
+                    Spacer()
                 }
             }
-            
-            ToolbarItem(placement: .bottomBar) {
-                Text(" ")
-            }
+            .padding(.horizontal, 30)
+            .padding(.vertical, 15)
+            .padding(.bottom, -10)
+            .background(.ultraThinMaterial)
         }
         #endif
     }

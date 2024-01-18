@@ -11,6 +11,7 @@ import GlassRoomAPI
 import GlassRoomInterface
 
 struct SidebarListView: View {
+    
     @Binding var selection: GeneralCourse?
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
     @ObservedObject var configuration: CoursesConfiguration = .global

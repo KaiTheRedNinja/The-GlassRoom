@@ -14,16 +14,19 @@ struct MultiCoursePostListView: View {
     @Binding var displayOption: CenterSplitView.CourseDisplayOption
 
     @ObservedObject var postsManager: ObservableArray<CoursePostsDataManager>
+    @ObservedObject var postsManagerNonObservableArray: CoursePostsDataManager
     @ObservedObject var displayedCourseManager: DisplayedCourseManager
 
     @State var postData: [CoursePost] = []
 
     init(selectedPost: Binding<CoursePost?>,
          displayOption: Binding<CenterSplitView.CourseDisplayOption>,
-         displayedCourseIds: DisplayedCourseManager
+         displayedCourseIds: DisplayedCourseManager,
+         postsManagerNonObservableArray: CoursePostsDataManager
     ) {
         self._selectedPost = selectedPost
         self._displayOption = displayOption
+        self.postsManagerNonObservableArray = postsManagerNonObservableArray
 
         self.displayedCourseManager = displayedCourseIds
         self.postsManager = .init(array: displayedCourseIds.displayedAggregateCourseIds.map { value in
@@ -46,7 +49,8 @@ struct MultiCoursePostListView: View {
                                     isLoading: isLoading,
                                     hasNextPage: hasNextPage,
                                     loadList: loadList,
-                                    refreshList: refreshList)
+                                    refreshList: refreshList,
+                                    postsManager: postsManagerNonObservableArray)
         .onChange(of: displayedCourseManager.displayedAggregateCourseIds) { _ in
             postsManager.array = displayedCourseManager.displayedAggregateCourseIds.map { value in
                 let manager = CoursePostsDataManager.getManager(for: value)
