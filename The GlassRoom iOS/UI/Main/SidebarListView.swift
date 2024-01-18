@@ -19,6 +19,10 @@ struct SidebarListView: View {
 
     @State var renamedGroup: String?
 
+    @AppStorage("teachingCollapsed") var teachingCollapsed: Bool = false
+    @AppStorage("enrolledCollapsed") var enrolledCollapsed: Bool = false
+    @AppStorage("archiveCollapsed") var archiveCollapsed: Bool = true
+
     var body: some View {
         List(selection: $selection) {
             if searchQuery.isEmpty {
@@ -46,28 +50,72 @@ struct SidebarListView: View {
 
     @ViewBuilder
     var defaultListContent: some View {
-        Section {
-            groupsForCourseType(type: .teaching)
-            viewForCourseType(type: .teaching)
-        } header: {
-            sidebarCourseView(course: .allTeaching)
+        if coursesManager.courses.contains(where: { $0.courseType == .teaching }) {
+            // Teaching
+            Section {
+                if !teachingCollapsed {
+                    groupsForCourseType(type: .teaching)
+                    viewForCourseType(type: .teaching)
+                }
+            } header: {
+                HStack {
+                    sidebarCourseView(course: .allTeaching)
+                    Spacer()
+                    Image(systemName: "chevron.down")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 10)
+                        .rotationEffect(teachingCollapsed ? .degrees(-90) : .zero)
+                }
+                .onTapGesture {
+                    teachingCollapsed.toggle()
+                }
+            }
         }
 
-        Section {
-            groupsForCourseType(type: .enrolled)
-            viewForCourseType(type: .enrolled)
-        } header: {
-            sidebarCourseView(course: .allEnrolled)
+        if coursesManager.courses.contains(where: { $0.courseType == .enrolled }) {
+            // Learning
+            Section {
+                if !enrolledCollapsed {
+                    groupsForCourseType(type: .enrolled)
+                    viewForCourseType(type: .enrolled)
+                }
+            } header: {
+                HStack {
+                    sidebarCourseView(course: .allEnrolled)
+                    Spacer()
+                    Image(systemName: "chevron.down")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 10)
+                        .rotationEffect(enrolledCollapsed ? .degrees(-90) : .zero)
+                }
+                .onTapGesture {
+                    enrolledCollapsed.toggle()
+                }
+            }
         }
 
         if let archive = configuration.archive {
             Section {
-                ForEach(archive.courses) { courseId in
-                    sidebarCourseView(course: .course(courseId))
+                if !archiveCollapsed {
+                    ForEach(archive.courses) { courseId in
+                        sidebarCourseView(course: .course(courseId))
+                    }
                 }
-//                GlassRoomAPI.GRCourses.list(query: .init(courseStates: [.archived]))
             } header: {
-                sidebarCourseView(course: .group(CourseGroup.archiveId))
+                HStack {
+                    sidebarCourseView(course: .group(CourseGroup.archiveId))
+                    Spacer()
+                    Image(systemName: "chevron.down")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 10)
+                        .rotationEffect(archiveCollapsed ? .degrees(-90) : .zero)
+                }
+                .onTapGesture {
+                    archiveCollapsed.toggle()
+                }
             }
         }
     }
