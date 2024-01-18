@@ -35,7 +35,7 @@ struct CoursePostListView: View {
             VStack {
                 if showPostCourseOrigin, let firstOccurence = courseManager.courses.first(where: { $0.id == post.courseId }) {
                     HStack {
-                        Text(configuration.nameFor(firstOccurence.name))
+                        Text(configuration.nameFor(firstOccurence))
                             .bold()
                             .foregroundColor(.gray)
                             .font(.caption)

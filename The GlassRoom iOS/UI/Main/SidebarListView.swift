@@ -127,7 +127,7 @@ struct SidebarListView: View {
     func coursesForQuery(query: String) -> [Course] {
         let lowerQuery = query.lowercased()
         return coursesManager.courses.filter { course in
-            configuration.nameFor(course.name).lowercased().contains(lowerQuery) &&
+            configuration.nameFor(course).lowercased().contains(lowerQuery) &&
             !(configuration.archive?.courses.contains(course.id) ?? false)
         }
     }

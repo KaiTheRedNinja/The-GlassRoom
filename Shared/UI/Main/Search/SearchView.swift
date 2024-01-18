@@ -144,7 +144,7 @@ struct SearchView: View {
                 Section("Courses") {
                     ForEach(resultCourses, id: \.id) { course in
                         HStack {
-                            Text(configuration.nameFor(course.name))
+                            Text(configuration.nameFor(course))
                                 .onTapGesture {
                                     if selection == .course(course.id) {
                                         open()
@@ -174,7 +174,7 @@ struct SearchView: View {
                 Section("Posts") {
                     ForEach(resultPosts, id: \.0.id) { (course, posts) in
                         HStack {
-                            Text(configuration.nameFor(course.name))
+                            Text(configuration.nameFor(course))
                                 .onTapGesture {
                                     if selection == .postsParent(course.id) {
                                         open()
@@ -262,7 +262,7 @@ struct SearchView: View {
         }
 
         let filteredCourses = courses.filter { course in
-            let fixedName = configuration.nameFor(course.name).lowercased()
+            let fixedName = configuration.nameFor(course).lowercased()
             let nameContains = fixedName.contains(searchTerm.lowercased()) || course.name.lowercased().contains(searchTerm.lowercased())
             //            let descriptionContains = (course.description?.lowercased().contains(searchTerm) ?? false)
             return nameContains && !archived.contains(course.id)

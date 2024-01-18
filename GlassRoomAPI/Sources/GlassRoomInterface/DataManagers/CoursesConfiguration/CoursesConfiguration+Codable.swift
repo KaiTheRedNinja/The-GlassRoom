@@ -36,15 +36,30 @@ extension CoursesConfiguration: Codable {
         let container = try decoder.container(keyedBy: Keys.self)
 
         self.init(
-            replacedCourseNames: (try? container.decode([NameReplacement].self,
-                                                        forKey: .replacedCourseNames)) ?? [],
-            courseGroups: (try? container.decode([CourseGroup].self,
-                                                 forKey: .courseGroups)) ?? [],
-            archive: try? container.decode((CourseGroup?).self, forKey: .archive),
-            customColors: (try? container.decode([String: Color].self,
-                                                 forKey: .customColors)) ?? [:],
-            customIcons: (try? container.decode([String: String].self,
-                                                forKey: .customIcons)) ?? [:]
+            courseGroups: (try? container.decode(
+                [CourseGroup].self,
+                forKey: .courseGroups)
+            ) ?? [],
+            archive: (try? container.decode(
+                (CourseGroup?).self,
+                forKey: .archive)
+            ) ?? nil,
+            replacedCourseNames: (try? container.decode(
+                [NameReplacement].self,
+                forKey: .replacedCourseNames)
+            ) ?? [],
+            renamedCourses: (try? container.decode(
+                [String: String].self,
+                forKey: .replacedCourseNames)
+            ) ?? [:],
+            customColors: (try? container.decode(
+                [String: Color].self,
+                forKey: .customColors)
+            ) ?? [:],
+            customIcons: (try? container.decode(
+                [String: String].self,
+                forKey: .customIcons)
+            ) ?? [:]
         )
 
         groupIdMap = [:]

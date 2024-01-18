@@ -12,7 +12,6 @@ import GlassRoomTypes
 public final class CoursesConfiguration: ObservableObject, Identifiable {
     public var id = UUID()
 
-    @Published public var replacedCourseNames: [NameReplacement]
     @Published public var courseGroups: [CourseGroup] {
         didSet {
             groupIdMap = [:]
@@ -22,18 +21,23 @@ public final class CoursesConfiguration: ObservableObject, Identifiable {
         }
     }
     @Published public var archive: CourseGroup?
+
+    @Published public var replacedCourseNames: [NameReplacement]
+    @Published public var renamedCourses: [String: String]
     @Published public var customColors: [String: Color]
     @Published public var customIcons: [String: String]
 
-    @Published public var groupIdMap: [String: CourseGroup] = [:]
+    @Published public internal(set) var groupIdMap: [String: CourseGroup] = [:]
 
     internal init(
-        replacedCourseNames: [NameReplacement] = [],
         courseGroups: [CourseGroup] = [],
-        archive: CourseGroup?,
+        archive: CourseGroup? = nil,
+        replacedCourseNames: [NameReplacement] = [],
+        renamedCourses: [String: String] = [:],
         customColors: [String: Color] = [:],
         customIcons: [String: String] = [:]
     ) {
+        self.renamedCourses = renamedCourses
         self.replacedCourseNames = replacedCourseNames
         self.courseGroups = courseGroups
         self.archive = archive
@@ -53,10 +57,7 @@ public final class CoursesConfiguration: ObservableObject, Identifiable {
            let savedConfig = FileSystem.read(CoursesConfiguration.self, from: .courseConfigurations) {
             return savedConfig
         }
-        let newInstance = CoursesConfiguration(replacedCourseNames: [],
-                                               courseGroups: [],
-                                               archive: nil,
-                                               customColors: [:])
+        let newInstance = CoursesConfiguration()
         return newInstance
     }
 

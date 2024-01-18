@@ -64,7 +64,7 @@ struct SingleCoursePostListView: View {
 //            .toolbar {
 //                    ToolbarItem(placement: .status) {
 //                        if let course = coursesManager.courseIdMap[postsManager.courseId] {
-//                            Text(configuration.nameFor(course.name))
+//                            Text(configuration.nameFor(course))
 //                                .padding(.horizontal)
 //                                .font(.subheadline)
 //                                .fontWeight(.bold)

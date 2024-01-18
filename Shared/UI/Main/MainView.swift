@@ -135,7 +135,11 @@ struct MainView: View {
             switch selectedCourse {
             case .course(let string):
                 let configuration = CoursesConfiguration.global
-                value += configuration.nameFor(GlobalCoursesDataManager.global.courseIdMap[string]?.name ?? "")
+                if let course = GlobalCoursesDataManager.global.courseIdMap[string] {
+                    value += configuration.nameFor(course)
+                } else {
+                    value += "Course Not Found"
+                }
             case .allTeaching:
                 value += "Teaching"
             case .allEnrolled:

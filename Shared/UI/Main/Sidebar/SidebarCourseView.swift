@@ -52,7 +52,7 @@ struct SidebarCourseView: View {
                         .disabled(true)
                     VStack {
                         HStack {
-                            Text(configuration.nameFor(course.name))
+                            Text(configuration.nameFor(course))
                                 .lineLimit(1)
                             Spacer()
                         }

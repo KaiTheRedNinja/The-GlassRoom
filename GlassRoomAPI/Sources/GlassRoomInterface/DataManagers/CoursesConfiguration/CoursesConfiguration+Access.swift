@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GlassRoomTypes
 
 extension CoursesConfiguration {
     /// Generates a seemingly random color for a string
@@ -40,9 +41,14 @@ extension CoursesConfiguration {
         return "person.2.fill"
     }
 
-    public func nameFor(_ courseName: String) -> String {
+    public func nameFor(_ course: Course) -> String {
+        // determine if it has been directly renamed already
+        if let rename = renamedCourses[course.id] {
+            return rename
+        }
+
         // change all the replacement strings
-        var mutableCourseName = courseName
+        var mutableCourseName = course.name
         for replacedCourseName in replacedCourseNames {
             mutableCourseName.removingRegexMatches(pattern: replacedCourseName.matchString,
                                                    replaceWith: replacedCourseName.replacement)

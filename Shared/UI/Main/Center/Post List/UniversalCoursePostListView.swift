@@ -120,7 +120,7 @@ struct UniversalCoursePostListView: View {
                 HStack {
                     Spacer()
                     if let course = self.course {
-                        Text(configuration.nameFor(course.name))
+                        Text(configuration.nameFor(course))
                             .multilineTextAlignment(.center)
                             .font(.headline)
                             .fontWeight(.bold)
