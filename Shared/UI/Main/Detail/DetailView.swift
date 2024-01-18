@@ -139,19 +139,19 @@ extension DetailViewPage {
             ForEach(materials, id: \.id) { material in
                 ZStack {
                     if let driveFile = material.driveFile?.driveFile {
-                        LinkView(url: URL(string: driveFile.alternateLink)!)
+                        LinkPreview(title: driveFile.title ?? "", url: URL(string: driveFile.alternateLink)!, showAttachment: true)
                     }
 
                     if let youtubeVideo = material.youtubeVideo {
-                        LinkView(url: URL(string: youtubeVideo.alternateLink)!)
+                        LinkPreview(url: URL(string: youtubeVideo.alternateLink)!, showAttachment: true)
                     }
 
                     if let link = material.form?.formUrl {
-                        LinkView(url: URL(string: link)!)
+                        LinkPreview(url: URL(string: link)!, showAttachment: true)
                     }
 
                     if let materialLink = material.link {
-                        LinkView(url: URL(string: materialLink.url)!)
+                        LinkPreview(url: URL(string: materialLink.url)!, showAttachment: true)
                     }
                 }
             }
@@ -162,24 +162,24 @@ extension DetailViewPage {
     @ViewBuilder
     func viewForAttachment(materials: AssignmentSubmission) -> some View {
         if let materialAttachments = materials.attachments {
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(materialAttachments, id: \.id) { attachment in
                         HStack {
                             if let driveFile = attachment.driveFile {
-                                LinkView(url: URL(string: driveFile.alternateLink)!)
+                                LinkPreview(title: driveFile.title ?? "", url: URL(string: driveFile.alternateLink)!, showAttachment: false)
                             }
 
                             if let youtubeVideo = attachment.youtubeVideo {
-                                LinkView(url: URL(string: youtubeVideo.alternateLink)!)
+                                LinkPreview(url: URL(string: youtubeVideo.alternateLink)!, showAttachment: false)
                             }
 
                             if let link = attachment.form?.formUrl {
-                                LinkView(url: URL(string: link)!)
+                                LinkPreview(url: URL(string: link)!, showAttachment: false)
                             }
 
                             if let materialLink = attachment.link {
-                                LinkView(url: URL(string: materialLink.url)!)
+                                LinkPreview(url: URL(string: materialLink.url)!, showAttachment: false)
                             }
                         }
                     }

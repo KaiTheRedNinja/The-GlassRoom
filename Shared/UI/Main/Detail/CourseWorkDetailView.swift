@@ -191,8 +191,8 @@ struct CourseWorkDetailView: DetailViewPage {
                 GroupBox {
                     VStack {
                         HStack {
-                            Text("Assigned: \(submissionManager.submissions.filter({ $0.state != .turned_in }).count)")
                             Text("Turned In: \(submissionManager.submissions.filter({ $0.state == .turned_in }).count)")
+                            Text("Assigned: \(submissionManager.submissions.filter({ $0.state != .turned_in }).count)")
                         }
                         HStack(spacing: 0) {
                             ForEach(submissionManager.submissions.filter({ $0.state == .turned_in }), id: \.id) { submission in

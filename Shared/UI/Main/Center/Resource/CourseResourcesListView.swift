@@ -132,22 +132,22 @@ struct CourseResourcesListView: View {
                                         ForEach(materials) { material in
                                             ZStack {
                                                 if let driveFile = material.driveFile?.driveFile {
-                                                    LinkView(url: URL(string: driveFile.alternateLink)!)
+                                                    LinkPreview(title: driveFile.title ?? "", url: URL(string: driveFile.alternateLink)!, showAttachment: true)
                                                         .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                                 }
                                                 
                                                 if let youtubeVideo = material.youtubeVideo {
-                                                    LinkView(url: URL(string: youtubeVideo.alternateLink)!)
+                                                    LinkPreview(url: URL(string: youtubeVideo.alternateLink)!, showAttachment: true)
                                                         .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                                 }
                                                 
                                                 if let link = material.form?.formUrl {
-                                                    LinkView(url: URL(string: link)!)
+                                                    LinkPreview(url: URL(string: link)!, showAttachment: true)
                                                         .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                                 }
                                                 
                                                 if let materialLink = material.link {
-                                                    LinkView(url: URL(string: materialLink.url)!)
+                                                    LinkPreview(url: URL(string: materialLink.url)!, showAttachment: true)
                                                         .scaleEffect(geometry.size.width < 375 ? 0.78 : geometry.size.width < 400 ? 0.90 : 1)
                                                 }
                                             }
