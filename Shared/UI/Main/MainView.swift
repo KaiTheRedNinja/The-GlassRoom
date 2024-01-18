@@ -60,10 +60,12 @@ struct MainView: View {
                         } label: {
                             Image(systemName: "rectangle.topthird.inset.filled")
                         }
-                        .onKeyboardShortcut(.toggleTabBar, type: .keyDown) {
-                            guard let window = window.window else { return }
-                            window.toggleTabBar(self)
-                        }
+//                        .onKeyboardShortcut(.toggleTabBar, type: .keyDown) {
+//                            guard let window = window.window else { return }
+//                            window.toggleTabBar(self)
+//                        }
+                        .keyboardShortcut("b", modifiers: [.command, .shift])
+                        .help("Toggle Tab Bar (⌘⇧B)")
                         
                         Button {
                             guard let window = window.window else { return }
@@ -90,9 +92,11 @@ struct MainView: View {
             } label: {
                 Image(systemName: "magnifyingglass")
             }
-            .onKeyboardShortcut(.openUniversalSearch, type: .keyDown) {
-                showSearch.toggle()
-            }
+//            .onKeyboardShortcut(.openUniversalSearch, type: .keyDown) {
+//                showSearch.toggle()
+//            }
+            .keyboardShortcut("o", modifiers: [.command, .shift])
+            .help("Universal Search (⌘⇧O)")
 
             if #available(macOS 14.0, *) {
                 SettingsLink {
@@ -196,6 +200,7 @@ struct MainView: View {
                                         Image(systemName: "magnifyingglass")
                                     }
                                     .keyboardShortcut("O", modifiers: [.command, .shift])
+                                    .help("Universal Search (⌘⇧O)")
                                 }
                             }
                         }

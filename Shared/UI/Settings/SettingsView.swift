@@ -55,12 +55,12 @@ struct SettingsView: View {
                 .tag(2)
 
             
-            shortcuts
-                .frame(width: 680, height: 300)
-                .tabItem {
-                    Label("Shortcuts", systemImage: settingsTabSelection == 3 ? "keyboard.fill" : "keyboard")
-                }
-                .tag(3)
+//            shortcuts
+//                .frame(width: 680, height: 300)
+//                .tabItem {
+//                    Label("Shortcuts", systemImage: settingsTabSelection == 3 ? "keyboard.fill" : "keyboard")
+//                }
+//                .tag(3)
         }
         #else
         NavigationView {
@@ -280,11 +280,15 @@ struct SettingsView: View {
             GroupBox {
                 VStack {
                     KeyboardShortcuts.Recorder("Reload Posts", name: .reloadCoursePosts)
+                        .disabled(true)
                     KeyboardShortcuts.Recorder("Reload Sidebar", name: .reloadSidebar)
+                        .disabled(true)
                     //              KeyboardShortcuts.Recorder("Switch to Next Tab", name: .nextTab)
                     //              KeyboardShortcuts.Recorder("Switch to Previous Tab", name: .previousTab)
                     KeyboardShortcuts.Recorder("Show/Hide Tab Bar", name: .toggleTabBar)
+                        .disabled(true)
                     KeyboardShortcuts.Recorder("Toggle Universal Search", name: .openUniversalSearch)
+                        .disabled(true)
                 }
                 .padding(5)
             }

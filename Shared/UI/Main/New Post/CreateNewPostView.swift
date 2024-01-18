@@ -338,6 +338,7 @@ struct CreateNewPostView: View {
                       titleText.isEmpty :
                         titleText.isEmpty
             )
+            .help("Create \(postTypeSelection.rawValue) (⌘↵)")
         }
     }
     

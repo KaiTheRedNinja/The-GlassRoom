@@ -69,6 +69,7 @@ struct SidebarView: View { // TODO: Fix this
                             coursesManager.loadList(bypassCache: true)
                         }
                     }
+                    .help("Refresh Courses (⌘⇧R)")
                 }
             }
             
@@ -99,6 +100,7 @@ struct SidebarView: View { // TODO: Fix this
                     }
                 }
                 .padding(.leading, 5)
+                .help("Settings (⌘,)")
             }
         }
         .sheet(isPresented: $showingDebugView) {

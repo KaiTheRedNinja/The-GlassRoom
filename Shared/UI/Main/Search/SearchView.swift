@@ -125,6 +125,7 @@ struct SearchView: View {
                     .foregroundColor(.gray)
             }
             .keyboardShortcut(KeyEquivalent.rightArrow, modifiers: [.command, .control])
+            .help("Show preview (⌘⌃→)")
             #endif
         }
         .offset(y: 4)

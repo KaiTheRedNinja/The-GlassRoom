@@ -54,10 +54,11 @@ struct CourseResourcesListView: View {
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
-                    .onKeyboardShortcut(.reloadCoursePosts, type: .keyDown) {
-                        loadList(false)
-                        loadList(true)
-                    }
+//                    .onKeyboardShortcut(.reloadCoursePosts, type: .keyDown) {
+//                        loadList(false)
+//                        loadList(true)
+//                    }
+                    .keyboardShortcut("r", modifiers: [.command])
                     .buttonStyle(.plain)
                     .contextMenu {
                         Button("Use Cache") {
@@ -65,6 +66,7 @@ struct CourseResourcesListView: View {
                         }
                     }
                     .offset(y: -1)
+                    .help("Refresh Posts (⌘R)")
                 }
 
                 Spacer()
@@ -100,6 +102,7 @@ struct CourseResourcesListView: View {
                             loadList(true)
                         }
                     }
+                    .help("Refresh Posts (⌘R)")
                 }
             }
             

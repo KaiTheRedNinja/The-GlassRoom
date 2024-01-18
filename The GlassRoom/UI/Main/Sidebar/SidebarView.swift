@@ -51,9 +51,10 @@ struct SidebarView: View {
                         Image(systemName: "arrow.clockwise")
                     }
                     .buttonStyle(.plain)
-                    .onKeyboardShortcut(.reloadSidebar, type: .keyUp) {
-                        coursesManager.loadList(bypassCache: true)
-                    }
+//                    .onKeyboardShortcut(.reloadSidebar, type: .keyUp) {
+//                        coursesManager.loadList(bypassCache: true)
+//                    }
+                    .keyboardShortcut("r", modifiers: [.command, .shift])
                     .contextMenu {
                         Button("Load Only Cache") {
                             coursesManager.loadList(bypassCache: false)
@@ -64,6 +65,7 @@ struct SidebarView: View {
                         }
                     }
                     .offset(y: -1)
+                    .help("Refresh Courses (⌘⇧R)")
                 }
                 Spacer()
             }
