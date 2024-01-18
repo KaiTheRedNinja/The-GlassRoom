@@ -245,24 +245,24 @@ struct SettingsView: View {
             #if DEBUG
             Toggle("Debug Mode", isOn: $debugMode)
             #endif
-            Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
+//            Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
             Toggle("Enable bionic reading", isOn: $enableBionicReading)
             Toggle("Tint posts background to course color", isOn: $tintToCourseColor)
             Toggle("Use fancy UI", isOn: $useFancyUI)
             Toggle("Reduce course name opacity for unloaded courses", isOn: $lowerUnloadedOpacity)
             #else
-            Section {
-                Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
-            } header: {
-                Text("General")
-            }
-            
+//            Section {
+//                Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
+//            } header: {
+//                Text("General")
+//            }
+
             Section {
                 Toggle("Enable bionic reading", isOn: $enableBionicReading)
             } header: {
                 Text("Accessbility")
             }
-            
+
             #if DEBUG
             Section {
                 Toggle("Debug Mode", isOn: $debugMode)
