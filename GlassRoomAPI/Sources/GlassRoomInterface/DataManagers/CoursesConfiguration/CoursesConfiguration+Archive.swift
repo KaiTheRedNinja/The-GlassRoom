@@ -13,7 +13,7 @@ extension CoursesConfiguration {
         let isArchived = archive?.courses.contains(item.id) ?? false
 
         if isArchived {
-            archive?.courses.removeAll(where: { $0.id == item.id })
+            //archive?.courses.removeAll(where: { $0.id == item.id })
         } else {
             var archivingCourses: [String] = []
 

@@ -72,6 +72,7 @@ public class GlobalCoursesDataManager: ObservableObject {
                                 for course in success.courses {
                                     if [course.courseState] == [.archived] {
                                         CoursesConfiguration.global.archive(item: .course(course.id))
+                                        CoursesConfiguration.global.saveToFileSystem()
                                     }
                                 }
 
