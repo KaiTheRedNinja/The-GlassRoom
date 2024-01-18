@@ -39,7 +39,7 @@ struct SidebarListView: View {
         .onAppear {
             coursesManager.loadList()
         }
-        .alert("Please rename the group", isPresented: .init(get: { renamedGroup != nil }, set: { renamedGroup = $0 ? renamedGroup : nil })) {
+        .alert("Rename Group", isPresented: .init(get: { renamedGroup != nil }, set: { renamedGroup = $0 ? renamedGroup : nil })) {
             if let renamedGroup {
                 RenameCourseGroupView(groupString: renamedGroup)
             } else {
@@ -64,8 +64,9 @@ struct SidebarListView: View {
                     Image(systemName: "chevron.down")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 10)
+                        .frame(height: 8)
                         .rotationEffect(teachingCollapsed ? .degrees(-90) : .zero)
+                        .foregroundColor(.blue)
                 }
                 .onTapGesture {
                     teachingCollapsed.toggle()
@@ -87,8 +88,9 @@ struct SidebarListView: View {
                     Image(systemName: "chevron.down")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 10)
+                        .frame(height: 8)
                         .rotationEffect(enrolledCollapsed ? .degrees(-90) : .zero)
+                        .foregroundColor(.blue)
                 }
                 .onTapGesture {
                     enrolledCollapsed.toggle()
@@ -110,8 +112,9 @@ struct SidebarListView: View {
                     Image(systemName: "chevron.down")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 10)
+                        .frame(height: 8)
                         .rotationEffect(archiveCollapsed ? .degrees(-90) : .zero)
+                        .foregroundColor(.blue)
                 }
                 .onTapGesture {
                     archiveCollapsed.toggle()
@@ -136,7 +139,7 @@ struct SidebarListView: View {
                     Section("Group") {
                         let isArchived = configuration.archive?.courses.contains(id) ?? false
                         let isInGroup = configuration.courseGroups.contains(where: { $0.courses.contains(id) })
-                        Button("\(isArchived ? "Unarchive and " : "")\(isInGroup ? "Move to" : "Create") new Group") {
+                        Button {
                             // create new group
                             guard let course = coursesManager.courses.first(where: { $0.id == id }) else { return }
 
@@ -153,8 +156,10 @@ struct SidebarListView: View {
                                       courses: [id])
                             )
                             configuration.saveToFileSystem()
+                        } label: {
+                            Label("\(isArchived ? "Unarchive and " : "")\(isInGroup ? "Move to" : "Create") new Group", systemImage: "folder.badge.plus")
                         }
-                        Menu("\(isArchived ? "Unarchive and " : "")\(isInGroup ? "Move" : "Add") to Group") {
+                        Menu {
                             ForEach(configuration.courseGroups) { group in
                                 Button(group.groupName) { // add to that group
                                     // remove the items from where they came from
@@ -168,6 +173,8 @@ struct SidebarListView: View {
                                     configuration.saveToFileSystem()
                                 }
                             }
+                        } label: {
+                            Label("\(isArchived ? "Unarchive and " : "")\(isInGroup ? "Move" : "Add") to Group", systemImage: isInGroup ? "arrow.up.and.down.and.arrow.left.and.right" : "plus.circle")
                         }
                         if isInGroup {
                             Button(role: .destructive) { // remove from grp
@@ -177,7 +184,7 @@ struct SidebarListView: View {
                                 }
                                 configuration.saveToFileSystem()
                             } label: {
-                                Text("Remove from Group")
+                                Label("Remove from Group", systemImage: "folder.badge.minus")
                             }
                         }
                     }
@@ -188,22 +195,26 @@ struct SidebarListView: View {
                             configuration.archive(item: course)
                             configuration.saveToFileSystem()
                         } label: {
-                            Text("\(isArchived ? "Unarchive" : "Archive") Course")
+                            Label("\(isArchived ? "Unarchive" : "Archive") Course", systemImage: "archivebox")
                         }
                     }
                 case .group(let id):
                     if id != CourseGroup.archiveId {
-                        Button("Archive Courses in Group") {
+                        Button {
+                            renamedGroup = id
+                        } label: {
+                            Label("Rename Group", systemImage: "pencil")
+                        }
+                        
+                        Button {
                             // add contents of group to that group
                             configuration.archive(item: course)
                             configuration.saveToFileSystem()
+                        } label: {
+                            Label("Archive Courses in Group", systemImage: "archivebox")
                         }
 
-                        Button("Rename Group") {
-                            renamedGroup = id
-                        }
-
-                        Menu("Combine with Group") {
+                        Menu {
                             ForEach(configuration.courseGroups) { group in
                                 Button(group.groupName) {
                                     // add contents of group to that group
@@ -217,6 +228,8 @@ struct SidebarListView: View {
                                     configuration.saveToFileSystem()
                                 }
                             }
+                        } label: {
+                            Label("Combine with Group", systemImage: "arrow.triangle.merge")
                         }
                         
                         Divider()
@@ -225,7 +238,7 @@ struct SidebarListView: View {
                             configuration.courseGroups.removeAll(where: { $0.id == id })
                             configuration.saveToFileSystem()
                         } label: {
-                            Text("Delete Group")
+                            Label("Delete Group", systemImage: "trash")
                         }
                     }
                 default:
