@@ -91,6 +91,7 @@ final class SidebarOutlineMenu: NSMenu {
         guard let item = item as? GeneralCourse else { return }
         let config = CoursesConfiguration.global
         config.archive(item: item)
+        config.saveToFileSystem()
     }
 
     @objc
