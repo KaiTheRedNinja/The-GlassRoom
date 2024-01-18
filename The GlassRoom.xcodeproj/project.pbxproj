@@ -95,6 +95,8 @@
 		93ACB2492A10D8930040C88E /* CenterSplitViewToolbarTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ACB2482A10D8930040C88E /* CenterSplitViewToolbarTop.swift */; };
 		93AED6922A1781A50005854C /* CourseRegisterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6912A1781A50005854C /* CourseRegisterListView.swift */; };
 		93AED6942A179D9F0005854C /* CourseRegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AED6932A179D9F0005854C /* CourseRegisterItem.swift */; };
+		93C2969D2B58E73800AA2275 /* RenameCourseGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373FBEF2A16E9B3007AB503 /* RenameCourseGroupView.swift */; };
+		93C2969E2B58E73800AA2275 /* RenameCourseGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373FBEF2A16E9B3007AB503 /* RenameCourseGroupView.swift */; };
 		93CAF7502A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CAF74F2A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift */; };
 		93E0B8B42A136DD400ED917A /* CustomisationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0B8B32A136DD400ED917A /* CustomisationView.swift */; };
 		93F229762A10E5B800B44C85 /* UniversalCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229752A10E5B800B44C85 /* UniversalCoursePostListView.swift */; };
@@ -462,7 +464,6 @@
 				93757D7D2A0FBAE70063AB67 /* SidebarOutlineViewController.swift */,
 				938300ED2A0FBB4C006581B8 /* SidebarOutlineView.swift */,
 				938300EF2A0FC009006581B8 /* SidebarOutlineMenu.swift */,
-				9373FBEF2A16E9B3007AB503 /* RenameCourseGroupView.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -572,6 +573,7 @@
 		F31A7B1D2A4E783A00B50450 /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
+				9373FBEF2A16E9B3007AB503 /* RenameCourseGroupView.swift */,
 				93362DC92A2B20E1006303CA /* SidebarCourseView.swift */,
 			);
 			path = Sidebar;
@@ -792,6 +794,7 @@
 				933F39AE2A4445A3006E13AC /* AnnouncementDetailView.swift in Sources */,
 				933F39A32A4444B5006E13AC /* CourseRegisterListView.swift in Sources */,
 				933F39A22A4444B5006E13AC /* CenterSplitViewToolbarTop.swift in Sources */,
+				93C2969D2B58E73800AA2275 /* RenameCourseGroupView.swift in Sources */,
 				933F39B02A4445A3006E13AC /* CourseWorkTeacherSubmissionsView.swift in Sources */,
 				933F39A42A4444CD006E13AC /* DebugLogsView.swift in Sources */,
 				933F395C2A443DFB006E13AC /* UserAuthModel.swift in Sources */,
@@ -915,6 +918,7 @@
 				F3AB1EAD2B5640E70026DD51 /* CourseSubmissionBadge.swift in Sources */,
 				F3AB1EA82B5640E70026DD51 /* CourseRegisterItem.swift in Sources */,
 				F3AB1EB22B5640E70026DD51 /* SegmentedControl.swift in Sources */,
+				93C2969E2B58E73800AA2275 /* RenameCourseGroupView.swift in Sources */,
 				F3AB1EAE2B5640E70026DD51 /* SearchView.swift in Sources */,
 				F3AB1EC12B5640E70026DD51 /* DebugAPICallsView.swift in Sources */,
 				F3AB1EB52B5640E70026DD51 /* TypeExtensions.swift in Sources */,

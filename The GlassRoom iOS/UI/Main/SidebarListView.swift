@@ -17,6 +17,8 @@ struct SidebarListView: View {
     
     @State var searchQuery: String = ""
 
+    @State var renamedGroup: String?
+
     var body: some View {
         List(selection: $selection) {
             if searchQuery.isEmpty {
@@ -32,6 +34,13 @@ struct SidebarListView: View {
         .searchable(text: $searchQuery)
         .onAppear {
             coursesManager.loadList()
+        }
+        .alert("Please rename the group", isPresented: .init(get: { renamedGroup != nil }, set: { renamedGroup = $0 ? renamedGroup : nil })) {
+            if let renamedGroup {
+                RenameCourseGroupView(groupString: renamedGroup)
+            } else {
+                Text("Error")
+            }
         }
     }
 
@@ -95,6 +104,7 @@ struct SidebarListView: View {
                                       groupType: course.courseType,
                                       courses: [id])
                             )
+                            configuration.saveToFileSystem()
                         }
                         Menu("\(isArchived ? "Unarchive and " : "")\(isInGroup ? "Move" : "Add") to Group") {
                             ForEach(configuration.courseGroups) { group in
@@ -107,6 +117,7 @@ struct SidebarListView: View {
 
                                     guard let destIndex = configuration.courseGroups.firstIndex(of: group) else { return }
                                     configuration.courseGroups[destIndex].courses.append(id)
+                                    configuration.saveToFileSystem()
                                 }
                             }
                         }
@@ -116,6 +127,7 @@ struct SidebarListView: View {
                                 for index in 0..<configuration.courseGroups.count {
                                     configuration.courseGroups[index].courses.removeAll(where: { $0.id == id })
                                 }
+                                configuration.saveToFileSystem()
                             } label: {
                                 Text("Remove from Group")
                             }
@@ -126,6 +138,7 @@ struct SidebarListView: View {
                         let isArchived = configuration.archive?.courses.contains(id) ?? false
                         Button(role: isArchived ? .none : .destructive) {
                             configuration.archive(item: course)
+                            configuration.saveToFileSystem()
                         } label: {
                             Text("\(isArchived ? "Unarchive" : "Archive") Course")
                         }
@@ -135,8 +148,13 @@ struct SidebarListView: View {
                         Button("Archive Courses in Group") {
                             // add contents of group to that group
                             configuration.archive(item: course)
+                            configuration.saveToFileSystem()
                         }
-                        
+
+                        Button("Rename Group") {
+                            renamedGroup = id
+                        }
+
                         Menu("Combine with Group") {
                             ForEach(configuration.courseGroups) { group in
                                 Button(group.groupName) {
@@ -148,6 +166,7 @@ struct SidebarListView: View {
                                         contentsOf: configuration.courseGroups[sourceIndex].courses
                                     )
                                     configuration.courseGroups.removeAll(where: { $0.id == id })
+                                    configuration.saveToFileSystem()
                                 }
                             }
                         }
@@ -156,6 +175,7 @@ struct SidebarListView: View {
                         
                         Button(role: .destructive) {
                             configuration.courseGroups.removeAll(where: { $0.id == id })
+                            configuration.saveToFileSystem()
                         } label: {
                             Text("Delete Group")
                         }

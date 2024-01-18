@@ -15,6 +15,7 @@ struct RenameCourseGroupView: View {
     var groupString: String
 
     var body: some View {
+        #if os(macOS)
         VStack {
             if let groupIndex = configuration.courseGroups.firstIndex(where: { $0.id == groupString }) {
                 TextField("Name", text: .init(get: {
@@ -39,5 +40,24 @@ struct RenameCourseGroupView: View {
         }
         .padding(15)
         .frame(width: 200, height: 170)
+        #else
+        if let groupIndex = configuration.courseGroups.firstIndex(where: { $0.id == groupString }) {
+            TextField("Name", text: .init(get: {
+                configuration.courseGroups[groupIndex].groupName
+            }, set: { newValue in
+                configuration.courseGroups[groupIndex].groupName = newValue
+            }))
+            Button("Cancel", role: .cancel) {
+            }
+            Button("Save") {
+                configuration.saveToFileSystem()
+                configuration.objectWillChange.send()
+                presentationMode.wrappedValue.dismiss()
+            }
+            .buttonStyle(.borderedProminent)
+        } else {
+            Text("No Group Found")
+        }
+        #endif
     }
 }
