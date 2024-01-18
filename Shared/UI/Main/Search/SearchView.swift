@@ -93,9 +93,13 @@ struct SearchView: View {
                         }
                         .keyboardShortcut(KeyEquivalent.return, modifiers: [])
                         Button("R") { // to the right
-                            showPostsPreview.toggle()
+                            showPostsPreview = true
                         }
-                        .keyboardShortcut(KeyEquivalent.rightArrow, modifiers: [])
+                        .keyboardShortcut(KeyEquivalent.rightArrow, modifiers: [.command, .control])
+                        Button("L") { // to the left
+                            showPostsPreview = false
+                        }
+                        .keyboardShortcut(KeyEquivalent.leftArrow, modifiers: [.command, .control])
                     }
                     .opacity(0)
                 }
@@ -150,7 +154,7 @@ struct SearchView: View {
                             if selection == .course(course.id) && !showPostsPreview {
                                 Spacer()
                                 #if os(macOS)
-                                Text("Press → for preview")
+                                Text("Press ⌘⌃→ for preview")
                                     .font(.caption)
                                     .foregroundColor(.gray)
                                 #else
