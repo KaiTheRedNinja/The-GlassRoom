@@ -133,15 +133,15 @@ requires an internet connection to work.
             
             Spacer()
             
-            #if os(iOS)
-            if let errorMsg = userModel.errorMessage {
-                Text(errorMsg)
-                    .multilineTextAlignment(.center)
-                    .font(.system(.caption, weight: .bold))
-                    .foregroundStyle(.secondary)
-                    .padding(.bottom)
-            }
-            #endif
+//            #if os(iOS)
+//            if let errorMsg = userModel.errorMessage {
+//                Text(errorMsg)
+//                    .multilineTextAlignment(.center)
+//                    .font(.system(.caption, weight: .bold))
+//                    .foregroundStyle(.secondary)
+//                    .padding(.bottom)
+//            }
+//            #endif
         }
     }
 
