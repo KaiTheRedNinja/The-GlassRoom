@@ -17,9 +17,9 @@ struct SignInView: View {
         #if os(macOS)
         VStack {
             Spacer()
-            if let errorMsg = userModel.errorMessage {
-                Text(errorMsg)
-            }
+//            if let errorMsg = userModel.errorMessage {
+//                Text(errorMsg)
+//            }
         }
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -111,14 +111,14 @@ struct SignInView: View {
             Spacer()
             #endif
             
-            if userModel.errorMessage?.contains("connection appears to be offline") ?? false {
-                Text("""
-You seem to be offline. Glassroom
-requires an internet connection to work.
-""")
-                .multilineTextAlignment(.center)
-                Spacer()
-            }
+//            if userModel.errorMessage?.contains("connection appears to be offline") ?? false {
+//                Text("""
+//You seem to be offline. Glassroom
+//requires an internet connection to work.
+//""")
+//                .multilineTextAlignment(.center)
+//                Spacer()
+//            }
             
             Button {
                 userModel.signIn()
