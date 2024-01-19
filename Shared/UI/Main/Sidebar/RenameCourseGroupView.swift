@@ -31,6 +31,11 @@ struct RenameCourseGroupView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                     .buttonStyle(.borderedProminent)
+                    .onSubmit {
+                        configuration.saveToFileSystem()
+                        configuration.objectWillChange.send()
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }
             } else {
                 Text("No Group Found")
@@ -51,6 +56,11 @@ struct RenameCourseGroupView: View {
                 presentationMode.wrappedValue.dismiss()
             }
             .buttonStyle(.borderedProminent)
+            .onSubmit {
+                configuration.saveToFileSystem()
+                configuration.objectWillChange.send()
+                presentationMode.wrappedValue.dismiss()
+            }
         } else {
             Text("No Group Found")
         }
