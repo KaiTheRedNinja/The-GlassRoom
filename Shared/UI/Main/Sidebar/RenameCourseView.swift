@@ -1,31 +1,38 @@
 //
-//  RenameCourseGroupView.swift
-//  The GlassRoom
+//  RenameCourseView.swift
+//  Glassroom
 //
-//  Created by Kai Quan Tay on 19/5/23.
+//  Created by Kai Quan Tay on 19/1/24.
 //
 
 import SwiftUI
 import GlassRoomInterface
 
-struct RenameCourseGroupView: View {
+struct RenameCourseView: View {
     @ObservedObject var configuration: CoursesConfiguration = .global
+    @ObservedObject var manager: GlobalCoursesDataManager = .global
     @Environment(\.presentationMode) var presentationMode
 
-    var groupString: String
+    var courseString: String
+
+    init(courseString: String) {
+        self.courseString = courseString
+    }
 
     var body: some View {
-        #if os(macOS)
+#if os(macOS)
         VStack {
-            if let groupIndex = configuration.courseGroups.firstIndex(where: { $0.id == groupString }) {
+            if let course = manager.courseIdMap[courseString] {
                 TextField("Name", text: .init(get: {
-                    configuration.courseGroups[groupIndex].groupName
+                    configuration.renamedCourses[courseString] ?? course.name
                 }, set: { newValue in
-                    configuration.courseGroups[groupIndex].groupName = newValue
+                    configuration.renamedCourses[courseString] = newValue
                 }))
                 HStack {
                     Spacer()
                     Button("Cancel", role: .cancel) {
+                        configuration.renamedCourses.removeValue(forKey: courseString)
+                        configuration.saveToFileSystem()
                         presentationMode.wrappedValue.dismiss()
                     }
                     Button("Save") {
@@ -36,19 +43,22 @@ struct RenameCourseGroupView: View {
                     .buttonStyle(.borderedProminent)
                 }
             } else {
-                Text("No Group Found")
+                Text("No Course")
             }
         }
         .padding(15)
         .frame(width: 200, height: 170)
-        #else
-        if let groupIndex = configuration.courseGroups.firstIndex(where: { $0.id == groupString }) {
+#else
+        if let course = manager.courseIdMap[courseString] {
             TextField("Name", text: .init(get: {
-                configuration.courseGroups[groupIndex].groupName
+                configuration.renamedCourses[courseString] ?? course.name
             }, set: { newValue in
-                configuration.courseGroups[groupIndex].groupName = newValue
+                configuration.renamedCourses[courseString] = newValue
             }))
             Button("Cancel", role: .cancel) {
+                configuration.renamedCourses.removeValue(forKey: courseString)
+                configuration.saveToFileSystem()
+                presentationMode.wrappedValue.dismiss()
             }
             Button("Save") {
                 configuration.saveToFileSystem()
@@ -57,8 +67,8 @@ struct RenameCourseGroupView: View {
             }
             .buttonStyle(.borderedProminent)
         } else {
-            Text("No Group Found")
+            Text("No Course")
         }
-        #endif
+#endif
     }
 }

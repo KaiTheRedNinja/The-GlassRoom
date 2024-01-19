@@ -15,6 +15,7 @@ struct SidebarOutlineView: NSViewControllerRepresentable {
 
     @Binding var selectedCourse: GeneralCourse?
     @Binding var renamedGroup: String?
+    @Binding var renamedCourse: String?
     var courses: [Course]
 
     @ObservedObject var configuration = CoursesConfiguration.global
@@ -24,6 +25,7 @@ struct SidebarOutlineView: NSViewControllerRepresentable {
         controller.courses = self.courses
         controller.selectedCourse = $selectedCourse
         controller.renamedGroup = $renamedGroup
+        controller.renamedCourse = $renamedCourse
         controller.updateGroups = { groups in
             configuration.courseGroups = groups
             configuration.saveToFileSystem()
@@ -36,6 +38,7 @@ struct SidebarOutlineView: NSViewControllerRepresentable {
         nsViewController.courseGroups = configuration.courseGroups
         nsViewController.selectedCourse = $selectedCourse
         nsViewController.renamedGroup = $renamedGroup
+        nsViewController.renamedCourse = $renamedCourse
         nsViewController.archive = $configuration.archive
         nsViewController.outlineView.reloadData()
         nsViewController.updateSelection()

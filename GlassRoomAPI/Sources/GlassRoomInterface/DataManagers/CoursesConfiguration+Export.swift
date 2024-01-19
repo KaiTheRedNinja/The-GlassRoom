@@ -90,11 +90,6 @@ public extension CoursesConfiguration {
         // copy the config's data into self
         for (field, style) in fields {
             switch field {
-            case .replacedCourseNames:
-                switch style {
-                case .replace: self.replacedCourseNames = config.replacedCourseNames
-                case .append: self.replacedCourseNames += config.replacedCourseNames
-                }
             case .courseGroups:
                 switch style {
                 case .replace: self.courseGroups = config.courseGroups
@@ -108,6 +103,16 @@ public extension CoursesConfiguration {
                     if self.archive == nil {
                         self.archive = config.archive
                     }
+                }
+            case .replacedCourseNames:
+                switch style {
+                case .replace: self.replacedCourseNames = config.replacedCourseNames
+                case .append: self.replacedCourseNames += config.replacedCourseNames
+                }
+            case .renamedCourses:
+                switch style {
+                case .replace: self.renamedCourses = config.renamedCourses
+                case .append: config.renamedCourses.forEach({ self.renamedCourses[$0.key] = $0.value })
                 }
             case .customColors:
                 switch style {

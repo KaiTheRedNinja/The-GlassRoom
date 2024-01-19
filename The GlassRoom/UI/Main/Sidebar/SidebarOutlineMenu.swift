@@ -52,9 +52,9 @@ final class SidebarOutlineMenu: NSMenu {
 
         switch item {
         case .group(let id):
-            if id == CourseGroup.archiveId {
+            if id != CourseGroup.archiveId {
                 items = [
-                    menuItem("Rename Group", action: #selector(renameGroup)),
+                    menuItem("Rename Group", action: #selector(renameGroupOrCourse)),
                     menuItem("\(isArchived ? "Unarchive" : "Archive") Group", action: #selector(archive)),
                     menuItem("Remove Group", action: #selector(deleteGroup))
                 ]
@@ -65,6 +65,7 @@ final class SidebarOutlineMenu: NSMenu {
             items = []
         default:
             items = [
+                menuItem("Rename Course", action: #selector(renameGroupOrCourse)),
                 menuItem("\(isArchived ? "Unarchive" : "Archive") Course", action: #selector(archive)),
                 menuItem("Show Cache In Finder", action: #selector(showCacheInFinder))
             ]
@@ -72,11 +73,13 @@ final class SidebarOutlineMenu: NSMenu {
     }
 
     @objc
-    func renameGroup() {
+    func renameGroupOrCourse() {
         guard let item = item as? GeneralCourse else { return }
         switch item {
         case .group(let string):
             outlineView.renamedGroup?.wrappedValue = string
+        case .course(let string):
+            outlineView.renamedCourse?.wrappedValue = string
         default: return
         }
     }

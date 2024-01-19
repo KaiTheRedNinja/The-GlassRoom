@@ -31,7 +31,11 @@ struct BreadcrumbsView: View {
                         .font(.title3)
                     switch selectedCourse {
                     case .course(let string):
-                        Text(manager.courseIdMap[string]?.name ?? "Untitled Course")
+                        if let course = manager.courseIdMap[string] {
+                            Text(config.nameFor(course))
+                        } else {
+                            Text("Untitled Course")
+                        }
                     case .allTeaching:
                         Text("Teaching")
                     case .allEnrolled:

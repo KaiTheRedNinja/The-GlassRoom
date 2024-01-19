@@ -17,11 +17,13 @@ struct SidebarView: View {
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
 
     @State var renamedGroup: String?
+    @State var renamedCourse: String?
 
     var body: some View {
         SidebarOutlineView(
             selectedCourse: $selection,
             renamedGroup: $renamedGroup,
+            renamedCourse: $renamedCourse,
             courses: coursesManager.courses
         )
         .overlay {
@@ -78,6 +80,9 @@ struct SidebarView: View {
         }
         .sheet(item: $renamedGroup) { item in
             RenameCourseGroupView(groupString: item)
+        }
+        .sheet(item: $renamedCourse) { item in
+            RenameCourseView(courseString: item)
         }
     }
 }
