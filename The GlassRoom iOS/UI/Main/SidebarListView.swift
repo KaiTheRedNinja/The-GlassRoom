@@ -20,9 +20,25 @@ struct SidebarListView: View {
 
     @State var renamedGroup: String?
 
-    @AppStorage("teachingCollapsed") var teachingCollapsed: Bool = false
-    @AppStorage("enrolledCollapsed") var enrolledCollapsed: Bool = false
-    @AppStorage("archiveCollapsed") var archiveCollapsed: Bool = true
+    @State var teachingCollapsed: Bool = false { didSet {
+        UserDefaults.standard.set(teachingCollapsed, forKey: "teachingCollapsed")
+    }}
+    @State var enrolledCollapsed: Bool = false { didSet {
+        UserDefaults.standard.set(enrolledCollapsed, forKey: "enrolledCollapsed")
+    }}
+    @State var archiveCollapsed: Bool = true { didSet {
+        UserDefaults.standard.set(archiveCollapsed, forKey: "archiveCollapsed")
+    }}
+
+    init(selection: Binding<GeneralCourse?>) {
+        self._selection = selection
+
+        let standard = UserDefaults.standard
+
+        teachingCollapsed = standard.bool(forKey: "teachingCollapsed")
+        enrolledCollapsed = standard.bool(forKey: "enrolledCollapsed")
+        archiveCollapsed = standard.bool(forKey: "archiveCollapsed")
+    }
 
     var body: some View {
         List(selection: $selection) {
@@ -70,7 +86,9 @@ struct SidebarListView: View {
                         .foregroundColor(.blue)
                 }
                 .onTapGesture {
-                    teachingCollapsed.toggle()
+                    withAnimation {
+                        teachingCollapsed.toggle()
+                    }
                 }
             }
         }
@@ -94,7 +112,9 @@ struct SidebarListView: View {
                         .foregroundColor(.blue)
                 }
                 .onTapGesture {
-                    enrolledCollapsed.toggle()
+                    withAnimation {
+                        enrolledCollapsed.toggle()
+                    }
                 }
             }
         }
@@ -118,7 +138,9 @@ struct SidebarListView: View {
                         .foregroundColor(.blue)
                 }
                 .onTapGesture {
-                    archiveCollapsed.toggle()
+                    withAnimation {
+                        archiveCollapsed.toggle()
+                    }
                 }
             }
         }
