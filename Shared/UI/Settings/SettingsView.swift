@@ -20,7 +20,7 @@ struct SettingsView: View {
     @AppStorage("enableBionicReading") var enableBionicReading: Bool = false
     @AppStorage("tintToCourseColor") var tintToCourseColor: Bool = false
     @AppStorage("useFancyUI") var useFancyUI: Bool = false
-    @AppStorage("lowerUnloadedOpacity") var lowerUnloadedOpacity: Bool = true
+    @AppStorage("lowerUnloadedOpacity") var lowerUnloadedOpacity: Bool = false
     
     @Environment(\.dismiss) var dismiss
     
@@ -69,22 +69,59 @@ struct SettingsView: View {
                     account
                 }
                 
-                Section {
+                Section("Settings") {
                     NavigationLink {
                         general
                             .navigationTitle("General")
                             .navigationBarTitleDisplayMode(.inline)
                     } label: {
-                        Label("General", systemImage: "gear")
+                        SettingsCategory(text: "General", color: .gray) {
+                            AnyView(
+                                Image(systemName: "gear")
+                                .resizable()
+                            )
+                        }
                     }
                     
                     NavigationLink {
-                        CustomisationView()
-                            .navigationTitle("Customisation")
+                        accessibility
+                            .navigationTitle("Accessibility")
                             .navigationBarTitleDisplayMode(.inline)
                     } label: {
-                        Label("Customisation", systemImage: "paintpalette.fill")
+                        if #available(iOS 17.0, *) {
+                            SettingsCategory(text: "Accessibility", color: .blue) {
+                                AnyView(
+                                    Image(systemName: "accessibility")
+                                        .resizable()
+                                )
+                            }
+                        } else {
+                            SettingsCategory(text: "Accessibility", color: .blue) {
+                                AnyView(
+                                    Image(systemName: "figure.arms.open")
+                                        .resizable()
+                                )
+                            }
+                        }
                     }
+                }
+                
+                Section {
+                    NavigationLink {
+                        CustomisationView()
+                            .navigationTitle("Colours & Symbols")
+                            .navigationBarTitleDisplayMode(.inline)
+                    } label: {
+                        SettingsCategory(text: "Colours & Symbols", color: .indigo) {
+                            AnyView(
+                                Image(systemName: "paintpalette.fill")
+                                    .resizable()
+                                    .symbolRenderingMode(.multicolor)
+                            )
+                        }
+                    }
+                } header: {
+                    Text("Customisation")
                 }
                 
                 Section {
@@ -256,11 +293,12 @@ struct SettingsView: View {
 //            } header: {
 //                Text("General")
 //            }
-
+            
             Section {
-                Toggle("Enable bionic reading", isOn: $enableBionicReading)
+                Toggle("Use fancy UI", isOn: $useFancyUI)
+                Toggle("Reduce course name opacity for unloaded courses", isOn: $lowerUnloadedOpacity)
             } header: {
-                Text("Accessibility")
+                Text("General")
             }
 
             #if DEBUG
@@ -273,6 +311,18 @@ struct SettingsView: View {
             #endif
         }
     }
+    
+    #if os(iOS)
+    var accessibility: some View {
+        Form {
+            Section {
+                Toggle("Enable bionic reading", isOn: $enableBionicReading)
+            } header: {
+                Text("Accessibility")
+            }
+        }
+    }
+    #endif
     
     #if os(macOS)
     var shortcuts: some View {

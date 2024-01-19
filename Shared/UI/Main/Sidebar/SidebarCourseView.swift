@@ -19,7 +19,7 @@ struct SidebarCourseView: View {
     @State var postDataManagerWatcher: AnyCancellable?
     @State var isUnloaded: Bool = false
     
-    @AppStorage("lowerUnloadedOpacity") var lowerUnloadedOpacity: Bool = true
+    @AppStorage("lowerUnloadedOpacity") var lowerUnloadedOpacity: Bool = false
 
     var body: some View {
         ZStack {
@@ -67,9 +67,7 @@ struct SidebarCourseView: View {
                         }
                     }
                 }
-                #if os(macOS)
                 .opacity(lowerUnloadedOpacity ? isUnloaded ? 0.4 : 1 : 1)
-                #endif
                 .onAppear {
                     coursePostsDataManagerWatcher = CoursePostsDataManager.loadedManagersPublisher.sink { value in
                         testForLoad(value: value, id: string)

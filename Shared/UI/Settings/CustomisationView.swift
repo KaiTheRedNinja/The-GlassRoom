@@ -23,11 +23,7 @@ struct CustomisationView: View {
                 coloursList
             }
             #else
-            Form {
-                NavigationLink("Colours and symbols") {
-                    coloursList
-                }
-            }
+            coloursList
             #endif
             
             #if os(macOS)
@@ -82,67 +78,61 @@ struct CustomisationView: View {
             }
         }
         #if os(iOS)
-        .navigationTitle("Colours and symbols")
+        .navigationTitle("Colours & Symbols")
         .navigationBarTitleDisplayMode(.inline)
         #endif
         .sheet(isPresented: $showIconPopup) {
-            NavigationStack {
-                SymbolPicker(symbol: .init(get: {
-                    if let selectedIconReplacement {
-                        return configuration.iconFor(selectedIconReplacement)
-                    } else {
-                        return "person.2.fill"
-                    }
-                }, set: { newValue in
-                    configuration.customIcons[selectedIconReplacement!] = newValue
-                }))
-                #if os(macOS)
-                .safeAreaInset(edge: .bottom) {
-                    Rectangle().fill(.thinMaterial)
-                        .overlay {
-                            HStack {
-                                Spacer()
-                                ColorPicker("Color", selection: .init(get: {
-                                    if let selectedIconReplacement {
-                                        return configuration.colorFor(selectedIconReplacement)
-                                    } else {
-                                        return .accentColor
-                                    }
-                                }, set: { newValue in
-                                    configuration.customColors[selectedIconReplacement!] = newValue
-                                }))
-                            }
-                            .padding(.horizontal, 10)
-                        }
-                        .frame(height: 30)
-                        .overlay(alignment: .top) {
-                            Divider()
-                        }
+            SymbolPicker(symbol: .init(get: {
+                if let selectedIconReplacement {
+                    return configuration.iconFor(selectedIconReplacement)
+                } else {
+                    return "person.2.fill"
                 }
-                #else
-                .safeAreaInset(edge: .bottom) {
-                    HStack {
-                        Spacer()
-                        ColorPicker("Color", selection: .init(get: {
-                            if let selectedIconReplacement {
-                                return configuration.colorFor(selectedIconReplacement)
-                            } else {
-                                return .accentColor
-                            }
-                        }, set: { newValue in
-                            configuration.customColors[selectedIconReplacement!] = newValue
-                        }))
+            }, set: { newValue in
+                configuration.customIcons[selectedIconReplacement!] = newValue
+            }))
+            #if os(macOS)
+            .safeAreaInset(edge: .bottom) {
+                Rectangle().fill(.thinMaterial)
+                    .overlay {
+                        HStack {
+                            Spacer()
+                            ColorPicker("Color", selection: .init(get: {
+                                if let selectedIconReplacement {
+                                    return configuration.colorFor(selectedIconReplacement)
+                                } else {
+                                    return .accentColor
+                                }
+                            }, set: { newValue in
+                                configuration.customColors[selectedIconReplacement!] = newValue
+                            }))
+                        }
+                        .padding(.horizontal, 10)
                     }
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 15)
-                    .padding(.bottom, -10)
-                    .background(.ultraThinMaterial)
+                    .frame(height: 30)
                     .overlay(alignment: .top) {
                         Divider()
                     }
-                }
-                #endif
             }
+            #else
+            .safeAreaInset(edge: .bottom) {
+                HStack {
+                    Spacer()
+                    ColorPicker("Color", selection: .init(get: {
+                        if let selectedIconReplacement {
+                            return configuration.colorFor(selectedIconReplacement)
+                        } else {
+                            return .accentColor
+                        }
+                    }, set: { newValue in
+                        configuration.customColors[selectedIconReplacement!] = newValue
+                    }))
+                }
+                .padding(.horizontal, 30)
+                .padding(.vertical, 15)
+                .background(.ultraThinMaterial)
+            }
+            #endif
         }
     }
 }

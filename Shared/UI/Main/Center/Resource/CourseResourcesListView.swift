@@ -129,8 +129,8 @@ struct CourseResourcesListView: View {
             }
             .padding(.horizontal, 30)
             .padding(.vertical, 15)
-            .padding(.bottom, -10)
             .background(.ultraThinMaterial)
+            .ignoresSafeArea()
         }
         #endif
     }

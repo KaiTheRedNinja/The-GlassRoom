@@ -101,6 +101,9 @@
 		93F2297A2A10EA9D00B44C85 /* MultiCoursePostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F229792A10EA9D00B44C85 /* MultiCoursePostListView.swift */; };
 		F31A7B1C2A4E753000B50450 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A7B1B2A4E753000B50450 /* SidebarView.swift */; };
 		F31A7B1E2A4E784300B50450 /* SidebarCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93362DC92A2B20E1006303CA /* SidebarCourseView.swift */; };
+		F3694B0B2B5AD02D00E96003 /* SettingsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3694B0A2B5AD02D00E96003 /* SettingsCategory.swift */; };
+		F3694B0C2B5AD02D00E96003 /* SettingsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3694B0A2B5AD02D00E96003 /* SettingsCategory.swift */; };
+		F3694B0D2B5AD02D00E96003 /* SettingsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3694B0A2B5AD02D00E96003 /* SettingsCategory.swift */; };
 		F37C11082B5562DA0000140D /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C11072B5562DA0000140D /* Secrets (Sensitive).swift */; };
 		F37C11092B5562DA0000140D /* Secrets (Sensitive).swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C11072B5562DA0000140D /* Secrets (Sensitive).swift */; };
 		F3A977672B590482009B894C /* LinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A977662B590482009B894C /* LinkPreview.swift */; };
@@ -222,6 +225,7 @@
 		93F229752A10E5B800B44C85 /* UniversalCoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalCoursePostListView.swift; sourceTree = "<group>"; };
 		93F229792A10EA9D00B44C85 /* MultiCoursePostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCoursePostListView.swift; sourceTree = "<group>"; };
 		F31A7B1B2A4E753000B50450 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		F3694B0A2B5AD02D00E96003 /* SettingsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCategory.swift; sourceTree = "<group>"; };
 		F37C11072B5562DA0000140D /* Secrets (Sensitive).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Secrets (Sensitive).swift"; sourceTree = "<group>"; };
 		F3A977662B590482009B894C /* LinkPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPreview.swift; sourceTree = "<group>"; };
 		F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-Info.plist"; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 		6AA058392A0FEB80005A9BDB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F3694B0A2B5AD02D00E96003 /* SettingsCategory.swift */,
 				93ACB2462A10D5C00040C88E /* SegmentedControl.swift */,
 				93362DCB2A2B47EF006303CA /* FittingGeometryReader.swift */,
 				93761F382A2B81DF00E2008E /* TriStateToggle.swift */,
@@ -812,6 +817,7 @@
 				933F39B12A4445A3006E13AC /* DetailView.swift in Sources */,
 				938883232A5036F600EAD9F1 /* SidebarListView.swift in Sources */,
 				933F39AF2A4445A3006E13AC /* CourseMaterialDetailView.swift in Sources */,
+				F3694B0C2B5AD02D00E96003 /* SettingsCategory.swift in Sources */,
 				937FB6D62B5A255900ECA327 /* RenameCourseView.swift in Sources */,
 				F31A7B1C2A4E753000B50450 /* SidebarView.swift in Sources */,
 				933F399F2A4444B2006E13AC /* CourseResourcesListView.swift in Sources */,
@@ -864,6 +870,7 @@
 				93650B132A19A7E100F5D865 /* CoursePostListView.swift in Sources */,
 				93CAF7502A2CBF7C005D265E /* SymbolPicker+SwiftUI.swift in Sources */,
 				937FB6D12B5A11A000ECA327 /* MainView+Toolbar.swift in Sources */,
+				F3694B0B2B5AD02D00E96003 /* SettingsCategory.swift in Sources */,
 				9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */,
 				F3CFC6E62A959B2700E66D34 /* Utilities.swift in Sources */,
 				937FB6D32B5A12BF00ECA327 /* BreadcrumbsView.swift in Sources */,
@@ -920,6 +927,7 @@
 				F3AB1EB22B5640E70026DD51 /* SegmentedControl.swift in Sources */,
 				F3AB1EAE2B5640E70026DD51 /* SearchView.swift in Sources */,
 				F3AB1EC12B5640E70026DD51 /* DebugAPICallsView.swift in Sources */,
+				F3694B0D2B5AD02D00E96003 /* SettingsCategory.swift in Sources */,
 				F3AB1EB52B5640E70026DD51 /* TypeExtensions.swift in Sources */,
 				F3AB1EB92B5640E70026DD51 /* Secrets.swift in Sources */,
 				F3AB1EC92B5640E70026DD51 /* CourseRegisterListView.swift in Sources */,
