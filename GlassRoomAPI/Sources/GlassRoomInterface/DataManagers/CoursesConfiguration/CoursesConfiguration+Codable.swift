@@ -10,13 +10,12 @@ import SwiftUI
 extension CoursesConfiguration: Codable {
     // MARK: Codable
     public enum Keys: CodingKey, CaseIterable {
-        case courseGroups, archive, replacedCourseNames, renamedCourses, customColors, customIcons
+        case courseGroups, archive, renamedCourses, customColors, customIcons
 
         public var description: String {
             switch self {
             case .courseGroups: "Course Groups"
             case .archive: "Archives"
-            case .replacedCourseNames: "Course Name Replacement"
             case .renamedCourses: "Renamed Courses"
             case .customColors: "Course Colors"
             case .customIcons: "Course Icons"
@@ -28,7 +27,6 @@ extension CoursesConfiguration: Codable {
         var container = encoder.container(keyedBy: Keys.self)
         try container.encode(courseGroups, forKey: .courseGroups)
         try container.encode(archive, forKey: .archive)
-        try container.encode(replacedCourseNames, forKey: .replacedCourseNames)
         try container.encode(renamedCourses, forKey: .renamedCourses)
         try container.encode(customColors, forKey: .customColors)
         try container.encode(customIcons, forKey: .customIcons)
@@ -46,10 +44,6 @@ extension CoursesConfiguration: Codable {
                 (CourseGroup?).self,
                 forKey: .archive)
             ) ?? nil,
-            replacedCourseNames: (try? container.decode(
-                [NameReplacement].self,
-                forKey: .replacedCourseNames)
-            ) ?? [],
             renamedCourses: (try? container.decode(
                 [String: String].self,
                 forKey: .renamedCourses)

@@ -104,11 +104,6 @@ public extension CoursesConfiguration {
                         self.archive = config.archive
                     }
                 }
-            case .replacedCourseNames:
-                switch style {
-                case .replace: self.replacedCourseNames = config.replacedCourseNames
-                case .append: self.replacedCourseNames += config.replacedCourseNames
-                }
             case .renamedCourses:
                 switch style {
                 case .replace: self.renamedCourses = config.renamedCourses

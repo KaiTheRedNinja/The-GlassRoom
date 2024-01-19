@@ -23,7 +23,7 @@ A macOS Native Google Classroom Client
    - [x] Client-side grouping courses into folders
    - [x] Client-side archiving of courses
    - [x] Custom course colors/icons
-   - [x] Renaming your classes using regex (eg. removing redundant "2023"s)
+   - [x] Renaming your classes
    - [x] Date groups for posts (eg. "Last month", "This year" in that image)
  - Accessibility
    - [x] Bionic reading (bolds the first few characters of a word, helps adhd people focus when reading)

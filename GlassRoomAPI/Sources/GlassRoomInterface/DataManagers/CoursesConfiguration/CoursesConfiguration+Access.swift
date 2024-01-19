@@ -47,12 +47,6 @@ extension CoursesConfiguration {
             return rename
         }
 
-        // change all the replacement strings
-        var mutableCourseName = course.name
-        for replacedCourseName in replacedCourseNames {
-            mutableCourseName.removingRegexMatches(pattern: replacedCourseName.matchString,
-                                                   replaceWith: replacedCourseName.replacement)
-        }
-        return mutableCourseName.trimmingCharacters(in: .whitespacesAndNewlines)
+        return course.name
     }
 }
