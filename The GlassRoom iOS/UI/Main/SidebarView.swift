@@ -25,6 +25,9 @@ struct SidebarView: View { // TODO: Fix this
         SidebarListView(
             selection: $selection
         )
+        .refreshable {
+            coursesManager.loadList(bypassCache: true)
+        }
         .overlay {
             if coursesManager.courses.isEmpty {
                 VStack {

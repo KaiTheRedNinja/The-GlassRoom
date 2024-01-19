@@ -114,22 +114,14 @@ struct UniversalCoursePostListView: View {
             }
             .padding(.top, -7)
         }
-#else
-        .safeAreaInset(edge: .bottom) {
-            ZStack {
-                HStack {
-                    Spacer()
-                    if let course = self.course {
-                        Text(configuration.nameFor(course))
-                            .multilineTextAlignment(.center)
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .lineLimit(1)
-                            .padding(.horizontal, 30)
-                    }
-                    Spacer()
-                }
-                HStack {
+        #else
+        .refreshable {
+            loadList(false)
+            loadList(true)
+        }
+        .toolbar {
+            if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {
+                ToolbarItem(placement: .bottomBar) {
                     if isLoading {
                         ProgressView()
                             .progressViewStyle(.circular)
@@ -139,7 +131,6 @@ struct UniversalCoursePostListView: View {
                             loadList(true)
                         } label: {
                             Image(systemName: "arrow.clockwise")
-                                .font(.title2)
                         }
                         .keyboardShortcut("r", modifiers: .command)
                         .buttonStyle(.plain)
@@ -148,15 +139,46 @@ struct UniversalCoursePostListView: View {
                                 loadList(true)
                             }
                         }
-                        .help("Refresh Posts (⌘R)")
                     }
-                    Spacer()
+                }
+                
+                ToolbarItem(placement: .status) {
+                    if let course = self.course {
+                        Text(configuration.nameFor(course))
+                            .multilineTextAlignment(.center)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .lineLimit(1)
+                            .padding(.horizontal, 30)
+                    }
+                }
+                
+                ToolbarItem(placement: .bottomBar) {
+                    //                if isInSearch {
+                    //                    Text(" ")
+                    //                } else {
+                    //                    if let onPlusPress {
+                    //                        Button {
+                    //                            onPlusPress()
+                    //                        } label: {
+                    //                            Image(systemName: "plus")
+                    //                        }
+                    //                        .buttonStyle(.plain)
+                    //                    }
+                    //                }
+                    Text(" ")
+                }
+            } else {
+                ToolbarItem(placement: .principal) {
+                    if let course = self.course {
+                        Text(configuration.nameFor(course))
+                            .multilineTextAlignment(.center)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .lineLimit(1)
+                    }
                 }
             }
-            .padding(.horizontal, 30)
-            .padding(.vertical, 15)
-            .background(.ultraThinMaterial)
-            .ignoresSafeArea()
         }
         .searchable(text: $searchQuery)
         .toolbar(isInSearch ? .hidden : .visible, for: .navigationBar)

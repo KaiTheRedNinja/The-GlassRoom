@@ -53,22 +53,47 @@ struct CenterSplitView: View {
         }
         #else
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                Picker("", selection: $currentPage) {
-                    Image(systemName: "list.bullet")
-                        .tag(CourseDisplayOption.allPosts)
-                    Image(systemName: "megaphone")
-                        .tag(CourseDisplayOption.announcements)
-                    Image(systemName: "square.and.pencil")
-                        .tag(CourseDisplayOption.courseWork)
-                    Image(systemName: "doc")
-                        .tag(CourseDisplayOption.courseMaterial)
-                    Image(systemName: "link")
-                        .tag(CourseDisplayOption.resources)
-//                    Image(systemName: "person.2")
-//                        .tag(CourseDisplayOption.userRegister)
+            if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {
+                ToolbarItem(placement: .principal) {
+                    Picker(selection: $currentPage) {
+                        Label("All Posts", systemImage: "list.bullet")
+                            .tag(CourseDisplayOption.allPosts)
+                        Label("Announcements", systemImage: "megaphone")
+                            .tag(CourseDisplayOption.announcements)
+                        Label("Courseworks", systemImage: "square.and.pencil")
+                            .tag(CourseDisplayOption.courseWork)
+                        Label("Materials", systemImage: "doc")
+                            .tag(CourseDisplayOption.courseMaterial)
+                        Label("Resources", systemImage: "link")
+                            .tag(CourseDisplayOption.resources)
+                        //                    Label("Register", systemImage: "person.2")
+                        //                        .tag(CourseDisplayOption.userRegister)
+                    } label: {
+                        EmptyView()
+                    }
+                    .pickerStyle(.segmented)
                 }
-                .pickerStyle(.segmented)
+            } else {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Picker(selection: $currentPage) {
+                        Label("All Posts", systemImage: "list.bullet")
+                            .tag(CourseDisplayOption.allPosts)
+                        Divider()
+                        Label("Announcements", systemImage: "megaphone")
+                            .tag(CourseDisplayOption.announcements)
+                        Label("Courseworks", systemImage: "square.and.pencil")
+                            .tag(CourseDisplayOption.courseWork)
+                        Label("Materials", systemImage: "doc")
+                            .tag(CourseDisplayOption.courseMaterial)
+                        Label("Resources", systemImage: "link")
+                            .tag(CourseDisplayOption.resources)
+                        //                    Label("Register", systemImage: "person.2")
+                        //                        .tag(CourseDisplayOption.userRegister)
+                    } label: {
+                        EmptyView()
+                    }
+                    .pickerStyle(.menu)
+                }
             }
         }
         #endif

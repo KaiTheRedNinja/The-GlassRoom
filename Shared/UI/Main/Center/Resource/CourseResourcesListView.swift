@@ -89,48 +89,20 @@ struct CourseResourcesListView: View {
             .padding(.top, -7)
         }
         #else
-        .safeAreaInset(edge: .bottom) {
-            ZStack {
-                HStack {
-                    Spacer()
-                    if let course = self.course {
-                        Text(configuration.nameFor(course))
-                            .multilineTextAlignment(.center)
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .lineLimit(1)
-                            .padding(.horizontal, 30)
-                    }
-                    Spacer()
-                }
-                HStack {
-                    if isLoading {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                    } else {
-                        Button {
-                            loadList(false)
-                            loadList(true)
-                        } label: {
-                            Image(systemName: "arrow.clockwise")
-                                .font(.title2)
-                        }
-                        .keyboardShortcut("r", modifiers: .command)
-                        .buttonStyle(.plain)
-                        .contextMenu {
-                            Button("Use Cache") {
-                                loadList(true)
-                            }
-                        }
-                        .help("Refresh Posts (⌘R)")
-                    }
-                    Spacer()
+        .refreshable {
+            loadList(false)
+            loadList(true)
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                if let course = self.course {
+                    Text(configuration.nameFor(course))
+                        .multilineTextAlignment(.center)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .lineLimit(1)
                 }
             }
-            .padding(.horizontal, 30)
-            .padding(.vertical, 15)
-            .background(.ultraThinMaterial)
-            .ignoresSafeArea()
         }
         #endif
     }
