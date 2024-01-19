@@ -25,9 +25,6 @@ struct RenameCourseGroupView: View {
                 }))
                 HStack {
                     Spacer()
-                    Button("Cancel", role: .cancel) {
-                        presentationMode.wrappedValue.dismiss()
-                    }
                     Button("Save") {
                         configuration.saveToFileSystem()
                         configuration.objectWillChange.send()
@@ -48,8 +45,6 @@ struct RenameCourseGroupView: View {
             }, set: { newValue in
                 configuration.courseGroups[groupIndex].groupName = newValue
             }))
-            Button("Cancel", role: .cancel) {
-            }
             Button("Save") {
                 configuration.saveToFileSystem()
                 configuration.objectWillChange.send()
