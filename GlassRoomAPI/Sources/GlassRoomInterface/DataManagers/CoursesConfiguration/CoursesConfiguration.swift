@@ -22,7 +22,6 @@ public final class CoursesConfiguration: ObservableObject, Identifiable {
     }
     @Published public var archive: CourseGroup?
 
-    @Published public var replacedCourseNames: [NameReplacement]
     @Published public var renamedCourses: [String: String]
     @Published public var customColors: [String: Color]
     @Published public var customIcons: [String: String]
@@ -32,13 +31,11 @@ public final class CoursesConfiguration: ObservableObject, Identifiable {
     internal init(
         courseGroups: [CourseGroup] = [],
         archive: CourseGroup? = nil,
-        replacedCourseNames: [NameReplacement] = [],
         renamedCourses: [String: String] = [:],
         customColors: [String: Color] = [:],
         customIcons: [String: String] = [:]
     ) {
         self.renamedCourses = renamedCourses
-        self.replacedCourseNames = replacedCourseNames
         self.courseGroups = courseGroups
         self.archive = archive
         self.customColors = customColors
@@ -68,28 +65,6 @@ public final class CoursesConfiguration: ObservableObject, Identifiable {
     }
 }
 
-extension String {
-    mutating func removingRegexMatches(pattern: String, replaceWith: String = "") {
-        do {
-            let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
-            let range = NSRange(location: 0, length: count)
-            self = regex.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: replaceWith)
-        } catch { return }
-    }
-}
-
 extension String: Identifiable {
     public var id: String { self }
-}
-
-public struct NameReplacement: Codable, Identifiable, Equatable {
-    public var id = UUID()
-    public var matchString: String
-    public var replacement: String
-
-    public init(id: UUID = UUID(), matchString: String, replacement: String) {
-        self.id = id
-        self.matchString = matchString
-        self.replacement = replacement
-    }
 }
