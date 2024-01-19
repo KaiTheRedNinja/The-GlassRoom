@@ -53,6 +53,17 @@ struct SidebarListView: View {
         .navigationTitle(UIScreen.main.traitCollection.userInterfaceIdiom == .pad ? "Glassroom" : "")
         .listStyle(.insetGrouped)
         .searchable(text: $searchQuery)
+        .overlay {
+            if coursesForQuery(query: searchQuery).isEmpty && !searchQuery.isEmpty {
+                if #available(iOS 17.0, *) {
+                    ContentUnavailableView {
+                        Label("No Courses for \"\(searchQuery)\"", systemImage: "questionmark.square.dashed")
+                    } description: {
+                        Text("Check the spelling or try a new search.")
+                    }
+                }
+            }
+        }
         .onAppear {
             coursesManager.loadList()
         }

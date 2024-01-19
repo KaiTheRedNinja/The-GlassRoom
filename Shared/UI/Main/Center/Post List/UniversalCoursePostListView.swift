@@ -181,6 +181,17 @@ struct UniversalCoursePostListView: View {
             }
         }
         .searchable(text: $searchQuery)
+        .overlay {
+            if queryPosts(query: searchQuery).isEmpty && !searchQuery.isEmpty {
+                if #available(iOS 17.0, *) {
+                    ContentUnavailableView {
+                        Label("No Posts containing \"\(searchQuery)\"", systemImage: "doc.questionmark")
+                    } description: {
+                        Text("Check the spelling or try a new search.")
+                    }
+                }
+            }
+        }
         .toolbar(isInSearch ? .hidden : .visible, for: .navigationBar)
         #endif
     }
