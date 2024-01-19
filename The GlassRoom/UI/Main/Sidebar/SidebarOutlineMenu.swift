@@ -51,12 +51,18 @@ final class SidebarOutlineMenu: NSMenu {
         let isArchived = CoursesConfiguration.global.archive?.courses.contains(item.id) ?? false
 
         switch item {
-        case .group(_):
-            items = [
-                menuItem("Rename Group", action: #selector(renameGroup)),
-                menuItem("\(isArchived ? "Unarchive" : "Archive") Group", action: #selector(archive)),
-                menuItem("Remove Group", action: #selector(deleteGroup))
-            ]
+        case .group(let id):
+            if id == CourseGroup.archiveId {
+                items = [
+                    menuItem("Rename Group", action: #selector(renameGroup)),
+                    menuItem("\(isArchived ? "Unarchive" : "Archive") Group", action: #selector(archive)),
+                    menuItem("Remove Group", action: #selector(deleteGroup))
+                ]
+            } else {
+                items = []
+            }
+        case .allEnrolled, .allTeaching:
+            items = []
         default:
             items = [
                 menuItem("\(isArchived ? "Unarchive" : "Archive") Course", action: #selector(archive)),
