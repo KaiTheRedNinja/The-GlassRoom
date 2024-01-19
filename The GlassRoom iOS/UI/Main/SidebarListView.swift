@@ -56,7 +56,7 @@ struct SidebarListView: View {
         .onAppear {
             coursesManager.loadList()
         }
-        .alert("Rename", isPresented: .init(
+        .alert("Rename \(renamedGeneralCourse?.caseName ?? "")", isPresented: .init(
             get: { renamedGeneralCourse != nil },
             set: { renamedGeneralCourse = $0 ? renamedGeneralCourse : nil })
         ) {

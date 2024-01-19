@@ -26,6 +26,19 @@ public enum GeneralCourse: Hashable, Identifiable {
             return group
         }
     }
+    
+    public var caseName: String {
+        switch self {
+        case .course(_):
+            return "Course"
+        case .allTeaching:
+            return "Teaching Course"
+        case .allEnrolled:
+            return "Enrolled Course"
+        case .group(_):
+            return "Group"
+        }
+    }
 
     public static func == (lhs: GeneralCourse, rhs: GeneralCourse) -> Bool {
         lhs.id == rhs.id

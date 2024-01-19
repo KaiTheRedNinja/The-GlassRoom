@@ -38,16 +38,18 @@ struct RenameCourseView: View {
     }
 
     var body: some View {
-        TextField("New Name", text: $newName)
+        TextField("\(initialName ?? "New Name")", text: $newName)
+        Button("Save", role: .none, action: submit)
+            .keyboardShortcut(.defaultAction)
+        
         Button("Cancel", role: .cancel, action: cancel)
-
+            .keyboardShortcut(.cancelAction)
+        
         switch generalCourse {
-        case .course(let string):
-            Button("Revert", action: revert)
+        case .course(_):
+            Button("Revert To Original", role: .destructive, action: revert)
         default: EmptyView()
         }
-
-        Button("Save", action: submit)
     }
 
     func cancel() {

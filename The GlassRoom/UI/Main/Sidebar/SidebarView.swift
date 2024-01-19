@@ -76,7 +76,7 @@ struct SidebarView: View {
             .padding(5)
             .padding(.top, -14)
         }
-        .alert("Rename", isPresented: .init(
+        .alert("Rename \(renamedGeneralCourse?.caseName ?? "")", isPresented: .init(
             get: { renamedGeneralCourse != nil },
             set: { renamedGeneralCourse = $0 ? renamedGeneralCourse : nil })
         ) {
