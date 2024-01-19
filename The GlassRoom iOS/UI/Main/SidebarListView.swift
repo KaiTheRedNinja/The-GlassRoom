@@ -253,24 +253,28 @@ struct SidebarListView: View {
                             Label("Archive Courses in Group", systemImage: "archivebox")
                         }
 
-                        Menu {
-                            ForEach(configuration.courseGroups) { group in
-                                Button(group.groupName) {
-                                    // add contents of group to that group
-                                    guard let sourceIndex = configuration.courseGroups.firstIndex(where: { $0.id == id }),
-                                          let destIndex = configuration.courseGroups.firstIndex(of: group)
-                                    else { return }
-                                    configuration.courseGroups[destIndex].courses.append(
-                                        contentsOf: configuration.courseGroups[sourceIndex].courses
-                                    )
-                                    configuration.courseGroups.removeAll(where: { $0.id == id })
-                                    configuration.saveToFileSystem()
+                        if configuration.courseGroups.count > 1 {
+                            Menu {
+                                ForEach(configuration.courseGroups) { group in
+                                    if group.id != id {
+                                        Button(group.groupName) {
+                                            // add contents of group to that group
+                                            guard let sourceIndex = configuration.courseGroups.firstIndex(where: { $0.id == id }),
+                                                  let destIndex = configuration.courseGroups.firstIndex(of: group)
+                                            else { return }
+                                            configuration.courseGroups[destIndex].courses.append(
+                                                contentsOf: configuration.courseGroups[sourceIndex].courses
+                                            )
+                                            configuration.courseGroups.removeAll(where: { $0.id == id })
+                                            configuration.saveToFileSystem()
+                                        }
+                                    }
                                 }
+                            } label: {
+                                Label("Merge with Group", systemImage: "arrow.triangle.merge")
                             }
-                        } label: {
-                            Label("Merge with Group", systemImage: "arrow.triangle.merge")
                         }
-                        
+
                         Divider()
                         
                         Button(role: .destructive) {
