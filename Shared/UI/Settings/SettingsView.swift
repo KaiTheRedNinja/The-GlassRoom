@@ -260,7 +260,7 @@ struct SettingsView: View {
             Section {
                 Toggle("Enable bionic reading", isOn: $enableBionicReading)
             } header: {
-                Text("Accessbility")
+                Text("Accessibility")
             }
 
             #if DEBUG
