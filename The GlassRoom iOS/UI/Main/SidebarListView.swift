@@ -18,8 +18,7 @@ struct SidebarListView: View {
     
     @State var searchQuery: String = ""
 
-    @State var renamedGroup: String?
-    @State var renamedCourse: String?
+    @State var renamedGeneralCourse: GeneralCourse?
 
     @State var teachingCollapsed: Bool = false { didSet {
         UserDefaults.standard.set(teachingCollapsed, forKey: "teachingCollapsed")
@@ -57,16 +56,12 @@ struct SidebarListView: View {
         .onAppear {
             coursesManager.loadList()
         }
-        .alert("Rename Group", isPresented: .init(get: { renamedGroup != nil }, set: { renamedGroup = $0 ? renamedGroup : nil })) {
-            if let renamedGroup {
-                RenameCourseGroupView(groupString: renamedGroup)
-            } else {
-                Text("Error")
-            }
-        }
-        .alert("Rename Course", isPresented: .init(get: { renamedCourse != nil }, set: { renamedCourse = $0 ? renamedCourse : nil })) {
-            if let renamedCourse {
-                RenameCourseView(courseString: renamedCourse)
+        .alert("Rename", isPresented: .init(
+            get: { renamedGeneralCourse != nil },
+            set: { renamedGeneralCourse = $0 ? renamedGeneralCourse : nil })
+        ) {
+            if let renamedGeneralCourse {
+                RenameCourseView(generalCourse: renamedGeneralCourse)
             } else {
                 Text("Error")
             }
@@ -169,7 +164,7 @@ struct SidebarListView: View {
                 case .course(let id):
                     Section {
                         Button {
-                            renamedCourse = id
+                            renamedGeneralCourse = course
                         } label: {
                             Label("Rename Course", systemImage: "pencil")
                         }
@@ -240,7 +235,7 @@ struct SidebarListView: View {
                 case .group(let id):
                     if id != CourseGroup.archiveId {
                         Button {
-                            renamedGroup = id
+                            renamedGeneralCourse = course
                         } label: {
                             Label("Rename Group", systemImage: "pencil")
                         }

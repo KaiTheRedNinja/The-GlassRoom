@@ -75,13 +75,7 @@ final class SidebarOutlineMenu: NSMenu {
     @objc
     func renameGroupOrCourse() {
         guard let item = item as? GeneralCourse else { return }
-        switch item {
-        case .group(let string):
-            outlineView.renamedGroup?.wrappedValue = string
-        case .course(let string):
-            outlineView.renamedCourse?.wrappedValue = string
-        default: return
-        }
+        outlineView.renamedGeneralCourse?.wrappedValue = item
     }
 
     @objc

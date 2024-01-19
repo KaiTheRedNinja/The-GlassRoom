@@ -16,14 +16,12 @@ struct SidebarView: View {
     @Binding var selection: GeneralCourse?
     @ObservedObject var coursesManager: GlobalCoursesDataManager = .global
 
-    @State var renamedGroup: String?
-    @State var renamedCourse: String?
+    @State var renamedGeneralCourse: GeneralCourse?
 
     var body: some View {
         SidebarOutlineView(
             selectedCourse: $selection,
-            renamedGroup: $renamedGroup,
-            renamedCourse: $renamedCourse,
+            renamedGeneralCourse: $renamedGeneralCourse,
             courses: coursesManager.courses
         )
         .overlay {
@@ -78,11 +76,15 @@ struct SidebarView: View {
             .padding(5)
             .padding(.top, -14)
         }
-        .sheet(item: $renamedGroup) { item in
-            RenameCourseGroupView(groupString: item)
-        }
-        .sheet(item: $renamedCourse) { item in
-            RenameCourseView(courseString: item)
+        .alert("Rename", isPresented: .init(
+            get: { renamedGeneralCourse != nil },
+            set: { renamedGeneralCourse = $0 ? renamedGeneralCourse : nil })
+        ) {
+            if let renamedGeneralCourse {
+                RenameCourseView(generalCourse: renamedGeneralCourse)
+            } else {
+                Text("Error")
+            }
         }
     }
 }
