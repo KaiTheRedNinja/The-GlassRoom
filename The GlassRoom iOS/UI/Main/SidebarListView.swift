@@ -268,7 +268,7 @@ struct SidebarListView: View {
                                 }
                             }
                         } label: {
-                            Label("Combine with Group", systemImage: "arrow.triangle.merge")
+                            Label("Merge with Group", systemImage: "arrow.triangle.merge")
                         }
                         
                         Divider()
