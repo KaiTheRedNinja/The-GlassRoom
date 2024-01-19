@@ -120,29 +120,25 @@ struct CustomisationView: View {
                         }
                 }
                 #else
-                .toolbar {
-                    ToolbarItem(placement: .bottomBar) {
-                        Rectangle().fill(.thinMaterial)
-                            .ignoresSafeArea()
-                            .overlay {
-                                HStack {
-                                    Spacer()
-                                    ColorPicker("Color", selection: .init(get: {
-                                        if let selectedIconReplacement {
-                                            return configuration.colorFor(selectedIconReplacement)
-                                        } else {
-                                            return .accentColor
-                                        }
-                                    }, set: { newValue in
-                                        configuration.customColors[selectedIconReplacement!] = newValue
-                                    }))
-                                }
-                                .padding(.horizontal, 10)
+                .safeAreaInset(edge: .bottom) {
+                    HStack {
+                        Spacer()
+                        ColorPicker("Color", selection: .init(get: {
+                            if let selectedIconReplacement {
+                                return configuration.colorFor(selectedIconReplacement)
+                            } else {
+                                return .accentColor
                             }
-                            .frame(height: 50)
-                            .overlay(alignment: .top) {
-                                Divider()
-                            }
+                        }, set: { newValue in
+                            configuration.customColors[selectedIconReplacement!] = newValue
+                        }))
+                    }
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 15)
+                    .padding(.bottom, -10)
+                    .background(.ultraThinMaterial)
+                    .overlay(alignment: .top) {
+                        Divider()
                     }
                 }
                 #endif
