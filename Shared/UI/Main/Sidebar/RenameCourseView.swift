@@ -23,7 +23,7 @@ struct RenameCourseView: View {
 #if os(macOS)
         VStack {
             if let course = manager.courseIdMap[courseString] {
-                TextField("Name", text: .init(get: {
+                TextField("\(course.name)", text: .init(get: {
                     configuration.renamedCourses[courseString] ?? course.name
                 }, set: { newValue in
                     configuration.renamedCourses[courseString] = newValue
@@ -41,6 +41,11 @@ struct RenameCourseView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                     .buttonStyle(.borderedProminent)
+                    .onSubmit {
+                        configuration.saveToFileSystem()
+                        configuration.objectWillChange.send()
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }
             } else {
                 Text("No Course")
@@ -50,7 +55,7 @@ struct RenameCourseView: View {
         .frame(width: 200, height: 170)
 #else
         if let course = manager.courseIdMap[courseString] {
-            TextField("Name", text: .init(get: {
+            TextField("\(course.name)", text: .init(get: {
                 configuration.renamedCourses[courseString] ?? course.name
             }, set: { newValue in
                 configuration.renamedCourses[courseString] = newValue
@@ -66,6 +71,11 @@ struct RenameCourseView: View {
                 presentationMode.wrappedValue.dismiss()
             }
             .buttonStyle(.borderedProminent)
+            .onSubmit {
+                configuration.saveToFileSystem()
+                configuration.objectWillChange.send()
+                presentationMode.wrappedValue.dismiss()
+            }
         } else {
             Text("No Course")
         }
