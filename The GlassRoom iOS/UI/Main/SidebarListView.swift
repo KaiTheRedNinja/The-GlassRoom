@@ -19,6 +19,7 @@ struct SidebarListView: View {
     @State var searchQuery: String = ""
 
     @State var renamedGroup: String?
+    @State var renamedCourse: String?
 
     @State var teachingCollapsed: Bool = false { didSet {
         UserDefaults.standard.set(teachingCollapsed, forKey: "teachingCollapsed")
@@ -59,6 +60,13 @@ struct SidebarListView: View {
         .alert("Rename Group", isPresented: .init(get: { renamedGroup != nil }, set: { renamedGroup = $0 ? renamedGroup : nil })) {
             if let renamedGroup {
                 RenameCourseGroupView(groupString: renamedGroup)
+            } else {
+                Text("Error")
+            }
+        }
+        .alert("Rename Course", isPresented: .init(get: { renamedCourse != nil }, set: { renamedCourse = $0 ? renamedCourse : nil })) {
+            if let renamedCourse {
+                RenameCourseView(courseString: renamedCourse)
             } else {
                 Text("Error")
             }
@@ -159,6 +167,14 @@ struct SidebarListView: View {
             .contextMenu {
                 switch course {
                 case .course(let id):
+                    Section {
+                        Button {
+                            renamedCourse = id
+                        } label: {
+                            Label("Rename Course", systemImage: "pencil")
+                        }
+                    }
+
                     Section("Group") {
                         let isArchived = configuration.archive?.courses.contains(id) ?? false
                         let isInGroup = configuration.courseGroups.contains(where: { $0.courses.contains(id) })

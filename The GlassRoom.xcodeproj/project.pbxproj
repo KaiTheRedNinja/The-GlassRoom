@@ -83,6 +83,8 @@
 		937FB6D12B5A11A000ECA327 /* MainView+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FB6D02B5A11A000ECA327 /* MainView+Toolbar.swift */; };
 		937FB6D32B5A12BF00ECA327 /* BreadcrumbsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FB6D22B5A12BF00ECA327 /* BreadcrumbsView.swift */; };
 		937FB6D52B5A1F0100ECA327 /* RenameCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FB6D42B5A1F0100ECA327 /* RenameCourseView.swift */; };
+		937FB6D62B5A255900ECA327 /* RenameCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FB6D42B5A1F0100ECA327 /* RenameCourseView.swift */; };
+		937FB6D72B5A255A00ECA327 /* RenameCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937FB6D42B5A1F0100ECA327 /* RenameCourseView.swift */; };
 		938300EE2A0FBB4C006581B8 /* SidebarOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938300ED2A0FBB4C006581B8 /* SidebarOutlineView.swift */; };
 		938300F02A0FC009006581B8 /* SidebarOutlineMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938300EF2A0FC009006581B8 /* SidebarOutlineMenu.swift */; };
 		938883232A5036F600EAD9F1 /* SidebarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938883222A5036F600EAD9F1 /* SidebarListView.swift */; };
@@ -816,6 +818,7 @@
 				933F39B12A4445A3006E13AC /* DetailView.swift in Sources */,
 				938883232A5036F600EAD9F1 /* SidebarListView.swift in Sources */,
 				933F39AF2A4445A3006E13AC /* CourseMaterialDetailView.swift in Sources */,
+				937FB6D62B5A255900ECA327 /* RenameCourseView.swift in Sources */,
 				F31A7B1C2A4E753000B50450 /* SidebarView.swift in Sources */,
 				933F399F2A4444B2006E13AC /* CourseResourcesListView.swift in Sources */,
 				933F39AC2A4445A3006E13AC /* CourseWorkDetailView.swift in Sources */,
@@ -929,6 +932,7 @@
 				F3AB1EB92B5640E70026DD51 /* Secrets.swift in Sources */,
 				F3AB1EC92B5640E70026DD51 /* CourseRegisterListView.swift in Sources */,
 				F3AB1EC62B5640E70026DD51 /* CourseWorkStudentSubmissionView.swift in Sources */,
+				937FB6D72B5A255A00ECA327 /* RenameCourseView.swift in Sources */,
 				F3AB1EC22B5640E70026DD51 /* SignInView.swift in Sources */,
 				F3AB1EC42B5640E70026DD51 /* TriStateToggle.swift in Sources */,
 			);
