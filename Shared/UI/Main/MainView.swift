@@ -37,125 +37,15 @@ struct MainView: View {
                        selectedPost: $selectedPost)
         }
         .toolbar {
-            if debugMode {
-                Button {
-                    openWindow(id: "debugLogsView")
-                } label: {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                }
-
-                Button {
-                    openWindow(id: "debugAPICallsView")
-                } label: {
-                    Image(systemName: "arrow.left.arrow.right")
-                }
-            }
-
-            GroupBox {
-                ZStack {
-                    HStack {
-                        Button {
-                            guard let window = window.window else { return }
-                            window.toggleTabBar(self)
-                        } label: {
-                            Image(systemName: "rectangle.topthird.inset.filled")
-                        }
-//                        .onKeyboardShortcut(.toggleTabBar, type: .keyDown) {
-//                            guard let window = window.window else { return }
-//                            window.toggleTabBar(self)
-//                        }
-                        .keyboardShortcut("b", modifiers: [.command, .shift])
-                        .help("Toggle Tab Bar (⌘⇧B)")
-                        
-                        Button {
-                            guard let window = window.window else { return }
-                            window.toggleTabOverview(self)
-                        } label: {
-                            Image(systemName: "square.grid.2x2")
-                        }
-                    }
-//                    .onKeyboardShortcut(.nextTab, type: .keyDown) {
-//                        guard let window = window.window else { return }
-//                        window.selectNextTab(self)
-//                        print("ive been called (next)")
-//                    }
-//                    .onKeyboardShortcut(.previousTab, type: .keyDown) {
-//                        guard let window = window.window else { return }
-//                        window.selectPreviousTab(nil)
-//                        print("ive been called (prev)")
-//                    }
-                }
-            }
-
-            Button {
-                showSearch.toggle()
-            } label: {
-                Image(systemName: "magnifyingglass")
-            }
-//            .onKeyboardShortcut(.openUniversalSearch, type: .keyDown) {
-//                showSearch.toggle()
-//            }
-            .keyboardShortcut("o", modifiers: [.command, .shift])
-            .help("Universal Search (⌘⇧O)")
-
-            if #available(macOS 14.0, *) {
-                SettingsLink {
-                    Image(systemName: "gearshape")
-                }
-            } else {
-                Button {
-                    NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-                } label: {
-                    Image(systemName: "gearshape")
-                }
-            }
+            toolbar
         }
         .onAppear {
             loadCachedStreams()
         }
-        .navigationTitle(title)
+        .navigationTitle("")
         #else
         splitView
         #endif
-    }
-
-    var title: String {
-        var value = ""
-        if let selectedPost {
-            switch selectedPost {
-            case .announcement(_): value += "Announcement"
-            case .courseWork(let courseWork): value += courseWork.title
-            case .courseMaterial(let courseWorkMaterial): value += courseWorkMaterial.title
-            }
-        }
-
-        if !value.isEmpty { value += ": " }
-
-        if let selectedCourse {
-            switch selectedCourse {
-            case .course(let string):
-                let configuration = CoursesConfiguration.global
-                if let course = GlobalCoursesDataManager.global.courseIdMap[string] {
-                    value += configuration.nameFor(course)
-                } else {
-                    value += "Course Not Found"
-                }
-            case .allTeaching:
-                value += "Teaching"
-            case .allEnrolled:
-                value += "Enrolled"
-            case .group(let string):
-                let configuration = CoursesConfiguration.global
-                value += configuration.groupIdMap[string]?.groupName ?? ""
-            }
-        }
-
-        value = value.trunc(length: 30)
-
-        if value.isEmpty {
-            return "Glassroom"
-        }
-        return value
     }
 
     @ViewBuilder
