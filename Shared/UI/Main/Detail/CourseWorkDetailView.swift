@@ -74,18 +74,18 @@ struct CourseWorkDetailView: DetailViewPage {
                 }
             }
             .safeAreaInset(edge: .bottom) {
-                FittingGeometryReader { proxy in
-                    viewForStudentSubmission
-                        .background(.thickMaterial)
-                        .onAppear {
-                            studentSubmissionSize = proxy?.size
-                        }
-                        .onChange(of: proxy?.size) { newVal in
-                            studentSubmissionSize = newVal
-                        }
-                        .offset(y: studentSubmissionOffset)
-                        .animation(.default, value: studentSubmissionOffset)
-                }
+                    FittingGeometryReader { proxy in
+                        viewForStudentSubmission
+                            .background(.thickMaterial)
+                            .onAppear {
+                                studentSubmissionSize = proxy?.size
+                            }
+                            .onChange(of: proxy?.size) { newVal in
+                                studentSubmissionSize = newVal
+                            }
+                            .offset(y: studentSubmissionOffset)
+                            .animation(.default, value: studentSubmissionOffset)
+                    }
             }
             .sheet(isPresented: $showSubmissionsView) {
                 CourseWorkTeacherSubmissionsView(submissions: submissionManager.submissions,
@@ -191,8 +191,10 @@ struct CourseWorkDetailView: DetailViewPage {
                 GroupBox {
                     VStack {
                         HStack {
-                            Text("Turned In: \(submissionManager.submissions.filter({ $0.state == .turned_in }).count)")
-                            Text("Assigned: \(submissionManager.submissions.filter({ $0.state != .turned_in }).count)")
+                            if (submissionManager.submissions.filter({ $0.state != .turned_in }).count) > 0 {
+                                Text("Turned In: \(submissionManager.submissions.filter({ $0.state == .turned_in }).count)")
+                                Text("Assigned: \(submissionManager.submissions.filter({ $0.state != .turned_in }).count)")
+                            }
                         }
                         HStack(spacing: 0) {
                             ForEach(submissionManager.submissions.filter({ $0.state == .turned_in }), id: \.id) { submission in
