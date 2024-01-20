@@ -220,16 +220,18 @@ struct SidebarListView: View {
                         }
                         Menu {
                             ForEach(configuration.courseGroups) { group in
-                                Button(group.groupName) { // add to that group
-                                    // remove the items from where they came from
-                                    configuration.archive?.courses.removeAll(where: { $0.id == id })
-                                    for index in 0..<configuration.courseGroups.count {
-                                        configuration.courseGroups[index].courses.removeAll(where: { $0.id == id })
+                                if !group.courses.contains(id) {
+                                    Button(group.groupName) { // add to that group
+                                        // remove the items from where they came from
+                                        configuration.archive?.courses.removeAll(where: { $0.id == id })
+                                        for index in 0..<configuration.courseGroups.count {
+                                            configuration.courseGroups[index].courses.removeAll(where: { $0.id == id })
+                                        }
+                                        
+                                        guard let destIndex = configuration.courseGroups.firstIndex(of: group) else { return }
+                                        configuration.courseGroups[destIndex].courses.append(id)
+                                        configuration.saveToFileSystem()
                                     }
-
-                                    guard let destIndex = configuration.courseGroups.firstIndex(of: group) else { return }
-                                    configuration.courseGroups[destIndex].courses.append(id)
-                                    configuration.saveToFileSystem()
                                 }
                             }
                         } label: {
@@ -264,44 +266,47 @@ struct SidebarListView: View {
                         } label: {
                             Label("Rename Group", systemImage: "pencil")
                         }
-                        
-                        Button {
-                            // add contents of group to that group
-                            configuration.archive(item: course)
-                            configuration.saveToFileSystem()
-                        } label: {
-                            Label("Archive Courses in Group", systemImage: "archivebox")
-                        }
 
-                        if configuration.courseGroups.count > 1 {
-                            Menu {
-                                ForEach(configuration.courseGroups) { group in
-                                    if group.id != id {
-                                        Button(group.groupName) {
-                                            // add contents of group to that group
-                                            guard let sourceIndex = configuration.courseGroups.firstIndex(where: { $0.id == id }),
-                                                  let destIndex = configuration.courseGroups.firstIndex(of: group)
-                                            else { return }
-                                            configuration.courseGroups[destIndex].courses.append(
-                                                contentsOf: configuration.courseGroups[sourceIndex].courses
-                                            )
-                                            configuration.courseGroups.removeAll(where: { $0.id == id })
-                                            configuration.saveToFileSystem()
+                        Section("Group") {
+                            if configuration.courseGroups.count > 1 {
+                                Menu {
+                                    ForEach(configuration.courseGroups) { group in
+                                        if group.id != id {
+                                            Button(group.groupName) {
+                                                // add contents of group to that group
+                                                guard let sourceIndex = configuration.courseGroups.firstIndex(where: { $0.id == id }),
+                                                      let destIndex = configuration.courseGroups.firstIndex(of: group)
+                                                else { return }
+                                                configuration.courseGroups[destIndex].courses.append(
+                                                    contentsOf: configuration.courseGroups[sourceIndex].courses
+                                                )
+                                                configuration.courseGroups.removeAll(where: { $0.id == id })
+                                                configuration.saveToFileSystem()
+                                            }
                                         }
                                     }
+                                } label: {
+                                    Label("Merge with Group", systemImage: "arrow.triangle.merge")
                                 }
+                            }
+                            
+                            
+                            Button(role: .destructive) {
+                                configuration.courseGroups.removeAll(where: { $0.id == id })
+                                configuration.saveToFileSystem()
                             } label: {
-                                Label("Merge with Group", systemImage: "arrow.triangle.merge")
+                                Label("Delete Group", systemImage: "trash")
                             }
                         }
-
-                        Divider()
                         
-                        Button(role: .destructive) {
-                            configuration.courseGroups.removeAll(where: { $0.id == id })
-                            configuration.saveToFileSystem()
-                        } label: {
-                            Label("Delete Group", systemImage: "trash")
+                        Section("Archive") {
+                            Button(role: .destructive) {
+                                // add contents of group to that group
+                                configuration.archive(item: course)
+                                configuration.saveToFileSystem()
+                            } label: {
+                                Label("Archive Courses in Group", systemImage: "archivebox")
+                            }
                         }
                     }
                 default:

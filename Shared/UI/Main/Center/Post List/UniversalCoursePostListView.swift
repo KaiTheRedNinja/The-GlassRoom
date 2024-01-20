@@ -179,6 +179,7 @@ struct UniversalCoursePostListView: View {
                             .font(.headline)
                             .fontWeight(.bold)
                             .lineLimit(1)
+                            .padding(.horizontal, 10)
                     }
                 }
                 
