@@ -286,7 +286,7 @@ struct SettingsView: View {
             Toggle("Enable bionic reading", isOn: $enableBionicReading)
             Toggle("Tint posts background to course color", isOn: $tintToCourseColor)
             Toggle("Use fancy UI", isOn: $useFancyUI)
-            Toggle("Reduce course name opacity for unloaded courses", isOn: $lowerUnloadedOpacity)
+            Toggle("Reduce Course name opacity for unloaded Courses", isOn: $lowerUnloadedOpacity)
             #else
 //            Section {
 //                Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
@@ -296,7 +296,7 @@ struct SettingsView: View {
             
             Section {
                 Toggle("Use fancy UI", isOn: $useFancyUI)
-                Toggle("Reduce course name opacity for unloaded courses", isOn: $lowerUnloadedOpacity)
+                Toggle("Reduce Course name opacity for unloaded Courses", isOn: $lowerUnloadedOpacity)
             } header: {
                 Text("General")
             }
