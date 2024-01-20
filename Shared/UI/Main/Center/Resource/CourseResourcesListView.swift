@@ -13,6 +13,9 @@ import KeyboardShortcuts
 #endif
 
 struct CourseResourcesListView: View {
+    
+    @Binding var currentPage: CourseDisplayOption
+    
     var courseMaterials: [CourseWorkMaterial]
 
     var course: Course?
@@ -94,13 +97,106 @@ struct CourseResourcesListView: View {
             loadList(true)
         }
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                if let course = self.course {
-                    Text(configuration.nameFor(course))
-                        .multilineTextAlignment(.center)
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .lineLimit(1)
+            if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {
+                ToolbarItem(placement: .bottomBar) {
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    } else {
+                        Button {
+                            loadList(false)
+                            loadList(true)
+                        } label: {
+                            Image(systemName: "arrow.clockwise")
+                        }
+                        .keyboardShortcut("r", modifiers: .command)
+                        .buttonStyle(.plain)
+                        .contextMenu {
+                            Button("Use Cache") {
+                                loadList(true)
+                            }
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .status) {
+                    if let course = self.course {
+                        Text(configuration.nameFor(course))
+                            .multilineTextAlignment(.center)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .lineLimit(1)
+                            .padding(.horizontal, 30)
+                    }
+                }
+                
+                ToolbarItem(placement: .bottomBar) {
+                    //                if isInSearch {
+                    //                    Text(" ")
+                    //                } else {
+                    //                    if let onPlusPress {
+                    //                        Button {
+                    //                            onPlusPress()
+                    //                        } label: {
+                    //                            Image(systemName: "plus")
+                    //                        }
+                    //                        .buttonStyle(.plain)
+                    //                    }
+                    //                }
+                    Text(" ")
+                }
+            } else {
+                ToolbarItem(placement: .principal) {
+                    if let course = self.course {
+                        Text(configuration.nameFor(course))
+                            .multilineTextAlignment(.center)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .lineLimit(1)
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    } else {
+                        Button {
+                            loadList(false)
+                            loadList(true)
+                        } label: {
+                            Image(systemName: "arrow.clockwise")
+                        }
+                        .keyboardShortcut("r", modifiers: .command)
+                        .padding(.horizontal, -10)
+                        .contextMenu {
+                            Button("Use Cache") {
+                                loadList(true)
+                            }
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Picker(selection: $currentPage) {
+                        Label("All Posts", systemImage: "list.bullet")
+                            .tag(CourseDisplayOption.allPosts)
+                        Divider()
+                        Label("Announcements", systemImage: "megaphone")
+                            .tag(CourseDisplayOption.announcements)
+                        Label("Courseworks", systemImage: "square.and.pencil")
+                            .tag(CourseDisplayOption.courseWork)
+                        Label("Materials", systemImage: "doc")
+                            .tag(CourseDisplayOption.courseMaterial)
+                        Label("Resources", systemImage: "link")
+                            .tag(CourseDisplayOption.resources)
+                        //                    Label("Register", systemImage: "person.2")
+                        //                        .tag(CourseDisplayOption.userRegister)
+                    } label: {
+                        EmptyView()
+                    }
+                    .pickerStyle(.menu)
+                    .padding(.horizontal, -10)
                 }
             }
         }

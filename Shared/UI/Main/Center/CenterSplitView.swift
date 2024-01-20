@@ -8,6 +8,19 @@
 import SwiftUI
 import GlassRoomInterface
 
+enum CourseDisplayOption: String, CaseIterable {
+    case allPosts = "All Posts"
+    case announcements = "Announcements"
+    case courseWork = "Courseworks"
+    case courseMaterial = "Coursework Materials"
+    case resources = "Resources"
+//        case userRegister = "Register"
+
+    static var allCases: [CourseDisplayOption] = [
+        .allPosts, .announcements, .courseWork, .courseMaterial, .resources
+    ]
+}
+
 struct CenterSplitView: View {
     @Binding var selectedCourse: GeneralCourse?
     @Binding var selectedPost: CoursePost?
@@ -55,7 +68,7 @@ struct CenterSplitView: View {
         .toolbar {
             if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {
                 ToolbarItem(placement: .principal) {
-                    Picker(selection: $currentPage) {
+                    Picker("", selection: $currentPage) {
                         Label("All Posts", systemImage: "list.bullet")
                             .tag(CourseDisplayOption.allPosts)
                         Label("Announcements", systemImage: "megaphone")
@@ -68,31 +81,8 @@ struct CenterSplitView: View {
                             .tag(CourseDisplayOption.resources)
                         //                    Label("Register", systemImage: "person.2")
                         //                        .tag(CourseDisplayOption.userRegister)
-                    } label: {
-                        EmptyView()
                     }
                     .pickerStyle(.segmented)
-                }
-            } else {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Picker(selection: $currentPage) {
-                        Label("All Posts", systemImage: "list.bullet")
-                            .tag(CourseDisplayOption.allPosts)
-                        Divider()
-                        Label("Announcements", systemImage: "megaphone")
-                            .tag(CourseDisplayOption.announcements)
-                        Label("Courseworks", systemImage: "square.and.pencil")
-                            .tag(CourseDisplayOption.courseWork)
-                        Label("Materials", systemImage: "doc")
-                            .tag(CourseDisplayOption.courseMaterial)
-                        Label("Resources", systemImage: "link")
-                            .tag(CourseDisplayOption.resources)
-                        //                    Label("Register", systemImage: "person.2")
-                        //                        .tag(CourseDisplayOption.userRegister)
-                    } label: {
-                        EmptyView()
-                    }
-                    .pickerStyle(.menu)
                 }
             }
         }
@@ -206,19 +196,6 @@ struct CenterSplitView: View {
             // TODO: Intelligently refresh
         default: return
         }
-    }
-
-    enum CourseDisplayOption: String, CaseIterable {
-        case allPosts = "All Posts"
-        case announcements = "Announcements"
-        case courseWork = "Courseworks"
-        case courseMaterial = "Coursework Materials"
-        case resources = "Resources"
-//        case userRegister = "Register"
-
-        static var allCases: [CenterSplitView.CourseDisplayOption] = [
-            .allPosts, .announcements, .courseWork, .courseMaterial, .resources
-        ]
     }
 }
 

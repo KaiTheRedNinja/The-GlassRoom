@@ -11,7 +11,7 @@ import GlassRoomInterface
 
 struct MultiCoursePostListView: View {
     @Binding var selectedPost: CoursePost?
-    @Binding var displayOption: CenterSplitView.CourseDisplayOption
+    @Binding var displayOption: CourseDisplayOption
 
     @ObservedObject var postsManager: ObservableArray<CoursePostsDataManager>
     @ObservedObject var postsManagerNonObservableArray: CoursePostsDataManager
@@ -20,7 +20,7 @@ struct MultiCoursePostListView: View {
     @State var postData: [CoursePost] = []
 
     init(selectedPost: Binding<CoursePost?>,
-         displayOption: Binding<CenterSplitView.CourseDisplayOption>,
+         displayOption: Binding<CourseDisplayOption>,
          displayedCourseIds: DisplayedCourseManager,
          postsManagerNonObservableArray: CoursePostsDataManager
     ) {
@@ -43,6 +43,7 @@ struct MultiCoursePostListView: View {
         //            Text("User Register List")
         //        default:
         UniversalCoursePostListView(isInSearch: false,
+                                    currentPage: $displayOption, 
                                     selectedPost: $selectedPost,
                                     showPostCourseOrigin: true,
                                     postData: postData,

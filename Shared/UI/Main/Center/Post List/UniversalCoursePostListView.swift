@@ -16,6 +16,9 @@ import KeyboardShortcuts
 struct UniversalCoursePostListView: View {
     
     @State var isInSearch: Bool
+    @State var value = 0.0
+    
+    @Binding var currentPage: CourseDisplayOption
     
     @State var searchQuery: String = ""
     @Binding var selectedPost: CoursePost?
@@ -177,6 +180,47 @@ struct UniversalCoursePostListView: View {
                             .fontWeight(.bold)
                             .lineLimit(1)
                     }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    } else {
+                        Button {
+                            loadList(false)
+                            loadList(true)
+                        } label: {
+                            Image(systemName: "arrow.clockwise")
+                        }
+                        .keyboardShortcut("r", modifiers: .command)
+                        .padding(.horizontal, -10)
+                        .contextMenu {
+                            Button("Use Cache") {
+                                loadList(true)
+                            }
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Picker("", selection: $currentPage) {
+                        Label("All Posts", systemImage: "list.bullet")
+                            .tag(CourseDisplayOption.allPosts)
+                        Divider()
+                        Label("Announcements", systemImage: "megaphone")
+                            .tag(CourseDisplayOption.announcements)
+                        Label("Courseworks", systemImage: "square.and.pencil")
+                            .tag(CourseDisplayOption.courseWork)
+                        Label("Materials", systemImage: "doc")
+                            .tag(CourseDisplayOption.courseMaterial)
+                        Label("Resources", systemImage: "link")
+                            .tag(CourseDisplayOption.resources)
+                        //                    Label("Register", systemImage: "person.2")
+                        //                        .tag(CourseDisplayOption.userRegister)
+                    }
+                    .pickerStyle(.menu)
+                    .padding(.horizontal, -10)
                 }
             }
         }

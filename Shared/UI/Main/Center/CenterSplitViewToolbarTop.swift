@@ -10,7 +10,6 @@ import GlassRoomInterface
 import GlassRoomTypes
 
 struct CenterSplitViewToolbarTop: View {
-    typealias CourseDisplayOption = CenterSplitView.CourseDisplayOption
     @Binding var selectedCourse: GeneralCourse?
     @Binding var currentPage: CourseDisplayOption
     @ObservedObject var displayedCourseManager: DisplayedCourseManager

@@ -41,16 +41,30 @@ struct SidebarListView: View {
     }
 
     var body: some View {
-        List(selection: $selection) {
-            if searchQuery.isEmpty {
-                defaultListContent
+        VStack {
+            if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {
+                List(selection: $selection) {
+                    if searchQuery.isEmpty {
+                        defaultListContent
+                    } else {
+                        ForEach(coursesForQuery(query: searchQuery)) { course in
+                            sidebarCourseView(course: .course(course.id))
+                        }
+                    }
+                }
+                .navigationTitle("Glassroom")
             } else {
-                ForEach(coursesForQuery(query: searchQuery)) { course in
-                    sidebarCourseView(course: .course(course.id))
+                List(selection: $selection) {
+                    if searchQuery.isEmpty {
+                        defaultListContent
+                    } else {
+                        ForEach(coursesForQuery(query: searchQuery)) { course in
+                            sidebarCourseView(course: .course(course.id))
+                        }
+                    }
                 }
             }
         }
-        .navigationTitle(UIScreen.main.traitCollection.userInterfaceIdiom == .pad ? "Glassroom" : "")
         .listStyle(.insetGrouped)
         .searchable(text: $searchQuery)
         .overlay {

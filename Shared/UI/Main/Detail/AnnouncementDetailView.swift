@@ -61,11 +61,9 @@ struct AnnouncementDetailView: DetailViewPage {
             }
             #if os(iOS)
             .toolbar {
-                if UIDevice().userInterfaceIdiom == .phone {
-                    ToolbarItem(placement: .principal) {
-                        Text("Announcement")
-                            .fontWeight(.bold)
-                    }
+                ToolbarItem(placement: .principal) {
+                    Text("Announcement")
+                        .fontWeight(.bold)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
