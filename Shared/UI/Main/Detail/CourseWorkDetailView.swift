@@ -15,6 +15,7 @@ struct CourseWorkDetailView: DetailViewPage {
     
     var courseWork: CourseWork
     
+    @ObservedObject var courseManager: GlobalCoursesDataManager = .global
     @ObservedObject var submissionManager: CourseWorkSubmissionDataManager
     @State var showSubmissionsView: Bool = false
     
@@ -74,18 +75,18 @@ struct CourseWorkDetailView: DetailViewPage {
                 }
             }
             .safeAreaInset(edge: .bottom) {
-                    FittingGeometryReader { proxy in
-                        viewForStudentSubmission
-                            .background(.thickMaterial)
-                            .onAppear {
-                                studentSubmissionSize = proxy?.size
-                            }
-                            .onChange(of: proxy?.size) { newVal in
-                                studentSubmissionSize = newVal
-                            }
-                            .offset(y: studentSubmissionOffset)
-                            .animation(.default, value: studentSubmissionOffset)
-                    }
+                FittingGeometryReader { proxy in
+                    viewForStudentSubmission
+                        .background(.thickMaterial)
+                        .onAppear {
+                            studentSubmissionSize = proxy?.size
+                        }
+                        .onChange(of: proxy?.size) { newVal in
+                            studentSubmissionSize = newVal
+                        }
+                        .offset(y: studentSubmissionOffset)
+                        .animation(.default, value: studentSubmissionOffset)
+                }
             }
             .sheet(isPresented: $showSubmissionsView) {
                 CourseWorkTeacherSubmissionsView(submissions: submissionManager.submissions,
@@ -173,7 +174,7 @@ struct CourseWorkDetailView: DetailViewPage {
 
     @ViewBuilder
     var viewForStudentSubmission: some View {
-        if submissionManager.submissions.count <= 1, let submission = submissionManager.submissions.first {
+        if submissionManager.submissions.count <= 1, let submission = submissionManager.submissions.first, getUserRole() == .enrolled {
             // student view
             VStack {
                 if submission.courseWorkType != .course_work_type_unspecified {
@@ -189,10 +190,8 @@ struct CourseWorkDetailView: DetailViewPage {
                 GroupBox {
                     VStack {
                         HStack {
-                            if (submissionManager.submissions.filter({ $0.state != .turned_in }).count) > 0 {
-                                Text("Turned In: \(submissionManager.submissions.filter({ $0.state == .turned_in }).count)")
-                                Text("Assigned: \(submissionManager.submissions.filter({ $0.state != .turned_in }).count)")
-                            }
+                            Text("Turned In: \(submissionManager.submissions.filter({ $0.state == .turned_in }).count)")
+                            Text("Assigned: \(submissionManager.submissions.filter({ $0.state != .turned_in }).count)")
                         }
                         HStack(spacing: 0) {
                             ForEach(submissionManager.submissions.filter({ $0.state == .turned_in }), id: \.id) { submission in
@@ -218,6 +217,17 @@ struct CourseWorkDetailView: DetailViewPage {
                 .padding(.leading, -10)
             }
         }
+    }
+    
+    func getUserRole() -> Course.CourseType? {
+        var returnResult: Course.CourseType?
+        courseManager.courses.forEach { course in
+            if course.id == courseWork.courseId {
+                returnResult = course.courseType
+            }
+        }
+        
+        return returnResult
     }
 
     func calculateStudentSubmissionOffset(submissionSize: CGSize,
