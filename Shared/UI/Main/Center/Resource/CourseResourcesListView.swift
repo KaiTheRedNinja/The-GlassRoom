@@ -63,10 +63,6 @@ struct CourseResourcesListView: View {
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
-//                    .onKeyboardShortcut(.reloadCoursePosts, type: .keyDown) {
-//                        loadList(false)
-//                        loadList(true)
-//                    }
                     .keyboardShortcut("r", modifiers: [.command])
                     .buttonStyle(.plain)
                     .contextMenu {

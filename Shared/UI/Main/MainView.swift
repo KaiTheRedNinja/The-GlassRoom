@@ -8,9 +8,6 @@
 import SwiftUI
 import GlassRoomTypes
 import GlassRoomInterface
-#if os(macOS)
-import KeyboardShortcuts
-#endif
 
 struct MainView: View {
     @State var selectedCourse: GeneralCourse?

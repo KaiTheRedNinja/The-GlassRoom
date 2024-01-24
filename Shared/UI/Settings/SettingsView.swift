@@ -6,9 +6,6 @@
 //
 
 import SwiftUI
-#if os(macOS)
-import KeyboardShortcuts
-#endif
 
 struct SettingsView: View {
     
@@ -329,16 +326,7 @@ struct SettingsView: View {
         List {
             GroupBox {
                 VStack {
-                    KeyboardShortcuts.Recorder("Reload Posts", name: .reloadCoursePosts)
-                        .disabled(true)
-                    KeyboardShortcuts.Recorder("Reload Sidebar", name: .reloadSidebar)
-                        .disabled(true)
-                    //              KeyboardShortcuts.Recorder("Switch to Next Tab", name: .nextTab)
-                    //              KeyboardShortcuts.Recorder("Switch to Previous Tab", name: .previousTab)
-                    KeyboardShortcuts.Recorder("Show/Hide Tab Bar", name: .toggleTabBar)
-                        .disabled(true)
-                    KeyboardShortcuts.Recorder("Toggle Universal Search", name: .openUniversalSearch)
-                        .disabled(true)
+                    
                 }
                 .padding(5)
             }

@@ -9,9 +9,6 @@ import SwiftUI
 import GlassRoomAPI
 import GlassRoomTypes
 import GlassRoomInterface
-#if os(macOS)
-import KeyboardShortcuts
-#endif
 
 struct UniversalCoursePostListView: View {
     
@@ -77,10 +74,6 @@ struct UniversalCoursePostListView: View {
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
-//                    .onKeyboardShortcut(.reloadCoursePosts, type: .keyDown) {
-//                        loadList(false)
-//                        loadList(true)
-//                    }
                     .keyboardShortcut("r", modifiers: [.command])
                     .buttonStyle(.plain)
                     .contextMenu {

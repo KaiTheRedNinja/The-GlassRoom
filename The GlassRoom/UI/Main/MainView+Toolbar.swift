@@ -39,10 +39,6 @@ extension MainView {
                     } label: {
                         Label("Tab Bar", systemImage: "rectangle.topthird.inset.filled")
                     }
-                    //                        .onKeyboardShortcut(.toggleTabBar, type: .keyDown) {
-                    //                            guard let window = window.window else { return }
-                    //                            window.toggleTabBar(self)
-                    //                        }
                     .keyboardShortcut("b", modifiers: [.command, .shift])
                     .help("Toggle Tab Bar (⌘⇧B)")
         }
@@ -64,9 +60,6 @@ extension MainView {
             } label: {
                 Label("Universal Search", systemImage: "magnifyingglass")
             }
-            //            .onKeyboardShortcut(.openUniversalSearch, type: .keyDown) {
-            //                showSearch.toggle()
-            //            }
             .keyboardShortcut("o", modifiers: [.command, .shift])
             .help("Universal Search (⌘⇧O)")
         }

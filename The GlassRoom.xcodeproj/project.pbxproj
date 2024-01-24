@@ -148,8 +148,6 @@
 		F3AB1ECD2B5641360026DD51 /* Glassroom_visionOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D304A52B5634930097F57E /* Glassroom_visionOSApp.swift */; };
 		F3AB1ECE2B5641360026DD51 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D304A72B5634930097F57E /* ContentView.swift */; };
 		F3B28C6E2A89DBDF002DB954 /* The-GlassRoom-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */; };
-		F3CFC6E32A95972200E66D34 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E22A95972200E66D34 /* Shortcuts.swift */; };
-		F3CFC6E62A959B2700E66D34 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CFC6E52A959B2700E66D34 /* Utilities.swift */; };
 		F3D304A42B5634930097F57E /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304A32B5634930097F57E /* RealityKitContent */; };
 		F3D304AA2B5634960097F57E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3D304A92B5634960097F57E /* Assets.xcassets */; };
 		F3D304AD2B5634960097F57E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3D304AC2B5634960097F57E /* Preview Assets.xcassets */; };
@@ -162,7 +160,6 @@
 		F3D304C12B563B800097F57E /* GlassRoomTypes in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304C02B563B800097F57E /* GlassRoomTypes */; };
 		F3D304C32B563B800097F57E /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304C22B563B800097F57E /* GoogleSignIn */; };
 		F3D304C52B563B800097F57E /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304C42B563B800097F57E /* SymbolPicker */; };
-		F3D304C72B563B800097F57E /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = F3D304C62B563B800097F57E /* KeyboardShortcuts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -229,8 +226,6 @@
 		F37C11072B5562DA0000140D /* Secrets (Sensitive).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Secrets (Sensitive).swift"; sourceTree = "<group>"; };
 		F3A977662B590482009B894C /* LinkPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPreview.swift; sourceTree = "<group>"; };
 		F3B28C6D2A89DBDF002DB954 /* The-GlassRoom-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "The-GlassRoom-Info.plist"; sourceTree = "<group>"; };
-		F3CFC6E22A95972200E66D34 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
-		F3CFC6E52A959B2700E66D34 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		F3D3049F2B5634930097F57E /* Glassroom‌.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Glassroom‌.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3D304A22B5634930097F57E /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		F3D304A52B5634930097F57E /* Glassroom_visionOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glassroom_visionOSApp.swift; sourceTree = "<group>"; };
@@ -261,7 +256,6 @@
 				F3D304BF2B563B800097F57E /* GlassRoomInterface in Frameworks */,
 				F3D304BD2B563B800097F57E /* GlassRoomAPI in Frameworks */,
 				F3D304C52B563B800097F57E /* SymbolPicker in Frameworks */,
-				F3D304C72B563B800097F57E /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,7 +501,6 @@
 			children = (
 				93757D5F2A0E742E0063AB67 /* Application */,
 				6AD9CED72A0CE9E70078E5D3 /* UI */,
-				F372DFDB2A95ACEB004E264D /* Shortcuts Customisation */,
 				937EA5BF2A0CD9F9005F11C5 /* Preview Content */,
 				937EA5C22A0CD9F9005F11C5 /* The_GlassRoom.entitlements */,
 			);
@@ -594,15 +587,6 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		F372DFDB2A95ACEB004E264D /* Shortcuts Customisation */ = {
-			isa = PBXGroup;
-			children = (
-				F3CFC6E22A95972200E66D34 /* Shortcuts.swift */,
-				F3CFC6E52A959B2700E66D34 /* Utilities.swift */,
-			);
-			path = "Shortcuts Customisation";
-			sourceTree = "<group>";
-		};
 		F3D304A02B5634930097F57E /* Glassroom visionOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -676,7 +660,6 @@
 				F3D304C02B563B800097F57E /* GlassRoomTypes */,
 				F3D304C22B563B800097F57E /* GoogleSignIn */,
 				F3D304C42B563B800097F57E /* SymbolPicker */,
-				F3D304C62B563B800097F57E /* KeyboardShortcuts */,
 			);
 			productName = "The GlassRoom";
 			productReference = 937EA5B62A0CD9F8005F11C5 /* Glassroom.app */;
@@ -862,7 +845,6 @@
 				93757D632A0E79650063AB67 /* Secrets.swift in Sources */,
 				93E0B8B42A136DD400ED917A /* CustomisationView.swift in Sources */,
 				93AED6942A179D9F0005854C /* CourseRegisterItem.swift in Sources */,
-				F3CFC6E32A95972200E66D34 /* Shortcuts.swift in Sources */,
 				9348580C2A125DAB008B84A7 /* CourseWorkDetailView.swift in Sources */,
 				93F229762A10E5B800B44C85 /* UniversalCoursePostListView.swift in Sources */,
 				9343174A2A164ADC00B16C6F /* DebugAPICallsView.swift in Sources */,
@@ -872,7 +854,6 @@
 				937FB6D12B5A11A000ECA327 /* MainView+Toolbar.swift in Sources */,
 				F3694B0B2B5AD02D00E96003 /* SettingsCategory.swift in Sources */,
 				9343174C2A164AE800B16C6F /* DebugLogsView.swift in Sources */,
-				F3CFC6E62A959B2700E66D34 /* Utilities.swift in Sources */,
 				937FB6D32B5A12BF00ECA327 /* BreadcrumbsView.swift in Sources */,
 				938300EE2A0FBB4C006581B8 /* SidebarOutlineView.swift in Sources */,
 				9359F6E22A1A20FD001A8A1F /* SplitView.swift in Sources */,
@@ -1427,11 +1408,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 937C7D6A2A4FC7F400E38A6B /* XCRemoteSwiftPackageReference "SymbolPicker" */;
 			productName = SymbolPicker;
-		};
-		F3D304C62B563B800097F57E /* KeyboardShortcuts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F3CFC6DF2A95968B00E66D34 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
-			productName = KeyboardShortcuts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
