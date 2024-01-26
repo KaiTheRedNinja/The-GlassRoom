@@ -7,6 +7,23 @@
 
 import SwiftUI
 
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        let mainWindow = NSApp.windows.first
+        mainWindow?.delegate = self
+    }
+
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        let mainWindow = NSApp.windows.first
+        if flag {
+            mainWindow?.orderFront(nil)
+        } else {
+            mainWindow?.makeKeyAndOrderFront(nil)
+        }
+        return true
+    }
+}
+
 @main
 struct The_GlassRoomApp: App {
     
