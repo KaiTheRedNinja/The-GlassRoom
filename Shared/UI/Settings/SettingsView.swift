@@ -31,18 +31,12 @@ struct SettingsView: View {
                 }
                 .tag(0)
             
-            VStack {
-                Spacer()
-                VStack(alignment: .leading) {
-                    general
+            general
+                .frame(width: 680, height: 300)
+                .tabItem {
+                    Label("General", systemImage: "gear")
                 }
-                Spacer()
-            }
-            .frame(width: 680, height: 300)
-            .tabItem {
-                Label("General", systemImage: "gear")
-            }
-            .tag(1)
+                .tag(1)
 
             CustomisationView()
                 .frame(width: 680, height: 300)
@@ -276,14 +270,55 @@ struct SettingsView: View {
     var general: some View {
         Form {
             #if os(macOS)
-            #if DEBUG
-            Toggle("Debug Mode", isOn: $debugMode)
-            #endif
-//            Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
-            Toggle("Enable bionic reading", isOn: $enableBionicReading)
-            Toggle("Tint posts background to course color", isOn: $tintToCourseColor)
-            Toggle("Use fancy UI", isOn: $useFancyUI)
-            Toggle("Reduce Course name opacity for unloaded Courses", isOn: $lowerUnloadedOpacity)
+            VStack(alignment: .leading) {
+                Section {
+                    GroupBox {
+                        VStack(alignment: .leading) {
+                            //            Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
+                            Toggle("Tint posts background to Course color", isOn: $tintToCourseColor)
+                            //            Toggle("Use fancy UI", isOn: $useFancyUI)
+                            Toggle("Reduce Course name opacity for unloaded Courses", isOn: $lowerUnloadedOpacity)
+                        }
+                        .padding(7.5)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                } header: {
+                    Text("General")
+                        .padding(.top, 5)
+                        .fontWeight(.bold)
+                }
+                
+                Section {
+                    GroupBox {
+                        VStack(alignment: .leading) {
+                            Toggle("Enable bionic reading", isOn: $enableBionicReading)
+                        }
+                        .padding(7.5)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                } header: {
+                    Text("Accessibility")
+                        .padding(.top, 5)
+                        .fontWeight(.bold)
+                }
+                
+                Section {
+                    GroupBox {
+                        VStack(alignment: .leading) {
+#if DEBUG
+                            Toggle("Debug Mode", isOn: $debugMode)
+#endif
+                        }
+                        .padding(7.5)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                } header: {
+                    Text("Developer")
+                        .padding(.top, 5)
+                        .fontWeight(.bold)
+                }
+            }
+            .padding(30)
             #else
 //            Section {
 //                Toggle("Use announcement author's profile picture as symbol", isOn: $useSenderPfpAsIcon)
@@ -292,19 +327,17 @@ struct SettingsView: View {
 //            }
             
             Section {
-                Toggle("Use fancy UI", isOn: $useFancyUI)
+//                Toggle("Use fancy UI", isOn: $useFancyUI)
                 Toggle("Reduce Course name opacity for unloaded Courses", isOn: $lowerUnloadedOpacity)
             } header: {
                 Text("General")
             }
 
-            #if DEBUG
             Section {
                 Toggle("Debug Mode", isOn: $debugMode)
             } header: {
                 Text("Developer")
             }
-            #endif
             #endif
         }
     }
