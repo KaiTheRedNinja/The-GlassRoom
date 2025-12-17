@@ -85,18 +85,18 @@ struct SignInView: View {
     var signInView: some View {
         VStack {
             Spacer()
-            #if os(iOS)
+            #if os(macOS)
+            Image(nsImage: NSImage(named: "AppIcon") ?? NSImage())
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+            #else
             Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100)
                 .mask(Image(systemName: "app.fill").resizable().scaledToFit().frame(width: 100, height: 100))
                 .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.50), radius: 5, x: 0, y: 0)
-            #else
-            Image(nsImage: NSImage(named: "AppIcon") ?? NSImage())
-                .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
             #endif
             
             #if os(macOS)

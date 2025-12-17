@@ -203,29 +203,6 @@ struct SettingsView: View {
                             #endif
                         }
                         
-                    } else if let givenName = userModel.givenName {
-                        VStack(alignment: .leading) {
-                            
-                            #if os(macOS)
-                            Text("Name")
-                                .font(.headline)
-                                .fontWeight(.bold)
-                            #endif
-                            
-                            Text(givenName)
-                                .font(.title3)
-                                .padding(.top, 5)
-                            #if os(iOS)
-                                .fontWeight(.heavy)
-                            #else
-                                .fontWeight(.bold)
-                            #endif
-                            
-                            #if os(macOS)
-                            Divider()
-                                .frame(width: 340)
-                            #endif
-                        }
                     }
                     
                     if let email = userModel.email {
@@ -342,7 +319,6 @@ struct SettingsView: View {
         }
     }
     
-    #if os(iOS)
     var accessibility: some View {
         Form {
             Section {
@@ -352,7 +328,6 @@ struct SettingsView: View {
             }
         }
     }
-    #endif
     
     #if os(macOS)
     var shortcuts: some View {
@@ -370,10 +345,7 @@ struct SettingsView: View {
     
     func getFullName() -> String {
         guard let fullName = userModel.fullName else {
-            guard let givenName = userModel.givenName else {
-                return ""
-            }
-            return givenName
+            return ""
         }
         return fullName
     }

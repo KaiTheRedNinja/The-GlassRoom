@@ -64,6 +64,26 @@ struct CenterSplitView: View {
                 .padding(.bottom, -8)
             }
         }
+        #elseif os(visionOS)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Picker("", selection: $currentPage) {
+                    Label("All Posts", systemImage: "list.bullet")
+                        .tag(CourseDisplayOption.allPosts)
+                    Label("Announcements", systemImage: "megaphone")
+                        .tag(CourseDisplayOption.announcements)
+                    Label("Courseworks", systemImage: "square.and.pencil")
+                        .tag(CourseDisplayOption.courseWork)
+                    Label("Materials", systemImage: "doc")
+                        .tag(CourseDisplayOption.courseMaterial)
+                    Label("Resources", systemImage: "link")
+                        .tag(CourseDisplayOption.resources)
+                    //                    Label("Register", systemImage: "person.2")
+                    //                        .tag(CourseDisplayOption.userRegister)
+                }
+                .pickerStyle(.segmented)
+            }
+        }
         #else
         .toolbar {
             if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {

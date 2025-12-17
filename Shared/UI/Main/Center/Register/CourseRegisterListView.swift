@@ -23,10 +23,10 @@ struct CourseRegisterListView: View {
     
     @State var showingAlert = false
     @State var randomName = ""
-    #if os(iOS)
-    @State var randomImage = UIImage()
-    #else
+    #if os(macOS)
     @State var randomImage = NSImage()
+    #else
+    @State var randomImage = UIImage()
     #endif
 
     var body: some View {

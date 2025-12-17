@@ -107,21 +107,44 @@ struct MainView: View {
                         }
                         .presentationBackground(.clear)
                     }
+                    #elseif os(visionOS)
+                    .toolbar {
+                        if geometry.size.width >= 680 {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button {
+                                    showSearch.toggle()
+                                } label: {
+                                    Image(systemName: "magnifyingglass")
+                                }
+                                .keyboardShortcut("O", modifiers: [.command, .shift])
+                                .help("Universal Search (⌘⇧O)")
+                            }
+                        }
+                    }
+                    .sheet(isPresented: $showSearch) {
+                        ZStack {
+                            Color(.systemBackground).opacity(0.000001)
+                                .onTapGesture {
+                                    showSearch.toggle()
+                                }
+                            SearchView(selectedCourse: $selectedCourse,
+                                       selectedPost: $selectedPost)
+                        }
+                        .presentationBackground(.clear)
+                    }
                     #endif
             } content: {
                 CenterSplitView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
                 #if os(macOS)
                     .frame(minWidth: 400)
-                #endif
-                #if os(iOS)
+                #else
                     .navigationBarTitleDisplayMode(.inline)
                 #endif
             } detail: {
                 DetailView(selectedCourse: $selectedCourse, selectedPost: $selectedPost)
                 #if os(macOS)
                     .frame(minWidth: 400)
-                #endif
-                #if os(iOS)
+                #else
                     .navigationBarTitleDisplayMode(.inline)
                 #endif
             }

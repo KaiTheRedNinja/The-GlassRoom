@@ -1,8 +1,8 @@
 //
-//  The_GlassRoom_iOSApp.swift
-//  The GlassRoom iOS
+//  Glassroom_visionOSApp.swift
+//  Glassroom visionOS
 //
-//  Created by Kai Quan Tay on 22/6/23.
+//  Created by Tristan Chay on 16/1/24.
 //
 
 import SwiftUI
@@ -17,10 +17,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 @main
-struct The_GlassRoom_iOSApp: App {
-
+struct Glassroom_visionOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

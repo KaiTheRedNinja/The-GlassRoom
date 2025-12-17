@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         let mainWindow = NSApp.windows.first
         mainWindow?.delegate = self
+        FirebaseApp.configure()
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -26,7 +28,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
 @main
 struct The_GlassRoomApp: App {
-    
+
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
     @ObservedObject var windowAccessor = WindowAccessor()
     @EnvironmentObject var window: WindowAccessor
     

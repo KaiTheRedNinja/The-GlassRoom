@@ -110,6 +110,56 @@ struct UniversalCoursePostListView: View {
             }
             .padding(.top, -7)
         }
+        #elseif os(visionOS)
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                } else {
+                    Button {
+                        loadList(false)
+                        loadList(true)
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    .keyboardShortcut("r", modifiers: .command)
+                    .buttonStyle(.plain)
+                    .contextMenu {
+                        Button("Use Cache") {
+                            loadList(true)
+                        }
+                    }
+                }
+            }
+
+            ToolbarItem(placement: .status) {
+                if let course = self.course {
+                    Text(configuration.nameFor(course))
+                        .multilineTextAlignment(.center)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .lineLimit(1)
+                        .padding(.horizontal, 30)
+                }
+            }
+
+            ToolbarItem(placement: .bottomBar) {
+                //                if isInSearch {
+                //                    Text(" ")
+                //                } else {
+                //                    if let onPlusPress {
+                //                        Button {
+                //                            onPlusPress()
+                //                        } label: {
+                //                            Image(systemName: "plus")
+                //                        }
+                //                        .buttonStyle(.plain)
+                //                    }
+                //                }
+                Text(" ")
+            }
+        }
         #else
         .refreshable {
             loadList(false)
