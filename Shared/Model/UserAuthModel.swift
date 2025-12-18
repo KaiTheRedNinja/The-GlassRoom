@@ -308,9 +308,11 @@ class UserAuthModel: NSObject, ObservableObject {
     }
 }
 
+#if os(visionOS)
 extension UserAuthModel: ASWebAuthenticationPresentationContextProviding {
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         let window = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController?.view.window
         return window ?? ASPresentationAnchor()
     }
 }
+#endif
